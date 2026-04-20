@@ -199,6 +199,18 @@ Most plugins work out of the box. Plugins that hardcode DB table names (without 
 
 ## Development
 
+### Project Documentation
+
+The repository docs live in `docs/`:
+
+- `docs/project-overview-pdr.md` - product context and requirements
+- `docs/codebase-summary.md` - code structure and runtime map
+- `docs/code-standards.md` - conventions and validation
+- `docs/system-architecture.md` - bootstrap, routing, data, and clone architecture
+- `docs/project-roadmap.md` - current status and next milestones
+- `docs/deployment-guide.md` - setup and release checklist
+- `docs/design-guidelines.md` - WordPress admin UI guidance
+
 ### Naming Conventions
 
 - Functions: `grabwp_tenancy_` prefix
