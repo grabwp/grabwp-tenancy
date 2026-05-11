@@ -77,6 +77,30 @@ The codebase exposes action/filter hooks and checks for Pro-specific override fu
 - `grabwp_tenancy_after_delete_tenant`
 - `grabwp_tenancy_tenant_row_actions`
 
+## Testing
+
+No automated test suite is currently present. Testing strategy remains unresolved (see `project-roadmap.md`).
+
+Current validation approach:
+- PHP syntax check: `find . -path './.git' -prune -o -name '*.php' -print | xargs -n1 php -l`
+- Manual QA on WordPress installs (activation, routing, CRUD, clone, deactivation).
+- No PHPUnit, WP-CLI smoke tests, or integration fixtures are in place.
+
+## Large Files
+
+Several files exceed the 200-line preference (grouped by domain complexity):
+
+| File | Lines | Purpose |
+| --- | ---: | --- |
+| `includes/class-grabwp-tenancy-admin.php` | 1076 | Tenant CRUD, settings, admin menu, form processing |
+| `admin/views/status.php` | 856 | Setup status page, fix actions, component checks |
+| `load-helper.php` | 854 | Early bootstrap, tenant detection, path setup |
+| `includes/class-grabwp-tenancy-installer.php` | 660 | Activation, deactivation, setup components |
+| `admin/class-grabwp-tenancy-list-table.php` | 550 | WordPress list table for tenants |
+| `grabwp-tenancy.php` | 502 | Main plugin runtime, mode branching |
+
+These remain unsplit pending larger refactoring efforts (see `project-roadmap.md` Milestone 3).
+
 ## Unresolved Questions
 
-- No automated test suite is present in the repository.
+- Which test framework should be adopted: WP-CLI smoke tests, PHPUnit with WordPress test suite, or local integration fixtures?

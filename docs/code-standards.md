@@ -29,18 +29,21 @@ Follow WordPress plugin conventions and the existing GrabWP naming patterns. Pre
 
 ## File Size Guidance
 
-Several existing files exceed the 200-line preference because they group legacy WordPress admin or bootstrap behavior:
+Several existing files exceed the 200-line preference because they group legacy WordPress admin or bootstrap behavior. These files were verified as of 2026-05-11:
 
-| File | Lines | Note |
-| --- | ---: | --- |
-| `includes/class-grabwp-tenancy-admin.php` | 1076 | Candidate for future form-handler/service split. |
-| `admin/views/status.php` | 856 | Candidate for status-card partials. |
-| `load-helper.php` | 854 | Early bootstrap file; split only with care because load order matters. |
-| `includes/class-grabwp-tenancy-installer.php` | 660 | Candidate for setup component services. |
-| `admin/class-grabwp-tenancy-list-table.php` | 550 | WordPress list-table implementation. |
-| `grabwp-tenancy.php` | 502 | Main plugin runtime and tenant/main-site branching. |
+| File | Lines | Rationale | Future Work |
+| --- | ---: | --- | --- |
+| `includes/class-grabwp-tenancy-admin.php` | 1076 | Tenant CRUD, settings, menu, forms in one controller. | Extract form handlers to service classes; preserve `admin_init` flow. |
+| `admin/views/status.php` | 856 | Setup status page with inline fix actions. | Extract component cards to render helpers or partials. |
+| `load-helper.php` | 854 | Early bootstrap; tenant detection, routing, constants. | Split only with extreme care; load order is critical. |
+| `includes/class-grabwp-tenancy-installer.php` | 660 | Activation, deactivation, setup component installation. | Extract per-component installer services if responsibilities grow. |
+| `admin/class-grabwp-tenancy-list-table.php` | 550 | Standard WordPress list table for tenant management. | No split needed; follows WordPress conventions. |
+| `grabwp-tenancy.php` | 502 | Main plugin runtime, tenant-only vs main-site branching. | Acceptable; main plugin file complexity is expected. |
 
-Do not modularize as drive-by work. Split only when changing behavior in the file and when the boundary reduces risk.
+Do not modularize as drive-by work. Split only when:
+- Changing behavior in the file.
+- The new boundary reduces risk or improves testability.
+- Pro compatibility is preserved.
 
 ## Security Standards
 

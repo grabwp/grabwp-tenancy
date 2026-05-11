@@ -33,37 +33,41 @@ Roadmap tracks the free GrabWP Tenancy plugin in this repository. Dates are not 
 
 ### Milestone 1: Documentation Baseline
 
-Status: Complete.
+Status: Complete (2026-04-20).
 
 - Initialize `docs/`.
 - Add overview, codebase summary, standards, architecture, roadmap, deployment, design, and changelog docs.
 - Link docs from README.
+- Completed by documentation initialization session.
 
 ### Milestone 2: Release Safety
 
-Status: Planned.
+Status: Planned (target: Q3 2026).
 
-- Add PHP syntax check script.
-- Add WordPress manual QA checklist.
-- Add minimal tests for pure validation helpers where feasible.
-- Document release steps for WordPress.org.
+- Add PHP syntax check script (consider WP-CLI or GitHub Actions).
+- Add WordPress manual QA checklist (activation, routing, CRUD, clone).
+- Evaluate test framework options (WP-CLI smoke tests vs PHPUnit vs integration fixtures).
+- Document release steps and WordPress.org submission process.
+- Decision needed: Test approach (see Unresolved Questions).
 
 ### Milestone 3: Maintainability
 
-Status: Planned.
+Status: Planned (target: Q3–Q4 2026).
 
-- Extract admin form handlers.
-- Extract status-page component rendering.
-- Review repeated tenant ID validation logic.
-- Preserve Pro extension compatibility.
+- Extract admin form handlers from `GrabWP_Tenancy_Admin` (1076 LOC).
+- Extract status-page component rendering from `status.php` (856 LOC).
+- Review repeated tenant ID validation logic across bootstrap and path manager.
+- Preserve Pro extension compatibility in all refactors.
+- Candidate for parallel work with Pro team.
 
 ### Milestone 4: Extension Documentation
 
-Status: Planned.
+Status: Planned (target: Q4 2026).
 
-- Catalog hooks and filters.
-- Document Pro override function contracts.
-- Add examples for tenant lifecycle hooks.
+- Catalog all 20+ hooks and filters with signatures.
+- Document Pro override function contracts and extension points.
+- Add code examples for tenant lifecycle hooks (create, update, delete).
+- Link from grabwp.com and repository.
 
 ## Success Metrics
 

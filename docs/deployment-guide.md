@@ -88,18 +88,39 @@ Before publishing a new plugin build:
 find . -path './.git' -prune -o -name '*.php' -print | xargs -n1 php -l
 ```
 
-Also verify:
+**Manual Verification:**
+- [ ] Plugin activates.
+- [ ] Status page reports expected setup state.
+- [ ] Domain tenant routes correctly.
+- [ ] Path tenant routes correctly.
+- [ ] Tenant admin login token works (24-hour expiry).
+- [ ] Create/edit/delete tenant works.
+- [ ] Clone from tenant to tenant works (6-step AJAX).
+- [ ] Clone from mainsite to tenant works.
+- [ ] Deactivation removes managed setup hooks without deleting tenant data.
 
-- Plugin activates.
-- Status page reports expected setup state.
-- Domain tenant routes correctly.
-- Path tenant routes correctly.
-- Tenant admin login token works.
-- Create/edit/delete tenant works.
-- Clone from tenant to tenant works.
-- Clone from mainsite to tenant works.
-- Deactivation removes managed setup hooks without deleting tenant data.
+**Version & Changelog:**
+- [ ] Update version in `grabwp-tenancy.php`.
+- [ ] Update version in `readme.txt`.
+- [ ] Add public release notes to `README.md` and `readme.txt`.
+- [ ] Update `docs/project-changelog.md` with development notes.
+
+**WordPress.org Submission:**
+- [ ] Create SVN tag in WordPress.org plugin repository.
+- [ ] Wait for automated testing on WordPress.org infrastructure.
+- [ ] Verify plugin appears in directory with correct stable tag.
+
+## Continuous Integration & Deployment
+
+No CI/CD pipeline currently exists. Recommended additions (see `project-roadmap.md` Milestone 2):
+
+- **GitHub Actions** for PHP syntax check on PR/push.
+- **Automated release script** to tag, generate `stable.zip`, and commit to WordPress SVN.
+- **Manual QA checklist** formalization to prevent regression.
+- **Test framework** adoption (WP-CLI smoke tests, PHPUnit, or integration fixtures).
 
 ## Unresolved Questions
 
-- No automated packaging script or WordPress.org deployment script is present.
+- Should GitHub Actions run PHP syntax validation before merge?
+- Should automated packaging and WordPress.org SVN commit be scripted or remain manual?
+- Which test framework best fits the bootstrap constraint and shared-MySQL architecture?
