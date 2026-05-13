@@ -2,7 +2,19 @@
 
 ## Overview
 
-This changelog tracks repository documentation and development-level changes. Public plugin release notes remain in `README.md` and `readme.txt`.
+This changelog tracks both repository documentation updates and code releases. Public plugin release notes remain in `README.md` and `readme.txt` (synced from here).
+
+## 2026-05-14
+
+### Updated
+
+- `codebase-summary.md` — Accurate LOC metrics (8,848 total), clone architecture table, large file refactor roadmap, test framework decision options, key classes and hooks inventory.
+- `system-architecture.md` — Expanded clone architecture with 6-step flow diagram, Pro architecture high-level summary, step-by-step process breakdown with chunk/batch sizes.
+
+### Notes
+
+- No code changes.
+- Focus: Documentation accuracy for v1.0.9 state.
 
 ## 2026-05-11
 
