@@ -49,6 +49,26 @@ This changelog tracks both repository documentation updates and code releases. P
 - Documentation was generated from the current repository scan and README.
 - No production code changed.
 
+## Release Notes Reference
+
+Latest releases (synced from `README.md` and `readme.txt`):
+
+### v1.0.9 (2026-05)
+- **Fix:** Tenant data directory moved to `wp-content/grabwp-tenancy/` (outside `uploads/`) — prevents direct web access; legacy paths (`wp-content/grabwp/`, `wp-content/uploads/grabwp-tenancy/`) auto-detected
+- **Fix:** Clone and filesystem ops now safely handle symlinks via `GrabWP_Tenancy_Clone_Fs_Helper`
+- **Enhance:** Admin bar Plugin/Theme nodes hidden on tenant sites when corresponding settings enabled
+- **Enhance:** Tenant create page — auto-suggested domain, Clear button, fluid layout
+
+### v1.0.8 (2026-04)
+- **New:** Tenant cloning (6-step AJAX) — duplicate any tenant or mainsite to new tenant with DB copy + file sync
+- **New:** `GRABWP_MAINSITE_ID` constant (`__mainsite__`) for using mainsite as clone source
+- **Enhance:** Mainsite domain detection supports localhost and LAN domains with no TLD
+- **Fix:** Plugin asset URL resolution with symlinked plugin directory
+- **Quality:** Normalized line endings to LF
+
+### v1.0.7
+- Path-based routing, Status page UI, installer refactor, nonce security
+
 ## Unresolved Questions
 
-- Should public release notes and repository changelog be synchronized manually or through a release script?
+- Should repository changelog and public release notes be auto-synced via release script?

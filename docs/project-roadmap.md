@@ -4,19 +4,20 @@
 
 Roadmap tracks the free GrabWP Tenancy plugin in this repository. Dates are not commitments unless attached to a release issue or milestone.
 
-## Current Status
+## Current Status (v1.0.9)
 
-| Area | Status | Notes |
-| --- | --- | --- |
-| Shared MySQL tenancy | Complete | Tenant table prefix set during early bootstrap. |
-| Domain routing | Complete | Domains map through `tenants.php`. |
-| Path routing | Complete | `/site/{tenant_id}` rules and query fallback exist. |
-| Tenant uploads isolation | Complete | Uploads stored under tenant data directory. |
-| Tenant CRUD admin | Complete | Create, edit, delete, list, settings, status pages. |
-| Base tenant clone | Complete | Six-step shared-MySQL clone flow. |
-| Setup automation | Complete | MU-plugin, loader, rewrite, protection fixes. |
-| Automated tests | Not started | No test suite detected. |
-| File modularization | Partial | Some large legacy files remain. |
+| Area | Status | Verified | Notes |
+| --- | --- | --- | --- |
+| Shared MySQL tenancy | Complete | v1.0.0 | Tenant table prefix set during early bootstrap. |
+| Domain routing | Complete | v1.0.0 | Domains map through `tenants.php`. |
+| Path routing | Complete | v1.0.7 | `/site/{tenant_id}` rules and query fallback working. |
+| Tenant uploads isolation | Complete | v1.0.9 | Moved to `wp-content/grabwp-tenancy/` with legacy auto-migration. |
+| Tenant CRUD admin | Complete | v1.0.0 | Create, edit, delete, list, settings, status pages. |
+| Base tenant clone | Complete | v1.0.8 | 6-step shared-MySQL clone with AJAX polling. |
+| Setup automation | Complete | v1.0.6 | MU-plugin, loader, .htaccess, protection file installers. |
+| Symlink safety | Complete | v1.0.9 | Clone and filesystem ops handle symlinks safely. |
+| Automated tests | Not started | — | No test suite present; framework selection pending M2. |
+| File modularization | Partial | — | Large files documented; refactoring deferred to M3. |
 
 ## Near-Term Priorities
 
@@ -40,42 +41,73 @@ Status: Complete (2026-04-20).
 - Link docs from README.
 - Completed by documentation initialization session.
 
-### Milestone 2: Release Safety
+### Milestone 2: Release Safety & Testing Foundation
 
-Status: Planned (target: Q3 2026).
+Status: Planned (target: Q3 2026). Owners: TBD.
 
-- Add PHP syntax check script (consider WP-CLI or GitHub Actions).
-- Add WordPress manual QA checklist (activation, routing, CRUD, clone).
-- Evaluate test framework options (WP-CLI smoke tests vs PHPUnit vs integration fixtures).
-- Document release steps and WordPress.org submission process.
-- Decision needed: Test approach (see Unresolved Questions).
+**Goals:**
+- Establish test framework adoption
+- Reduce regression risk before releases
+- Document repeatable release process
 
-### Milestone 3: Maintainability
+**Tasks:**
+- [ ] Add PHP syntax validation (GitHub Actions or release script)
+- [ ] Create WordPress manual QA checklist: activation, routing, CRUD, clone, deactivation
+- [ ] Evaluate test framework (WP-CLI smoke tests vs PHPUnit vs local integration fixtures)
+- [ ] Adopt chosen framework with initial test suite (core bootstrap, tenant creation, clone)
+- [ ] Document release steps: testing → version bump → changelog → WordPress.org submission
 
-Status: Planned (target: Q3–Q4 2026).
+**Decision Required:** Which test framework minimizes setup complexity while covering critical paths?
 
-- Extract admin form handlers from `GrabWP_Tenancy_Admin` (1076 LOC).
-- Extract status-page component rendering from `status.php` (856 LOC).
-- Review repeated tenant ID validation logic across bootstrap and path manager.
-- Preserve Pro extension compatibility in all refactors.
-- Candidate for parallel work with Pro team.
+### Milestone 3: Code Maintainability & Modularization
 
-### Milestone 4: Extension Documentation
+Status: Planned (target: Q3–Q4 2026). Owners: TBD. Coordination: Pro team required.
 
-Status: Planned (target: Q4 2026).
+**Goals:**
+- Reduce large file complexity (1000+ LOC classes)
+- Preserve Pro extension compatibility
+- Improve code review velocity
 
-- Catalog all 20+ hooks and filters with signatures.
-- Document Pro override function contracts and extension points.
-- Add code examples for tenant lifecycle hooks (create, update, delete).
-- Link from grabwp.com and repository.
+**Tasks:**
+- [ ] Extract admin form handlers from `GrabWP_Tenancy_Admin` (1,076 LOC) into separate `Form_Handler` class
+- [ ] Extract status-page component rendering from `status.php` (856 LOC) into PHP partials or render helpers
+- [ ] Consolidate tenant ID validation logic (bootstrap vs path manager — check for duplication)
+- [ ] Review `load-helper.php` (854 LOC) for bootstrap complexity — may need tenant detection refactor
+- [ ] Audit all Pro extension points (`class_exists()` checks, action hooks) to ensure refactors remain compatible
+
+**Coordination:** Pro team must review refactors to ensure override functions and hooks still work.
+
+### Milestone 4: Extension API Documentation
+
+Status: Planned (target: Q4 2026). Owners: TBD. Coordination: Pro team required.
+
+**Goals:**
+- Enable third-party extensions
+- Document Pro internals for future plugins
+- Create onboarding guide for extension developers
+
+**Tasks:**
+- [ ] Catalog all 20+ base hooks (action & filter) with signatures, return types, examples
+- [ ] Document Pro override function contracts (e.g., `GrabWP_Tenancy_Pro_Clone`)
+- [ ] Create extension developer guide: hook lifecycle, data model, best practices
+- [ ] Add code examples for tenant lifecycle hooks (create, update, delete, clone)
+- [ ] Document Pro extension points (where Pro can inject custom logic without base changes)
+- [ ] Link API docs from grabwp.com and repository
+
+**Coordination:** Pro team must review and confirm documented contracts match implementation.
 
 ## Success Metrics
 
-- New contributors can explain bootstrap flow from docs alone.
-- Release checklist covers activation, routing, CRUD, clone, and deactivation.
-- No PHP syntax errors before release.
-- Large-file changes become smaller and easier to review over time.
+| Metric | Target | Milestone |
+| --- | --- | --- |
+| New contributor onboarding time | < 2 hours to understand bootstrap | M1 ✓, M3, M4 |
+| Release regression risk | Zero PHP syntax errors; 100% QA checklist coverage | M2 |
+| Code review speed | Average PR review <= 1 day (blocked on file size) | M3 |
+| Large file count | <= 3 files > 500 LOC (down from 6) | M3 |
+| Extension adoption | >= 2 third-party plugins using documented hooks | M4 |
 
 ## Unresolved Questions
 
-- Which test approach should be adopted first: WP-CLI smoke tests, PHPUnit with WordPress test suite, or a local integration fixture?
+- **Test Framework:** WP-CLI smoke tests (lightweight, CLI), PHPUnit (standard), or local fixtures (custom, fast)?
+- **Pro Coordination:** Should base repo document Pro internals, or should Pro have separate architecture docs?
+- **Release Automation:** Manual changelog sync or automated release script linking base & public repos?
