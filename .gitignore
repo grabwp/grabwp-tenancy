@@ -58,7 +58,6 @@ GoogleService-Info.plist
 
 repomix-output.xml
 .serena/cache
-plans/**/*
 !plans/templates/*
 screenshots/*
 docs/screenshots/*
@@ -85,8 +84,6 @@ claude/skills/ai-multimodal/assets/demo-*.claude/session-state/*.tmp
 
 # Gemini CLI settings (symlink to staged .claude/.mcp.json)
 .gemini/settings.json
-# Showoff/marketing assets (images, showcases)
-assets/
 
 # External repos for study/reference
 external/
