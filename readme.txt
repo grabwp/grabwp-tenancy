@@ -97,6 +97,10 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 
 == Changelog ==
 
+= 1.0.10 =
+- Fix: Tenant directory cleanup now handles symlinks safely during recursive deletion, removing only the symlink itself instead of following it into the original shared plugin or theme directory.
+- Enhance: Tested up to WordPress 7.0.
+
 = 1.0.9 =
 - Fix: Default tenant data directory moved from `wp-content/uploads/grabwp-tenancy` to `wp-content/grabwp-tenancy` (outside uploads) to prevent direct web access to tenant data. Existing installs that already use the uploads path are preserved automatically — no migration needed.
 - Fix: Corrected legacy-path migration notice in the Status page to use `WP_CONTENT_DIR` directly instead of `wp_upload_dir()`, matching the new default path.
