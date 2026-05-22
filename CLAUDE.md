@@ -81,58 +81,26 @@ This ensures packages installed by `install.sh` (google-genai, pypdf, etc.) are 
 - After modularization, continue with main task
 - When not to modularize: Markdown files, plain text files, bash scripts, configuration files, environment variables files, etc.
 
-## Documentation Management
+## Documentation (Hub-and-Spoke)
 
-We keep all important docs in `./docs` folder and keep updating them, structure like below:
+**Shared standards** (code standards, architecture, deployment, roadmap): `~/grabwp/docs/`
+**Plugin-specific** (this plugin's API, codebase summary, changelog): `./docs/`
 
 ```
-./docs
-├── project-overview-pdr.md
+~/grabwp/docs/              ← Shared across all 4 plugins
 ├── code-standards.md
-├── codebase-summary.md
-├── design-guidelines.md
-├── deployment-guide.md
 ├── system-architecture.md
-└── project-roadmap.md
+├── deployment-guide.md
+├── project-overview-pdr.md
+├── project-roadmap.md
+├── codebase-summary.md
+├── brand-guidelines.md
+└── project-changelog.md
+
+./docs/                     ← Base plugin-specific only
+├── plugin-api.md           ← Hooks, constants, functions, data files
+├── codebase-summary.md     ← File structure, class inventory
+└── project-changelog.md    ← Base-only changelog
 ```
 
 **IMPORTANT:** *MUST READ* and *MUST COMPLY* all *INSTRUCTIONS* in project `./CLAUDE.md`, especially *WORKFLOWS* section is *CRITICALLY IMPORTANT*, this rule is *MANDATORY. NON-NEGOTIABLE. NO EXCEPTIONS. MUST REMEMBER AT ALL TIMES!!!*
-
-<!-- code-review-graph MCP tools -->
-## MCP Tools: code-review-graph
-
-**IMPORTANT: This project has a knowledge graph. ALWAYS use the
-code-review-graph MCP tools BEFORE using Grep/Glob/Read to explore
-the codebase.** The graph is faster, cheaper (fewer tokens), and gives
-you structural context (callers, dependents, test coverage) that file
-scanning cannot.
-
-### When to use graph tools FIRST
-
-- **Exploring code**: `semantic_search_nodes` or `query_graph` instead of Grep
-- **Understanding impact**: `get_impact_radius` instead of manually tracing imports
-- **Code review**: `detect_changes` + `get_review_context` instead of reading entire files
-- **Finding relationships**: `query_graph` with callers_of/callees_of/imports_of/tests_for
-- **Architecture questions**: `get_architecture_overview` + `list_communities`
-
-Fall back to Grep/Glob/Read **only** when the graph doesn't cover what you need.
-
-### Key Tools
-
-| Tool | Use when |
-| ------ | ---------- |
-| `detect_changes` | Reviewing code changes — gives risk-scored analysis |
-| `get_review_context` | Need source snippets for review — token-efficient |
-| `get_impact_radius` | Understanding blast radius of a change |
-| `get_affected_flows` | Finding which execution paths are impacted |
-| `query_graph` | Tracing callers, callees, imports, tests, dependencies |
-| `semantic_search_nodes` | Finding functions/classes by name or keyword |
-| `get_architecture_overview` | Understanding high-level codebase structure |
-| `refactor_tool` | Planning renames, finding dead code |
-
-### Workflow
-
-1. The graph auto-updates on file changes (via hooks).
-2. Use `detect_changes` for code review.
-3. Use `get_affected_flows` to understand impact.
-4. Use `query_graph` pattern="tests_for" to check coverage.

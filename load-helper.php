@@ -802,7 +802,7 @@ function grabwp_tenancy_boot_detect_tenant() {
 
 	// Cron: use main site context for now
 	if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
-		return false;
+		//return false; //TODO: Uncomment this when cron support is implemented
 	}
 
 	// Domain mapping (highest web priority — authoritative signal)
