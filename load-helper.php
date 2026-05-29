@@ -850,6 +850,38 @@ function grabwp_tenancy_early_init() {
 	// Set tenant context (Is Tenant)
 	grabwp_tenancy_boot_set_tenant_context();
 
+	// Disable page cache drop-in and isolate object cache keys
+	grabwp_tenancy_boot_disable_page_cache();
+	grabwp_tenancy_boot_set_cache_key_salt();
+
 	// Define constants (Directories, URLs, Home Constants, Security Constants) and configure DB
 	grabwp_tenancy_boot_define_constants();
+}
+
+// =============================================================================
+// CACHE ISOLATION — EARLY BOOTSTRAP
+// =============================================================================
+
+/**
+ * Disable page cache drop-in for tenant context.
+ * WP_CACHE=false prevents wp-settings.php from loading advanced-cache.php.
+ *
+ * @since 1.2.0
+ */
+function grabwp_tenancy_boot_disable_page_cache() {
+	if ( ! defined( 'WP_CACHE' ) ) {
+		define( 'WP_CACHE', false );
+	}
+}
+
+/**
+ * Set WP_CACHE_KEY_SALT for object cache isolation.
+ * Prefixes all wp_cache_*() keys with tenant ID.
+ *
+ * @since 1.2.0
+ */
+function grabwp_tenancy_boot_set_cache_key_salt() {
+	if ( ! defined( 'WP_CACHE_KEY_SALT' ) && defined( 'GRABWP_TENANCY_TENANT_ID' ) ) {
+		define( 'WP_CACHE_KEY_SALT', 'tenant_' . GRABWP_TENANCY_TENANT_ID . '_' );
+	}
 }
