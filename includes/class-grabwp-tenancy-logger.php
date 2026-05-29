@@ -76,6 +76,13 @@ class GrabWP_Tenancy_Logger {
 		if ( ! empty( $context ) ) {
 			$context_str = ' ' . wp_json_encode( $context );
 		}
+		
+		// Add tenant ID to the message
+		if( defined( 'GRABWP_TENANCY_TENANT_ID' ) ) {
+			$message = '[' . GRABWP_TENANCY_TENANT_ID . '] ' . $message;
+		}else{
+			$message = '[Mainsite] ' . $message;
+		}
 
 		// Format log entry
 		$log_entry = sprintf(

@@ -135,6 +135,39 @@ class GrabWP_Tenancy_Tenant {
 	}
 
 	/**
+	 * Get real (non-placeholder) domains.
+	 *
+	 * @return array
+	 */
+	public function get_real_domains() {
+		return array_filter(
+			$this->domains,
+			function ( $d ) {
+				return 'nodomain.local' !== $d;
+			}
+		);
+	}
+
+	/**
+	 * Get tenant site URL (front-end home page).
+	 *
+	 * Domain-based: https://tenant-domain.com
+	 * Path-based:   https://mainsite.com/site/{tenant_id}/
+	 *
+	 * @return string
+	 */
+	public function get_site_url() {
+		$real_domains = $this->get_real_domains();
+		$protocol     = is_ssl() ? 'https' : 'http';
+
+		if ( ! empty( $real_domains ) ) {
+			return $protocol . '://' . reset( $real_domains );
+		}
+
+		return site_url( '/site/' . $this->id );
+	}
+
+	/**
 	 * Get tenant status
 	 *
 	 * @return string
@@ -219,24 +252,39 @@ class GrabWP_Tenancy_Tenant {
 	}
 
 	/**
-	 * Get admin access URL with token and hash
+	 * Get admin access URL with token and hash.
 	 *
-	 * @return string|false URL on success, false on failure
+	 * Handles both domain-based and path-based (nodomain.local) routing.
+	 *
+	 * @return string
 	 */
 	public function get_admin_access_url() {
-		$token = self::get_global_admin_token();
+		$real_domains = $this->get_real_domains();
+		$protocol     = is_ssl() ? 'https' : 'http';
+		$token        = self::get_global_admin_token();
 
-		if ( ! $token || empty( $this->domains ) ) {
-			return false;
+		if ( ! empty( $real_domains ) ) {
+			$domain    = reset( $real_domains );
+			$admin_url = $protocol . '://' . $domain . '/wp-admin/';
+
+			if ( $token ) {
+				$hash       = self::generate_domain_hash( $domain, $this->id );
+				$admin_url .= '?grabwp_token=' . rawurlencode( $token ) . '&grabwp_hash=' . rawurlencode( $hash );
+			}
+
+			return $admin_url;
 		}
 
-		$primary_domain = $this->domains[0];
-		$protocol       = is_ssl() ? 'https' : 'http';
+		// Path-based routing fallback.
+		$path_url  = site_url( '/site/' . $this->id );
+		$admin_url = $path_url . '/wp-admin/';
 
-		// Generate domain hash for additional security
-		$hash = self::generate_domain_hash( $primary_domain, $this->id );
+		if ( $token ) {
+			$hash       = self::generate_domain_hash( 'nodomain.local', $this->id );
+			$admin_url .= '?grabwp_token=' . rawurlencode( $token ) . '&grabwp_hash=' . rawurlencode( $hash ) . '&tenant_domain=nodomain.local';
+		}
 
-		return $protocol . '://' . $primary_domain . '/wp-admin/?grabwp_token=' . $token . '&grabwp_hash=' . $hash;
+		return $admin_url;
 	}
 
 	/**
@@ -296,6 +344,76 @@ class GrabWP_Tenancy_Tenant {
 	}
 
 	/**
+	 * Load tenant domains from the mappings file.
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 * @return array Domains array (may be empty).
+	 */
+	private static function load_domains( $tenant_id ) {
+		$mappings_file = GrabWP_Tenancy_Path_Manager::get_tenants_file_path();
+		if ( ! file_exists( $mappings_file ) || ! is_readable( $mappings_file ) ) {
+			return array();
+		}
+
+		$tenant_mappings = array();
+		ob_start();
+		include $mappings_file;
+		ob_end_clean();
+
+		if ( is_array( $tenant_mappings ) && isset( $tenant_mappings[ $tenant_id ] ) ) {
+			return (array) $tenant_mappings[ $tenant_id ];
+		}
+
+		return array();
+	}
+
+	/**
+	 * Resolve tenant site URL from a tenant ID (no Tenant object needed).
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 * @return string Site URL, or empty string if tenant not found.
+	 */
+	public static function resolve_site_url( $tenant_id ) {
+		$domains = self::load_domains( $tenant_id );
+		if ( empty( $domains ) ) {
+			return '';
+		}
+
+		$tenant = new self( $tenant_id, array( 'domains' => $domains ) );
+		return $tenant->get_site_url();
+	}
+
+	/**
+	 * Resolve tenant admin URL from a tenant ID (no Tenant object needed).
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 * @return string Admin URL, or empty string if tenant not found.
+	 */
+	public static function resolve_admin_url( $tenant_id ) {
+		$domains = self::load_domains( $tenant_id );
+		if ( empty( $domains ) ) {
+			return '';
+		}
+
+		$tenant = new self( $tenant_id, array( 'domains' => $domains ) );
+		return $tenant->get_admin_access_url();
+	}
+
+	/**
+	 * Resolve tenant site URL from domains array + tenant ID.
+	 *
+	 * Useful in clone/fix-urls contexts where domains are already known.
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 * @param array  $domains   Domains array.
+	 * @return string Site URL.
+	 */
+	public static function build_site_url( $tenant_id, $domains ) {
+		$tenant = new self( $tenant_id, array( 'domains' => $domains ) );
+		return $tenant->get_site_url();
+	}
+
+	/**
 	 * Format a PHP array for safe output in configuration files
 	 *
 	 * @param array $array Array to format
@@ -336,4 +454,14 @@ class GrabWP_Tenancy_Tenant {
 
 		return $output;
 	}
+}
+
+/**
+ * Get the front-end URL for a tenant by ID.
+ *
+ * @param string $tenant_id Tenant ID.
+ * @return string Site URL, or empty string if tenant not found.
+ */
+function grabwp_tenancy_get_tenant_url( $tenant_id ) {
+	return GrabWP_Tenancy_Tenant::resolve_site_url( $tenant_id );
 }

@@ -320,49 +320,13 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 
 		$actions = array();
 
-		// Determine site URL: prefer real domain, fallback to path URL
-		$domains  = $item->get_domains();
-		$path_url = site_url( '/site/' . $item->get_id() . '/' );
-
-		// Filter out nodomain.local placeholder
-		$real_domains = array_filter(
-			$domains,
-			function ( $d ) {
-				return 'nodomain.local' !== $d;
-			}
-		);
-
-		if ( ! empty( $real_domains ) ) {
-			$site_url = ( is_ssl() ? 'https://' : 'http://' ) . reset( $real_domains );
-		} else {
-			$site_url = $path_url;
-		}
+		$site_url  = $item->get_site_url();
+		$admin_url = $item->get_admin_access_url();
 
 		// Visit Site button (always shown)
 		$actions[] = '<a href="' . esc_url( $site_url ) . '" target="_blank" title="' . esc_attr__( 'Visit Site', 'grabwp-tenancy' ) . '"><span class="dashicons dashicons-admin-home"></span></a>';
 
 		// Visit Admin button (always shown)
-		$admin_url = null;
-		if ( method_exists( $item, 'get_admin_access_url' ) ) {
-			$admin_url = $item->get_admin_access_url();
-		}
-
-		// If admin URL uses nodomain.local, rewrite to path-based URL
-		// nodomain.local never resolves, so we must use the path route instead
-		if ( $admin_url && strpos( $admin_url, 'nodomain.local' ) !== false ) {
-			// Extract query string from the original URL
-			$parsed = wp_parse_url( $admin_url );
-			$query  = isset( $parsed['query'] ) ? $parsed['query'] : '';
-			$admin_url = $path_url . 'wp-admin/?' . $query . '&tenant_domain=nodomain.local';
-		}
-
-		if ( ! $admin_url ) {
-			if ( ! empty( $real_domains ) ) {
-				$admin_url = ( is_ssl() ? 'https://' : 'http://' ) . reset( $real_domains ) . '/wp-admin/';
-			} else {
-				$admin_url = $path_url . 'wp-admin/';
-			}
-		}
 		$actions[] = '<a href="' . esc_url( $admin_url ) . '" target="_blank" title="' . esc_attr__( 'Admin', 'grabwp-tenancy' ) . '"><span class="dashicons dashicons-dashboard"></span></a>';
 
 		// Edit button

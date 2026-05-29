@@ -198,7 +198,7 @@ class GrabWP_Tenancy_Loader {
 			
 			if ( false === $result ) {
 				$success = false;
-				GrabWP_Tenancy_Logger::log( GRABWP_TENANCY_TENANT_ID.' - Failed to drop table '.$table_name );
+				GrabWP_Tenancy_Logger::log( 'Failed to drop table '.$table_name );
 			}
 		}
 
@@ -322,7 +322,7 @@ class GrabWP_Tenancy_Loader {
 		wp_set_current_user( $admin_user->ID, $admin_user->user_login );
 		wp_set_auth_cookie( $admin_user->ID, true );
 
-		GrabWP_Tenancy_Logger::log( GRABWP_TENANCY_TENANT_ID.' - Admin user logged in: ' . $admin_user->user_login );
+		GrabWP_Tenancy_Logger::log( 'Admin user logged in: ' . $admin_user->user_login );
 
 		// Redirect to wp-admin to remove token from URL.
 		// For path routing, admin_url() returns the base domain URL (e.g. http://localhost/wp-admin/)

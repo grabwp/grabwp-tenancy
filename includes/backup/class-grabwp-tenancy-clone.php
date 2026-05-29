@@ -222,16 +222,7 @@ class GrabWP_Tenancy_Clone {
 	 * Step 5: Comprehensive URL replacement + strip GrabWP plugins if mainsite source.
 	 */
 	private function step_fix_urls( $source_tenant_id, $target_tenant_id, $target_domains ) {
-		// Determine target site URL from its domains.
-		$real_domains = array_filter( $target_domains, function ( $d ) {
-			return 'nodomain.local' !== $d;
-		} );
-
-		if ( ! empty( $real_domains ) ) {
-			$new_url = ( is_ssl() ? 'https://' : 'http://' ) . reset( $real_domains );
-		} else {
-			$new_url = site_url( '/site/' . $target_tenant_id );
-		}
+		$new_url = GrabWP_Tenancy_Tenant::build_site_url( $target_tenant_id, $target_domains );
 
 		$replacer = new GrabWP_Tenancy_Clone_Url_Replacer();
 
