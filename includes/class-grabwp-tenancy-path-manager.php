@@ -214,6 +214,44 @@ class GrabWP_Tenancy_Path_Manager {
 
 
 	/**
+	 * Atomically write PHP content to a file with ABSPATH guard.
+	 *
+	 * @param string $file_path Absolute destination path.
+	 * @param string $content   Full PHP file content (including <?php tag).
+	 * @return bool True on success, false on failure.
+	 */
+	public static function atomic_put_php_file( $file_path, $content ) {
+		$guard = "if ( ! defined( 'ABSPATH' ) ) { exit; }\n";
+		if ( strpos( $content, $guard ) === false ) {
+			$content = preg_replace( '/^<\?php\s/', "<?php\n" . $guard, $content, 1 );
+		}
+
+		$dir = dirname( $file_path );
+		if ( ! is_dir( $dir ) ) {
+			wp_mkdir_p( $dir );
+		}
+
+		$tmp_file = $file_path . '.tmp.' . uniqid( '', true );
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		if ( false === file_put_contents( $tmp_file, $content, LOCK_EX ) ) {
+			return false;
+		}
+
+		if ( ! rename( $tmp_file, $file_path ) ) {
+			@unlink( $tmp_file );
+			return false;
+		}
+
+		clearstatcache( true, $file_path );
+		if ( function_exists( 'opcache_invalidate' ) ) {
+			opcache_invalidate( $file_path, true );
+		}
+
+		return true;
+	}
+
+	/**
 	 * Check if old structure is being used
 	 *
 	 * @return bool True if old structure detected

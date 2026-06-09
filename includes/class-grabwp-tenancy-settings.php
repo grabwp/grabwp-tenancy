@@ -183,17 +183,9 @@ class GrabWP_Tenancy_Settings {
 	public function save( $settings ) {
 		$sanitized = $this->sanitize_settings( $settings );
 		$file      = $this->get_settings_file_path();
-		$dir       = dirname( $file );
 
-		// Ensure directory exists.
-		if ( ! file_exists( $dir ) ) {
-			wp_mkdir_p( $dir );
-		}
-
-		// Build PHP file content.
 		$content  = "<?php\n";
-		$content .= "// GrabWP Tenancy Settings - Auto-generated. Do not edit manually.\n";
-		$content .= "if ( ! defined( 'ABSPATH' ) ) { exit; }\n\n";
+		$content .= "// GrabWP Tenancy Settings - Auto-generated.\n\n";
 		$content .= '$grabwp_tenancy_settings = array(' . "\n";
 
 		foreach ( $sanitized as $key => $value ) {
@@ -203,32 +195,9 @@ class GrabWP_Tenancy_Settings {
 
 		$content .= ");\n";
 
-		// Write the file.
-		global $wp_filesystem;
-
-		// Try to initialize the WP Filesystem.
-		if ( empty( $wp_filesystem ) ) {
-			require_once ABSPATH . 'wp-admin/includes/file.php';
-			WP_Filesystem();
-		}
-
-		$result = false;
-		if ( $wp_filesystem && $wp_filesystem->put_contents( $file, $content, FS_CHMOD_FILE ) ) {
-			$result = true;
-		} else {
-			// Fallback to file_put_contents if WP_Filesystem is not available.
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-			$result = ( false !== file_put_contents( $file, $content ) );
-		}
+		$result = GrabWP_Tenancy_Path_Manager::atomic_put_php_file( $file, $content );
 
 		if ( $result ) {
-			// Clear file system cache and PHP OpCache so the next request reads fresh data.
-			clearstatcache( true, $file );
-			if ( function_exists( 'opcache_invalidate' ) ) {
-				opcache_invalidate( $file, true );
-			}
-
-			// Update in-memory settings.
 			$this->settings = $sanitized;
 		}
 

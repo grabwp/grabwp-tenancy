@@ -201,7 +201,7 @@ function grabwp_tenancy_boot_detect_tenant() {
 	}
 
 	if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
-		//return false; //TODO: Uncomment this when cron support is implemented
+		return false;
 	}
 
 	$server_info     = grabwp_tenancy_get_server_info();

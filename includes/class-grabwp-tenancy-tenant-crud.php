@@ -230,8 +230,6 @@ class GrabWP_Tenancy_Tenant_Crud {
 		$content  = "<?php\n";
 		$content .= "/**\n";
 		$content .= " * Tenant Domain Mappings\n";
-		$content .= " * \n";
-		$content .= " * This file contains domain mappings for tenant identification.\n";
 		$content .= " * Format: \$tenant_mappings['tenant_id'] = array( 'domain1', 'domain2' );\n";
 		$content .= " */\n\n";
 		$content .= "\$tenant_mappings = array(\n";
@@ -246,15 +244,6 @@ class GrabWP_Tenancy_Tenant_Crud {
 
 		$content .= ");\n";
 
-		$result = file_put_contents( $mappings_file, $content ) !== false;
-
-		if ( $result ) {
-			clearstatcache( true, $mappings_file );
-			if ( function_exists( 'opcache_invalidate' ) ) {
-				opcache_invalidate( $mappings_file, true );
-			}
-		}
-
-		return $result;
+		return GrabWP_Tenancy_Path_Manager::atomic_put_php_file( $mappings_file, $content );
 	}
 }

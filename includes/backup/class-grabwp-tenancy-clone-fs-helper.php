@@ -41,8 +41,12 @@ class GrabWP_Tenancy_Clone_Fs_Helper {
 			}
 			$src_path = $src . '/' . $entry;
 			$dst_path = $dst . '/' . $entry;
+
+			if ( is_link( $src_path ) ) {
+				continue;
+			}
+
 			if ( is_dir( $src_path ) ) {
-				// Skip excluded directories (e.g. tenancy data dirs inside uploads).
 				$real = realpath( $src_path );
 				if ( $real && in_array( $real, $exclude_dirs, true ) ) {
 					continue;

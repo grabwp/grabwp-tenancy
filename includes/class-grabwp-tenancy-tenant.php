@@ -208,7 +208,6 @@ class GrabWP_Tenancy_Tenant {
 	 */
 	public static function get_global_admin_token() {
 		$config_file = GrabWP_Tenancy_Path_Manager::get_tokens_file_path();
-		$tokens_dir = dirname( $config_file );
 
 		// Check if valid token exists
 		if ( file_exists( $config_file ) ) {
@@ -233,18 +232,12 @@ class GrabWP_Tenancy_Tenant {
 			'generated' => current_time( 'timestamp' ),
 		);
 
-		// Ensure directory exists
-		if ( ! is_dir( $tokens_dir ) ) {
-			wp_mkdir_p( $tokens_dir );
-		}
-
 		$content  = "<?php\n";
-		$content .= "// Global admin access token for all tenants\n";
 		$content .= '// Generated: ' . gmdate( 'Y-m-d H:i:s' ) . " UTC\n";
 		$content .= '// Expires: ' . gmdate( 'Y-m-d H:i:s', $token_data['expires'] ) . " UTC\n";
 		$content .= '$admin_token = ' . self::format_php_array( $token_data ) . ";\n";
 
-		if ( file_put_contents( $config_file, $content ) ) {
+		if ( GrabWP_Tenancy_Path_Manager::atomic_put_php_file( $config_file, $content ) ) {
 			return $token;
 		}
 
@@ -281,25 +274,24 @@ class GrabWP_Tenancy_Tenant {
 
 		if ( $token ) {
 			$hash       = self::generate_domain_hash( 'nodomain.local', $this->id );
-			$admin_url .= '?grabwp_token=' . rawurlencode( $token ) . '&grabwp_hash=' . rawurlencode( $hash ) . '&tenant_domain=nodomain.local';
+			$admin_url .= '?grabwp_token=' . rawurlencode( $token ) . '&grabwp_hash=' . rawurlencode( $hash );
 		}
 
 		return $admin_url;
 	}
 
 	/**
-	 * Validate admin token and domain hash
+	 * Validate admin token and domain hash.
 	 *
-	 * @param string $token Token to validate
-	 * @param string $hash Hash to validate (optional for backward compatibility)
-	 * @return bool True if valid, false otherwise
+	 * @param string $token Token to validate.
+	 * @param string $hash  Domain hash (mandatory).
+	 * @return bool True if valid, false otherwise.
 	 */
 	public static function validate_admin_token( $token, $hash = '' ) {
-		if ( empty( $token ) ) {
+		if ( empty( $token ) || empty( $hash ) ) {
 			return false;
 		}
 
-		// Check global token file
 		$config_file = GrabWP_Tenancy_Path_Manager::get_tokens_file_path();
 		if ( ! file_exists( $config_file ) ) {
 			return false;
@@ -308,37 +300,37 @@ class GrabWP_Tenancy_Tenant {
 		$admin_token = null;
 		include $config_file;
 
-		// Validate token first
 		if ( ! isset( $admin_token ) ||
 			! isset( $admin_token['token'] ) ||
 			! isset( $admin_token['expires'] ) ||
-			$admin_token['token'] !== $token ||
+			! hash_equals( $admin_token['token'], $token ) ||
 			$admin_token['expires'] <= time() ) {
 			return false;
 		}
 
-		// If hash is provided, validate it (enhanced security)
-		if ( ! empty( $hash ) ) {
-			// Get current domain and tenant ID
-		if ( defined( 'GRABWP_TENANCY_ROUTING_METHOD' ) && ( GRABWP_TENANCY_ROUTING_METHOD === 'path' || GRABWP_TENANCY_ROUTING_METHOD === 'query' ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Token-based auth, not a user-submitted form.
-			$current_domain = isset( $_GET['tenant_domain'] ) ? sanitize_text_field( wp_unslash( $_GET['tenant_domain'] ) ) : '';
+		if ( defined( 'GRABWP_TENANCY_ROUTING_METHOD' ) && in_array( GRABWP_TENANCY_ROUTING_METHOD, array( 'path', 'query' ), true ) ) {
+			$current_domain = 'nodomain.local';
 		} else {
-				$current_domain = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
-			}
-			
-			$tenant_id      = defined( 'GRABWP_TENANCY_TENANT_ID' ) ? GRABWP_TENANCY_TENANT_ID : '';
-
-			if ( empty( $current_domain ) || empty( $tenant_id ) ) {
-				return false;
-			}
-
-			// Generate expected hash and compare
-			$expected_hash = self::generate_domain_hash( $current_domain, $tenant_id );
-			if ( $hash !== $expected_hash ) {
-				return false;
-			}
+			$current_domain = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
 		}
+
+		$tenant_id = defined( 'GRABWP_TENANCY_TENANT_ID' ) ? GRABWP_TENANCY_TENANT_ID : '';
+
+		if ( empty( $current_domain ) || empty( $tenant_id ) ) {
+			return false;
+		}
+
+		$expected_hash = self::generate_domain_hash( $current_domain, $tenant_id );
+		if ( ! hash_equals( $expected_hash, $hash ) ) {
+			return false;
+		}
+
+		// Atomically consume — only the first request to rename() succeeds
+		$consumed = $config_file . '.consumed.' . uniqid( '', true );
+		if ( ! @rename( $config_file, $consumed ) ) {
+			return false;
+		}
+		@unlink( $consumed );
 
 		return true;
 	}
