@@ -199,18 +199,6 @@ Most plugins work out of the box. Plugins that hardcode DB table names (without 
 
 ## Development
 
-### Project Documentation
-
-The repository docs live in `docs/`:
-
-- `docs/project-overview-pdr.md` - product context and requirements
-- `docs/codebase-summary.md` - code structure and runtime map
-- `docs/code-standards.md` - conventions and validation
-- `docs/system-architecture.md` - bootstrap, routing, data, and clone architecture
-- `docs/project-roadmap.md` - current status and next milestones
-- `docs/deployment-guide.md` - setup and release checklist
-- `docs/design-guidelines.md` - WordPress admin UI guidance
-
 ### Naming Conventions
 
 - Functions: `grabwp_tenancy_` prefix
@@ -223,40 +211,8 @@ The repository docs live in `docs/`:
 - **Pull Requests**: [GitHub PRs](https://github.com/grabwp/grabwp-tenancy/pulls)
 - **Documentation**: [grabwp.com](https://grabwp.com)
 
----
 
-## Changelog
-
-### v1.0.9
-
-- **Fix:** Tenant data directory moved to `wp-content/grabwp-tenancy/` (outside `uploads/`) — prevents direct web access; existing installs on the old path are preserved automatically
-- **Fix:** Status page migration notice now references the correct new path
-- **Fix:** Clone page hero buttons replaced with standard buttons
-- **Enhance:** Admin bar `Plugins` / `Themes` nodes hidden on tenant sites when corresponding settings are enabled
-- **Enhance:** Tenant create page — auto-suggested domain, new Clear button, fluid input width, improved layout
-- **Enhance:** GrabWP Tenancy admin menu repositioned to the top of the sidebar
-- **Change:** Default values for Hide Plugin Management and Hide Theme Management changed to `false` for fresh installs
-
-### v1.0.8
-
-- **New:** Tenant cloning — duplicate any tenant (or mainsite) to a new tenant with DB copy and file sync
-- **New:** `GRABWP_MAINSITE_ID` (`__mainsite__`) constant for using mainsite as clone source
-- **Enhance:** Mainsite domain detection supports localhost and LAN domains with no TLD
-- **Fix:** Plugin asset URL resolution when the plugin directory is symlinked
-- **Fix:** Tenant ID generation now guarantees uniqueness
-- **Quality:** Normalised all source files to LF line endings
-
-### v1.0.7
-
-- Path-based routing, Status page UI, installer refactor, nonce security, autoloader fix
-
-### v1.0.6
-
-- Dedicated Status page, one-click MU-plugin and wp-config.php installers, admin notices
-
-### v1.0.5 – v1.0.0
-
-See [WordPress.org Changelog](https://wordpress.org/plugins/grabwp-tenancy/#developers) for full history.
+See [WordPress.org Changelog](https://wordpress.org/plugins/grabwp-tenancy/#developers) or [readme.txt](./readme.txt) for full history.
 
 ---
 
