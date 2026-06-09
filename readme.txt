@@ -97,6 +97,12 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 
 == Changelog ==
 
+= 1.0.11 =
+- New: **Cache isolation for tenant context** — disables page-cache drop-ins per tenant request (`WP_CACHE`) and prefixes object-cache keys with the tenant ID (`WP_CACHE_KEY_SALT`) to prevent cross-tenant cache collisions on shared Redis/Memcached backends.
+- New: Added `grabwp_tenancy_get_tenant_url()` helper to resolve a tenant front-end URL by ID without loading a full tenant object.
+- Enhance: Centralized tenant URL resolution — `get_site_url()`, `get_admin_access_url()`, and static helpers (`resolve_site_url()`, `resolve_admin_url()`, `build_site_url()`) now handle domain-based and path-based routing in one place; tenant list and clone flows use these shared methods.
+- Enhance: Log messages are automatically prefixed with `[tenant_id]` or `[Mainsite]` for easier multi-tenant debugging.
+
 = 1.0.10 =
 - Fix: Tenant directory cleanup now handles symlinks safely during recursive deletion, removing only the symlink itself instead of following it into the original shared plugin or theme directory.
 - Enhance: Tested up to WordPress 7.0.
