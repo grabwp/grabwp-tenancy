@@ -8,254 +8,49 @@
  * @since 1.0.0
  */
 
-// Prevent direct access
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Include the list table class
 require_once plugin_dir_path( __FILE__ ) . '../admin/class-grabwp-tenancy-list-table.php';
+require_once plugin_dir_path( __FILE__ ) . 'class-grabwp-tenancy-domain-validator.php';
+require_once plugin_dir_path( __FILE__ ) . 'class-grabwp-tenancy-tenant-crud.php';
+require_once plugin_dir_path( __FILE__ ) . 'class-grabwp-tenancy-admin-form-handler.php';
 
-/**
- * GrabWP Tenancy Admin Class
- *
- * @since 1.0.0
- */
 class GrabWP_Tenancy_Admin {
 
 	/**
-	 * Plugin instance
-	 *
 	 * @var GrabWP_Tenancy
 	 */
 	private $plugin;
 
 	/**
-	 * Constructor
-	 *
-	 * @param GrabWP_Tenancy $plugin Plugin instance
+	 * @var GrabWP_Tenancy_Admin_Form_Handler
 	 */
+	private $form_handler;
+
 	public function __construct( $plugin ) {
-		$this->plugin = $plugin;
-		
-		// Only initialize if not a tenant site
+		$this->plugin       = $plugin;
+		$this->form_handler = new GrabWP_Tenancy_Admin_Form_Handler( $plugin );
+
 		if ( ! $this->plugin->is_tenant() ) {
 			$this->init_hooks();
 		}
 	}
 
-	/**
-	 * Initialize hooks
-	 */
 	private function init_hooks() {
-		// Form processing - must be early to avoid headers already sent
-		add_action( 'admin_init', array( $this, 'handle_form_submissions' ) );
-
-		// Admin menu
+		add_action( 'admin_init', array( $this->form_handler, 'handle_form_submissions' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
-
-		// Admin scripts and styles
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
-
-		// Admin notices
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 
-		// Load clone feature (skips itself when Pro clone is active).
 		require_once GRABWP_TENANCY_PLUGIN_DIR . 'includes/backup/class-grabwp-tenancy-clone-admin.php';
 		GrabWP_Tenancy_Clone_Admin::get_instance();
 
-		// Allow pro plugin to extend
 		do_action( 'grabwp_tenancy_admin_init', $this );
 	}
 
-	/**
-	 * Handle form submissions before any output
-	 * Only called on main site since admin class is not instantiated on tenant sites
-	 */
-	public function handle_form_submissions() {
-
-		// Check capabilities first
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-		if ( ! isset( $_POST['action'] ) ) {
-			return;
-		}
-
-		// Sanitize action
-		$action = sanitize_text_field( wp_unslash( $_POST['action'] ) );
-
-		// Only process on our admin pages
-		if ( ! isset( $_GET['page'] ) || strpos( sanitize_text_field( wp_unslash( $_GET['page'] ) ), 'grabwp-tenancy' ) === false ) {
-			return;
-		}
-
-		switch ( $action ) {
-			case 'create_tenant':
-				if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'grabwp_tenancy_create' ) ) {
-					$domains = array();
-					if ( isset( $_POST['domains'] ) && is_array( $_POST['domains'] ) ) {
-						// Sanitize and unslash first for WPCS compliance
-						$raw_domains = array_map( 'sanitize_text_field', wp_unslash( $_POST['domains'] ) );
-
-						// Additional security: limit array size to prevent DoS
-						if ( count( $raw_domains ) > 10 ) {
-							$raw_domains = array_slice( $raw_domains, 0, 10 );
-						}
-
-						$domains = array_filter( $raw_domains );
-					}
-					/**
-					 * Process additional form data before tenant creation
-					 *
-					 * @since 1.0.4
-					 * @param array $domains Array of domains
-					 * @param array $_POST  The complete POST data
-					 */
-					do_action( 'grabwp_tenancy_process_create_form_data', $domains, $_POST );
-
-					$result = $this->handle_create_tenant( $domains );
-
-					if ( $result['type'] === 'success' ) {
-						// If clone_source is set, redirect to clone page with new tenant as target.
-						$clone_source = isset( $_POST['clone_source'] ) ? sanitize_key( wp_unslash( $_POST['clone_source'] ) ) : '';
-						if ( $clone_source && ! empty( $result['tenant_id'] ) ) {
-							$clone_page  = class_exists( 'GrabWP_Tenancy_Pro_Clone_Admin' )
-								? 'grabwp-tenancy-pro-clone'
-								: 'grabwp-tenancy-clone';
-							$nonce_action = class_exists( 'GrabWP_Tenancy_Pro_Clone_Admin' )
-								? 'grabwp_tenancy_pro_clone_' . $clone_source
-								: 'grabwp_tenancy_clone_' . $clone_source;
-
-							wp_safe_redirect( add_query_arg( [
-								'page'             => $clone_page,
-								'tenant_id'        => $clone_source,
-								'target_tenant_id' => $result['tenant_id'],
-								'_wpnonce'         => wp_create_nonce( $nonce_action ),
-							], admin_url( 'admin.php' ) ) );
-							exit;
-						}
-
-						$success_nonce = wp_create_nonce( 'grabwp_tenancy_notice' );
-						wp_safe_redirect( admin_url( 'admin.php?page=grabwp-tenancy&message=created&_wpnonce=' . urlencode( $success_nonce ) ) );
-						exit;
-					} else {
-						// Store error for display
-						set_transient( 'grabwp_tenancy_error', $result['message'], 60 );
-						$error_nonce = wp_create_nonce( 'grabwp_tenancy_error' );
-						wp_safe_redirect( admin_url( 'admin.php?page=grabwp-tenancy-create&error=1&_wpnonce=' . urlencode( $error_nonce ) ) );
-						exit;
-					}
-				}
-				break;
-
-			case 'update_tenant':
-				if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'grabwp_tenancy_update' ) ) {
-					$tenant_id = isset( $_POST['tenant_id'] ) ? sanitize_text_field( wp_unslash( $_POST['tenant_id'] ) ) : '';
-					$domains   = array();
-					if ( isset( $_POST['domains'] ) && is_array( $_POST['domains'] ) ) {
-						// Sanitize and unslash first for WPCS compliance
-						$raw_domains = array_map( 'sanitize_text_field', wp_unslash( $_POST['domains'] ) );
-
-						// Additional security: limit array size to prevent DoS
-						if ( count( $raw_domains ) > 10 ) {
-							$raw_domains = array_slice( $raw_domains, 0, 10 );
-						}
-
-						$domains = array_filter( $raw_domains );
-					}
-					/**
-					 * Process additional form data before tenant update
-					 *
-					 * @since 1.0.4
-					 * @param string $tenant_id The tenant ID
-					 * @param array  $domains Array of domains
-					 * @param array  $_POST  The complete POST data
-					 */
-					do_action( 'grabwp_tenancy_process_update_form_data', $tenant_id, $domains, $_POST );
-
-					$result = $this->handle_update_tenant( $tenant_id, $domains );
-
-					if ( $result['type'] === 'success' ) {
-						$success_nonce = wp_create_nonce( 'grabwp_tenancy_notice' );
-						$edit_nonce    = wp_create_nonce( 'grabwp_tenancy_edit' );
-						wp_safe_redirect( admin_url( 'admin.php?page=grabwp-tenancy-edit&tenant_id=' . urlencode( $tenant_id ) . '&message=updated&_wpnonce=' . urlencode( $edit_nonce ) . '&_notice_nonce=' . urlencode( $success_nonce ) ) );
-						exit;
-					} else {
-						// Store error for display
-						set_transient( 'grabwp_tenancy_error', $result['message'], 60 );
-						$error_nonce = wp_create_nonce( 'grabwp_tenancy_error' );
-						wp_safe_redirect( admin_url( 'admin.php?page=grabwp-tenancy-edit&tenant_id=' . urlencode( $tenant_id ) . '&error=1&_wpnonce=' . urlencode( $error_nonce ) ) );
-						exit;
-					}
-				}
-				break;
-
-			case 'delete_tenant':
-				if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'grabwp_tenancy_delete' ) ) {
-					$tenant_id = isset( $_POST['tenant_id'] ) ? sanitize_text_field( wp_unslash( $_POST['tenant_id'] ) ) : '';
-					$result    = $this->handle_delete_tenant( $tenant_id );
-
-					if ( $result['type'] === 'success' ) {
-						$success_nonce = wp_create_nonce( 'grabwp_tenancy_notice' );
-						wp_safe_redirect( admin_url( 'admin.php?page=grabwp-tenancy&message=deleted&_wpnonce=' . urlencode( $success_nonce ) ) );
-						exit;
-					} else {
-						// Store error for display
-						set_transient( 'grabwp_tenancy_error', $result['message'], 60 );
-						$error_nonce = wp_create_nonce( 'grabwp_tenancy_error' );
-						wp_safe_redirect( admin_url( 'admin.php?page=grabwp-tenancy&error=1&_wpnonce=' . urlencode( $error_nonce ) ) );
-						exit;
-					}
-				}
-				break;
-
-			case 'save_settings':
-				if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'grabwp_tenancy_save_settings' ) ) {
-					$settings_instance = GrabWP_Tenancy_Settings::get_instance();
-
-					// Collect checkbox values from POST — unchecked checkboxes are absent from POST.
-					$raw_settings = array();
-					foreach ( array_keys( GrabWP_Tenancy_Settings::get_defaults() ) as $key ) {
-						$raw_settings[ $key ] = isset( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : '';
-					}
-
-					$result = $settings_instance->save( $raw_settings );
-
-					if ( $result ) {
-						$success_nonce = wp_create_nonce( 'grabwp_tenancy_notice' );
-						wp_safe_redirect( admin_url( 'admin.php?page=grabwp-tenancy-settings&message=settings_saved&_wpnonce=' . urlencode( $success_nonce ) ) );
-						exit;
-					} else {
-						set_transient( 'grabwp_tenancy_error', __( 'Failed to save settings. Please check file permissions.', 'grabwp-tenancy' ), 60 );
-						$error_nonce = wp_create_nonce( 'grabwp_tenancy_error' );
-						wp_safe_redirect( admin_url( 'admin.php?page=grabwp-tenancy-settings&error=1&_wpnonce=' . urlencode( $error_nonce ) ) );
-						exit;
-					}
-				}
-				break;
-
-			default:
-				/**
-				 * Handle custom tenant actions
-				 *
-				 * Allows pro plugin and other extensions to handle custom actions
-				 *
-				 * @since 1.0.4
-				 * @param string $action The action being performed
-				 * @param array  $_POST  The POST data
-				 */
-				do_action( 'grabwp_tenancy_handle_custom_action', $action, $_POST );
-				break;
-		}
-	}
-
-	/**
-	 * Add admin menu
-	 * Only called on main site since admin class is not instantiated on tenant sites
-	 */
 	public function add_admin_menu() {
-
 		add_menu_page(
 			__( 'GrabWP Tenancy', 'grabwp-tenancy' ),
 			__( 'Tenancy', 'grabwp-tenancy' ),
@@ -284,9 +79,8 @@ class GrabWP_Tenancy_Admin {
 			array( $this, 'create_page' )
 		);
 
-		// Edit page is hidden from menu, accessed via links
 		add_submenu_page(
-			'Edit Tenant', // Hidden from menu
+			'Edit Tenant',
 			__( 'Edit Tenant', 'grabwp-tenancy' ),
 			__( 'Edit Tenant', 'grabwp-tenancy' ),
 			'manage_options',
@@ -312,26 +106,12 @@ class GrabWP_Tenancy_Admin {
 			array( $this, 'status_page' )
 		);
 
-		/**
-		 * Add additional admin menu items
-		 *
-		 * Allows pro plugin and other extensions to add menu items
-		 *
-		 * @since 1.0.4
-		 */
 		do_action( 'grabwp_tenancy_admin_menu' );
 	}
 
-	/**
-	 * Enqueue admin scripts and styles - only on main site
-	 */
 	public function enqueue_admin_scripts( $hook ) {
-		// Only called on main site since admin class is not instantiated on tenant sites
-
-		// Check if we need to show admin notices (plugin not properly configured)
 		$needs_notice = ! defined( 'GRABWP_TENANCY_LOADED' );
 
-		// Only enqueue on GrabWP admin pages or when notices need to be shown
 		if ( strpos( $hook, 'grabwp-tenancy' ) === false && ! $needs_notice ) {
 			return;
 		}
@@ -351,7 +131,6 @@ class GrabWP_Tenancy_Admin {
 			true
 		);
 
-		// Localize script with translatable strings
 		wp_localize_script(
 			'grabwp-tenancy-admin',
 			'grabwpTenancyAdmin',
@@ -367,32 +146,19 @@ class GrabWP_Tenancy_Admin {
 		);
 	}
 
-	/**
-	 * Main admin page
-	 */
 	public function admin_page() {
-		// Allow pro plugin to replace list table class
 		$list_table_class = apply_filters( 'grabwp_tenancy_list_table_class', 'GrabWP_Tenancy_List_Table' );
-		
-		// Create list table instance
-		$list_table = new $list_table_class( $this->plugin );
+		$list_table       = new $list_table_class( $this->plugin );
 		$list_table->prepare_items();
 
 		$this->render_admin_page( 'tenants', array( 'list_table' => $list_table ) );
 	}
 
-	/**
-	 * Create tenant page
-	 */
 	public function create_page() {
 		$this->render_admin_page( 'tenant-create' );
 	}
 
-	/**
-	 * Edit tenant page
-	 */
 	public function edit_page() {
-		// Verify nonce for security
 		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'grabwp_tenancy_edit' ) ) {
 			wp_die( esc_html__( 'Security check failed.', 'grabwp-tenancy' ) );
 		}
@@ -411,31 +177,15 @@ class GrabWP_Tenancy_Admin {
 		$this->render_admin_page( 'tenant-edit', array( 'tenant' => $tenant ) );
 	}
 
-	/**
-	 * Settings page
-	 *
-	 * @since 1.1.0 Added tenant capability settings.
-	 */
 	public function settings_page() {
 		$settings = GrabWP_Tenancy_Settings::get_instance();
 		$this->render_admin_page( 'settings', array( 'settings' => $settings->get_all() ) );
 	}
 
-	/**
-	 * Status page
-	 *
-	 * @since 1.2.0
-	 */
 	public function status_page() {
 		$this->render_admin_page( 'status' );
 	}
 
-	/**
-	 * Render admin page
-	 *
-	 * @param string $template Template name
-	 * @param array  $data Template data
-	 */
 	private function render_admin_page( $template, $data = array() ) {
 		$template_file = $this->plugin->plugin_dir . 'admin/views/' . $template . '.php';
 
@@ -447,75 +197,13 @@ class GrabWP_Tenancy_Admin {
 		}
 	}
 
-	/**
-	 * Get tenant mappings file path
-	 *
-	 * @return string Mappings file path
-	 */
-	private function get_mappings_file_path() {
-		return GrabWP_Tenancy_Path_Manager::get_tenants_file_path();
-	}
-
-	/**
-	 * Get all tenants
-	 *
-	 * @return array
-	 */
-	private function get_tenants() {
-		$mappings_file = $this->get_mappings_file_path();
-
-		if ( file_exists( $mappings_file ) && is_readable( $mappings_file ) ) {
-			// Clear any file system cache
-			clearstatcache( true, $mappings_file );
-
-			// Read file content safely
-			$content = file_get_contents( $mappings_file );
-			if ( $content !== false ) {
-				// Create a safe execution environment
-				$tenant_mappings = array();
-
-				// Use include instead of eval for safer execution
-				ob_start();
-				include $mappings_file;
-				ob_end_clean();
-
-				$tenants = array();
-				if ( is_array( $tenant_mappings ) ) {
-					foreach ( $tenant_mappings as $tenant_id => $domains ) {
-						$tenant    = new GrabWP_Tenancy_Tenant(
-							$tenant_id,
-							array(
-								'domains' => $domains,
-							)
-						);
-						$tenants[] = $tenant;
-					}
-				}
-
-				return $tenants;
-			}
-		}
-
-		return array();
-	}
-
-	/**
-	 * Get single tenant
-	 *
-	 * @param string $tenant_id Tenant ID
-	 * @return GrabWP_Tenancy_Tenant|null
-	 */
 	private function get_tenant( $tenant_id ) {
-		$mappings_file = $this->get_mappings_file_path();
+		$mappings_file = GrabWP_Tenancy_Path_Manager::get_tenants_file_path();
 
 		if ( file_exists( $mappings_file ) && is_readable( $mappings_file ) ) {
-			// Clear any file system cache
 			clearstatcache( true, $mappings_file );
 
-			// Create a safe execution environment
 			$tenant_mappings = array();
-
-			// Use include instead of eval for safer execution
 			ob_start();
 			include $mappings_file;
 			ob_end_clean();
@@ -523,9 +211,7 @@ class GrabWP_Tenancy_Admin {
 			if ( is_array( $tenant_mappings ) && isset( $tenant_mappings[ $tenant_id ] ) ) {
 				return new GrabWP_Tenancy_Tenant(
 					$tenant_id,
-					array(
-						'domains' => $tenant_mappings[ $tenant_id ],
-					)
+					array( 'domains' => $tenant_mappings[ $tenant_id ] )
 				);
 			}
 		}
@@ -534,543 +220,56 @@ class GrabWP_Tenancy_Admin {
 	}
 
 	/**
-	 * Save tenant mappings
-	 *
-	 * @param array $tenant_mappings Tenant mappings
-	 * @return bool Success status
-	 */
-	private function save_tenant_mappings( $tenant_mappings ) {
-		$mappings_file = $this->get_mappings_file_path();
-
-		$content  = "<?php\n";
-		$content .= "/**\n";
-		$content .= " * Tenant Domain Mappings\n";
-		$content .= " * \n";
-		$content .= " * This file contains domain mappings for tenant identification.\n";
-		$content .= " * Format: \$tenant_mappings['tenant_id'] = array( 'domain1', 'domain2' );\n";
-		$content .= " */\n\n";
-		$content .= "\$tenant_mappings = array(\n";
-
-		foreach ( $tenant_mappings as $tenant_id => $domains ) {
-			$content .= "    '" . $tenant_id . "' => array(\n";
-			foreach ( $domains as $domain ) {
-				$content .= "        '" . $domain . "',\n";
-			}
-			$content .= "    ),\n";
-		}
-
-		$content .= ");\n";
-
-		$result = file_put_contents( $mappings_file, $content ) !== false;
-
-		// Clear any file system cache and PHP OpCache
-		if ( $result ) {
-			clearstatcache( true, $mappings_file );
-			if ( function_exists( 'opcache_invalidate' ) ) {
-				opcache_invalidate( $mappings_file, true );
-			}
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Handle create tenant form submission
+	 * Backward-compatible delegation to TenantCrud.
+	 * WaaS plugin calls these methods on the Admin instance.
 	 */
 	public function handle_create_tenant( $domains ) {
-		// Check capabilities
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return array(
-				'message' => __( 'Insufficient permissions.', 'grabwp-tenancy' ),
-				'type'    => 'error',
-			);
-		}
-
-		// Auto-fill nodomain.local when no domain provided (path-only tenant)
-		if ( empty( $domains ) ) {
-			$domains = array( 'nodomain.local' );
-		}
-
-		// Validate and sanitize domains
-		$validated_domains = array();
-		$invalid_domains   = array();
-
-		foreach ( $domains as $domain ) {
-			$domain = trim( $domain );
-			if ( empty( $domain ) ) {
-				continue;
-			}
-
-			// Additional security: reject excessively long domain strings
-			if ( strlen( $domain ) > 253 ) {
-				$invalid_domains[] = substr( $domain, 0, 50 ) . '...'; // Truncate for display
-				continue;
-			}
-
-			if ( ! $this->validate_domain_format( $domain ) ) {
-				$invalid_domains[] = $domain;
-				continue;
-			}
-
-			$validated_domains[] = $domain;
-		}
-
-		if ( ! empty( $invalid_domains ) ) {
-			return array(
-				'message' => sprintf(
-					/* translators: %s: comma-separated list of invalid domain names */
-					__( 'Invalid domain format(s): %s. Please use valid domain names (e.g., example.com, subdomain.example.com).', 'grabwp-tenancy' ),
-					implode( ', ', $invalid_domains )
-				),
-				'type'    => 'error',
-			);
-		}
-
-		// If no real domains validated but nodomain.local was auto-filled, use it directly
-		if ( empty( $validated_domains ) && in_array( 'nodomain.local', $domains, true ) ) {
-			$validated_domains = array( 'nodomain.local' );
-		} elseif ( empty( $validated_domains ) ) {
-			return array(
-				'message' => __( 'Please enter at least one valid domain.', 'grabwp-tenancy' ),
-				'type'    => 'error',
-			);
-		}
-
-		// Check for duplicate domains (skip nodomain.local placeholder)
-		$real_domains_to_check = array_filter(
-			$validated_domains,
-			function ( $d ) {
-				return 'nodomain.local' !== $d;
-			}
-		);
-		if ( ! empty( $real_domains_to_check ) ) {
-			$duplicate_check = $this->check_domain_uniqueness( $real_domains_to_check );
-			if ( ! $duplicate_check['unique'] ) {
-				return array(
-					'message' => sprintf(
-						/* translators: %s: comma-separated list of duplicate domain names */
-						__( 'Domain(s) already in use: %s. Each domain can only be assigned to one tenant.', 'grabwp-tenancy' ),
-						implode( ', ', $duplicate_check['duplicates'] )
-					),
-					'type'    => 'error',
-				);
-			}
-		}
-
-		// Load existing mappings
-		$mappings_file   = $this->get_mappings_file_path();
-		$tenant_mappings = array();
-
-		if ( file_exists( $mappings_file ) ) {
-			include $mappings_file;
-		}
-
-		// Generate a unique tenant ID
-		$tenant_id    = GrabWP_Tenancy_Tenant::generate_id();
-		$max_attempts = 10;
-		$attempts     = 0;
-		while ( isset( $tenant_mappings[ $tenant_id ] ) && $attempts < $max_attempts ) {
-			$tenant_id = GrabWP_Tenancy_Tenant::generate_id();
-			++$attempts;
-		}
-
-		if ( isset( $tenant_mappings[ $tenant_id ] ) ) {
-			return array(
-				'message' => __( 'Failed to generate a unique tenant ID. Please try again.', 'grabwp-tenancy' ),
-				'type'    => 'error',
-			);
-		}
-
-		/**
-		 * Before creating a tenant
-		 *
-		 * @since 1.0.4
-		 * @param string $tenant_id The tenant ID being created
-		 * @param array  $validated_domains Array of validated domains
-		 */
-		do_action( 'grabwp_tenancy_before_create_tenant', $tenant_id, $validated_domains );
-
-		// Add new tenant
-		$tenant_mappings[ $tenant_id ] = $validated_domains;
-
-		// Save mappings
-		if ( $this->save_tenant_mappings( $tenant_mappings ) ) {
-			// Create tenant directories
-			$loader = new GrabWP_Tenancy_Loader( $this->plugin );
-			$loader->create_tenant_directories( $tenant_id );
-
-			/**
-			 * After creating a tenant
-			 *
-			 * @since 1.0.4
-			 * @param string $tenant_id The tenant ID that was created
-			 * @param array  $validated_domains Array of validated domains
-			 */
-			do_action( 'grabwp_tenancy_after_create_tenant', $tenant_id, $validated_domains );
-
-			return array(
-				'message'   => __( 'Tenant created successfully.', 'grabwp-tenancy' ),
-				'type'      => 'success',
-				'tenant_id' => $tenant_id,
-			);
-		} else {
-			return array(
-				'message' => __( 'Failed to create tenant.', 'grabwp-tenancy' ),
-				'type'    => 'error',
-			);
-		}
+		$crud = new GrabWP_Tenancy_Tenant_Crud( $this->plugin );
+		return $crud->create( $domains );
 	}
 
-	/**
-	 * Handle delete tenant form submission
-	 */
-	public function handle_delete_tenant( $tenant_id ) {
-		// Check capabilities
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return array(
-				'message' => __( 'Insufficient permissions.', 'grabwp-tenancy' ),
-				'type'    => 'error',
-			);
-		}
-
-		if ( ! GrabWP_Tenancy_Tenant::validate_id( $tenant_id ) ) {
-			return array(
-				'message' => __( 'Invalid tenant ID.', 'grabwp-tenancy' ),
-				'type'    => 'error',
-			);
-		}
-
-		// Load existing mappings
-		$mappings_file   = $this->get_mappings_file_path();
-		$tenant_mappings = array();
-
-		if ( file_exists( $mappings_file ) ) {
-			include $mappings_file;
-		}
-
-		// Remove tenant
-		if ( isset( $tenant_mappings[ $tenant_id ] ) ) {
-			/**
-			 * Before deleting a tenant
-			 *
-			 * @since 1.0.4
-			 * @param string $tenant_id The tenant ID being deleted
-			 */
-			do_action( 'grabwp_tenancy_before_delete_tenant', $tenant_id );
-
-			unset( $tenant_mappings[ $tenant_id ] );
-
-			// Save mappings
-			if ( $this->save_tenant_mappings( $tenant_mappings ) ) {
-				// Remove tenant directories and database tables
-				$loader = new GrabWP_Tenancy_Loader( $this->plugin );
-				
-				// Remove directories
-				$directories_removed = $loader->remove_tenant_directories( $tenant_id );
-				
-				// Remove database tables
-				$tables_removed = $loader->remove_tenant_database_tables( $tenant_id );
-
-				/**
-				 * After deleting a tenant
-				 *
-				 * @since 1.0.4
-				 * @param string $tenant_id The tenant ID that was deleted
-				 */
-				do_action( 'grabwp_tenancy_after_delete_tenant', $tenant_id );
-
-				// Provide detailed feedback based on cleanup results
-				if ( $directories_removed && $tables_removed ) {
-					return array(
-						'message' => __( 'Tenant deleted successfully. All files and database tables removed.', 'grabwp-tenancy' ),
-						'type'    => 'success',
-					);
-				} elseif ( $directories_removed ) {
-					return array(
-						'message' => __( 'Tenant deleted successfully. Files removed, but some database tables may remain.', 'grabwp-tenancy' ),
-						'type'    => 'warning',
-					);
-				} else {
-					return array(
-						'message' => __( 'Tenant deleted, but some files or database tables may remain.', 'grabwp-tenancy' ),
-						'type'    => 'warning',
-					);
-				}
-			} else {
-				return array(
-					'message' => __( 'Failed to delete tenant.', 'grabwp-tenancy' ),
-					'type'    => 'error',
-				);
-			}
-		} else {
-			return array(
-				'message' => __( 'Tenant not found.', 'grabwp-tenancy' ),
-				'type'    => 'error',
-			);
-		}
-	}
-
-	/**
-	 * Handle update tenant form submission
-	 */
 	public function handle_update_tenant( $tenant_id, $domains ) {
-		// Check capabilities
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return array(
-				'message' => __( 'Insufficient permissions.', 'grabwp-tenancy' ),
-				'type'    => 'error',
-			);
-		}
-
-		if ( ! GrabWP_Tenancy_Tenant::validate_id( $tenant_id ) ) {
-			return array(
-				'message' => __( 'Invalid tenant ID.', 'grabwp-tenancy' ),
-				'type'    => 'error',
-			);
-		}
-
-		// Auto-fill nodomain.local when no domain provided (path-only tenant)
-		if ( empty( $domains ) ) {
-			$domains = array( 'nodomain.local' );
-		}
-
-		// Validate and sanitize domains
-		$validated_domains = array();
-		$invalid_domains   = array();
-
-		foreach ( $domains as $domain ) {
-			$domain = trim( $domain );
-			if ( empty( $domain ) ) {
-				continue;
-			}
-
-			// Additional security: reject excessively long domain strings
-			if ( strlen( $domain ) > 253 ) {
-				$invalid_domains[] = substr( $domain, 0, 50 ) . '...'; // Truncate for display
-				continue;
-			}
-
-			if ( ! $this->validate_domain_format( $domain ) ) {
-				$invalid_domains[] = $domain;
-				continue;
-			}
-
-			$validated_domains[] = $domain;
-		}
-
-		if ( ! empty( $invalid_domains ) ) {
-			return array(
-				'message' => sprintf(
-					/* translators: %s: comma-separated list of invalid domain names */
-					__( 'Invalid domain format(s): %s. Please use valid domain names (e.g., example.com, subdomain.example.com).', 'grabwp-tenancy' ),
-					implode( ', ', $invalid_domains )
-				),
-				'type'    => 'error',
-			);
-		}
-
-		// If no real domains validated but nodomain.local was auto-filled, use it directly
-		if ( empty( $validated_domains ) && in_array( 'nodomain.local', $domains, true ) ) {
-			$validated_domains = array( 'nodomain.local' );
-		} elseif ( empty( $validated_domains ) ) {
-			return array(
-				'message' => __( 'Please enter at least one valid domain.', 'grabwp-tenancy' ),
-				'type'    => 'error',
-			);
-		}
-
-		// Check for duplicate domains (skip nodomain.local placeholder, exclude current tenant)
-		$real_domains_to_check = array_filter(
-			$validated_domains,
-			function ( $d ) {
-				return 'nodomain.local' !== $d;
-			}
-		);
-		if ( ! empty( $real_domains_to_check ) ) {
-			$duplicate_check = $this->check_domain_uniqueness( $real_domains_to_check, $tenant_id );
-			if ( ! $duplicate_check['unique'] ) {
-				return array(
-					'message' => sprintf(
-						/* translators: %s: comma-separated list of domain names already in use by other tenants */
-						__( 'Domain(s) already in use by other tenants: %s. Each domain can only be assigned to one tenant.', 'grabwp-tenancy' ),
-						implode( ', ', $duplicate_check['duplicates'] )
-					),
-					'type'    => 'error',
-				);
-			}
-		}
-
-		// Load existing mappings
-		$mappings_file   = $this->get_mappings_file_path();
-		$tenant_mappings = array();
-
-		if ( file_exists( $mappings_file ) ) {
-			include $mappings_file;
-		}
-
-		// Update tenant
-		if ( isset( $tenant_mappings[ $tenant_id ] ) ) {
-			$tenant_mappings[ $tenant_id ] = $validated_domains;
-
-			// Save mappings
-			if ( $this->save_tenant_mappings( $tenant_mappings ) ) {
-
-				do_action( 'grabwp_tenancy_after_update_tenant', $tenant_id, $validated_domains );
-
-				return array(
-					'message' => __( 'Tenant updated successfully.', 'grabwp-tenancy' ),
-					'type'    => 'success',
-				);
-			} else {
-				return array(
-					'message' => __( 'Failed to update tenant.', 'grabwp-tenancy' ),
-					'type'    => 'error',
-				);
-			}
-		} else {
-			return array(
-				'message' => __( 'Tenant not found.', 'grabwp-tenancy' ),
-				'type'    => 'error',
-			);
-		}
+		$crud = new GrabWP_Tenancy_Tenant_Crud( $this->plugin );
+		return $crud->update( $tenant_id, $domains );
 	}
 
-	/**
-	 * Enhanced domain format validation
-	 *
-	 * @param string $domain Domain to validate
-	 * @return bool Valid status
-	 */
-	private function validate_domain_format( $domain ) {
-		// Basic format check
-		if ( ! filter_var( $domain, FILTER_VALIDATE_DOMAIN ) ) {
-			return false;
-		}
-
-		// Additional validation rules
-		$domain = strtolower( trim( $domain ) );
-
-		// Check for valid characters
-		if ( ! preg_match( '/^[a-z0-9]([a-z0-9\-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9\-]{0,61}[a-z0-9])?)*$/', $domain ) ) {
-			return false;
-		}
-
-		// Check for valid TLD (at least 2 characters)
-		$parts = explode( '.', $domain );
-		if ( count( $parts ) < 2 ) {
-			return false;
-		}
-
-		$tld = end( $parts );
-		if ( strlen( $tld ) < 2 ) {
-			return false;
-		}
-
-		// Check for common invalid patterns
-		$invalid_patterns = array(
-			'/^[0-9]+$/', // All numbers
-			'/^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/', // IP address
-			'/^localhost$/', // localhost
-			'/^127\.0\.0\.1$/', // localhost IP
-		);
-
-		foreach ( $invalid_patterns as $pattern ) {
-			if ( preg_match( $pattern, $domain ) ) {
-				return false;
-			}
-		}
-
-		return true;
+	public function handle_delete_tenant( $tenant_id ) {
+		$crud = new GrabWP_Tenancy_Tenant_Crud( $this->plugin );
+		return $crud->delete( $tenant_id );
 	}
 
-	/**
-	 * Check domain uniqueness across all tenants
-	 *
-	 * @param array  $domains Domains to check
-	 * @param string $exclude_tenant_id Tenant ID to exclude from check (for updates)
-	 * @return array Array with 'unique' boolean and 'duplicates' array
-	 */
-	private function check_domain_uniqueness( $domains, $exclude_tenant_id = '' ) {
-		$mappings_file   = $this->get_mappings_file_path();
-		$tenant_mappings = array();
-
-		if ( file_exists( $mappings_file ) ) {
-			include $mappings_file;
-		}
-
-		$duplicates           = array();
-		$all_existing_domains = array();
-
-		// Collect all existing domains
-		foreach ( $tenant_mappings as $tenant_id => $tenant_domains ) {
-			if ( $exclude_tenant_id && $tenant_id === $exclude_tenant_id ) {
-				continue; // Skip current tenant for updates
-			}
-
-			if ( is_array( $tenant_domains ) ) {
-				foreach ( $tenant_domains as $domain ) {
-					$all_existing_domains[] = strtolower( trim( $domain ) );
-				}
-			}
-		}
-
-		// Check for duplicates
-		foreach ( $domains as $domain ) {
-			$domain_lower = strtolower( trim( $domain ) );
-			if ( in_array( $domain_lower, $all_existing_domains ) ) {
-				$duplicates[] = $domain;
-			}
-		}
-
-		return array(
-			'unique'     => empty( $duplicates ),
-			'duplicates' => $duplicates,
-		);
-	}
-
-	/**
-	 * Admin notices
-	 * Only called on main site since admin class is not instantiated on tenant sites
-	 */
 	public function admin_notices() {
-
-		// Show notices for admin pages
 		$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
-		if ( $page && strpos( $page, 'grabwp-tenancy' ) !== false ) {
+		if ( ! $page || strpos( $page, 'grabwp-tenancy' ) === false ) {
+			return;
+		}
 
-			// Handle success messages via URL parameters with nonce verification
-			if ( isset( $_GET['message'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'grabwp_tenancy_notice' ) ) {
-				$message = sanitize_text_field( wp_unslash( $_GET['message'] ) );
-				if ( in_array( $message, array( 'created', 'updated', 'deleted' ), true ) ) {
-					$success_message = '';
-					$type            = 'success';
+		if ( isset( $_GET['message'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'grabwp_tenancy_notice' ) ) {
+			$message = sanitize_text_field( wp_unslash( $_GET['message'] ) );
+			if ( in_array( $message, array( 'created', 'updated', 'deleted', 'settings_saved' ), true ) ) {
+				$messages_map = array(
+					'created'        => __( 'Tenant created successfully.', 'grabwp-tenancy' ),
+					'updated'        => __( 'Tenant updated successfully.', 'grabwp-tenancy' ),
+					'deleted'        => __( 'Tenant deleted successfully.', 'grabwp-tenancy' ),
+					'settings_saved' => __( 'Settings saved successfully.', 'grabwp-tenancy' ),
+				);
 
-					switch ( $message ) {
-						case 'created':
-							$success_message = __( 'Tenant created successfully.', 'grabwp-tenancy' );
-							break;
-						case 'updated':
-							$success_message = __( 'Tenant updated successfully.', 'grabwp-tenancy' );
-							break;
-						case 'deleted':
-							$success_message = __( 'Tenant deleted successfully.', 'grabwp-tenancy' );
-							break;
-					}
-
-					if ( $success_message ) {
-						$class = 'notice notice-' . $type . ' is-dismissible';
-						printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $success_message ) );
-					}
+				if ( isset( $messages_map[ $message ] ) ) {
+					printf(
+						'<div class="notice notice-success is-dismissible"><p>%s</p></div>',
+						esc_html( $messages_map[ $message ] )
+					);
 				}
 			}
+		}
 
-			// Handle error messages via transients
-			$grabwp_tenancy_error_message = get_transient( 'grabwp_tenancy_error' );
-			if ( $grabwp_tenancy_error_message ) {
-				$class = 'notice notice-error is-dismissible';
-				printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $grabwp_tenancy_error_message ) );
-				delete_transient( 'grabwp_tenancy_error' );
-			}
+		$grabwp_tenancy_error_message = get_transient( 'grabwp_tenancy_error' );
+		if ( $grabwp_tenancy_error_message ) {
+			printf(
+				'<div class="notice notice-error is-dismissible"><p>%s</p></div>',
+				esc_html( $grabwp_tenancy_error_message )
+			);
+			delete_transient( 'grabwp_tenancy_error' );
 		}
 	}
 }

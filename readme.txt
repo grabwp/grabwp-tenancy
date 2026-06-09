@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.11
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,13 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.0 =
+- Refactor: Split early-boot `load-helper.php` into focused modules (security, server detection, tenant detection, boot constants, cache) — same boot behavior, easier maintenance and extension.
+- Refactor: Extracted admin form handling, tenant CRUD, and domain validation into dedicated classes (`GrabWP_Tenancy_Admin_Form_Handler`, `GrabWP_Tenancy_Tenant_Crud`, `GrabWP_Tenancy_Domain_Validator`); public `handle_create_tenant()`, `handle_update_tenant()`, and `handle_delete_tenant()` methods remain for backward compatibility.
+- Refactor: Status page reorganized into tab partials with centralized environment checks via `GrabWP_Tenancy_Status_Checker` (General, Base Plugin, Pro Plugin tabs unchanged).
+- Fix: Settings page now shows the "Settings saved successfully." notice after saving (previously redirected but notice was never displayed).
+- Developer: All existing action hooks (`grabwp_tenancy_before_create_tenant`, `grabwp_tenancy_after_create_tenant`, etc.) preserved; no migration required.
 
 = 1.0.11 =
 - New: **Cache isolation for tenant context** — disables page-cache drop-ins per tenant request (`WP_CACHE`) and prefixes object-cache keys with the tenant ID (`WP_CACHE_KEY_SALT`) to prevent cross-tenant cache collisions on shared Redis/Memcached backends.
@@ -193,6 +200,9 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 * Separated upload directories
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Internal architecture refactor with no migration required. Recommended for all installs; includes a fix for the missing Settings saved confirmation notice.
 
 = 1.0.0 =
 Initial release of GrabWP Tenancy.
