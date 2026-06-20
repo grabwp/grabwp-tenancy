@@ -578,7 +578,7 @@ PHP;
 	/**
 	 * Remove legacy tokens.php and .consumed remnants.
 	 *
-	 * @since 1.4.0
+	 * @since 1.0.4
 	 */
 	private static function cleanup_legacy_token_files() {
 		$base_dir   = GrabWP_Tenancy_Path_Manager::get_tenants_base_dir();
