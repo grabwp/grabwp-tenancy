@@ -1,0 +1,70 @@
+/**
+ * GrabWP Tenancy Shared Admin Utilities
+ *
+ * Loaded by all GrabWP plugins on admin pages.
+ * Only classes that replace recurring inline styles.
+ *
+ * @package GrabWP_Tenancy
+ * @since   1.3.0
+ */
+
+/* Color utilities */
+.grabwp-text-success { color: #00a32a; }
+.grabwp-text-error   { color: #d63638; }
+.grabwp-text-warning { color: #dba617; }
+.grabwp-text-muted   { color: #646970; }
+
+/* Spacing utilities */
+.grabwp-ml-sm  { margin-left: 10px; }
+.grabwp-mt-sm  { margin-top: 10px; }
+.grabwp-mt-md  { margin-top: 20px; }
+.grabwp-mb-sm  { margin-bottom: 8px; }
+.grabwp-mb-md  { margin-bottom: 20px; }
+
+/* Flex layout */
+.grabwp-flex         { display: flex; align-items: center; gap: 8px; }
+.grabwp-flex-wrap    { flex-wrap: wrap; }
+.grabwp-flex-between { justify-content: space-between; }
+
+/* Dashicon alignment inside buttons/links */
+.grabwp-dashicon-inline { vertical-align: text-bottom; margin-right: 4px; }
+
+/* Inline spinner (WP default floats left) */
+.grabwp-spinner-inline { float: none; visibility: hidden; }
+
+/* Code block (replaces repeated dark pre inline styles) */
+.grabwp-code-block {
+    background: #f0f0f1;
+    padding: 12px;
+    border: 1px solid #c3c4c7;
+    overflow-x: auto;
+    font-size: 13px;
+    border-radius: 2px;
+}
+
+/* Section container */
+.grabwp-admin-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+}
+.grabwp-admin-card h2,
+.grabwp-admin-card h3 { margin-top: 0; }
+
+/* Badges */
+.grabwp-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+.grabwp-badge-success { background: #d4edda; color: #155724; }
+.grabwp-badge-error   { background: #fcf0f1; color: #8a2424; }
+.grabwp-badge-warning { background: #fef3c7; color: #92400e; }
+.grabwp-badge-info    { background: #f0f6fc; color: #2271b1; }
+.grabwp-badge-muted   { background: #f0f0f1; color: #646970; }

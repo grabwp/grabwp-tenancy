@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 
 	<?php if ( $grabwp_clone_source ) : ?>
-		<div class="notice notice-info inline" style="margin-bottom: 15px;">
+		<div class="notice notice-info inline">
 			<p>
 				<?php
 				$grabwp_clone_source_label = ( defined( 'GRABWP_MAINSITE_ID' ) && GRABWP_MAINSITE_ID === $grabwp_clone_source )
@@ -65,18 +65,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<th scope="row"><?php esc_html_e( 'Domain Setup', 'grabwp-tenancy' ); ?></th>
 					<td>
 						<fieldset>
-							<div style="margin-bottom: 16px;">
-								<label style="display: block; margin-bottom: 8px;">
+							<div class="grabwp-mb-md">
+								<label>
 									<input type="radio" name="domain_option" value="has_domain" checked />
 									<?php esc_html_e( 'I have a domain', 'grabwp-tenancy' ); ?>
 								</label>
-								<!-- Domain input section (shown when "I have a domain" selected) -->
-								<div id="grabwp-domain-section" style="margin: 4px 0 0 24px;">
+								<div id="grabwp-domain-section">
 									<div class="grabwp-domain-inputs">
 										<div class="grabwp-domain-input">
-											<input type="text" name="domains[]" placeholder="<?php esc_attr_e( 'Enter domain (e.g. mysite.com)', 'grabwp-tenancy' ); ?>" style="width: auto; max-width: 500px;" />
-											<button type="button" class="button grabwp-clear-domain" style="margin-left: 10px;"><?php esc_html_e( 'Clear', 'grabwp-tenancy' ); ?></button>
-											<button type="button" class="button grabwp-remove-domain" style="margin-left: 10px;"><?php esc_html_e( 'Remove', 'grabwp-tenancy' ); ?></button>
+											<input type="text" name="domains[]" class="regular-text" placeholder="<?php esc_attr_e( 'Enter domain (e.g. mysite.com)', 'grabwp-tenancy' ); ?>" />
+											<button type="button" class="button grabwp-clear-domain grabwp-ml-sm"><?php esc_html_e( 'Clear', 'grabwp-tenancy' ); ?></button>
+											<button type="button" class="button grabwp-remove-domain grabwp-ml-sm"><?php esc_html_e( 'Remove', 'grabwp-tenancy' ); ?></button>
 										</div>
 									</div>
 									
@@ -84,12 +83,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 								</div>
 							</div>
 							<div>
-								<label style="display: block; margin-bottom: 8px;">
+								<label>
 									<input type="radio" name="domain_option" value="map_later" />
 									<?php esc_html_e( "I'll set up a domain later", 'grabwp-tenancy' ); ?>
 								</label>
-								<!-- Path-only info (shown when "I'll set up a domain later" selected) -->
-								<div id="grabwp-no-domain-section" class="grabwp-path-url-info" style="margin: 4px 0 0 24px; display: none;">
+								<div id="grabwp-no-domain-section" class="grabwp-path-url-info hidden">
 									<p>
 										<strong><?php esc_html_e( 'Your site will be accessible at:', 'grabwp-tenancy' ); ?></strong><br />
 										<code><?php echo esc_html( site_url( '/site/{tenant-id}/' ) ); ?></code>
@@ -117,7 +115,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						: esc_html__( 'Create Tenant', 'grabwp-tenancy' );
 					?>
 				</button>
-				<a href="<?php echo esc_url( admin_url( 'admin.php?page=grabwp-tenancy' ) ); ?>" class="button" style="margin-left: 10px;">
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=grabwp-tenancy' ) ); ?>" class="button grabwp-ml-sm">
 					<?php esc_html_e( 'Cancel', 'grabwp-tenancy' ); ?>
 				</a>
 			</p>

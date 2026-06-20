@@ -42,34 +42,34 @@
 
 .grabwp-tenancy-form {
     background: #fff;
-    border: 1px solid #ccd0d4;
+    border: 1px solid #c3c4c7;
     padding: 20px;
     margin-bottom: 20px;
-    border-radius: 3px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
 }
 
 .grabwp-tenancy-form h3 {
     margin-top: 0;
-    color: #23282d;
 }
 
-/* Button styling */
-.grabwp-add-domain,
-.grabwp-add-edit-domain {
-    margin-top: 10px !important;
+/* Danger button */
+.grabwp-btn-danger,
+.grabwp-btn-danger:hover {
+    color: #d63638;
+    border-color: #d63638;
 }
 
+/* Domain row buttons */
 .grabwp-remove-domain,
 .grabwp-remove-edit-domain {
-    background: #dc3232 !important;
-    border-color: #dc3232 !important;
-    color: #fff !important;
+    color: #d63638;
+    border-color: #d63638;
 }
 
 .grabwp-remove-domain:hover,
 .grabwp-remove-edit-domain:hover {
-    background: #a00 !important;
-    border-color: #a00 !important;
+    background: #fcf0f1;
 }
 
 /* Table improvements */
@@ -136,6 +136,6 @@
 
 /* Copy button for path URL */
 .grabwp-copy-path-url {
-    margin-left: 8px !important;
+    margin-left: 8px;
     vertical-align: middle;
 }

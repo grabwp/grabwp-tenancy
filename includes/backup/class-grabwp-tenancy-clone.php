@@ -10,8 +10,8 @@
  *  1 - Validate source + target tenants, create temp staging directory
  *  2 - Export source database
  *  3 - Import database into target tenant (prefix replacement)
- *  4 - Copy uploads directory
- *  5 - Fix siteurl/home + strip GrabWP plugins if mainsite source
+ *  4 - Fix siteurl/home + strip GrabWP plugins if mainsite source
+ *  5 - Copy uploads directory
  *  6 - Cleanup temp staging directory
  *
  * @package GrabWP_Tenancy
@@ -122,8 +122,8 @@ class GrabWP_Tenancy_Clone {
 			case 1: return $this->step_validate( $src, $dst );
 			case 2: return $this->step_export_database( $src, $data );
 			case 3: return $this->step_import_database( $src, $dst, $data );
-			case 4: return $this->step_copy_uploads( $src, $dst );
-			case 5: return $this->step_fix_urls( $src, $dst, $state['target_domains'] );
+			case 4: return $this->step_fix_urls( $src, $dst, $state['target_domains'] );
+			case 5: return $this->step_copy_uploads( $src, $dst );
 			case 6: return $this->step_cleanup( $data );
 		}
 		return new WP_Error( 'invalid_step', __( 'Invalid clone step.', 'grabwp-tenancy' ) );
@@ -196,7 +196,7 @@ class GrabWP_Tenancy_Clone {
 	}
 
 	/**
-	 * Step 4: Copy uploads from source to target tenant.
+	 * Step 5: Copy uploads from source to target tenant.
 	 */
 	private function step_copy_uploads( $source_tenant_id, $target_tenant_id ) {
 		// Mainsite uploads live in the default WordPress uploads directory.
@@ -219,7 +219,7 @@ class GrabWP_Tenancy_Clone {
 	}
 
 	/**
-	 * Step 5: Comprehensive URL replacement + strip GrabWP plugins if mainsite source.
+	 * Step 4: Comprehensive URL replacement + strip GrabWP plugins if mainsite source.
 	 */
 	private function step_fix_urls( $source_tenant_id, $target_tenant_id, $target_domains ) {
 		$new_url = GrabWP_Tenancy_Tenant::build_site_url( $target_tenant_id, $target_domains );

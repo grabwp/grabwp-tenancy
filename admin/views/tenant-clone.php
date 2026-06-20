@@ -23,8 +23,8 @@ $clone_steps = [
 	1 => __( 'Validating source & target tenants', 'grabwp-tenancy' ),
 	2 => __( 'Exporting source database', 'grabwp-tenancy' ),
 	3 => __( 'Importing database into target tenant', 'grabwp-tenancy' ),
-	4 => __( 'Copying uploads', 'grabwp-tenancy' ),
-	5 => __( 'Updating site URLs', 'grabwp-tenancy' ),
+	4 => __( 'Updating site URLs', 'grabwp-tenancy' ),
+	5 => __( 'Copying uploads', 'grabwp-tenancy' ),
 	6 => __( 'Cleaning up', 'grabwp-tenancy' ),
 ];
 
@@ -131,6 +131,13 @@ $create_new_url = add_query_arg( [
 				<strong><?php esc_html_e( 'Clone complete!', 'grabwp-tenancy' ); ?></strong>
 				<?php esc_html_e( 'The source tenant data has been cloned into the target tenant.', 'grabwp-tenancy' ); ?>
 			</p>
+			<p id="grabwp-clone-success-links">
+				<strong><?php esc_html_e( 'Target tenant:', 'grabwp-tenancy' ); ?></strong>
+				<code id="grabwp-clone-success-target-id"></code>
+				<span id="grabwp-clone-success-edit-wrap"> &mdash; <a id="grabwp-clone-success-edit" href="#"><?php esc_html_e( 'Edit tenant', 'grabwp-tenancy' ); ?></a></span>
+				<span id="grabwp-clone-success-home-wrap"> &middot; <a id="grabwp-clone-success-home" href="#" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Homepage', 'grabwp-tenancy' ); ?></a></span>
+				<span id="grabwp-clone-success-dashboard-wrap"> &middot; <a id="grabwp-clone-success-dashboard" href="#" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Dashboard', 'grabwp-tenancy' ); ?></a></span>
+			</p>
 		</div>
 	</div>
 
@@ -155,6 +162,7 @@ $create_new_url = add_query_arg( [
 
 	var targets = [];
 	var autoTarget = '<?php echo esc_js( $auto_target ); ?>';
+	var cloneTargetTenantId = '';
 
 	// "Clone to existing site" button — reveal the form.
 	$('#clone-to-existing-btn').on('click', function() {
@@ -216,6 +224,39 @@ $create_new_url = add_query_arg( [
 		$('#grabwp-clone-notice').show().find('p').text(msg);
 	}
 
+	function populateCloneSuccessLinks(targetTenantId) {
+		var target = targets.find(function(t) { return t.id === targetTenantId; });
+		if (!target) {
+			$('#grabwp-clone-success-links').hide();
+			return;
+		}
+
+		$('#grabwp-clone-success-target-id').text(target.id);
+
+		if (target.edit_url) {
+			$('#grabwp-clone-success-edit').attr('href', target.edit_url);
+			$('#grabwp-clone-success-edit-wrap').show();
+		} else {
+			$('#grabwp-clone-success-edit-wrap').hide();
+		}
+
+		if (target.site_url) {
+			$('#grabwp-clone-success-home').attr('href', target.site_url);
+			$('#grabwp-clone-success-home-wrap').show();
+		} else {
+			$('#grabwp-clone-success-home-wrap').hide();
+		}
+
+		if (target.admin_url) {
+			$('#grabwp-clone-success-dashboard').attr('href', target.admin_url);
+			$('#grabwp-clone-success-dashboard-wrap').show();
+		} else {
+			$('#grabwp-clone-success-dashboard-wrap').hide();
+		}
+
+		$('#grabwp-clone-success-links').show();
+	}
+
 	// Run clone steps sequentially.
 	function runNextStep(jobId, stepNonce, totalSteps) {
 		$.post(ajaxurl, {
@@ -247,6 +288,7 @@ $create_new_url = add_query_arg( [
 				.addClass('dashicons-yes-alt');
 
 			if (d.done) {
+				populateCloneSuccessLinks(cloneTargetTenantId);
 				$('#grabwp-clone-success').show();
 				return;
 			}
@@ -286,11 +328,13 @@ $create_new_url = add_query_arg( [
 			.removeClass('dashicons-marker')
 			.addClass('dashicons-update');
 
+		cloneTargetTenantId = $('#clone-target-tenant').val();
+
 		$.post(ajaxurl, {
 			action: 'grabwp_tenancy_clone_init',
 			nonce: '<?php echo esc_js( $clone_init_nonce ); ?>',
 			source_tenant_id: '<?php echo esc_js( $tenant_id ); ?>',
-			target_tenant_id: $('#clone-target-tenant').val()
+			target_tenant_id: cloneTargetTenantId
 		}, function(response) {
 			if (!response.success) {
 				showError(response.data.message);

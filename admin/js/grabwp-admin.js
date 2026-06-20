@@ -330,10 +330,10 @@
 			}
 			var val = checked.value;
 			if ( domainSection ) {
-				domainSection.style.display = val === 'has_domain' ? '' : 'none';
+				domainSection.classList.toggle( 'hidden', val !== 'has_domain' );
 			}
 			if ( noDomainSection ) {
-				noDomainSection.style.display = val === 'map_later' ? '' : 'none';
+				noDomainSection.classList.toggle( 'hidden', val !== 'map_later' );
 			}
 		}
 

@@ -87,20 +87,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 								foreach ( $grabwp_tenancy_domains as $grabwp_tenancy_domain ) :
 									?>
 									<div class="grabwp-edit-domain-input">
-										<input type="text" name="domains[]" value="<?php echo esc_attr( $grabwp_tenancy_domain ); ?>" placeholder="<?php esc_attr_e( 'Enter domain (e.g., tenant1.grabwp.local)', 'grabwp-tenancy' ); ?>" style="width: 300px;" />
-										<button type="button" class="button grabwp-remove-edit-domain" style="margin-left: 10px;"><?php esc_html_e( 'Remove', 'grabwp-tenancy' ); ?></button>
+										<input type="text" name="domains[]" value="<?php echo esc_attr( $grabwp_tenancy_domain ); ?>" placeholder="<?php esc_attr_e( 'Enter domain (e.g., tenant1.grabwp.local)', 'grabwp-tenancy' ); ?>" class="regular-text" />
+										<button type="button" class="button grabwp-remove-edit-domain grabwp-ml-sm"><?php esc_html_e( 'Remove', 'grabwp-tenancy' ); ?></button>
 									</div>
 									<?php
 								endforeach;
 							else :
 								?>
 								<div class="grabwp-edit-domain-input">
-									<input type="text" name="domains[]" placeholder="<?php esc_attr_e( 'Enter domain (e.g., tenant1.grabwp.local)', 'grabwp-tenancy' ); ?>" style="width: 300px;" />
-									<button type="button" class="button grabwp-remove-edit-domain" style="margin-left: 10px;"><?php esc_html_e( 'Remove', 'grabwp-tenancy' ); ?></button>
+									<input type="text" name="domains[]" placeholder="<?php esc_attr_e( 'Enter domain (e.g., tenant1.grabwp.local)', 'grabwp-tenancy' ); ?>" class="regular-text" />
+									<button type="button" class="button grabwp-remove-edit-domain grabwp-ml-sm"><?php esc_html_e( 'Remove', 'grabwp-tenancy' ); ?></button>
 								</div>
 							<?php endif; ?>
 						</div>
-						<button type="button" class="button grabwp-add-edit-domain" style="margin-top: 10px;">
+						<button type="button" class="button grabwp-add-edit-domain grabwp-mt-sm">
 							<?php esc_html_e( 'Add New Domain', 'grabwp-tenancy' ); ?>
 						</button>
 						<p class="description"><?php esc_html_e( 'Domain mapping is optional. The path URL above is always available.', 'grabwp-tenancy' ); ?></p>
@@ -121,7 +121,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<button type="submit" class="button button-primary">
 					<?php esc_html_e( 'Update Tenant', 'grabwp-tenancy' ); ?>
 				</button>
-				<a href="<?php echo esc_url( admin_url( 'admin.php?page=grabwp-tenancy' ) ); ?>" class="button" style="margin-left: 10px;">
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=grabwp-tenancy' ) ); ?>" class="button grabwp-ml-sm">
 					<?php esc_html_e( 'Cancel', 'grabwp-tenancy' ); ?>
 				</a>
 			</p>

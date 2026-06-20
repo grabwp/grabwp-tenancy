@@ -204,16 +204,6 @@ class GrabWP_Tenancy_Path_Manager {
 	}
 
 	/**
-	 * Get tokens file path
-	 *
-	 * @return string Tokens file path
-	 */
-	public static function get_tokens_file_path() {
-		return self::get_config_file_path( 'tokens.php' );
-	}
-
-
-	/**
 	 * Atomically write PHP content to a file with ABSPATH guard.
 	 *
 	 * @param string $file_path Absolute destination path.

@@ -117,9 +117,16 @@ class GrabWP_Tenancy_Admin {
 		}
 
 		wp_enqueue_style(
+			'grabwp-admin-shared',
+			$this->plugin->plugin_url . 'admin/css/grabwp-admin-shared.css',
+			array(),
+			$this->plugin->version
+		);
+
+		wp_enqueue_style(
 			'grabwp-tenancy-admin',
 			$this->plugin->plugin_url . 'admin/css/grabwp-admin.css',
-			array(),
+			array( 'grabwp-admin-shared' ),
 			$this->plugin->version
 		);
 

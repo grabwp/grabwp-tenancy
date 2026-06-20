@@ -157,10 +157,20 @@ class GrabWP_Tenancy_Clone_Admin {
 			}
 
 			$result[] = [
-				'id'       => $tid,
-				'domains'  => is_array( $domains ) ? $domains : [],
-				'db_type'  => 'shared',
-				'has_data' => $this->tenant_has_data( $tid ),
+				'id'        => $tid,
+				'domains'   => is_array( $domains ) ? $domains : [],
+				'db_type'   => 'shared',
+				'has_data'  => $this->tenant_has_data( $tid ),
+				'edit_url'  => add_query_arg(
+					[
+						'page'      => 'grabwp-tenancy-edit',
+						'tenant_id' => $tid,
+						'_wpnonce'  => wp_create_nonce( 'grabwp_tenancy_edit' ),
+					],
+					admin_url( 'admin.php' )
+				),
+				'site_url'  => GrabWP_Tenancy_Tenant::resolve_site_url( $tid ),
+				'admin_url' => GrabWP_Tenancy_Tenant::resolve_admin_url( $tid ),
 			];
 		}
 

@@ -42,6 +42,9 @@ class GrabWP_Tenancy_Installer {
 		// MU-plugin and wp-config loader (silent — failures shown on status page).
 		self::install_mu_plugin();
 		self::install_loader();
+
+		// Remove legacy file-based token artifacts (replaced by HMAC stateless tokens).
+		self::cleanup_legacy_token_files();
 	}
 
 	/**
@@ -570,6 +573,27 @@ PHP;
 
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 		@file_put_contents( $htaccess_file, $contents );
+	}
+
+	/**
+	 * Remove legacy tokens.php and .consumed remnants.
+	 *
+	 * @since 1.4.0
+	 */
+	private static function cleanup_legacy_token_files() {
+		$base_dir   = GrabWP_Tenancy_Path_Manager::get_tenants_base_dir();
+		$token_file = $base_dir . '/tokens.php';
+
+		if ( file_exists( $token_file ) ) {
+			@unlink( $token_file );
+		}
+
+		$consumed = glob( $base_dir . '/tokens.php.consumed.*' );
+		if ( is_array( $consumed ) ) {
+			foreach ( $consumed as $file ) {
+				@unlink( $file );
+			}
+		}
 	}
 
 	/**
