@@ -54,6 +54,12 @@ class GrabWP_Tenancy_Clone_Db_Exporter {
 			'created_at'    => gmdate( 'Y-m-d H:i:s' ),
 			'tenant_id'     => $tenant_id,
 		];
+
+		$cdn_url = $this->get_cdn_url();
+		if ( ! empty( $cdn_url ) ) {
+			$meta['cdn_url'] = $cdn_url;
+		}
+
 		file_put_contents( $tmp_dir . '/metadata.json', wp_json_encode( $meta, JSON_PRETTY_PRINT ) );
 		return true;
 	}
@@ -213,5 +219,18 @@ class GrabWP_Tenancy_Clone_Db_Exporter {
 		$search  = [ "\\",    "\0",   "\n",   "\r",   "\x1a", "'"    ];
 		$replace = [ '\\\\',  '\\0',  '\\n',  '\\r',  '\\Z',  "\\'"  ];
 		return str_replace( $search, $replace, $value );
+	}
+
+	/**
+	 * Get CDN URL from Pro plugin config if available.
+	 *
+	 * @return string CDN URL or empty string.
+	 */
+	private function get_cdn_url() {
+		if ( ! class_exists( 'GrabWP_Tenancy_Pro_Storage_Manager' ) ) {
+			return '';
+		}
+		$settings = GrabWP_Tenancy_Pro_Storage_Manager::get_platform_settings();
+		return $settings['cdn_url'] ?? '';
 	}
 }
