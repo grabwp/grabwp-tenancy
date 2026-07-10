@@ -142,6 +142,18 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 	}
 
 	/**
+	 * Get table CSS classes.
+	 *
+	 * WordPress adds "fixed" by default, but the tenants table needs natural
+	 * column widths because extensions can add compact status columns.
+	 *
+	 * @return array
+	 */
+	protected function get_table_classes() {
+		return array_diff( parent::get_table_classes(), array( 'fixed' ) );
+	}
+
+	/**
 	 * Prepare items for display
 	 */
 	public function prepare_items() {

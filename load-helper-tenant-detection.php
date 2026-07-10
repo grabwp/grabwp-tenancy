@@ -191,13 +191,57 @@ function grabwp_tenancy_get_cli_domain( $tenant_id, $tenant_mappings ) {
 }
 
 /**
+ * Derive protocol for a tenant in CLI context.
+ *
+ * @param string $tenant_id       Tenant identifier.
+ * @param array  $tenant_mappings Tenant mappings from tenants.php.
+ * @return string 'https' or 'http'.
+ */
+function grabwp_tenancy_get_cli_tenant_protocol( $tenant_id, $tenant_mappings ) {
+	if ( isset( $tenant_mappings[ $tenant_id ]['protocol'] ) ) {
+		return $tenant_mappings[ $tenant_id ]['protocol'];
+	}
+	return 'https';
+}
+
+/**
  * Detect tenant from CLI, domain mapping, URL path, or query string.
  * Priority: CLI > domain > path > query.
  */
 function grabwp_tenancy_boot_detect_tenant() {
+	// Env var available before wp-config.php loads — enables CLI tenant boot.
+	if ( ! defined( 'GRABWP_TENANCY_TENANT_ID' ) && getenv( 'GRABWP_TENANCY_TENANT_ID' ) ) {
+		define( 'GRABWP_TENANCY_TENANT_ID', getenv( 'GRABWP_TENANCY_TENANT_ID' ) );
+	}
+
 	if ( defined( 'GRABWP_TENANCY_TENANT_ID' ) && GRABWP_TENANCY_TENANT_ID !== '' ) {
+		$tenant_id = GRABWP_TENANCY_TENANT_ID;
+
+		if ( ! defined( 'GRABWP_TENANCY_ROUTING_METHOD' ) ) {
+			define( 'GRABWP_TENANCY_ROUTING_METHOD', 'cli' );
+		}
+
+		if ( empty( $_SERVER['HTTP_HOST'] ) ) {
+			$tenant_mappings = grabwp_tenancy_load_tenant_mappings();
+			$is_mapped       = isset( $tenant_mappings[ $tenant_id ] ) && ! empty( $tenant_mappings[ $tenant_id ][0] );
+
+			if ( ! $is_mapped && defined( 'WP_CLI' ) && WP_CLI && class_exists( 'WP_CLI' ) ) {
+				WP_CLI::warning( "Tenant '{$tenant_id}' not found in tenant mappings. Using fallback domain." );
+			}
+
+			$cli_domain           = grabwp_tenancy_get_cli_domain( $tenant_id, $tenant_mappings );
+			$_SERVER['HTTP_HOST'] = $cli_domain;
+
+			if ( ! isset( $_SERVER['HTTPS'] ) ) {
+				$tenant_protocol  = grabwp_tenancy_get_cli_tenant_protocol( $tenant_id, $tenant_mappings );
+				$_SERVER['HTTPS'] = ( $tenant_protocol === 'https' ) ? 'on' : '';
+			}
+
+			grabwp_tenancy_reset_server_info_cache();
+		}
+
 		grabwp_tenancy_configure_cli_environment();
-		return GRABWP_TENANCY_TENANT_ID;
+		return $tenant_id;
 	}
 
 	if ( defined( 'DOING_CRON' ) && DOING_CRON ) {

@@ -43,12 +43,16 @@ function grabwp_tenancy_sanitize_local_network_host( $host ) {
  *
  * @return array ['host' => string, 'protocol' => string]
  */
-function grabwp_tenancy_get_server_info() {
+function grabwp_tenancy_get_server_info( $reset = false ) {
 	if ( function_exists( 'grabwp_tenancy_pro_get_server_info' ) ) {
-		return grabwp_tenancy_pro_get_server_info();
+		return grabwp_tenancy_pro_get_server_info( $reset );
 	}
 
 	static $server_info = null;
+	if ( $reset ) {
+		$server_info = null;
+		return null;
+	}
 	if ( null !== $server_info ) {
 		return $server_info;
 	}
@@ -87,4 +91,11 @@ function grabwp_tenancy_get_server_info() {
 	}
 
 	return $server_info;
+}
+
+/**
+ * Reset the static cache in grabwp_tenancy_get_server_info().
+ */
+function grabwp_tenancy_reset_server_info_cache() {
+	grabwp_tenancy_get_server_info( true );
 }

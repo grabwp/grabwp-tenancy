@@ -139,3 +139,13 @@
     margin-left: 8px;
     vertical-align: middle;
 }
+
+@media screen and (max-width: 782px) {
+    .wp-list-table.tenants tr:not(.inline-edit-row):not(.no-items) td.column-primary ~ td:not(.check-column) {
+        padding: 3px 8px 3px 25%;
+    }
+    .wp-list-table .column-actions {
+        width: auto;
+        text-align: left;
+    }
+}

@@ -104,7 +104,7 @@ function grabwp_tenancy_set_uploads_paths() {
 
 	define( 'GRABWP_TENANCY_UPLOAD_DIR', $upload_dir );
 
-	if ( ! defined( 'UPLOADS' ) ) {
+	if ( ! defined( 'UPLOADS' ) && strpos( $upload_dir, ABSPATH ) === 0 ) {
 		define( 'UPLOADS', $upload_relative );
 	}
 }
