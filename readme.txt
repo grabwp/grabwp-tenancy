@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,16 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.3 =
+- Enhance: Tenant detection now supports `GRABWP_TENANCY_TENANT_ID` env var for CLI boot without wp-config constants
+- Enhance: CLI tenant context auto-populates `HTTP_HOST` and `HTTPS` from tenant mappings when missing
+- Enhance: WP-CLI `$table_prefix` synchronization — file-scope global re-bind prevents stale prefix after eval
+- Enhance: CDN URL included in database export metadata when Pro storage is configured
+- Enhance: Tenant list table uses natural column widths for better extension compatibility
+- Enhance: Responsive CSS for tenant list on mobile screens
+- Fix: `UPLOADS` constant only defined when upload dir is inside ABSPATH, preventing path resolution errors on custom layouts
+- Fix: Server info cache can be reset via `grabwp_tenancy_reset_server_info_cache()` after environment changes
 
 = 1.1.2 =
 - Security: Replaced the file-based admin access token (a secret written to `tokens.php` and consumed via rename) with stateless HMAC-SHA256 tokens bound to the tenant ID, signed with `AUTH_KEY`/`AUTH_SALT` and given a short TTL (default 30 minutes, configurable via `GRABWP_TENANCY_TOKEN_TTL`). No token secret is persisted to disk anymore.
