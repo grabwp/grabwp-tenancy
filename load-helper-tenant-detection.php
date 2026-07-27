@@ -75,7 +75,7 @@ function grabwp_tenancy_identify_tenant_from_domain( $domain, $mappings ) {
  *
  * Pro plugin defines GRABWP_TENANCY_PATH_PREFIX via config; base falls back to 'site'.
  *
- * @since 1.4.0
+ * @since 1.1.4
  * @return string Prefix slug without slashes.
  */
 function grabwp_tenancy_get_path_prefix() {
@@ -124,7 +124,7 @@ function grabwp_tenancy_identify_tenant_from_path() {
  * Returns the alias when GRABWP_TENANCY_TENANT_ALIAS is defined (Pro alias
  * routing matched), otherwise falls back to the tenant ID.
  *
- * @since 1.8.0
+ * @since 1.1.4
  * @return string Path slug (alias or tenant ID), or empty string if no tenant context.
  */
 function grabwp_tenancy_get_tenant_path_slug() {

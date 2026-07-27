@@ -90,7 +90,7 @@ class GrabWP_Tenancy_Settings {
 	/**
 	 * Setting type map. Keys not listed here are boolean.
 	 *
-	 * @since  1.1.3
+	 * @since  1.1.4
 	 * @return array
 	 */
 	private static function get_setting_types() {

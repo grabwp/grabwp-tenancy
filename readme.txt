@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,18 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.4 =
+- New: Performance & Security settings tab applies per-tenant constants: `DISABLE_WP_CRON`, XML-RPC off, `WP_POST_REVISIONS`, `EMPTY_TRASH_DAYS`, and `WP_HTTP_BLOCK_EXTERNAL` with a `WP_ACCESSIBLE_HOSTS` allowlist
+- New: Path routing prefix is configurable — `/site/{tenant-id}` becomes `/{prefix}/{tenant-id}` across rewrite rules, `.htaccess`, admin URLs, and the status page, via `GRABWP_TENANCY_PATH_PREFIX` (defaults to `site`)
+- New: Tenant URLs resolve Pro path aliases through `grabwp_tenancy_get_tenant_path_slug()`, so homepage and dashboard links use the alias when one is set
+- New: Status page warns about path confusion — duplicate `tenants.php`, `config.php`, or `tenant-aliases.php` copies, data directories inside `uploads/`, and directory constants hardcoded in `wp-config.php`
+- Enhance: Settings support integer and text values in addition to checkboxes, sanitized per type and written correctly to the settings file
+- Enhance: Settings screen split into tabs, with the active tab remembered between visits
+- Enhance: Base directory detection honors `GRABWP_WORDPRESS_CONTENT_DIR` and the `wp-content/grabwp-tenancy/tenants.php` location
+- Enhance: `.htaccess` rules and status checks accept alias slugs while still recognizing the legacy 6-character rule
+- Change: The SQLite integration plugin is hidden from plugin lists — activating or deactivating it breaks every SQLite-backed site
+- Fix: Duplicate "Settings saved successfully" notice on the settings page
 
 = 1.1.3 =
 - Enhance: Tenant detection now supports `GRABWP_TENANCY_TENANT_ID` env var for CLI boot without wp-config constants

@@ -171,7 +171,7 @@ class GrabWP_Tenancy_Tenant {
 	/**
 	 * Get the path slug for this tenant (alias if available, else ID).
 	 *
-	 * @since 1.8.0
+	 * @since 1.1.4
 	 * @return string
 	 */
 	private function get_path_slug() {

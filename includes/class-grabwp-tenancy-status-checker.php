@@ -155,7 +155,7 @@ class GrabWP_Tenancy_Status_Checker {
 	 * and directory structures. Returns warnings about duplicates, legacy
 	 * paths inside uploads/, and wp-config.php overrides.
 	 *
-	 * @since 1.0.8
+	 * @since 1.1.4
 	 * @return array[] Each item: [ type, title, message, paths, active ]
 	 */
 	public static function get_path_confusion_warnings() {
