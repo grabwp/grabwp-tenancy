@@ -101,7 +101,12 @@ class GrabWP_Tenancy_Status_Checker {
 				$wp_pos = strpos( $content, '# BEGIN WordPress' );
 				$has_block        = ( false !== $pos );
 				$block_positioned = $has_block && ( false === $wp_pos || $pos < $wp_pos );
-				$content_valid    = ( false !== strpos( $content, 'RewriteRule ^site/([a-z0-9]{6})/?$ /index.php?site=$1 [QSA,L]' ) );
+				$prefix           = grabwp_tenancy_get_path_prefix();
+				// Match either alias-compatible regex or legacy 6-char regex.
+				$content_valid    = (
+					false !== strpos( $content, 'RewriteRule ^' . $prefix . '/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)/?$ /index.php?site=$1 [QSA,L]' )
+					|| false !== strpos( $content, 'RewriteRule ^' . $prefix . '/([a-z0-9]{6})/?$ /index.php?site=$1 [QSA,L]' )
+				);
 			}
 		}
 
@@ -141,6 +146,138 @@ class GrabWP_Tenancy_Status_Checker {
 			'exists'   => $exists,
 			'has_deny' => $has_deny,
 		);
+	}
+
+	/**
+	 * Detect path configuration warnings for status page display.
+	 *
+	 * Scans all known legacy/new locations for tenants.php, config.php,
+	 * and directory structures. Returns warnings about duplicates, legacy
+	 * paths inside uploads/, and wp-config.php overrides.
+	 *
+	 * @since 1.0.8
+	 * @return array[] Each item: [ type, title, message, paths, active ]
+	 */
+	public static function get_path_confusion_warnings() {
+		$warnings    = array();
+		$content_dir = ABSPATH . ( defined( 'GRABWP_WORDPRESS_CONTENT_DIR' ) ? GRABWP_WORDPRESS_CONTENT_DIR : 'wp-content' );
+		$base        = defined( 'GRABWP_TENANCY_BASE_DIR' ) ? GRABWP_TENANCY_BASE_DIR : '';
+		$pro_base    = defined( 'GRABWP_TENANCY_PRO_BASE_DIR' ) ? GRABWP_TENANCY_PRO_BASE_DIR : '';
+
+		// --- Multiple tenants.php files ---
+		$tenants_candidates = array(
+			$content_dir . '/grabwp/tenants.php',
+			$content_dir . '/uploads/grabwp-tenancy/tenants.php',
+			$content_dir . '/grabwp-tenancy/tenants.php',
+			$base . '/tenants.php',
+		);
+		$tenants_found = array_filter( $tenants_candidates, 'file_exists' );
+		if ( count( $tenants_found ) > 1 ) {
+			$warnings[] = array(
+				'type'    => 'warning',
+				'title'   => __( 'Multiple tenants.php files detected', 'grabwp-tenancy' ),
+				'message' => __( 'Only one tenants.php is loaded at boot. Stale copies at other locations may cause confusion during debugging or migration. Remove unused copies.', 'grabwp-tenancy' ),
+				'paths'   => array_values( $tenants_found ),
+				'active'  => $base ? $base . '/tenants.php' : '',
+			);
+		}
+
+		// --- Multiple global config.php files (Pro) ---
+		$configs_candidates = array(
+			$content_dir . '/grabwp-tenancy-pro/config.php',
+			$content_dir . '/uploads/grabwp-tenancy-pro/config.php',
+			$pro_base . '/config.php',
+		);
+		$configs_found = array_filter( $configs_candidates, 'file_exists' );
+		if ( count( $configs_found ) > 1 ) {
+			// Determine the active config.php for Pro, with priority: $pro_base, then new, then legacy location.
+			if ( file_exists( $pro_base . '/config.php' ) && $pro_base ) {
+				$active_config = $pro_base . '/config.php';
+			} elseif ( file_exists( $content_dir . '/grabwp-tenancy-pro/config.php' ) ) {
+				$active_config = $content_dir . '/grabwp-tenancy-pro/config.php';
+			} elseif ( file_exists( $content_dir . '/uploads/grabwp-tenancy-pro/config.php' ) ) {
+				$active_config = $content_dir . '/uploads/grabwp-tenancy-pro/config.php';
+			} else {
+				$active_config = '';
+			}
+			$warnings[] = array(
+				'type'    => 'warning',
+				'title'   => __( 'Multiple global config.php files detected', 'grabwp-tenancy' ),
+				'message' => __( 'Pro global configuration exists at both new and legacy locations. Boot loads the new path first; changes saved to the other copy are silently ignored. Remove the unused copy.', 'grabwp-tenancy' ),
+				'paths'   => array_values( $configs_found ),
+				'active'  => $active_config,
+			);
+		}
+
+		// --- Base dir inside uploads/ (legacy v2) ---
+		if ( $base && $base === $content_dir . '/uploads/grabwp-tenancy' ) {
+			$warnings[] = array(
+				'type'    => 'warning',
+				'title'   => __( 'Data directory inside uploads/', 'grabwp-tenancy' ),
+				'message' => __( 'Tenant data is inside wp-content/uploads/ — exposed to media upload scanners, backup tools, and CDN sync. Recommended: wp-content/grabwp-tenancy/.', 'grabwp-tenancy' ),
+				'paths'   => array( $base ),
+			);
+		}
+
+		// --- Pro config dir inside uploads/ ---
+		if ( $pro_base && $pro_base === $content_dir . '/uploads/grabwp-tenancy-pro' ) {
+			$warnings[] = array(
+				'type'    => 'warning',
+				'title'   => __( 'Pro config directory inside uploads/', 'grabwp-tenancy' ),
+				'message' => __( 'Pro tenant configs are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-pro/.', 'grabwp-tenancy' ),
+				'paths'   => array( $pro_base ),
+			);
+		}
+
+		// --- SQLite dir inside uploads/ ---
+		$sqlite_dir = defined( 'GRABWP_TENANCY_SQLITE_DIR' ) ? GRABWP_TENANCY_SQLITE_DIR : '';
+		if ( $sqlite_dir && $sqlite_dir === $content_dir . '/uploads/grabwp-tenancy-sqlite' ) {
+			$warnings[] = array(
+				'type'    => 'warning',
+				'title'   => __( 'SQLite directory inside uploads/', 'grabwp-tenancy' ),
+				'message' => __( 'SQLite databases are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-sqlite/.', 'grabwp-tenancy' ),
+				'paths'   => array( $sqlite_dir ),
+			);
+		}
+
+		// --- wp-config.php overrides auto-detection ---
+		if ( defined( 'GRABWP_TENANCY_DIRS_FROM_WPCONFIG' ) && GRABWP_TENANCY_DIRS_FROM_WPCONFIG ) {
+			$override_paths = array();
+			if ( $base ) {
+				$override_paths[] = 'GRABWP_TENANCY_BASE_DIR = ' . $base;
+			}
+			if ( $pro_base ) {
+				$override_paths[] = 'GRABWP_TENANCY_PRO_BASE_DIR = ' . $pro_base;
+			}
+			if ( $sqlite_dir ) {
+				$override_paths[] = 'GRABWP_TENANCY_SQLITE_DIR = ' . $sqlite_dir;
+			}
+			$warnings[] = array(
+				'type'    => 'info',
+				'title'   => __( 'Directory paths hardcoded in wp-config.php', 'grabwp-tenancy' ),
+				'message' => __( 'Constants defined before load.php override all auto-detection and Pro admin directory settings.', 'grabwp-tenancy' ),
+				'paths'   => $override_paths,
+			);
+		}
+
+		// --- Multiple tenant-aliases.php files (Pro path routing) ---
+		$aliases_candidates = array(
+			$content_dir . '/grabwp/tenant-aliases.php',
+			$content_dir . '/uploads/grabwp-tenancy/tenant-aliases.php',
+			$content_dir . '/grabwp-tenancy/tenant-aliases.php',
+		);
+		$aliases_found = array_filter( $aliases_candidates, 'file_exists' );
+		if ( count( $aliases_found ) > 1 ) {
+			$warnings[] = array(
+				'type'    => 'warning',
+				'title'   => __( 'Multiple tenant-aliases.php files detected', 'grabwp-tenancy' ),
+				'message' => __( 'Only the copy at the active base directory is loaded. Remove stale copies to prevent confusion.', 'grabwp-tenancy' ),
+				'paths'   => array_values( $aliases_found ),
+				'active'  => $base ? $base . '/tenant-aliases.php' : '',
+			);
+		}
+
+		return $warnings;
 	}
 
 	/**

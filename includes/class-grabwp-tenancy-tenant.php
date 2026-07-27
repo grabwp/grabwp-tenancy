@@ -164,7 +164,24 @@ class GrabWP_Tenancy_Tenant {
 			return $protocol . '://' . reset( $real_domains );
 		}
 
-		return site_url( '/site/' . $this->id );
+		$slug = $this->get_path_slug();
+		return site_url( '/' . grabwp_tenancy_get_path_prefix() . '/' . $slug );
+	}
+
+	/**
+	 * Get the path slug for this tenant (alias if available, else ID).
+	 *
+	 * @since 1.8.0
+	 * @return string
+	 */
+	private function get_path_slug() {
+		if ( function_exists( 'grabwp_tenancy_pro_get_alias_for_tenant' ) ) {
+			$alias = grabwp_tenancy_pro_get_alias_for_tenant( $this->id );
+			if ( '' !== $alias ) {
+				return $alias;
+			}
+		}
+		return $this->id;
 	}
 
 	/**
@@ -260,7 +277,8 @@ class GrabWP_Tenancy_Tenant {
 		}
 
 		// Path-based routing fallback.
-		$path_url  = site_url( '/site/' . $this->id );
+		$slug      = $this->get_path_slug();
+		$path_url  = site_url( '/' . grabwp_tenancy_get_path_prefix() . '/' . $slug );
 		$admin_url = $path_url . '/wp-admin/';
 		$token     = self::generate_admin_token( $this->id );
 

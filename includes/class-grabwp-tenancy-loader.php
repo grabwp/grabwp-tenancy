@@ -45,13 +45,12 @@ class GrabWP_Tenancy_Loader {
 		if ( $this->plugin->is_tenant() ) {
 			add_action( 'init', array( $this, 'handle_admin_token' ), 5 );
 
-			// Fixes for path routing where REQUEST_URI is stripped of /site/{tenant_id}
+			// Fixes for path routing where REQUEST_URI is stripped of /{prefix}/{tenant_id}
 			if ( defined( 'GRABWP_TENANCY_ROUTING_METHOD' ) && 'path' === GRABWP_TENANCY_ROUTING_METHOD ) {
 				add_filter( 'wp_admin_canonical_url', array( $this, 'fix_tenant_admin_canonical_url' ) );
 
-				// redirect_canonical() compares WP_HOME (http://localhost/site/{id}) against the
-				// stripped REQUEST_URI (which has /site/{id} removed) and always finds a mismatch,
-				// causing an infinite 301 loop. Disable it entirely for path-routing tenants.
+				// redirect_canonical() compares WP_HOME against the stripped REQUEST_URI
+				// and always finds a mismatch, causing an infinite 301 loop.
 				add_filter( 'redirect_canonical', '__return_false' );
 
 				// Fix redirects that use the stripped REQUEST_URI (e.g. _wp_http_referer,
@@ -80,7 +79,7 @@ class GrabWP_Tenancy_Loader {
 
 		$server_info  = grabwp_tenancy_get_server_info();
 		$base         = $server_info['protocol'] . '://' . $server_info['host'];
-		$tenant_base  = $base . '/site/' . GRABWP_TENANCY_TENANT_ID;
+		$tenant_base  = $base . '/' . grabwp_tenancy_get_path_prefix() . '/' . grabwp_tenancy_get_tenant_path_slug();
 
 		// Replace the origin + /wp-admin prefix with the tenant-prefixed equivalent
 		if ( strpos( $url, $base . '/wp-admin' ) === 0 ) {
@@ -105,7 +104,7 @@ class GrabWP_Tenancy_Loader {
 			return $location;
 		}
 
-		$tenant_prefix = '/site/' . GRABWP_TENANCY_TENANT_ID;
+		$tenant_prefix = '/' . grabwp_tenancy_get_path_prefix() . '/' . grabwp_tenancy_get_tenant_path_slug();
 
 		// Only fix relative URLs or same-host absolute URLs that target wp-admin/wp-login
 		// and don't already have the tenant prefix
@@ -327,10 +326,10 @@ class GrabWP_Tenancy_Loader {
 		// Redirect to wp-admin to remove token from URL.
 		// For path routing, admin_url() returns the base domain URL (e.g. http://localhost/wp-admin/)
 		// which misses the tenant path prefix and loads the main site instead of the tenant.
-		// We must manually construct the tenant admin URL with /site/{tenant_id}/ prefix.
+		// We must manually construct the tenant admin URL with /{prefix}/{tenant_id}/ prefix.
 		if ( defined( 'GRABWP_TENANCY_ROUTING_METHOD' ) && 'path' === GRABWP_TENANCY_ROUTING_METHOD ) {
 			$server_info  = grabwp_tenancy_get_server_info();
-			$redirect_url = $server_info['protocol'] . '://' . $server_info['host'] . '/site/' . GRABWP_TENANCY_TENANT_ID . '/wp-admin/';
+			$redirect_url = $server_info['protocol'] . '://' . $server_info['host'] . '/' . grabwp_tenancy_get_path_prefix() . '/' . GRABWP_TENANCY_TENANT_ID . '/wp-admin/';
 			add_filter(
 				'allowed_redirect_hosts',
 				function ( $hosts ) use ( $server_info ) {

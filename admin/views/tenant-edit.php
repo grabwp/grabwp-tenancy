@@ -69,7 +69,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<tr>
 					<th scope="row"><?php esc_html_e( 'Path URL', 'grabwp-tenancy' ); ?></th>
 					<td>
-						<?php $grabwp_tenancy_path_url = site_url( '/site/' . $tenant->get_id() . '/' ); ?>
+						<?php $grabwp_tenancy_path_url = site_url( '/' . grabwp_tenancy_get_path_prefix() . '/' . $tenant->get_id() . '/' ); ?>
 						<code id="grabwp-path-url-value"><?php echo esc_html( $grabwp_tenancy_path_url ); ?></code>
 						<button type="button" class="button button-small grabwp-copy-path-url" data-copy-value="<?php echo esc_attr( $grabwp_tenancy_path_url ); ?>">
 							<?php esc_html_e( 'Copy', 'grabwp-tenancy' ); ?>
@@ -103,7 +103,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<button type="button" class="button grabwp-add-edit-domain grabwp-mt-sm">
 							<?php esc_html_e( 'Add New Domain', 'grabwp-tenancy' ); ?>
 						</button>
-						<p class="description"><?php esc_html_e( 'Domain mapping is optional. The path URL above is always available.', 'grabwp-tenancy' ); ?></p>
 						<p class="description"><?php esc_html_e( 'Valid format: example.com, subdomain.example.com (no http:// or www)', 'grabwp-tenancy' ); ?></p>
 					</td>
 				</tr>

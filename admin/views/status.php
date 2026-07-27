@@ -110,6 +110,35 @@ $grabwp_status_active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unsl
 		<?php endif; ?>
 
 		<?php
+		// Path confusion warnings (only on status page).
+		$grabwp_status_path_warnings = GrabWP_Tenancy_Status_Checker::get_path_confusion_warnings();
+		if ( ! empty( $grabwp_status_path_warnings ) ) :
+			foreach ( $grabwp_status_path_warnings as $grabwp_warning ) :
+				$grabwp_notice_class = ( 'info' === $grabwp_warning['type'] ) ? 'notice-info' : 'notice-warning';
+				$grabwp_icon         = ( 'info' === $grabwp_warning['type'] ) ? 'ℹ' : '⚠';
+				?>
+		<div class="notice <?php echo esc_attr( $grabwp_notice_class ); ?>" style="margin: 10px 0; padding: 10px 14px;">
+			<p style="margin: 0 0 4px;"><strong><?php echo esc_html( $grabwp_icon . ' ' . $grabwp_warning['title'] ); ?></strong></p>
+			<p style="margin: 0 0 6px; color: #50575e; font-size: 13px;"><?php echo esc_html( $grabwp_warning['message'] ); ?></p>
+			<?php if ( ! empty( $grabwp_warning['paths'] ) ) : ?>
+			<ul style="margin: 0; padding-left: 18px; font-size: 12px; color: #50575e;">
+				<?php foreach ( $grabwp_warning['paths'] as $grabwp_path ) : ?>
+				<li>
+					<code style="font-size: 11px;"><?php echo esc_html( $grabwp_path ); ?></code>
+					<?php if ( ! empty( $grabwp_warning['active'] ) && $grabwp_path === $grabwp_warning['active'] ) : ?>
+						<span style="color: #46b450; font-size: 11px;"><?php esc_html_e( '← active', 'grabwp-tenancy' ); ?></span>
+					<?php endif; ?>
+				</li>
+				<?php endforeach; ?>
+			</ul>
+			<?php endif; ?>
+		</div>
+				<?php
+			endforeach;
+		endif;
+		?>
+
+		<?php
 		if ( 'general' === $grabwp_status_active_tab ) {
 			include __DIR__ . '/status-general.php';
 		} elseif ( 'base' === $grabwp_status_active_tab ) {

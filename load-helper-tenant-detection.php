@@ -71,7 +71,19 @@ function grabwp_tenancy_identify_tenant_from_domain( $domain, $mappings ) {
 }
 
 /**
- * Identify tenant from URL path (/site/[tenant-id]).
+ * Get the path routing prefix slug (e.g. 'site', 'u', 'web').
+ *
+ * Pro plugin defines GRABWP_TENANCY_PATH_PREFIX via config; base falls back to 'site'.
+ *
+ * @since 1.4.0
+ * @return string Prefix slug without slashes.
+ */
+function grabwp_tenancy_get_path_prefix() {
+	return defined( 'GRABWP_TENANCY_PATH_PREFIX' ) ? GRABWP_TENANCY_PATH_PREFIX : 'site';
+}
+
+/**
+ * Identify tenant from URL path (/{prefix}/[tenant-id]).
  *
  * @return string|false Tenant ID or false.
  */
@@ -84,7 +96,8 @@ function grabwp_tenancy_identify_tenant_from_path() {
 	$raw_uri = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
 	$uri     = grabwp_tenancy_sanitize_text_field( grabwp_tenancy_wp_unslash( $raw_uri ) );
 
-	if ( ! preg_match( '#^/site/([a-z0-9]{6})(/|$)#', $uri, $matches ) ) {
+	$prefix = grabwp_tenancy_get_path_prefix();
+	if ( ! preg_match( '#^/' . preg_quote( $prefix, '#' ) . '/([a-z0-9]{6})(/|$)#', $uri, $matches ) ) {
 		return false;
 	}
 
@@ -103,6 +116,27 @@ function grabwp_tenancy_identify_tenant_from_path() {
 	}
 
 	return $tenant_id;
+}
+
+/**
+ * Get the slug currently used in the URL path for the active tenant.
+ *
+ * Returns the alias when GRABWP_TENANCY_TENANT_ALIAS is defined (Pro alias
+ * routing matched), otherwise falls back to the tenant ID.
+ *
+ * @since 1.8.0
+ * @return string Path slug (alias or tenant ID), or empty string if no tenant context.
+ */
+function grabwp_tenancy_get_tenant_path_slug() {
+	if ( defined( 'GRABWP_TENANCY_TENANT_ALIAS' ) && '' !== GRABWP_TENANCY_TENANT_ALIAS ) {
+		return GRABWP_TENANCY_TENANT_ALIAS;
+	}
+
+	if ( defined( 'GRABWP_TENANCY_TENANT_ID' ) ) {
+		return GRABWP_TENANCY_TENANT_ID;
+	}
+
+	return '';
 }
 
 /**

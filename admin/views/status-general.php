@@ -142,7 +142,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php if ( ! ( $grabwp_status_htaccess['has_block'] && $grabwp_status_htaccess['block_positioned'] && $grabwp_status_htaccess['content_valid'] ) ) : ?>
 		<p style="margin: 6px 0 4px; color: #50575e; font-size: 13px;">
-			<?php esc_html_e( 'These Apache rewrite rules convert clean URLs like /site/abc123/wp-admin into internal WordPress requests with a ?site=abc123 parameter. This is how path-based tenant routing works.', 'grabwp-tenancy' ); ?>
+			<?php
+			$grabwp_status_prefix = grabwp_tenancy_get_path_prefix();
+			printf(
+				esc_html__( 'These Apache rewrite rules convert clean URLs like /%s/abc123/wp-admin into internal WordPress requests with a ?site=abc123 parameter. This is how path-based tenant routing works.', 'grabwp-tenancy' ),
+				esc_html( $grabwp_status_prefix )
+			);
+			?>
 		</p>
 		<p style="margin: 2px 0 8px; color: #787c82; font-size: 12px;">
 			<?php printf( esc_html__( 'File: %s — must appear BEFORE "# BEGIN WordPress"', 'grabwp-tenancy' ), '<code>' . esc_html( $grabwp_status_htaccess['path'] ) . '</code>' ); ?>
@@ -151,8 +157,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<pre style="background: #1d2327; color: #50c878; padding: 10px; overflow-x: auto; font-size: 12px; border-radius: 3px; margin: 0;"># BEGIN GrabWP Tenancy
 &lt;IfModule mod_rewrite.c&gt;
 RewriteEngine On
-RewriteRule ^site/([a-z0-9]{6})/?$ /index.php?site=$1 [QSA,L]
-RewriteRule ^site/([a-z0-9]{6})/(.+)$ /$2?site=$1 [QSA,L,NE]
+# Tenant homepage: /<?php echo esc_html( $grabwp_status_prefix ); ?>/{tenant-id-or-alias}[/] → WordPress front-end with site param
+RewriteRule ^<?php echo esc_html( $grabwp_status_prefix ); ?>/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)/?$ /index.php?site=$1 [QSA,L]
+# Tenant sub-paths (wp-admin, wp-login, pages, etc.): strip prefix, pass site param
+RewriteRule ^<?php echo esc_html( $grabwp_status_prefix ); ?>/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)/(.+)$ /$2?site=$1 [QSA,L,NE]
 &lt;/IfModule&gt;
 # END GrabWP Tenancy</pre>
 			<div style="margin-top: 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
@@ -343,7 +351,7 @@ Options -Indexes
 					<span style="color: #46b450;"><?php esc_html_e( '✓ Loaded', 'grabwp-tenancy' ); ?></span>
 				<?php elseif ( false === $grabwp_status_server['mod_rewrite'] ) : ?>
 					<span style="color: #dc3232;"><?php esc_html_e( '✗ Not loaded', 'grabwp-tenancy' ); ?></span>
-					<br><small><?php esc_html_e( 'Path routing (/site/id) requires mod_rewrite. Query string routing (?site=id) will be used as fallback.', 'grabwp-tenancy' ); ?></small>
+					<br><small><?php esc_html_e( 'Path routing requires mod_rewrite. Query string routing (?site=id) will be used as fallback.', 'grabwp-tenancy' ); ?></small>
 				<?php else : ?>
 					<span style="color: #999;"><?php esc_html_e( '— Cannot detect (apache_get_modules unavailable)', 'grabwp-tenancy' ); ?></span>
 				<?php endif; ?>

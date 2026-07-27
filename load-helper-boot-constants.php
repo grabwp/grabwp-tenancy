@@ -34,7 +34,11 @@ function grabwp_tenancy_boot_define_routing_constants( $server_info ) {
 	$base_url = $server_info['protocol'] . '://' . $server_info['host'];
 
 	if ( defined( 'GRABWP_TENANCY_ROUTING_METHOD' ) && in_array( GRABWP_TENANCY_ROUTING_METHOD, array( 'path', 'query' ), true ) ) {
-		$tenant_path = defined( 'GRABWP_TENANCY_TENANT_ID' ) ? '/site/' . GRABWP_TENANCY_TENANT_ID : '';
+		$path_prefix = function_exists( 'grabwp_tenancy_get_path_prefix' ) ? grabwp_tenancy_get_path_prefix() : 'site';
+		$path_slug   = function_exists( 'grabwp_tenancy_get_tenant_path_slug' )
+			? grabwp_tenancy_get_tenant_path_slug()
+			: ( defined( 'GRABWP_TENANCY_TENANT_ID' ) ? GRABWP_TENANCY_TENANT_ID : '' );
+		$tenant_path = ! empty( $path_slug ) ? '/' . $path_prefix . '/' . $path_slug : '';
 		$site_url    = $base_url . $tenant_path;
 
 		if ( ! defined( 'WP_SITEURL' ) ) {

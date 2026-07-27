@@ -86,7 +86,11 @@ class GrabWP_Tenancy_Admin_Notice {
 					$grabwp_pos = strpos( $root_htaccess_content, '# BEGIN GrabWP Tenancy' );
 					$wp_pos     = strpos( $root_htaccess_content, '# BEGIN WordPress' );
 
-					$has_rewrite_rule = false !== strpos( $root_htaccess_content, 'RewriteRule ^site/([a-z0-9]{6})/?$ /index.php?site=$1 [QSA,L]' );
+					$prefix           = grabwp_tenancy_get_path_prefix();
+					$has_rewrite_rule = (
+						false !== strpos( $root_htaccess_content, 'RewriteRule ^' . $prefix . '/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)/?$ /index.php?site=$1 [QSA,L]' )
+						|| false !== strpos( $root_htaccess_content, 'RewriteRule ^' . $prefix . '/([a-z0-9]{6})/?$ /index.php?site=$1 [QSA,L]' )
+					);
 
 					if ( false === $grabwp_pos || ! $has_rewrite_rule || ( false !== $wp_pos && $grabwp_pos > $wp_pos ) ) {
 						$htaccess_needs_fix = true;

@@ -232,6 +232,35 @@ final class GrabWP_Tenancy {
 			add_action( 'admin_menu', array( $this, 'remove_tenant_admin_menus' ), 999 );
 			add_action( 'admin_bar_menu', array( $this, 'remove_tenant_admin_bar_nodes' ), 999 );
 		}
+
+		// DISABLE_WP_CRON — tenants use system cron or main-site scheduler.
+		if ( ! defined( 'DISABLE_WP_CRON' ) ) {
+			define( 'DISABLE_WP_CRON', $settings->get( 'disable_wp_cron' ) );
+		}
+
+		// XML-RPC — block entirely to reduce attack surface.
+		if ( $settings->get( 'disable_xmlrpc' ) ) {
+			add_filter( 'xmlrpc_enabled', '__return_false' );
+		}
+
+		// WP_POST_REVISIONS — limit stored revisions.
+		if ( ! defined( 'WP_POST_REVISIONS' ) ) {
+			define( 'WP_POST_REVISIONS', (int) $settings->get( 'wp_post_revisions' ) );
+		}
+
+		// EMPTY_TRASH_DAYS — auto-empty trash sooner.
+		if ( ! defined( 'EMPTY_TRASH_DAYS' ) ) {
+			define( 'EMPTY_TRASH_DAYS', (int) $settings->get( 'empty_trash_days' ) );
+		}
+
+		// WP_HTTP_BLOCK_EXTERNAL — opt-in external request blocking.
+		if ( ! defined( 'WP_HTTP_BLOCK_EXTERNAL' ) ) {
+			define( 'WP_HTTP_BLOCK_EXTERNAL', $settings->get( 'wp_http_block_external' ) );
+		}
+
+		if ( ! defined( 'WP_ACCESSIBLE_HOSTS' ) && $settings->get( 'wp_http_block_external' ) ) {
+			define( 'WP_ACCESSIBLE_HOSTS', $settings->get( 'wp_accessible_hosts' ) );
+		}
 	}
 
 	/**
@@ -287,7 +316,7 @@ final class GrabWP_Tenancy {
 		$this->init_admin();
 		GrabWP_Tenancy_Admin_Notice::register();
 
-		// Register /site/[tenant-id] URL path routing
+		// Register /{prefix}/[tenant-id] URL path routing
 		add_action( 'init', array( $this, 'register_site_rewrite_rules' ) );
 		add_filter( 'query_vars', array( $this, 'register_site_query_vars' ) );
 
@@ -296,15 +325,16 @@ final class GrabWP_Tenancy {
 	}
 
 	/**
-	 * Register rewrite rule for /site/[tenant-id] path routing.
+	 * Register rewrite rule for /{prefix}/[tenant-id] path routing.
 	 * WordPress writes this to .htaccess automatically on flush_rewrite_rules().
 	 * Fallback: use ?site=[tenant-id] when mod_rewrite is unavailable.
 	 *
 	 * @since 1.1.0
 	 */
 	public function register_site_rewrite_rules() {
+		$prefix = grabwp_tenancy_get_path_prefix();
 		add_rewrite_rule(
-			'^site/([a-z0-9]{6})(/.*)?$',
+			'^' . preg_quote( $prefix, '/' ) . '/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)(/.*)?$',
 			'index.php?site=$matches[1]',
 			'top'
 		);
@@ -387,6 +417,9 @@ final class GrabWP_Tenancy {
 		if ( isset( $plugins[ $pro_plugin_file ] ) ) {
 			unset( $plugins[ $pro_plugin_file ] );
 		}
+
+		// Hide SQLite plugin — accidental activate/deactivate breaks all SQLite-backed sites
+		unset( $plugins['sqlite-database-integration/load.php'] );
 
 		return $plugins;
 	}

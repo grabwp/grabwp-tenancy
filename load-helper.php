@@ -60,13 +60,19 @@ if ( ! defined( 'GRABWP_TENANCY_BASE_DIR' ) ) {
 		return;
 	}
 
-	if ( file_exists( ABSPATH . 'wp-content/grabwp/tenants.php' ) ) {
-		define( 'GRABWP_TENANCY_BASE_DIR', ABSPATH . 'wp-content/grabwp' );
-	} elseif ( is_dir( ABSPATH . 'wp-content/uploads/grabwp-tenancy' ) ) {
-		define( 'GRABWP_TENANCY_BASE_DIR', ABSPATH . 'wp-content/uploads/grabwp-tenancy' );
+	$_gw_content = ABSPATH . ( defined( 'GRABWP_WORDPRESS_CONTENT_DIR' ) ? GRABWP_WORDPRESS_CONTENT_DIR : 'wp-content' );
+
+	if ( file_exists( $_gw_content . '/grabwp/tenants.php' ) ) {
+		define( 'GRABWP_TENANCY_BASE_DIR', $_gw_content . '/grabwp' );
+	} elseif ( file_exists( $_gw_content . '/grabwp-tenancy/tenants.php' ) ) {
+		define( 'GRABWP_TENANCY_BASE_DIR', $_gw_content . '/grabwp-tenancy' );
+	} elseif ( is_dir( $_gw_content . '/uploads/grabwp-tenancy' ) ) {
+		define( 'GRABWP_TENANCY_BASE_DIR', $_gw_content . '/uploads/grabwp-tenancy' );
 	} else {
-		define( 'GRABWP_TENANCY_BASE_DIR', ABSPATH . 'wp-content/grabwp-tenancy' );
+		define( 'GRABWP_TENANCY_BASE_DIR', $_gw_content . '/grabwp-tenancy' );
 	}
+
+	unset( $_gw_content );
 	define( 'GRABWP_TENANCY_DIRS_FROM_PLUGIN', true );
 }
 

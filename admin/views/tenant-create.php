@@ -90,7 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<div id="grabwp-no-domain-section" class="grabwp-path-url-info hidden">
 									<p>
 										<strong><?php esc_html_e( 'Your site will be accessible at:', 'grabwp-tenancy' ); ?></strong><br />
-										<code><?php echo esc_html( site_url( '/site/{tenant-id}/' ) ); ?></code>
+										<code><?php echo esc_html( site_url( '/' . grabwp_tenancy_get_path_prefix() . '/{tenant-id}/' ) ); ?></code>
 									</p>
 									<p class="description"><?php esc_html_e( 'You can add a domain anytime from the tenant edit page.', 'grabwp-tenancy' ); ?></p>
 								</div>

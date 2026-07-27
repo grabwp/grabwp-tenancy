@@ -73,11 +73,31 @@ class GrabWP_Tenancy_Settings {
 	 */
 	public static function get_defaults() {
 		return array(
-			'disallow_file_mods' => true,
-			'disallow_file_edit' => true,
-			'hide_plugin_management'     => false,
-			'hide_theme_management'      => false,
-			'hide_grabwp_plugins'        => true,
+			'disallow_file_mods'       => true,
+			'disallow_file_edit'       => true,
+			'hide_plugin_management'   => false,
+			'hide_theme_management'    => false,
+			'hide_grabwp_plugins'      => true,
+			'disable_wp_cron'          => true,
+			'disable_xmlrpc'           => true,
+			'wp_post_revisions'        => 3,
+			'empty_trash_days'         => 7,
+			'wp_http_block_external'   => false,
+			'wp_accessible_hosts'      => '*.wordpress.org,*.grabwp.com',
+		);
+	}
+
+	/**
+	 * Setting type map. Keys not listed here are boolean.
+	 *
+	 * @since  1.1.3
+	 * @return array
+	 */
+	private static function get_setting_types() {
+		return array(
+			'wp_post_revisions'  => 'int',
+			'empty_trash_days'   => 'int',
+			'wp_accessible_hosts' => 'string',
 		);
 	}
 
@@ -156,18 +176,25 @@ class GrabWP_Tenancy_Settings {
 	/**
 	 * Sanitize settings values.
 	 *
-	 * All current settings are boolean checkboxes.
-	 *
 	 * @since  1.1.0
 	 * @param  array $raw_settings Raw input from form submission.
 	 * @return array Sanitized settings.
 	 */
 	public function sanitize_settings( $raw_settings ) {
 		$defaults  = self::get_defaults();
+		$types     = self::get_setting_types();
 		$sanitized = array();
 
 		foreach ( array_keys( $defaults ) as $key ) {
-			$sanitized[ $key ] = ! empty( $raw_settings[ $key ] );
+			$type = isset( $types[ $key ] ) ? $types[ $key ] : 'bool';
+
+			if ( 'int' === $type ) {
+				$sanitized[ $key ] = isset( $raw_settings[ $key ] ) ? absint( $raw_settings[ $key ] ) : $defaults[ $key ];
+			} elseif ( 'string' === $type ) {
+				$sanitized[ $key ] = isset( $raw_settings[ $key ] ) ? sanitize_text_field( wp_unslash( $raw_settings[ $key ] ) ) : $defaults[ $key ];
+			} else {
+				$sanitized[ $key ] = ! empty( $raw_settings[ $key ] );
+			}
 		}
 
 		return $sanitized;
@@ -189,7 +216,13 @@ class GrabWP_Tenancy_Settings {
 		$content .= '$grabwp_tenancy_settings = array(' . "\n";
 
 		foreach ( $sanitized as $key => $value ) {
-			$export   = $value ? 'true' : 'false';
+			if ( is_bool( $value ) ) {
+				$export = $value ? 'true' : 'false';
+			} elseif ( is_int( $value ) ) {
+				$export = (string) $value;
+			} else {
+				$export = "'" . addslashes( $value ) . "'";
+			}
 			$content .= "\t'" . $key . "' => " . $export . ",\n";
 		}
 

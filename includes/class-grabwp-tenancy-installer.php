@@ -321,7 +321,7 @@ class GrabWP_Tenancy_Installer {
 	// =========================================================================
 
 	/**
-	 * Write /site/[tenant-id] rewrite rules into the WordPress root .htaccess.
+	 * Write /{prefix}/[tenant-id] rewrite rules into the WordPress root .htaccess.
 	 *
 	 * CRITICAL: These rules MUST appear BEFORE the WordPress rewrite block,
 	 * otherwise WordPress's catch-all `RewriteRule . /index.php [L]` matches
@@ -333,8 +333,9 @@ class GrabWP_Tenancy_Installer {
 	 *
 	 * @since 1.1.0
 	 */
-	public static function add_site_path_rewrite_rules() {
+	public static function add_site_path_rewrite_rules( $prefix = '' ) {
 		$htaccess_file = ABSPATH . '.htaccess';
+		$prefix        = '' !== $prefix ? $prefix : grabwp_tenancy_get_path_prefix();
 
 		if ( ! function_exists( 'insert_with_markers' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/misc.php';
@@ -343,10 +344,10 @@ class GrabWP_Tenancy_Installer {
 		$rules = array(
 			'<IfModule mod_rewrite.c>',
 			'RewriteEngine On',
-			'# Tenant homepage: /site/{tenant-id}[/] → WordPress front-end with site param',
-			'RewriteRule ^site/([a-z0-9]{6})/?$ /index.php?site=$1 [QSA,L]',
+			'# Tenant homepage: /' . $prefix . '/{tenant-id-or-alias}[/] → WordPress front-end with site param',
+			'RewriteRule ^' . $prefix . '/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)/?$ /index.php?site=$1 [QSA,L]',
 			'# Tenant sub-paths (wp-admin, wp-login, pages, etc.): strip prefix, pass site param',
-			'RewriteRule ^site/([a-z0-9]{6})/(.+)$ /$2?site=$1 [QSA,L,NE]',
+			'RewriteRule ^' . $prefix . '/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)/(.+)$ /$2?site=$1 [QSA,L,NE]',
 			'</IfModule>',
 		);
 
@@ -355,7 +356,7 @@ class GrabWP_Tenancy_Installer {
 	}
 
 	/**
-	 * Remove /site/[tenant-id] rewrite rules from .htaccess on deactivation.
+	 * Remove path routing rewrite rules from .htaccess on deactivation.
 	 *
 	 * @since 1.1.0
 	 */
