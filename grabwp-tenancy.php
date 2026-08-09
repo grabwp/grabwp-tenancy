@@ -3,7 +3,7 @@
  * Plugin Name: GrabWP Tenancy
  * Plugin URI: https://grabwp.com/tenancy
  * Description: Foundation multi-tenant WordPress solution with shared MySQL database and separated uploads. Designed to be extended by GrabWP Tenancy Pro for advanced features.
- * Version: 1.1.4
+ * Version: 1.1.5
  * Author: GrabWP
  * Author URI: https://grabwp.com
  * License: GPLv2 or later

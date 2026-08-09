@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,12 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.5 =
+- New: "Upgrade to Pro" admin page with a free-vs-Pro feature comparison and a call-to-action button, shown only when GrabWP Tenancy Pro is not active
+- New: Contextual Pro upsell cards across the tenant, settings, and status screens, plus an "Upgrade to Pro" link on the Plugins page and in the admin footer, all suppressed automatically once Pro is installed
+- Fix: load-helper.php is now loaded as a fallback during bootstrap when wp-config.php does not include load.php, preventing missing early-boot helpers
+- Fix: Status page no longer lists the same tenants.php, config.php, or tenant-aliases.php path twice when candidate locations resolve to the same file
 
 = 1.1.4 =
 - New: Performance & Security settings tab applies per-tenant constants: `DISABLE_WP_CRON`, XML-RPC off, `WP_POST_REVISIONS`, `EMPTY_TRASH_DAYS`, and `WP_HTTP_BLOCK_EXTERNAL` with a `WP_ACCESSIBLE_HOSTS` allowlist
