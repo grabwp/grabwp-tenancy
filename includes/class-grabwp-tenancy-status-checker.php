@@ -171,13 +171,13 @@ class GrabWP_Tenancy_Status_Checker {
 			$content_dir . '/grabwp-tenancy/tenants.php',
 			$base . '/tenants.php',
 		);
-		$tenants_found = array_filter( $tenants_candidates, 'file_exists' );
+		$tenants_found = array_values( array_unique( array_filter( $tenants_candidates, 'file_exists' ) ) );
 		if ( count( $tenants_found ) > 1 ) {
 			$warnings[] = array(
 				'type'    => 'warning',
 				'title'   => __( 'Multiple tenants.php files detected', 'grabwp-tenancy' ),
 				'message' => __( 'Only one tenants.php is loaded at boot. Stale copies at other locations may cause confusion during debugging or migration. Remove unused copies.', 'grabwp-tenancy' ),
-				'paths'   => array_values( $tenants_found ),
+				'paths'   => $tenants_found,
 				'active'  => $base ? $base . '/tenants.php' : '',
 			);
 		}
@@ -188,7 +188,7 @@ class GrabWP_Tenancy_Status_Checker {
 			$content_dir . '/uploads/grabwp-tenancy-pro/config.php',
 			$pro_base . '/config.php',
 		);
-		$configs_found = array_filter( $configs_candidates, 'file_exists' );
+		$configs_found = array_values( array_unique( array_filter( $configs_candidates, 'file_exists' ) ) );
 		if ( count( $configs_found ) > 1 ) {
 			// Determine the active config.php for Pro, with priority: $pro_base, then new, then legacy location.
 			if ( file_exists( $pro_base . '/config.php' ) && $pro_base ) {
@@ -204,7 +204,7 @@ class GrabWP_Tenancy_Status_Checker {
 				'type'    => 'warning',
 				'title'   => __( 'Multiple global config.php files detected', 'grabwp-tenancy' ),
 				'message' => __( 'Pro global configuration exists at both new and legacy locations. Boot loads the new path first; changes saved to the other copy are silently ignored. Remove the unused copy.', 'grabwp-tenancy' ),
-				'paths'   => array_values( $configs_found ),
+				'paths'   => $configs_found,
 				'active'  => $active_config,
 			);
 		}
@@ -266,13 +266,13 @@ class GrabWP_Tenancy_Status_Checker {
 			$content_dir . '/uploads/grabwp-tenancy/tenant-aliases.php',
 			$content_dir . '/grabwp-tenancy/tenant-aliases.php',
 		);
-		$aliases_found = array_filter( $aliases_candidates, 'file_exists' );
+		$aliases_found = array_values( array_unique( array_filter( $aliases_candidates, 'file_exists' ) ) );
 		if ( count( $aliases_found ) > 1 ) {
 			$warnings[] = array(
 				'type'    => 'warning',
 				'title'   => __( 'Multiple tenant-aliases.php files detected', 'grabwp-tenancy' ),
 				'message' => __( 'Only the copy at the active base directory is loaded. Remove stale copies to prevent confusion.', 'grabwp-tenancy' ),
-				'paths'   => array_values( $aliases_found ),
+				'paths'   => $aliases_found,
 				'active'  => $base ? $base . '/tenant-aliases.php' : '',
 			);
 		}

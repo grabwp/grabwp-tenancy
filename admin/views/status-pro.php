@@ -20,17 +20,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php if ( ! $grabwp_status_is_pro ) : ?>
 
-<div class="grabwp-tenancy-form" style="text-align: center; padding: 40px 20px;">
-	<h3><?php esc_html_e( 'GrabWP Tenancy Pro', 'grabwp-tenancy' ); ?></h3>
-	<p style="font-size: 14px; color: #666; max-width: 500px; margin: 10px auto;">
-		<?php esc_html_e( 'Upgrade to GrabWP Tenancy Pro for advanced features including complete content isolation, separate databases per tenant, and enhanced management capabilities.', 'grabwp-tenancy' ); ?>
-	</p>
-	<p>
-		<a href="https://grabwp.com/pro" target="_blank" class="button button-primary button-hero">
-			<?php esc_html_e( 'Upgrade to Pro', 'grabwp-tenancy' ); ?>
-		</a>
-	</p>
-</div>
+<?php
+GrabWP_Tenancy_Admin::render_upsell_card(
+	array(
+		'utm_content' => 'status-pro-tab',
+		'title'       => __( 'GrabWP Tenancy Pro', 'grabwp-tenancy' ),
+		'message'     => __( 'Upgrade to GrabWP Tenancy Pro for advanced features including complete content isolation, separate databases per tenant, and enhanced management capabilities.', 'grabwp-tenancy' ),
+		'cta_label'   => __( 'Upgrade to Pro', 'grabwp-tenancy' ),
+		'margin'      => 'grabwp-mt-md',
+	)
+);
+?>
 
 <?php else : ?>
 

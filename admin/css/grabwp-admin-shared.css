@@ -13,6 +13,16 @@
 .grabwp-text-error   { color: #d63638; }
 .grabwp-text-warning { color: #dba617; }
 .grabwp-text-muted   { color: #646970; }
+.grabwp-text-center  { text-align: center; }
+.grabwp-cta-gradient { background: linear-gradient(135deg, #f0b505, hsl(26, 100%, 50%)) !important;}
+
+/* Visibility */
+.grabwp-hidden { display: none; }
+
+/* Clone choice cards */
+.grabwp-clone-choice-btn { display: flex; flex-direction: column; align-items: center; padding: 16px 24px; text-decoration: none; }
+.grabwp-clone-choice-icon { font-size: 24px; width: 24px; height: 24px; margin-bottom: 6px; }
+.grabwp-clone-target-table { max-width: 500px; }
 
 /* Spacing utilities */
 .grabwp-ml-sm  { margin-left: 10px; }

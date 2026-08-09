@@ -54,4 +54,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		do_action( 'grabwp_tenancy_after_tenant_list' );
 		?>
 	</div>
-</div> 
+
+	<?php
+	GrabWP_Tenancy_Admin::render_upsell_card(
+		array(
+			'utm_content' => 'tenants-list',
+			'title'       => __( 'Need more isolation?', 'grabwp-tenancy' ),
+			'message'     => __( 'GrabWP Tenancy Pro supports plugin & theme management,  seperated MySQL or SQLite, scheduled backups, cloud storage offload, and customization options for every client site.', 'grabwp-tenancy' ),
+			'cta_label'   => __( 'Learn about Pro', 'grabwp-tenancy' ),
+			'margin'      => 'grabwp-mt-md',
+		)
+	);
+	?>
+</div>

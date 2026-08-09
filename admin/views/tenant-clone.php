@@ -55,24 +55,24 @@ $create_new_url = add_query_arg( [
 	</p>
 
 	<!-- Clone target choice (hidden when auto_target is set from redirect) -->
-	<div id="grabwp-clone-choice" <?php echo $auto_target ? 'style="display:none;"' : ''; ?>>
+	<div id="grabwp-clone-choice" <?php echo $auto_target ? 'class="grabwp-hidden"' : ''; ?>>
 		<h3><?php esc_html_e( 'Choose clone target:', 'grabwp-tenancy' ); ?></h3>
-		<div style="display:flex; gap:16px; margin:16px 0;">
-			<button type="button" id="clone-to-existing-btn" class="button" style="display:flex; flex-direction:column; align-items:center; padding:16px 24px;">
-				<span class="dashicons dashicons-admin-page" style="font-size:24px; width:24px; height:24px; margin-bottom:6px;"></span>
+		<div class="grabwp-flex grabwp-flex-wrap">
+			<button type="button" id="clone-to-existing-btn" class="button grabwp-clone-choice-btn">
+				<span class="dashicons dashicons-admin-page grabwp-clone-choice-icon"></span>
 				<?php esc_html_e( 'Clone to existing site', 'grabwp-tenancy' ); ?>
 			</button>
-			<a href="<?php echo esc_url( $create_new_url ); ?>" class="button" style="display:flex; flex-direction:column; align-items:center; padding:16px 24px; text-decoration:none;">
-				<span class="dashicons dashicons-plus-alt" style="font-size:24px; width:24px; height:24px; margin-bottom:6px;"></span>
+			<a href="<?php echo esc_url( $create_new_url ); ?>" class="button grabwp-clone-choice-btn">
+				<span class="dashicons dashicons-plus-alt grabwp-clone-choice-icon"></span>
 				<?php esc_html_e( 'Clone to new site', 'grabwp-tenancy' ); ?>
 			</a>
 		</div>
 	</div>
 
-	<div id="grabwp-clone-notice" style="display:none;" class="notice notice-error inline"><p></p></div>
+	<div id="grabwp-clone-notice" class="notice notice-error inline grabwp-hidden"><p></p></div>
 
 	<!-- Clone form (hidden until "Clone to existing" is clicked, or shown directly when auto_target set) -->
-	<div id="grabwp-clone-form-section" <?php echo $auto_target ? '' : 'style="display:none;"'; ?>>
+	<div id="grabwp-clone-form-section" <?php echo $auto_target ? '' : 'class="grabwp-hidden"'; ?>>
 		<form id="grabwp-clone-form" method="post">
 			<input type="hidden" name="source_tenant_id" value="<?php echo esc_attr( $tenant_id ); ?>" />
 			<table class="form-table">
@@ -86,15 +86,15 @@ $create_new_url = add_query_arg( [
 						</select>
 						<p class="description"><?php esc_html_e( 'Select an existing tenant to clone data into. Create the target tenant first if needed.', 'grabwp-tenancy' ); ?></p>
 
-						<div id="clone-target-info" style="margin-top: 10px; display: none;">
-							<table style="max-width: 500px;">
+						<div id="clone-target-info" class="grabwp-mt-sm grabwp-hidden">
+							<table class="grabwp-clone-target-table">
 								<tr><th><?php esc_html_e( 'Tenant ID', 'grabwp-tenancy' ); ?></th><td id="target-info-id">—</td></tr>
 								<tr><th><?php esc_html_e( 'Domains', 'grabwp-tenancy' ); ?></th><td id="target-info-domains">—</td></tr>
 								<tr><th><?php esc_html_e( 'Database Type', 'grabwp-tenancy' ); ?></th><td><?php esc_html_e( 'Shared MySQL', 'grabwp-tenancy' ); ?></td></tr>
 							</table>
 						</div>
 
-						<div class="notice notice-warning inline" style="margin-top: 10px;">
+						<div class="notice notice-warning inline grabwp-mt-sm">
 							<p><strong><?php esc_html_e( 'Warning:', 'grabwp-tenancy' ); ?></strong>
 							<?php esc_html_e( 'This will overwrite all data in the target tenant (database, uploads). This action cannot be undone.', 'grabwp-tenancy' ); ?></p>
 						</div>
@@ -106,7 +106,7 @@ $create_new_url = add_query_arg( [
 				<button type="submit" id="clone-submit-btn" class="button button-primary" disabled>
 					<?php esc_html_e( 'Clone Tenant', 'grabwp-tenancy' ); ?>
 				</button>
-				<a href="<?php echo esc_url( admin_url( 'admin.php?page=grabwp-tenancy' ) ); ?>" class="button" style="margin-left: 10px;">
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=grabwp-tenancy' ) ); ?>" class="button grabwp-ml-sm">
 					<?php esc_html_e( 'Cancel', 'grabwp-tenancy' ); ?>
 				</a>
 			</p>
@@ -114,7 +114,7 @@ $create_new_url = add_query_arg( [
 	</div>
 
 	<!-- Step progress list -->
-	<ul id="grabwp-clone-steps" class="grabwp-clone-step-list" style="display:none;">
+	<ul id="grabwp-clone-steps" class="grabwp-clone-step-list grabwp-hidden">
 		<?php foreach ( $clone_steps as $num => $label ) : ?>
 			<li data-step="<?php echo esc_attr( $num ); ?>" class="grabwp-clone-step grabwp-clone-step--pending">
 				<span class="grabwp-clone-step-icon dashicons dashicons-marker"></span>
@@ -125,7 +125,7 @@ $create_new_url = add_query_arg( [
 	</ul>
 
 	<!-- Success section -->
-	<div id="grabwp-clone-success" style="display:none;">
+	<div id="grabwp-clone-success" class="grabwp-hidden">
 		<div class="notice notice-success inline">
 			<p>
 				<strong><?php esc_html_e( 'Clone complete!', 'grabwp-tenancy' ); ?></strong>
@@ -139,9 +139,20 @@ $create_new_url = add_query_arg( [
 				<span id="grabwp-clone-success-dashboard-wrap"> &middot; <a id="grabwp-clone-success-dashboard" href="#" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Dashboard', 'grabwp-tenancy' ); ?></a></span>
 			</p>
 		</div>
+		<?php
+		GrabWP_Tenancy_Admin::render_upsell_card(
+			array(
+				'utm_content' => 'post-backup',
+				'title'       => __( 'Tired of doing this by hand?', 'grabwp-tenancy' ),
+				'message'     => __( 'GrabWP Tenancy Pro schedules automatic backups for every client site and pushes copies to secure offsite storage. No more manual steps, no missed backups.', 'grabwp-tenancy' ),
+				'cta_label'   => __( 'Get GrabWP Tenancy Pro', 'grabwp-tenancy' ),
+				'margin'      => 'grabwp-mt-md',
+			)
+		);
+		?>
 	</div>
 
-	<p style="margin-top:20px;">
+	<p class="grabwp-mt-md">
 		<a href="<?php echo esc_url( admin_url( 'admin.php?page=grabwp-tenancy' ) ); ?>">&larr; <?php esc_html_e( 'Back to Tenants', 'grabwp-tenancy' ); ?></a>
 	</p>
 </div>

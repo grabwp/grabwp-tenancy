@@ -126,4 +126,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</p>
 		</form>
 	</div>
+	<?php
+	GrabWP_Tenancy_Admin::render_upsell_card(
+		array(
+			'utm_content' => 'create-edit-form',
+			'message' => __( 'Need more control? GrabWP Tenancy Pro adds isolated databases (MySQL or SQLite), scheduled backups, cloud storage offload, and more for every client site.', 'grabwp-tenancy' ),
+			'title' => __( 'GrabWP Tenancy', 'grabwp-tenancy' ),
+			'cta_label' => __( 'Learn about Pro', 'grabwp-tenancy' ),
+			'margin' => 'grabwp-mt-md',
+		)
+	);
+	?>
 </div>

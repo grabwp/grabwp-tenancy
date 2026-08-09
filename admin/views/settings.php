@@ -86,7 +86,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 
 					<!-- Panel 2: Performance & Security -->
-					<div id="tab-performance-security" class="grabwp-tab-panel" style="display: none;">
+					<div id="tab-performance-security" class="grabwp-tab-panel grabwp-hidden">
 						<p class="description"><?php esc_html_e( 'Configure performance and security constants for tenant sites.', 'grabwp-tenancy' ); ?></p>
 						<table class="form-table">
 							<tr>
@@ -178,6 +178,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php submit_button( __( 'Save Settings', 'grabwp-tenancy' ) ); ?>
 			</form>
+
+			<?php
+			GrabWP_Tenancy_Admin::render_upsell_card(
+				array(
+					'utm_content' => 'placeholder-scheduling',
+					'title'       => __( 'Scheduling and automatic backups', 'grabwp-tenancy' ),
+					'message'     => __( 'Schedule automatic backups for each tenant site on an interval you control. Pro automatically pushes backup copies to secure offsite storage after each run, so you never lose client data to a server failure.', 'grabwp-tenancy' ),
+					'cta_label'   => __( 'Learn about GrabWP Tenancy Pro', 'grabwp-tenancy' ),
+					'margin'      => 'grabwp-mt-md',
+				)
+			);
+			?>
 		</div>
 
 	</div>

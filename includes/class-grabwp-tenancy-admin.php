@@ -38,6 +38,86 @@ class GrabWP_Tenancy_Admin {
 		}
 	}
 
+	/**
+	 * Whether to display upsell UI promoting GrabWP Tenancy Pro.
+	 *
+	 * Returns false when the Pro plugin is active so all upsell
+	 * entry points are suppressed via a single guard.
+	 *
+	 * @since 1.3.1
+	 * @return bool
+	 */
+	public static function should_show_upsell() {
+		return ! class_exists( 'GrabWP_Tenancy_Pro' );
+	}
+
+	/**
+	 * Build the upgrade landing page URL with UTM query parameters.
+	 *
+	 * @since 1.3.1
+	 * @param string $utm_content Per-entry-point UTM content value.
+	 * @return string Full URL with UTM params.
+	 */
+	public static function get_upgrade_url( $utm_content = '' ) {
+		$params = array(
+			'utm_source'   => 'grabwp-free',
+			'utm_medium'   => 'plugin',
+			'utm_campaign' => 'upgrade',
+		);
+		if ( '' !== $utm_content ) {
+			$params['utm_content'] = $utm_content;
+		}
+		return add_query_arg( $params, 'https://grabwp.com/pro' );
+	}
+
+	/**
+	 * Render the shared Pro upsell card partial.
+	 *
+	 * @since 1.3.1
+	 * @param array $args {
+	 *     Optional. Upsell card arguments.
+	 *
+	 *     @type string $utm_content UTM content slug (used when url is empty).
+	 *     @type string $url         Full upgrade URL. Optional if utm_content set.
+	 *     @type string $title       Optional heading. Empty keeps badge inline with message.
+	 *     @type string $message     Body copy. Defaults to the generic Pro pitch.
+	 *     @type string $cta_label   Button label.
+	 *     @type string $margin      Margin utility class. Default grabwp-mt-sm.
+	 * }
+	 */
+	public static function render_upsell_card( $args = array() ) {
+		if ( ! self::should_show_upsell() ) {
+			return;
+		}
+
+		$args = wp_parse_args(
+			$args,
+			array(
+				'utm_content' => '',
+				'url'         => '',
+				'title'       => '',
+				'message'     => __( 'GrabWP Tenancy Pro adds scheduled auto backups, offsite cloud storage, dedicated database isolation, and more for every client site.', 'grabwp-tenancy' ),
+				'cta_label'   => __( 'Learn about Pro', 'grabwp-tenancy' ),
+				'margin'      => 'grabwp-mt-sm',
+			)
+		);
+
+		$upsell_url = $args['url'];
+		if ( '' === $upsell_url ) {
+			$upsell_url = self::get_upgrade_url( $args['utm_content'] );
+		}
+
+		$upsell_title   = $args['title'];
+		$upsell_message = $args['message'];
+		$upsell_cta     = $args['cta_label'];
+		$upsell_margin  = $args['margin'];
+
+		$partial = GRABWP_TENANCY_PLUGIN_DIR . 'admin/views/partials/upsell-card.php';
+		if ( file_exists( $partial ) ) {
+			include $partial;
+		}
+	}
+
 	private function init_hooks() {
 		add_action( 'admin_init', array( $this->form_handler, 'handle_form_submissions' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
@@ -48,6 +128,11 @@ class GrabWP_Tenancy_Admin {
 		GrabWP_Tenancy_Clone_Admin::get_instance();
 
 		do_action( 'grabwp_tenancy_admin_init', $this );
+
+		if ( self::should_show_upsell() ) {
+			add_filter( 'plugin_action_links_' . GRABWP_TENANCY_PLUGIN_BASENAME, array( $this, 'add_upgrade_action_link' ) );
+			add_filter( 'admin_footer_text', array( $this, 'replace_admin_footer_text' ) );
+		}
 	}
 
 	public function add_admin_menu() {
@@ -105,6 +190,17 @@ class GrabWP_Tenancy_Admin {
 			'grabwp-tenancy-status',
 			array( $this, 'status_page' )
 		);
+
+		if ( self::should_show_upsell() ) {
+			add_submenu_page(
+				'grabwp-tenancy',
+				__( 'Upgrade to Pro', 'grabwp-tenancy' ),
+				__( 'Upgrade to Pro', 'grabwp-tenancy' ),
+				'manage_options',
+				'grabwp-tenancy-upgrade',
+				array( $this, 'upgrade_page' )
+			);
+		}
 
 		do_action( 'grabwp_tenancy_admin_menu' );
 	}
@@ -191,6 +287,49 @@ class GrabWP_Tenancy_Admin {
 
 	public function status_page() {
 		$this->render_admin_page( 'status' );
+	}
+
+	public function upgrade_page() {
+		$data = array( 'upgrade_url' => self::get_upgrade_url( 'upgrade-tab' ) );
+		$this->render_admin_page( 'upgrade', $data );
+	}
+
+	/**
+	 * Add "Upgrade to Pro" action link on the Plugins list page.
+	 *
+	 * @since 1.3.1
+	 * @param array $links Existing action links.
+	 * @return array
+	 */
+	public function add_upgrade_action_link( $links ) {
+		$links['upgrade'] = '<a href="' . esc_url( admin_url( 'admin.php?page=grabwp-tenancy-upgrade' ) ) . '">' . esc_html__( 'Upgrade to Pro', 'grabwp-tenancy' ) . '</a>';
+		return $links;
+	}
+
+	/**
+	 * Replace the default WordPress admin footer text with an upsell line
+	 * on GrabWP Tenancy admin pages.
+	 *
+	 * Only fires when Pro is inactive and the current screen is a Tenancy page.
+	 *
+	 * @since 1.3.1
+	 * @param string $text Default footer text.
+	 * @return string
+	 */
+	public function replace_admin_footer_text( $text ) {
+		if ( ! self::should_show_upsell() ) {
+			return $text;
+		}
+		$screen = get_current_screen();
+		$page   = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+		if ( ! $screen || strpos( $page, 'grabwp-tenancy' ) !== 0 ) {
+			return $text;
+		}
+		$url = self::get_upgrade_url( 'footer-thankyou' );
+		return sprintf(
+			'Want automatic backups for every client site? <a href="%s" target="_blank" rel="noopener noreferrer">Try GrabWP Pro free</a>.',
+			esc_url( $url )
+		);
 	}
 
 	private function render_admin_page( $template, $data = array() ) {

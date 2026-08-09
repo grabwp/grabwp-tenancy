@@ -146,6 +146,12 @@ final class GrabWP_Tenancy {
 	 */
 	private function load_dependencies() {
 
+		// Fallback: ensure early-loading helpers are defined even when wp-config.php
+		// does not include load.php.
+		if ( ! defined( 'GRABWP_TENANCY_LOADED' ) ) {
+			require_once $this->plugin_dir . 'load-helper.php';
+		}
+
 		// Load MU plugin functionality
 		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-path-manager.php';
 		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-logger.php';
