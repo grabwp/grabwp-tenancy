@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,13 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.6 =
+* Enhance: Deferred tenant settings to plugins_loaded priority 20 so Pro (and other plugins) can filter effective values for per-tenant overrides
+* New: `get_effective_setting()` method with `grabwp_tenancy_effective_setting` filter, letting plugins override individual global settings per tenant
+* New: `get_setting_fields()` public method returns a canonical field schema (label, type, group, description, min, max) for each global setting, used by Pro's per-tenant overrides UI
+* Change: `get_setting_types()` is now public so external code can read the type map
+* Change: Plugin/theme hide methods and `remove_tenant_admin_menus()` use `get_effective_setting()` instead of reading the settings store directly, so filtered overrides take effect
 
 = 1.1.5 =
 - New: "Upgrade to Pro" admin page with a free-vs-Pro feature comparison and a call-to-action button, shown only when GrabWP Tenancy Pro is not active

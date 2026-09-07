@@ -3,7 +3,7 @@
  * Plugin Name: GrabWP Tenancy
  * Plugin URI: https://grabwp.com/tenancy
  * Description: Foundation multi-tenant WordPress solution with shared MySQL database and separated uploads. Designed to be extended by GrabWP Tenancy Pro for advanced features.
- * Version: 1.1.5
+ * Version: 1.1.6
  * Author: GrabWP
  * Author URI: https://grabwp.com
  * License: GPLv2 or later
@@ -29,7 +29,7 @@ if ( ! defined( 'GRABWP_MAINSITE_ID' ) ) {
 }
 
 // Define plugin constants
-define( 'GRABWP_TENANCY_VERSION', '1.1.4' );
+define( 'GRABWP_TENANCY_VERSION', '1.1.6' );
 define( 'GRABWP_TENANCY_PLUGIN_FILE', __FILE__ );
 define( 'GRABWP_TENANCY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 // Use content_url() to avoid symlink path resolution issues on some hosts
@@ -199,14 +199,9 @@ final class GrabWP_Tenancy {
 			new GrabWP_Tenancy_Loader( $this );
 		}
 
-		// Apply tenant capability restrictions from settings.
-		$this->apply_tenant_settings();
-
-		// Hide Pro plugin from tenant admin dashboards
-		$this->hide_pro_plugin_from_tenant_admin();
-
-		// Hide GrabWP base plugin from tenant admin dashboards
-		$this->hide_grabwp_plugin_from_tenant_admin();
+		// Defer settings application to plugins_loaded priority 20 so Pro (and
+		// other plugins) can filter effective values at priority 10 first.
+		add_action( 'plugins_loaded', array( $this, 'apply_tenant_settings' ), 20 );
 
 		// Allow pro plugin to extend tenant functionality
 		do_action( 'grabwp_tenancy_init_tenant_only', $this );
@@ -214,59 +209,81 @@ final class GrabWP_Tenancy {
 	}
 
 	/**
+	 * Resolve an effective tenant setting (global, optionally filtered).
+	 *
+	 * @since  1.1.5
+	 * @param  string $key Setting key.
+	 * @return mixed
+	 */
+	private function get_effective_setting( $key ) {
+		$settings  = GrabWP_Tenancy_Settings::get_instance();
+		$tenant_id = $this->get_tenant_id();
+		return apply_filters( 'grabwp_tenancy_effective_setting', $settings->get( $key ), $key, $tenant_id );
+	}
+
+	/**
 	 * Apply tenant capability settings.
 	 *
 	 * Defines WordPress constants and hooks menus based on saved settings.
+	 * Runs on plugins_loaded priority 20 so filters can supply overrides.
 	 *
 	 * @since 1.1.0
 	 */
-	private function apply_tenant_settings() {
-		$settings = GrabWP_Tenancy_Settings::get_instance();
+	public function apply_tenant_settings() {
+		static $applied = false;
+		if ( $applied || ! $this->is_tenant() ) {
+			return;
+		}
+		$applied = true;
 
 		// DISALLOW_FILE_MODS — controls plugin/theme install, update, and deletion.
 		if ( ! defined( 'DISALLOW_FILE_MODS' ) ) {
-			define( 'DISALLOW_FILE_MODS', $settings->get( 'disallow_file_mods' ) );
+			define( 'DISALLOW_FILE_MODS', $this->get_effective_setting( 'disallow_file_mods' ) );
 		}
 
 		// DISALLOW_FILE_EDIT — controls the built-in theme/plugin editor.
 		if ( ! defined( 'DISALLOW_FILE_EDIT' ) ) {
-			define( 'DISALLOW_FILE_EDIT', $settings->get( 'disallow_file_edit' ) );
+			define( 'DISALLOW_FILE_EDIT', $this->get_effective_setting( 'disallow_file_edit' ) );
 		}
 
 		// Remove admin menus for plugin/theme management if configured.
-		if ( $settings->get( 'hide_plugin_management' ) || $settings->get( 'hide_theme_management' ) ) {
+		if ( $this->get_effective_setting( 'hide_plugin_management' ) || $this->get_effective_setting( 'hide_theme_management' ) ) {
 			add_action( 'admin_menu', array( $this, 'remove_tenant_admin_menus' ), 999 );
 			add_action( 'admin_bar_menu', array( $this, 'remove_tenant_admin_bar_nodes' ), 999 );
 		}
 
 		// DISABLE_WP_CRON — tenants use system cron or main-site scheduler.
 		if ( ! defined( 'DISABLE_WP_CRON' ) ) {
-			define( 'DISABLE_WP_CRON', $settings->get( 'disable_wp_cron' ) );
+			define( 'DISABLE_WP_CRON', $this->get_effective_setting( 'disable_wp_cron' ) );
 		}
 
 		// XML-RPC — block entirely to reduce attack surface.
-		if ( $settings->get( 'disable_xmlrpc' ) ) {
+		if ( $this->get_effective_setting( 'disable_xmlrpc' ) ) {
 			add_filter( 'xmlrpc_enabled', '__return_false' );
 		}
 
 		// WP_POST_REVISIONS — limit stored revisions.
 		if ( ! defined( 'WP_POST_REVISIONS' ) ) {
-			define( 'WP_POST_REVISIONS', (int) $settings->get( 'wp_post_revisions' ) );
+			define( 'WP_POST_REVISIONS', (int) $this->get_effective_setting( 'wp_post_revisions' ) );
 		}
 
 		// EMPTY_TRASH_DAYS — auto-empty trash sooner.
 		if ( ! defined( 'EMPTY_TRASH_DAYS' ) ) {
-			define( 'EMPTY_TRASH_DAYS', (int) $settings->get( 'empty_trash_days' ) );
+			define( 'EMPTY_TRASH_DAYS', (int) $this->get_effective_setting( 'empty_trash_days' ) );
 		}
 
 		// WP_HTTP_BLOCK_EXTERNAL — opt-in external request blocking.
 		if ( ! defined( 'WP_HTTP_BLOCK_EXTERNAL' ) ) {
-			define( 'WP_HTTP_BLOCK_EXTERNAL', $settings->get( 'wp_http_block_external' ) );
+			define( 'WP_HTTP_BLOCK_EXTERNAL', $this->get_effective_setting( 'wp_http_block_external' ) );
 		}
 
-		if ( ! defined( 'WP_ACCESSIBLE_HOSTS' ) && $settings->get( 'wp_http_block_external' ) ) {
-			define( 'WP_ACCESSIBLE_HOSTS', $settings->get( 'wp_accessible_hosts' ) );
+		if ( ! defined( 'WP_ACCESSIBLE_HOSTS' ) && $this->get_effective_setting( 'wp_http_block_external' ) ) {
+			define( 'WP_ACCESSIBLE_HOSTS', $this->get_effective_setting( 'wp_accessible_hosts' ) );
 		}
+
+		// Hide GrabWP plugins from the tenant plugin list when configured.
+		$this->hide_pro_plugin_from_tenant_admin();
+		$this->hide_grabwp_plugin_from_tenant_admin();
 	}
 
 	/**
@@ -275,13 +292,11 @@ final class GrabWP_Tenancy {
 	 * @since 1.1.0
 	 */
 	public function remove_tenant_admin_menus() {
-		$settings = GrabWP_Tenancy_Settings::get_instance();
-
-		if ( $settings->get( 'hide_plugin_management' ) ) {
+		if ( $this->get_effective_setting( 'hide_plugin_management' ) ) {
 			remove_menu_page( 'plugins.php' );
 		}
 
-		if ( $settings->get( 'hide_theme_management' ) ) {
+		if ( $this->get_effective_setting( 'hide_theme_management' ) ) {
 			remove_menu_page( 'themes.php' );
 		}
 	}
@@ -299,13 +314,11 @@ final class GrabWP_Tenancy {
 			return;
 		}
 
-		$settings = GrabWP_Tenancy_Settings::get_instance();
-
-		if ( $settings->get( 'hide_plugin_management' ) ) {
+		if ( $this->get_effective_setting( 'hide_plugin_management' ) ) {
 			$wp_admin_bar->remove_node( 'plugins' );
 		}
 
-		if ( $settings->get( 'hide_theme_management' ) ) {
+		if ( $this->get_effective_setting( 'hide_theme_management' ) ) {
 			$wp_admin_bar->remove_node( 'themes' );
 		}
 	}
@@ -391,8 +404,7 @@ final class GrabWP_Tenancy {
 	 * @since 1.0.0
 	 */
 	private function hide_pro_plugin_from_tenant_admin() {
-		$settings = GrabWP_Tenancy_Settings::get_instance();
-		if ( $settings->get( 'hide_grabwp_plugins' ) ) {
+		if ( $this->get_effective_setting( 'hide_grabwp_plugins' ) ) {
 			add_filter( 'all_plugins', array( $this, 'filter_pro_plugin_from_list' ) );
 		}
 	}
@@ -404,8 +416,7 @@ final class GrabWP_Tenancy {
 	 * @since 1.0.0
 	 */
 	private function hide_grabwp_plugin_from_tenant_admin() {
-		$settings = GrabWP_Tenancy_Settings::get_instance();
-		if ( $settings->get( 'hide_grabwp_plugins' ) ) {
+		if ( $this->get_effective_setting( 'hide_grabwp_plugins' ) ) {
 			add_filter( 'all_plugins', array( $this, 'filter_grabwp_plugin_from_list' ) );
 		}
 	}

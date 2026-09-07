@@ -93,11 +93,92 @@ class GrabWP_Tenancy_Settings {
 	 * @since  1.1.4
 	 * @return array
 	 */
-	private static function get_setting_types() {
+	public static function get_setting_types() {
 		return array(
-			'wp_post_revisions'  => 'int',
-			'empty_trash_days'   => 'int',
+			'wp_post_revisions'   => 'int',
+			'empty_trash_days'    => 'int',
 			'wp_accessible_hosts' => 'string',
+		);
+	}
+
+	/**
+	 * Canonical field schema for global settings and per-tenant overrides UI.
+	 *
+	 * @since  1.1.5
+	 * @return array Key => [ label, type, group, description, min?, max? ].
+	 */
+	public static function get_setting_fields() {
+		return array(
+			'disallow_file_mods'     => array(
+				'label'       => __( 'Install Plugins & Themes', 'grabwp-tenancy' ),
+				'type'        => 'bool',
+				'group'       => 'capabilities',
+				'description' => __( 'Disallow tenant admins to install, update, and delete plugins/themes (DISALLOW_FILE_MODS)', 'grabwp-tenancy' ),
+			),
+			'disallow_file_edit'     => array(
+				'label'       => __( 'Edit Plugins & Themes', 'grabwp-tenancy' ),
+				'type'        => 'bool',
+				'group'       => 'capabilities',
+				'description' => __( 'Disallow tenant admins to use the built-in plugin/theme file editor (DISALLOW_FILE_EDIT)', 'grabwp-tenancy' ),
+			),
+			'hide_plugin_management' => array(
+				'label'       => __( 'Hide Plugin Management', 'grabwp-tenancy' ),
+				'type'        => 'bool',
+				'group'       => 'capabilities',
+				'description' => __( 'Hide the Plugins menu entirely from tenant admin dashboards', 'grabwp-tenancy' ),
+			),
+			'hide_theme_management'  => array(
+				'label'       => __( 'Hide Theme Management', 'grabwp-tenancy' ),
+				'type'        => 'bool',
+				'group'       => 'capabilities',
+				'description' => __( 'Hide the Appearance menu entirely from tenant admin dashboards', 'grabwp-tenancy' ),
+			),
+			'hide_grabwp_plugins'    => array(
+				'label'       => __( 'Hide GrabWP Plugins', 'grabwp-tenancy' ),
+				'type'        => 'bool',
+				'group'       => 'capabilities',
+				'description' => __( 'Hide GrabWP plugins from the plugin list on tenant sites', 'grabwp-tenancy' ),
+			),
+			'disable_wp_cron'        => array(
+				'label'       => __( 'Disable WP-Cron', 'grabwp-tenancy' ),
+				'type'        => 'bool',
+				'group'       => 'performance',
+				'description' => __( 'Disable WordPress internal cron on tenant sites (DISABLE_WP_CRON). Use system cron instead.', 'grabwp-tenancy' ),
+			),
+			'disable_xmlrpc'         => array(
+				'label'       => __( 'Disable XML-RPC', 'grabwp-tenancy' ),
+				'type'        => 'bool',
+				'group'       => 'performance',
+				'description' => __( 'Disable XML-RPC API on tenant sites. Reduces attack surface and prevents brute-force attempts.', 'grabwp-tenancy' ),
+			),
+			'wp_post_revisions'      => array(
+				'label'       => __( 'Post Revisions', 'grabwp-tenancy' ),
+				'type'        => 'int',
+				'group'       => 'performance',
+				'description' => __( 'Maximum post revisions to keep (WP_POST_REVISIONS). Lower values save database space.', 'grabwp-tenancy' ),
+				'min'         => 0,
+				'max'         => 100,
+			),
+			'empty_trash_days'       => array(
+				'label'       => __( 'Empty Trash Days', 'grabwp-tenancy' ),
+				'type'        => 'int',
+				'group'       => 'performance',
+				'description' => __( 'Days before trashed posts are permanently deleted (EMPTY_TRASH_DAYS). Set to 0 to disable trash.', 'grabwp-tenancy' ),
+				'min'         => 0,
+				'max'         => 365,
+			),
+			'wp_http_block_external' => array(
+				'label'       => __( 'Block External HTTP', 'grabwp-tenancy' ),
+				'type'        => 'bool',
+				'group'       => 'performance',
+				'description' => __( 'Block all external HTTP requests from tenant sites (WP_HTTP_BLOCK_EXTERNAL). Allowlist hosts below.', 'grabwp-tenancy' ),
+			),
+			'wp_accessible_hosts'    => array(
+				'label'       => __( 'Accessible Hosts', 'grabwp-tenancy' ),
+				'type'        => 'string',
+				'group'       => 'performance',
+				'description' => __( 'Comma-separated hosts allowed when external HTTP is blocked (WP_ACCESSIBLE_HOSTS). Wildcards supported.', 'grabwp-tenancy' ),
+			),
 		);
 	}
 
