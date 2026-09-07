@@ -14,7 +14,7 @@ Multi-tenant WordPress with shared MySQL, domain and path routing, and isolated 
 
 == Description ==
 
-https://www.youtube.com/watch?v=SAd_QeUZEDw
+https://www.youtube.com/watch?v=LFYsrJhKUXE
 
 = WORDPRESS MULTISITE ALTERNATIVE - ENABLE MULTI-TENANT AT NO COST =
 
