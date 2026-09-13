@@ -25,7 +25,7 @@ class GrabWP_Tenancy_Domain_Validator {
 		$invalid = array();
 
 		foreach ( $domains as $domain ) {
-			$domain = trim( $domain );
+			$domain = strtolower( trim( $domain ) );
 			if ( empty( $domain ) ) {
 				continue;
 			}
@@ -71,11 +71,11 @@ class GrabWP_Tenancy_Domain_Validator {
 	 * @return bool
 	 */
 	public function validate_format( $domain ) {
+		$domain = strtolower( trim( $domain ) );
+
 		if ( ! filter_var( $domain, FILTER_VALIDATE_DOMAIN ) ) {
 			return false;
 		}
-
-		$domain = strtolower( trim( $domain ) );
 
 		if ( ! preg_match( '/^[a-z0-9]([a-z0-9\-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9\-]{0,61}[a-z0-9])?)*$/', $domain ) ) {
 			return false;

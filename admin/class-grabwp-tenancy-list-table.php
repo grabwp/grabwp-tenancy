@@ -60,7 +60,7 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 				'per_page',
 				array(
 					'label'   => __( 'Tenants per page', 'grabwp-tenancy' ),
-					'default' => 20,
+					'default' => 10,
 					'option'  => 'tenants_per_page',
 				)
 			);
@@ -165,7 +165,7 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 
 		// Get pagination parameters
-		$per_page = $this->get_items_per_page( 'tenants_per_page', 20 );
+		$per_page = $this->get_items_per_page( 'tenants_per_page', 10 );
 		$current_page = $this->get_pagenum();
 
 		// Get search term

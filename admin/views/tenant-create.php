@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="wrap">
 	<h1><?php esc_html_e( 'Add New Tenant', 'grabwp-tenancy' ); ?></h1>
-	<p><?php esc_html_e( 'Create a new tenant. A path-based URL will be assigned automatically.', 'grabwp-tenancy' ); ?></p>
+	<p class="grabwp-tenancy-page-intro"><?php esc_html_e( 'Create a new tenant. A path-based URL will be assigned automatically.', 'grabwp-tenancy' ); ?></p>
 
 	<?php
 	// Clone source passthrough: if coming from clone page, show info and redirect back after creation.
@@ -62,10 +62,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php endif; ?>
 			<table class="form-table">
 				<tr>
-					<th scope="row"><?php esc_html_e( 'Domain Setup', 'grabwp-tenancy' ); ?></th>
+					<th scope="row">
+						<?php esc_html_e( 'Domain Setup', 'grabwp-tenancy' ); ?>
+						<span class="dashicons dashicons-editor-help grabwp-help-tip" title="<?php esc_attr_e( 'Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page.', 'grabwp-tenancy' ); ?>" aria-label="<?php esc_attr_e( 'Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page.', 'grabwp-tenancy' ); ?>"></span>
+					</th>
 					<td>
 						<fieldset>
-							<div class="grabwp-mb-md">
+							<div class="grabwp-mb-sm">
 								<label>
 									<input type="radio" name="domain_option" value="has_domain" checked />
 									<?php esc_html_e( 'I have a domain', 'grabwp-tenancy' ); ?>
@@ -73,13 +76,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<div id="grabwp-domain-section">
 									<div class="grabwp-domain-inputs">
 										<div class="grabwp-domain-input">
-											<input type="text" name="domains[]" class="regular-text" placeholder="<?php esc_attr_e( 'Enter domain (e.g. mysite.com)', 'grabwp-tenancy' ); ?>" />
+											<input type="text" name="domains[]" class="regular-text" autocapitalize="none" spellcheck="false" placeholder="<?php esc_attr_e( 'Enter domain (e.g. mysite.com)', 'grabwp-tenancy' ); ?>" />
 											<button type="button" class="button grabwp-clear-domain grabwp-ml-sm"><?php esc_html_e( 'Clear', 'grabwp-tenancy' ); ?></button>
 											<button type="button" class="button grabwp-remove-domain grabwp-ml-sm"><?php esc_html_e( 'Remove', 'grabwp-tenancy' ); ?></button>
 										</div>
 									</div>
-									
-									<p class="description"><?php esc_html_e( 'Enter without http:// or www (e.g. mysite.com, blog.mysite.com)', 'grabwp-tenancy' ); ?></p>
 								</div>
 							</div>
 							<div>
@@ -92,7 +93,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<strong><?php esc_html_e( 'Your site will be accessible at:', 'grabwp-tenancy' ); ?></strong><br />
 										<code><?php echo esc_html( site_url( '/' . grabwp_tenancy_get_path_prefix() . '/{tenant-id}/' ) ); ?></code>
 									</p>
-									<p class="description"><?php esc_html_e( 'You can add a domain anytime from the tenant edit page.', 'grabwp-tenancy' ); ?></p>
 								</div>
 							</div>
 						</fieldset>
@@ -125,10 +125,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	GrabWP_Tenancy_Admin::render_upsell_card(
 		array(
 			'utm_content' => 'create-edit-form',
-			'message' => __( 'GrabWP Tenancy Pro adds isolated databases, custom plugin & theme management, scheduled backups, cloud storage offload, and more for every client site.', 'grabwp-tenancy' ),
-			'title' => __( 'Better isolation, more control', 'grabwp-tenancy' ),
-			'cta_label' => __( 'Learn about Pro', 'grabwp-tenancy' ),
-			'margin' => 'grabwp-mt-md',
+			'message'     => __( 'GrabWP Tenancy Pro adds isolated databases, custom plugin & theme management, scheduled backups, cloud storage offload, and more for every client site.', 'grabwp-tenancy' ),
+			'title'       => __( 'Better isolation, more control', 'grabwp-tenancy' ),
+			'cta_label'   => __( 'Learn about Pro', 'grabwp-tenancy' ),
+			'margin'      => 'grabwp-mt-sm',
 		)
 	);
 	?>

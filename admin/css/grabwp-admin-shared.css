@@ -2,7 +2,8 @@
  * GrabWP Tenancy Shared Admin Utilities
  *
  * Loaded by all GrabWP plugins on admin pages.
- * Only classes that replace recurring inline styles.
+ * Shared admin primitives (accordion, cards, badges). Plugin CSS adds
+ * page-specific layout only — do not fork these class names.
  *
  * @package GrabWP_Tenancy
  * @since   1.3.0
@@ -25,11 +26,11 @@
 .grabwp-clone-target-table { max-width: 500px; }
 
 /* Spacing utilities */
-.grabwp-ml-sm  { margin-left: 10px; }
-.grabwp-mt-sm  { margin-top: 10px; }
-.grabwp-mt-md  { margin-top: 20px; }
-.grabwp-mb-sm  { margin-bottom: 8px; }
-.grabwp-mb-md  { margin-bottom: 20px; }
+.grabwp-ml-sm  { margin-left: 10px !important; }
+.grabwp-mt-sm  { margin-top: 10px !important; }
+.grabwp-mt-md  { margin-top: 20px !important; }
+.grabwp-mb-sm  { margin-bottom: 8px !important; }
+.grabwp-mb-md  { margin-bottom: 20px !important; }
 
 /* Flex layout */
 .grabwp-flex         { display: flex; align-items: center; gap: 8px; }
@@ -50,6 +51,35 @@
     overflow-x: auto;
     font-size: 13px;
     border-radius: 2px;
+}
+
+/* Collapsible secondary settings. Markup: <details class="grabwp-accordion"> +
+   <summary class="grabwp-accordion-summary">. Nested blocks add --nested.
+   Do not invent plugin-prefixed accordion classes. */
+.grabwp-accordion {
+	margin: 1em 0;
+	border: 1px solid #c3c4c7;
+	background: #fff;
+}
+
+.grabwp-accordion-summary {
+	cursor: pointer;
+	padding: 10px 12px;
+	font-weight: 600;
+	background: #f6f7f7;
+}
+
+.grabwp-accordion > :not(summary):not(.grabwp-accordion) {
+	margin-left: 12px;
+	margin-right: 12px;
+}
+
+.grabwp-accordion .form-table {
+	margin: 0 12px 12px;
+}
+
+.grabwp-accordion--nested {
+	margin: 8px 12px 12px;
 }
 
 /* Section container */

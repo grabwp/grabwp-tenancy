@@ -83,7 +83,7 @@ class GrabWP_Tenancy_Admin_Form_Handler {
 				exit;
 			}
 
-			$this->redirect_success( 'grabwp-tenancy', 'created' );
+			$this->redirect_success_with_tenant( 'grabwp-tenancy', 'created', $result['tenant_id'] );
 		} else {
 			$this->redirect_error( 'grabwp-tenancy-create', $result['message'] );
 		}
@@ -146,7 +146,7 @@ class GrabWP_Tenancy_Admin_Form_Handler {
 	private function extract_domains_from_post() {
 		$domains = array();
 		if ( isset( $_POST['domains'] ) && is_array( $_POST['domains'] ) ) {
-			$raw_domains = array_map( 'sanitize_text_field', wp_unslash( $_POST['domains'] ) );
+			$raw_domains = array_map( 'strtolower', array_map( 'sanitize_text_field', wp_unslash( $_POST['domains'] ) ) );
 			if ( count( $raw_domains ) > 10 ) {
 				$raw_domains = array_slice( $raw_domains, 0, 10 );
 			}
@@ -158,6 +158,12 @@ class GrabWP_Tenancy_Admin_Form_Handler {
 	private function redirect_success( $page, $message ) {
 		$nonce = wp_create_nonce( 'grabwp_tenancy_notice' );
 		wp_safe_redirect( admin_url( 'admin.php?page=' . $page . '&message=' . $message . '&_wpnonce=' . urlencode( $nonce ) ) );
+		exit;
+	}
+
+	private function redirect_success_with_tenant( $page, $message, $tenant_id ) {
+		$nonce = wp_create_nonce( 'grabwp_tenancy_notice' );
+		wp_safe_redirect( admin_url( 'admin.php?page=' . $page . '&message=' . $message . '&tenant_id=' . urlencode( $tenant_id ) . '&_wpnonce=' . urlencode( $nonce ) ) );
 		exit;
 	}
 

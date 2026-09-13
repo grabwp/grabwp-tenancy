@@ -121,7 +121,7 @@ class GrabWP_Tenancy_Admin {
 	private function init_hooks() {
 		add_action( 'admin_init', array( $this->form_handler, 'handle_form_submissions' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 5 );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 
 		require_once GRABWP_TENANCY_PLUGIN_DIR . 'includes/backup/class-grabwp-tenancy-clone-admin.php';
@@ -219,6 +219,14 @@ class GrabWP_Tenancy_Admin {
 			$this->plugin->version
 		);
 
+		wp_enqueue_script(
+			'grabwp-admin-shared',
+			$this->plugin->plugin_url . 'admin/js/grabwp-admin-shared.js',
+			array(),
+			$this->plugin->version,
+			true
+		);
+
 		wp_enqueue_style(
 			'grabwp-tenancy-admin',
 			$this->plugin->plugin_url . 'admin/css/grabwp-admin.css',
@@ -229,7 +237,7 @@ class GrabWP_Tenancy_Admin {
 		wp_enqueue_script(
 			'grabwp-tenancy-admin',
 			$this->plugin->plugin_url . 'admin/js/grabwp-admin.js',
-			array(),
+			array( 'grabwp-admin-shared' ),
 			$this->plugin->version,
 			true
 		);

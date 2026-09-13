@@ -11,6 +11,7 @@
 	var COPY_FEEDBACK_MS = 1500;
 
 	document.addEventListener( 'DOMContentLoaded', function () {
+		initLowercaseDomains();
 		initDomainManagement();
 		initCreatePageHelpers();
 		initCopyToClipboard();
@@ -108,7 +109,7 @@
 	function generateTenantDomain() {
 		var digits   = Math.floor( 100000 + Math.random() * 900000 ).toString();
 		var hostname = window.location.hostname;
-		return 'tenant-' + digits + '.' + hostname;
+		return ( 'tenant-' + digits + '.' + hostname ).toLowerCase();
 	}
 
 	function initCreatePageHelpers() {
@@ -138,6 +139,28 @@
 	/* ---------------------------------------------------------------
 	 * Domain management (create & edit pages)
 	 * ------------------------------------------------------------- */
+
+	function lowercaseDomainInput( input ) {
+		input.value = input.value.toLowerCase();
+	}
+
+	function initLowercaseDomains() {
+		document.addEventListener( 'input', function ( e ) {
+			if ( e.target.name === 'domains[]' ) {
+				lowercaseDomainInput( e.target );
+			}
+		} );
+
+		var forms = document.querySelectorAll( 'form.grabwp-tenancy-form' );
+		for ( var i = 0; i < forms.length; i++ ) {
+			forms[ i ].addEventListener( 'submit', function () {
+				var inputs = this.querySelectorAll( 'input[name="domains[]"]' );
+				for ( var j = 0; j < inputs.length; j++ ) {
+					lowercaseDomainInput( inputs[ j ] );
+				}
+			} );
+		}
+	}
 
 	function initDomainManagement() {
 		initDomainSection( {
@@ -213,7 +236,7 @@
 	 */
 	function addDomainInput( containerSelector, inputClass, removeBtnClass ) {
 		var html = '<div class="' + inputClass + '">' +
-			'<input type="text" name="domains[]" placeholder="' + grabwpTenancyAdmin.enterDomainPlaceholder + '" style="width: 300px;" />' +
+			'<input type="text" name="domains[]" placeholder="' + grabwpTenancyAdmin.enterDomainPlaceholder + '" style="width: 300px;" autocapitalize="none" spellcheck="false" />' +
 			'<button type="button" class="button ' + removeBtnClass + '" style="margin-left: 10px;">' + grabwpTenancyAdmin.removeText + '</button>' +
 			'</div>';
 		document.querySelector( containerSelector ).insertAdjacentHTML( 'beforeend', html );

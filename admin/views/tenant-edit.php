@@ -87,7 +87,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								foreach ( $grabwp_tenancy_domains as $grabwp_tenancy_domain ) :
 									?>
 									<div class="grabwp-edit-domain-input">
-										<input type="text" name="domains[]" value="<?php echo esc_attr( $grabwp_tenancy_domain ); ?>" placeholder="<?php esc_attr_e( 'Enter domain (e.g., tenant1.grabwp.local)', 'grabwp-tenancy' ); ?>" class="regular-text" />
+										<input type="text" name="domains[]" value="<?php echo esc_attr( strtolower( $grabwp_tenancy_domain ) ); ?>" placeholder="<?php esc_attr_e( 'Enter domain (e.g., tenant1.grabwp.local)', 'grabwp-tenancy' ); ?>" class="regular-text" autocapitalize="none" spellcheck="false" />
 										<button type="button" class="button grabwp-remove-edit-domain grabwp-ml-sm"><?php esc_html_e( 'Remove', 'grabwp-tenancy' ); ?></button>
 									</div>
 									<?php
@@ -95,7 +95,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							else :
 								?>
 								<div class="grabwp-edit-domain-input">
-									<input type="text" name="domains[]" placeholder="<?php esc_attr_e( 'Enter domain (e.g., tenant1.grabwp.local)', 'grabwp-tenancy' ); ?>" class="regular-text" />
+									<input type="text" name="domains[]" placeholder="<?php esc_attr_e( 'Enter domain (e.g., tenant1.grabwp.local)', 'grabwp-tenancy' ); ?>" class="regular-text" autocapitalize="none" spellcheck="false" />
 									<button type="button" class="button grabwp-remove-edit-domain grabwp-ml-sm"><?php esc_html_e( 'Remove', 'grabwp-tenancy' ); ?></button>
 								</div>
 							<?php endif; ?>

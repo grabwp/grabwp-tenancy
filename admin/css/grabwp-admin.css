@@ -37,20 +37,199 @@
 
 /* Form styling improvements */
 .grabwp-tenancy-content {
-    margin-top: 20px;
+    margin-top: 12px;
 }
 
 .grabwp-tenancy-form {
     background: #fff;
     border: 1px solid #c3c4c7;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
 }
 
 .grabwp-tenancy-form h3 {
     margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.grabwp-tenancy-form .form-table,
+.grabwp-tenancy-form .form-table td,
+.grabwp-tenancy-form .form-table th {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.grabwp-tenancy-form .form-table th {
+    padding-right: 12px;
+    width: 180px;
+}
+
+/* Native help tip (title tooltip only; no custom JS) */
+.grabwp-help-tip {
+    color: #787c82;
+    cursor: help;
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    vertical-align: text-bottom;
+    margin-left: 4px;
+}
+
+/* Two-column layout for related form-table blocks */
+.grabwp-settings-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
+}
+
+@media screen and (max-width: 1100px) {
+    .grabwp-settings-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Status environment cards */
+.grabwp-status-general {
+    padding: 10px 12px;
+    margin-bottom: 10px;
+}
+
+.grabwp-status-general h3 {
+    margin-bottom: 6px;
+}
+
+.grabwp-env-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+@media screen and (max-width: 1100px) {
+    .grabwp-env-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.grabwp-env-card {
+    margin-top: 0;
+    padding: 6px 10px;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+}
+
+.grabwp-env-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.grabwp-env-code {
+    margin-top: 4px;
+}
+
+.grabwp-env-code summary {
+    cursor: pointer;
+    font-size: 12px;
+    color: #2271b1;
+    margin-bottom: 0;
+}
+
+.grabwp-env-code[open] summary {
+    margin-bottom: 6px;
+}
+
+.grabwp-env-note {
+    margin: 0 0 4px;
+    color: #50575e;
+    font-size: 13px;
+}
+
+.grabwp-env-meta {
+    margin: 0 0 8px;
+    color: #787c82;
+    font-size: 12px;
+}
+
+.grabwp-env-pre {
+    background: #1d2327;
+    color: #50c878;
+    padding: 10px;
+    overflow-x: auto;
+    font-size: 12px;
+    border-radius: 3px;
+    margin: 0;
+}
+
+.grabwp-env-actions {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* Compact status info tables + collapsible system info */
+.grabwp-status-info-grid {
+    gap: 10px;
+}
+
+.grabwp-status-info-grid .grabwp-tenancy-form {
+    padding: 10px 12px;
+    margin-bottom: 0;
+}
+
+.grabwp-tenancy-form .form-table-compact,
+.grabwp-tenancy-form .form-table-compact td,
+.grabwp-tenancy-form .form-table-compact th {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.grabwp-status-sysinfo > summary {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: #1d2327;
+}
+
+.grabwp-status-sysinfo-peek {
+    color: #787c82;
+    font-size: 12px;
+    font-weight: 400;
+    padding-left: 1em;
+}
+
+.grabwp-status-sysinfo .form-table {
+    margin-top: 8px;
+}
+
+.grabwp-tenancy-list-wrap {
+    margin-top: 12px;
+}
+
+.grabwp-tenancy-empty {
+    text-align: center;
+    padding: 24px 16px;
+    color: #666;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+}
+
+.grabwp-tenancy-settings .submit {
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.grabwp-tenancy-page-intro {
+    margin: 4px 0 0;
 }
 
 /* Danger button */
@@ -148,4 +327,14 @@
         width: auto;
         text-align: left;
     }
+}
+
+/*
+ * TEMPORARY: hide field descriptions on Add New Tenant (round-3).
+ * Revert by deleting this block. Do not delete view markup.
+ * Intentional: Pro injects many p.description via grabwp_tenancy_create_form_fields.
+ */
+body.grabwp-tenancy_page_grabwp-tenancy-create .grabwp-tenancy-form p.description,
+body.grabwp-tenancy_page_grabwp-tenancy-create .wrap .form-table p.description {
+    display: none;
 }

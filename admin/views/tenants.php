@@ -18,11 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php esc_html_e( 'Add New', 'grabwp-tenancy' ); ?>
 	</a>
 	<hr class="wp-header-end">
-	
-	<p><?php esc_html_e( 'Manage your multi-tenant WordPress sites.', 'grabwp-tenancy' ); ?></p>
+
+	<p class="grabwp-tenancy-page-intro"><?php esc_html_e( 'Manage your multi-tenant WordPress sites.', 'grabwp-tenancy' ); ?></p>
 
 	<!-- Tenants List -->
-	<div style="margin-top: 30px;">
+	<div class="grabwp-tenancy-list-wrap">
 		<?php
 		/**
 		 * Before tenant list display
@@ -34,8 +34,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Search parameter is read-only operation
 		if ( empty( $list_table->items ) && empty( $_REQUEST['s'] ) ) :
-		?>
-			<div style="text-align: center; padding: 40px 20px; color: #666; background: #fff; border: 1px solid #ccd0d4;">
+			?>
+			<div class="grabwp-tenancy-empty">
 				<h3><?php esc_html_e( 'No Tenants Found', 'grabwp-tenancy' ); ?></h3>
 				<p><?php esc_html_e( 'Create your first tenant to get started with multi-tenancy.', 'grabwp-tenancy' ); ?></p>
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=grabwp-tenancy-create' ) ); ?>" class="button button-primary">
@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'title'       => __( 'Need more isolation?', 'grabwp-tenancy' ),
 			'message'     => __( 'GrabWP Tenancy Pro supports plugin & theme management,  seperated MySQL or SQLite, scheduled backups, cloud storage offload, and customization options for every client site.', 'grabwp-tenancy' ),
 			'cta_label'   => __( 'Learn about Pro', 'grabwp-tenancy' ),
-			'margin'      => 'grabwp-mt-md',
+			'margin'      => 'grabwp-mt-sm',
 		)
 	);
 	?>

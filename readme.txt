@@ -2,9 +2,9 @@
 Contributors: taicv
 Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,13 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.7 =
+* Enhance: Compact admin UI spacing across the tenant, settings, and status screens for a denser, more efficient layout
+* New: Shared admin UI script (grabwp-admin-shared.js) providing in-page tabs that persist the active tab in localStorage per admin page, enqueued ahead of the base and Pro admin scripts
+* Enhance: Domain names are normalized to lowercase during tenant create and edit, so mixed-case entries no longer create duplicate or unmatched domains
+* Enhance: After creating a tenant the list highlights the newly created row
+* Change: Tested up to WordPress 7.1
 
 = 1.1.6 =
 * Enhance: Deferred tenant settings to plugins_loaded priority 20 so Pro (and other plugins) can filter effective values for per-tenant overrides

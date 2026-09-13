@@ -27,7 +27,7 @@ GrabWP_Tenancy_Admin::render_upsell_card(
 		'title'       => __( 'GrabWP Tenancy Pro', 'grabwp-tenancy' ),
 		'message'     => __( 'Upgrade to GrabWP Tenancy Pro for advanced features including complete content isolation, separate databases per tenant, and enhanced management capabilities.', 'grabwp-tenancy' ),
 		'cta_label'   => __( 'Upgrade to Pro', 'grabwp-tenancy' ),
-		'margin'      => 'grabwp-mt-md',
+		'margin'      => 'grabwp-mt-sm',
 	)
 );
 ?>
@@ -48,86 +48,92 @@ GrabWP_Tenancy_Admin::render_upsell_card(
 	</table>
 </div>
 
-<div class="grabwp-tenancy-form">
-	<h3><?php esc_html_e( 'Content Isolation (Default Config)', 'grabwp-tenancy' ); ?></h3>
-	<p class="description"><?php esc_html_e( 'Default content isolation settings applied when creating new tenants.', 'grabwp-tenancy' ); ?></p>
-	<table class="form-table">
-		<?php
-		$grabwp_isolation_defaults = isset( $grabwp_status_pro_default_config['content_isolation'] ) ? $grabwp_status_pro_default_config['content_isolation'] : array();
-		$grabwp_isolation_labels   = array(
-			'isolate_content' => __( 'Content Isolation', 'grabwp-tenancy' ),
-			'isolate_themes'  => __( 'Theme Isolation', 'grabwp-tenancy' ),
-			'isolate_plugins' => __( 'Plugin Isolation', 'grabwp-tenancy' ),
-			'isolate_uploads' => __( 'Upload Isolation', 'grabwp-tenancy' ),
-		);
-		foreach ( $grabwp_isolation_labels as $grabwp_iso_key => $grabwp_iso_label ) :
-			$grabwp_iso_value = isset( $grabwp_isolation_defaults[ $grabwp_iso_key ] ) ? $grabwp_isolation_defaults[ $grabwp_iso_key ] : false;
+<div class="grabwp-settings-grid-2">
+	<div class="grabwp-tenancy-form">
+		<h3>
+			<?php esc_html_e( 'Content Isolation (Default)', 'grabwp-tenancy' ); ?>
+			<span class="dashicons dashicons-editor-help grabwp-help-tip" title="<?php esc_attr_e( 'Default content isolation settings applied when creating new tenants.', 'grabwp-tenancy' ); ?>" aria-label="<?php esc_attr_e( 'Default content isolation settings applied when creating new tenants.', 'grabwp-tenancy' ); ?>"></span>
+		</h3>
+		<table class="form-table">
+			<?php
+			$grabwp_isolation_defaults = isset( $grabwp_status_pro_default_config['content_isolation'] ) ? $grabwp_status_pro_default_config['content_isolation'] : array();
+			$grabwp_isolation_labels   = array(
+				'isolate_content' => __( 'Content Isolation', 'grabwp-tenancy' ),
+				'isolate_themes'  => __( 'Theme Isolation', 'grabwp-tenancy' ),
+				'isolate_plugins' => __( 'Plugin Isolation', 'grabwp-tenancy' ),
+				'isolate_uploads' => __( 'Upload Isolation', 'grabwp-tenancy' ),
+			);
+			foreach ( $grabwp_isolation_labels as $grabwp_iso_key => $grabwp_iso_label ) :
+				$grabwp_iso_value = isset( $grabwp_isolation_defaults[ $grabwp_iso_key ] ) ? $grabwp_isolation_defaults[ $grabwp_iso_key ] : false;
+				?>
+			<tr>
+				<th scope="row"><?php echo esc_html( $grabwp_iso_label ); ?></th>
+				<td>
+					<?php if ( $grabwp_iso_value ) : ?>
+						<span style="color: #46b450;"><?php esc_html_e( '✓ Isolated', 'grabwp-tenancy' ); ?></span>
+					<?php else : ?>
+						<span style="color: #999;"><?php esc_html_e( 'Shared', 'grabwp-tenancy' ); ?></span>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<?php endforeach; ?>
+		</table>
+	</div>
+
+	<div class="grabwp-tenancy-form">
+		<h3>
+			<?php esc_html_e( 'Database (Default)', 'grabwp-tenancy' ); ?>
+			<span class="dashicons dashicons-editor-help grabwp-help-tip" title="<?php esc_attr_e( 'Default database configuration for new tenants.', 'grabwp-tenancy' ); ?>" aria-label="<?php esc_attr_e( 'Default database configuration for new tenants.', 'grabwp-tenancy' ); ?>"></span>
+		</h3>
+		<table class="form-table">
+			<?php
+			$grabwp_db_defaults = isset( $grabwp_status_pro_default_config['database'] ) ? $grabwp_status_pro_default_config['database'] : array();
+			$grabwp_db_type     = isset( $grabwp_db_defaults['database_type'] ) ? $grabwp_db_defaults['database_type'] : 'shared';
 			?>
-		<tr>
-			<th scope="row"><?php echo esc_html( $grabwp_iso_label ); ?></th>
-			<td>
-				<?php if ( $grabwp_iso_value ) : ?>
-					<span style="color: #46b450;"><?php esc_html_e( '✓ Isolated', 'grabwp-tenancy' ); ?></span>
-				<?php else : ?>
-					<span style="color: #999;"><?php esc_html_e( '— Shared', 'grabwp-tenancy' ); ?></span>
-				<?php endif; ?>
-			</td>
-		</tr>
-		<?php endforeach; ?>
-	</table>
-</div>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Database Type', 'grabwp-tenancy' ); ?></th>
+				<td>
+					<?php if ( 'mysql_isolated' === $grabwp_db_type ) : ?>
+						<code><?php esc_html_e( 'Isolated MySQL Database', 'grabwp-tenancy' ); ?></code>
+					<?php elseif ( 'sqlite_isolated' === $grabwp_db_type ) : ?>
+						<code><?php esc_html_e( 'Isolated SQLite Database', 'grabwp-tenancy' ); ?></code>
+					<?php else : ?>
+						<code><?php esc_html_e( 'Shared Database (with table prefixes)', 'grabwp-tenancy' ); ?></code>
+					<?php endif; ?>
+				</td>
+			</tr>
 
-<div class="grabwp-tenancy-form">
-	<h3><?php esc_html_e( 'Database (Default Config)', 'grabwp-tenancy' ); ?></h3>
-	<p class="description"><?php esc_html_e( 'Default database configuration for new tenants.', 'grabwp-tenancy' ); ?></p>
-	<table class="form-table">
-		<?php
-		$grabwp_db_defaults = isset( $grabwp_status_pro_default_config['database'] ) ? $grabwp_status_pro_default_config['database'] : array();
-		$grabwp_db_type     = isset( $grabwp_db_defaults['database_type'] ) ? $grabwp_db_defaults['database_type'] : 'shared';
-		?>
-		<tr>
-			<th scope="row"><?php esc_html_e( 'Database Type', 'grabwp-tenancy' ); ?></th>
-			<td>
-				<?php if ( 'mysql_isolated' === $grabwp_db_type ) : ?>
-					<code><?php esc_html_e( 'Isolated MySQL Database', 'grabwp-tenancy' ); ?></code>
-				<?php elseif ( 'sqlite_isolated' === $grabwp_db_type ) : ?>
-					<code><?php esc_html_e( 'Isolated SQLite Database', 'grabwp-tenancy' ); ?></code>
-				<?php else : ?>
-					<code><?php esc_html_e( 'Shared Database (with table prefixes)', 'grabwp-tenancy' ); ?></code>
-				<?php endif; ?>
-			</td>
-		</tr>
-
-		<?php if ( 'mysql_isolated' === $grabwp_db_type ) : ?>
-		<tr>
-			<th scope="row"><?php esc_html_e( 'MySQL Host', 'grabwp-tenancy' ); ?></th>
-			<td>
-				<?php
-				$grabwp_mysql_host = isset( $grabwp_db_defaults['tenant_mysql_host'] ) ? $grabwp_db_defaults['tenant_mysql_host'] : '';
-				echo $grabwp_mysql_host ? '<code>' . esc_html( $grabwp_mysql_host ) . '</code>' : '<span style="color: #999;">—</span>';
-				?>
-			</td>
-		</tr>
-		<tr>
-			<th scope="row"><?php esc_html_e( 'MySQL Database', 'grabwp-tenancy' ); ?></th>
-			<td>
-				<?php
-				$grabwp_mysql_db = isset( $grabwp_db_defaults['tenant_mysql_database'] ) ? $grabwp_db_defaults['tenant_mysql_database'] : '';
-				echo $grabwp_mysql_db ? '<code>' . esc_html( $grabwp_mysql_db ) . '</code>' : '<span style="color: #999;">—</span>';
-				?>
-			</td>
-		</tr>
-		<tr>
-			<th scope="row"><?php esc_html_e( 'MySQL Username', 'grabwp-tenancy' ); ?></th>
-			<td>
-				<?php
-				$grabwp_mysql_user = isset( $grabwp_db_defaults['tenant_mysql_username'] ) ? $grabwp_db_defaults['tenant_mysql_username'] : '';
-				echo $grabwp_mysql_user ? '<code>' . esc_html( $grabwp_mysql_user ) . '</code>' : '<span style="color: #999;">—</span>';
-				?>
-			</td>
-		</tr>
-		<?php endif; ?>
-	</table>
+			<?php if ( 'mysql_isolated' === $grabwp_db_type ) : ?>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'MySQL Host', 'grabwp-tenancy' ); ?></th>
+				<td>
+					<?php
+					$grabwp_mysql_host = isset( $grabwp_db_defaults['tenant_mysql_host'] ) ? $grabwp_db_defaults['tenant_mysql_host'] : '';
+					echo $grabwp_mysql_host ? '<code>' . esc_html( $grabwp_mysql_host ) . '</code>' : '<span style="color: #999;">-</span>';
+					?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'MySQL Database', 'grabwp-tenancy' ); ?></th>
+				<td>
+					<?php
+					$grabwp_mysql_db = isset( $grabwp_db_defaults['tenant_mysql_database'] ) ? $grabwp_db_defaults['tenant_mysql_database'] : '';
+					echo $grabwp_mysql_db ? '<code>' . esc_html( $grabwp_mysql_db ) . '</code>' : '<span style="color: #999;">-</span>';
+					?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'MySQL Username', 'grabwp-tenancy' ); ?></th>
+				<td>
+					<?php
+					$grabwp_mysql_user = isset( $grabwp_db_defaults['tenant_mysql_username'] ) ? $grabwp_db_defaults['tenant_mysql_username'] : '';
+					echo $grabwp_mysql_user ? '<code>' . esc_html( $grabwp_mysql_user ) . '</code>' : '<span style="color: #999;">-</span>';
+					?>
+				</td>
+			</tr>
+			<?php endif; ?>
+		</table>
+	</div>
 </div>
 
 <?php endif; ?>
