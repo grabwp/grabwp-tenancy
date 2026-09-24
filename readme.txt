@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,13 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.8 =
+* New: Shared slug sanitizer (grabwp_sanitize_slug) used by GrabWP add-ons. Slugs become lowercase letters, numbers, and hyphens; accented characters (including Vietnamese) are folded to plain letters, and underscores become hyphens.
+* New: Slug fields in the admin (class grabwp-slug-input) convert input live as you type, so invalid characters never reach the form.
+* New: Early custom-domain verification probe (?grabwp-verify-domain=1). It answers before WordPress fully boots so add-ons can confirm a domain is routed to the right tenant.
+* Enhance: When a form field fails validation inside a hidden admin tab, that tab opens automatically so the error is visible.
+* Fix: Auto-generated tenant domains on a subdomain install now use the parent domain instead of stacking the full hostname.
 
 = 1.1.7 =
 * Enhance: Compact admin UI spacing across the tenant, settings, and status screens for a denser, more efficient layout

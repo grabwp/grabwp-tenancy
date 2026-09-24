@@ -43,6 +43,7 @@ require_once __DIR__ . '/load-helper-server-detection.php';
 require_once __DIR__ . '/load-helper-tenant-detection.php';
 require_once __DIR__ . '/load-helper-boot-constants.php';
 require_once __DIR__ . '/load-helper-cache.php';
+require_once __DIR__ . '/load-helper-domain-verify.php';
 
 // =============================================================================
 // BASE DIR RESOLUTION

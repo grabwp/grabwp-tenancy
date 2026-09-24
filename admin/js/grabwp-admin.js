@@ -108,7 +108,9 @@
 	 */
 	function generateTenantDomain() {
 		var digits   = Math.floor( 100000 + Math.random() * 900000 ).toString();
-		var hostname = window.location.hostname;
+		// Extract top-level domain (example.com) from the hostname (handles subdomains)
+		var hostParts = window.location.hostname.split('.');
+		var hostname = hostParts.length >= 2 ? hostParts.slice(-2).join('.') : window.location.hostname;
 		return ( 'tenant-' + digits + '.' + hostname ).toLowerCase();
 	}
 

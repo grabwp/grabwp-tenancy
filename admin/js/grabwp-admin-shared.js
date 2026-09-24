@@ -132,11 +132,91 @@
 		for ( var i = 0; i < navs.length; i++ ) {
 			initNav( navs[ i ], i );
 		}
+
+		document.addEventListener( 'invalid', function ( e ) {
+			var panel = e.target.closest( '.grabwp-tab-panel' );
+			if ( ! panel || ! panel.id ) {
+				return;
+			}
+			var hash = '#' + panel.id;
+			for ( var n = 0; n < navs.length; n++ ) {
+				if ( tabByHref( navs[ n ], hash ) ) {
+					activate( navs[ n ], hash, storeKey( navs[ n ], n ) );
+					return;
+				}
+			}
+		}, true );
 	}
 
 	if ( document.readyState === 'loading' ) {
 		document.addEventListener( 'DOMContentLoaded', boot );
 	} else {
 		boot();
+	}
+} )();
+
+/**
+ * Slug inputs (.grabwp-slug-input): HTML pattern plus live conversion.
+ * Unicode (ấ → a) is folded like WordPress sanitize_title; backend still re-sanitizes.
+ */
+(function () {
+	'use strict';
+
+	function slugify( value, keepTrailingHyphen ) {
+		var s = String( value || '' );
+		s = s.replace( /đ/gi, 'd' );
+		if ( s.normalize ) {
+			s = s.normalize( 'NFD' ).replace( /[\u0300-\u036f]/g, '' );
+		}
+		s = s.toLowerCase().replace( /_/g, '-' ).replace( /[^a-z0-9-]+/g, '-' ).replace( /-+/g, '-' );
+		if ( keepTrailingHyphen && /-$/.test( String( value || '' ) ) && s && ! /-$/.test( s ) ) {
+			s += '-';
+		}
+		return keepTrailingHyphen ? s.replace( /^-+/, '' ) : s.replace( /^-+|-+$/g, '' );
+	}
+
+	function bind( input ) {
+		if ( input.readOnly || input.disabled ) {
+			return;
+		}
+		if ( ! input.getAttribute( 'pattern' ) ) {
+			input.setAttribute( 'pattern', '[a-z0-9\\-]+' );
+		}
+		input.setAttribute( 'spellcheck', 'false' );
+		input.setAttribute( 'autocapitalize', 'none' );
+
+		input.addEventListener( 'keydown', function ( e ) {
+			if ( e.ctrlKey || e.metaKey || e.altKey || e.key.length !== 1 ) {
+				return;
+			}
+			if ( /[a-zA-Z0-9\- _]/.test( e.key ) || e.key.toLowerCase() !== e.key.toUpperCase() ) {
+				return;
+			}
+			e.preventDefault();
+		} );
+
+		input.addEventListener( 'input', function () {
+			var next = slugify( input.value, true );
+			if ( next !== input.value ) {
+				input.value = next;
+			}
+		} );
+
+		input.addEventListener( 'blur', function () {
+			input.value = slugify( input.value, false );
+		} );
+	}
+
+	function bootSlugs() {
+		var inputs = document.querySelectorAll( '.grabwp-slug-input' );
+		for ( var i = 0; i < inputs.length; i++ ) {
+			bind( inputs[ i ] );
+		}
+	}
+
+	if ( document.readyState === 'loading' ) {
+		document.addEventListener( 'DOMContentLoaded', bootSlugs );
+	} else {
+		bootSlugs();
 	}
 } )();

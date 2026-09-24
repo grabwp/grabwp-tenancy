@@ -23,6 +23,7 @@ require_once __DIR__ . '/load-helper.php';
 
 // Initialize
 grabwp_tenancy_early_init();
+grabwp_tenancy_maybe_handle_domain_verify_probe();
 
 // Synchronize file-scope $table_prefix with the global set by tenancy boot.
 //
