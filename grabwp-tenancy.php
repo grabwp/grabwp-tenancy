@@ -3,7 +3,7 @@
  * Plugin Name: GrabWP Tenancy
  * Plugin URI: https://grabwp.com/tenancy
  * Description: Foundation multi-tenant WordPress solution with shared MySQL database and separated uploads. Designed to be extended by GrabWP Tenancy Pro for advanced features.
- * Version: 1.1.8
+ * Version: 1.1.9
  * Author: GrabWP
  * Author URI: https://grabwp.com
  * License: GPLv2 or later
@@ -29,7 +29,7 @@ if ( ! defined( 'GRABWP_MAINSITE_ID' ) ) {
 }
 
 // Define plugin constants
-define( 'GRABWP_TENANCY_VERSION', '1.1.8' );
+define( 'GRABWP_TENANCY_VERSION', '1.1.9' );
 define( 'GRABWP_TENANCY_PLUGIN_FILE', __FILE__ );
 define( 'GRABWP_TENANCY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 // Use content_url() to avoid symlink path resolution issues on some hosts
@@ -162,6 +162,7 @@ final class GrabWP_Tenancy {
 		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-settings.php';
 		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-admin.php';
 		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-admin-notice.php';
+		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-integrity-watchdog.php';
 
 		
 		
@@ -207,6 +208,16 @@ final class GrabWP_Tenancy {
 		// Defer settings application to plugins_loaded priority 20 so Pro (and
 		// other plugins) can filter effective values at priority 10 first.
 		add_action( 'plugins_loaded', array( $this, 'apply_tenant_settings' ), 20 );
+
+		// Tenant requests never write the shared root .htaccess / web.config.
+		// Rewrite rules still update in the tenant DB, so routing keeps working.
+		add_filter( 'flush_rewrite_rules_hard', '__return_false' );
+
+		// Integrity watchdog: restore shared files changed by tenant write
+		// requests. Front-end GET/HEAD requests never register it.
+		if ( GrabWP_Tenancy_Integrity_Watchdog::is_watched_request() ) {
+			add_action( 'shutdown', array( 'GrabWP_Tenancy_Integrity_Watchdog', 'check' ), 0 );
+		}
 
 		// Allow pro plugin to extend tenant functionality
 		do_action( 'grabwp_tenancy_init_tenant_only', $this );
@@ -339,6 +350,12 @@ final class GrabWP_Tenancy {
 		$this->init_loader();
 		$this->init_admin();
 		GrabWP_Tenancy_Admin_Notice::register();
+
+		// Shared-file lock: let legitimate main-site writes through, then re-lock.
+		add_filter( 'flush_rewrite_rules_hard', array( 'GrabWP_Tenancy_Installer', 'allow_hard_flush' ), 999 );
+		add_action( 'load-options-permalink.php', array( 'GrabWP_Tenancy_Installer', 'on_permalink_screen' ) );
+		add_action( 'admin_notices', array( 'GrabWP_Tenancy_Integrity_Watchdog', 'show_notice' ) );
+		add_action( 'admin_init', array( 'GrabWP_Tenancy_Installer', 'maybe_auto_protect' ) );
 
 		// Register /{prefix}/[tenant-id] URL path routing
 		add_action( 'init', array( $this, 'register_site_rewrite_rules' ) );
@@ -500,6 +517,12 @@ final class GrabWP_Tenancy {
 		}
 
 		flush_rewrite_rules();
+
+		// Shared-file protection is on by default (after all activation writes).
+		if ( ! $this->is_tenant && class_exists( 'GrabWP_Tenancy_Installer' )
+			&& apply_filters( 'grabwp_tenancy_auto_protect_shared_files', true ) ) {
+			GrabWP_Tenancy_Installer::protect_shared_files();
+		}
 		do_action( 'grabwp_tenancy_activate' );
 	}
 

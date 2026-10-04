@@ -27,6 +27,8 @@ class GrabWP_Tenancy_Admin_Notice {
 		add_action( 'wp_ajax_grabwp_fix_root_htaccess', array( __CLASS__, 'ajax_fix_root_htaccess' ) );
 		add_action( 'wp_ajax_grabwp_fix_data_htaccess', array( __CLASS__, 'ajax_fix_data_htaccess' ) );
 		add_action( 'wp_ajax_grabwp_fix_index_protection', array( __CLASS__, 'ajax_fix_index_protection' ) );
+		add_action( 'wp_ajax_grabwp_lock_shared_files', array( __CLASS__, 'ajax_lock_shared_files' ) );
+		add_action( 'wp_ajax_grabwp_unlock_shared_files', array( __CLASS__, 'ajax_unlock_shared_files' ) );
 	}
 
 	// =========================================================================
@@ -143,6 +145,18 @@ class GrabWP_Tenancy_Admin_Notice {
 		check_ajax_referer( 'grabwp_fix_component' );
 		if ( ! current_user_can( 'manage_options' ) ) { wp_send_json_error( 'Permission denied.' ); }
 		self::send_result( GrabWP_Tenancy_Installer::fix_index_protection() );
+	}
+
+	public static function ajax_lock_shared_files() {
+		check_ajax_referer( 'grabwp_fix_component' );
+		if ( ! current_user_can( 'manage_options' ) ) { wp_send_json_error( 'Permission denied.' ); }
+		self::send_result( GrabWP_Tenancy_Installer::protect_shared_files() );
+	}
+
+	public static function ajax_unlock_shared_files() {
+		check_ajax_referer( 'grabwp_fix_component' );
+		if ( ! current_user_can( 'manage_options' ) ) { wp_send_json_error( 'Permission denied.' ); }
+		self::send_result( GrabWP_Tenancy_Installer::unprotect_shared_files( true ) );
 	}
 
 	// =========================================================================

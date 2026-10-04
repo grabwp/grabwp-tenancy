@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.8
+Stable tag: 1.1.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -14,7 +14,7 @@ Multi-tenant WordPress with shared MySQL, domain and path routing, and isolated 
 
 == Description ==
 
-https://www.youtube.com/watch?v=LFYsrJhKUXE
+https://www.youtube.com/watch?v=4UzaOQWifv4
 
 = WORDPRESS MULTISITE ALTERNATIVE - ENABLE MULTI-TENANT AT NO COST =
 
@@ -96,6 +96,14 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.9 =
+* New: Shared files lock. wp-config.php, .htaccess, .user.ini and web.config in the WordPress root are made read-only (0444) so tenant plugins cannot rewrite them. It is on by default, including on sites that update. Turn it off with Unlock shared files on the Status page.
+* New: Integrity watchdog. GrabWP keeps a snapshot of each protected file. If a tenant admin, AJAX, cron or form request changes one, the file is restored, the event is logged, and the main-site admin sees a notice.
+* Enhance: GrabWP's own writes and main-site permalink saves unlock the files and lock them again automatically.
+* Enhance: Tenant requests no longer rewrite the shared root .htaccess or web.config. Tenant rewrite rules still update, so routing keeps working.
+* Change: If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again. The Status page shows each file's permissions.
+* Change: Deactivating the plugin unlocks the files and removes the snapshots.
 
 = 1.1.8 =
 * New: Shared slug sanitizer (grabwp_sanitize_slug) used by GrabWP add-ons. Slugs become lowercase letters, numbers, and hyphens; accented characters (including Vietnamese) are folded to plain letters, and underscores become hyphens.

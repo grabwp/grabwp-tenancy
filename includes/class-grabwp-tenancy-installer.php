@@ -53,6 +53,9 @@ class GrabWP_Tenancy_Installer {
 	 * @since 1.1.0
 	 */
 	public static function deactivate() {
+		// Never leave the site read-only: unlock and drop snapshots first.
+		self::unprotect_shared_files( false );
+
 		// Root .htaccess rewrite rules.
 		self::remove_site_path_rewrite_rules();
 
@@ -140,6 +143,7 @@ class GrabWP_Tenancy_Installer {
 	 */
 	public static function install_loader() {
 		$wp_config_path = ABSPATH . 'wp-config.php';
+		self::begin_shared_write();
 
 		if ( ! self::filesystem_is_writable( $wp_config_path ) ) {
 			return array( 'success' => false, 'message' => 'wp-config.php is not writable. Please check file permissions.' );
@@ -203,6 +207,7 @@ class GrabWP_Tenancy_Installer {
 	 */
 	public static function remove_loader() {
 		$wp_config_path = ABSPATH . 'wp-config.php';
+		self::begin_shared_write();
 
 		if ( ! self::filesystem_is_writable( $wp_config_path ) ) {
 			return array( 'success' => false, 'message' => 'wp-config.php is not writable.' );
@@ -317,6 +322,171 @@ class GrabWP_Tenancy_Installer {
 	}
 
 	// =========================================================================
+	// Shared-file lock (on by default, opt-out from the Status page)
+	// =========================================================================
+
+	/** True while protected root files are temporarily writable for a main-site write. */
+	private static $shared_write_open = false;
+
+	/**
+	 * Protected root files (basenames relative to ABSPATH).
+	 *
+	 * @since 1.1.9
+	 * @return string[]
+	 */
+	public static function get_protected_files() {
+		return (array) apply_filters( 'grabwp_tenancy_protected_files', array( 'wp-config.php', '.htaccess', '.user.ini', 'web.config' ) );
+	}
+
+	/**
+	 * Whether the shared-file lock is on (any existing protected file is read-only 0444).
+	 *
+	 * @since 1.1.9
+	 * @return bool
+	 */
+	public static function shared_files_locked() {
+		foreach ( self::get_protected_files() as $file ) {
+			$path = ABSPATH . $file;
+			clearstatcache( true, $path );
+			if ( is_file( $path ) && 0444 === ( fileperms( $path ) & 0777 ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/** chmod every existing protected file; returns basenames that failed. */
+	private static function chmod_shared_files( $mode ) {
+		$failed = array();
+		foreach ( self::get_protected_files() as $file ) {
+			$path = ABSPATH . $file;
+			if ( is_file( $path ) && ! @chmod( $path, $mode ) ) {
+				$failed[] = $file;
+			}
+			clearstatcache( true, $path );
+		}
+		return $failed;
+	}
+
+	/** Lock protected root files read-only (0444), best effort per file. */
+	public static function lock_shared_files() {
+		self::$shared_write_open = false;
+		$failed = self::chmod_shared_files( 0444 );
+		if ( $failed ) {
+			return array( 'success' => false, 'failed' => $failed, 'message' => 'Watching all files, but could not lock: ' . implode( ', ', $failed ) . '. Check file ownership.' );
+		}
+		return array( 'success' => true, 'message' => 'Shared files locked.' );
+	}
+
+	/**
+	 * Turn protection on: snapshot every file (watchdog on), lock what can be
+	 * locked, and clear the admin opt-out marker. Never fatal.
+	 *
+	 * @since 1.1.9
+	 */
+	public static function protect_shared_files() {
+		GrabWP_Tenancy_Integrity_Watchdog::set_opt_out( false );
+		GrabWP_Tenancy_Integrity_Watchdog::create_snapshots();
+		return self::lock_shared_files();
+	}
+
+	/**
+	 * Turn protection off: watchdog off, files 0644. With $opt_out the admin
+	 * choice is recorded so auto-protect never re-locks; without it (plugin
+	 * deactivation) the marker is cleared too.
+	 *
+	 * @since 1.1.9
+	 */
+	public static function unprotect_shared_files( $opt_out ) {
+		GrabWP_Tenancy_Integrity_Watchdog::delete_snapshots();
+		GrabWP_Tenancy_Integrity_Watchdog::set_opt_out( $opt_out );
+		self::$shared_write_open = false;
+		return self::unlock_shared_files();
+	}
+
+	/**
+	 * Main-site admin_init: enable protection once on installs that never set
+	 * it up (update path). Stat-only: opt-out marker plus first snapshot.
+	 *
+	 * @since 1.1.9
+	 */
+	public static function maybe_auto_protect() {
+		if ( GrabWP_Tenancy_Integrity_Watchdog::is_opted_out() || GrabWP_Tenancy_Integrity_Watchdog::has_snapshots()
+			|| ! apply_filters( 'grabwp_tenancy_auto_protect_shared_files', true ) ) {
+			return;
+		}
+		self::protect_shared_files();
+	}
+
+	/** Unlock protected root files (0644). */
+	public static function unlock_shared_files() {
+		$failed = self::chmod_shared_files( 0644 );
+		if ( $failed ) {
+			return array( 'success' => false, 'message' => 'Could not unlock: ' . implode( ', ', $failed ) . '. Check file ownership.' );
+		}
+		return array( 'success' => true, 'message' => 'Shared files unlocked.' );
+	}
+
+	/**
+	 * Open a write window for a legitimate main-site write while locked.
+	 *
+	 * No-op when unlocked. Files are re-locked by end_shared_write(), which is
+	 * also registered on shutdown so every exit path re-locks.
+	 *
+	 * @since 1.1.9
+	 */
+	public static function begin_shared_write() {
+		if ( self::$shared_write_open || ! self::shared_files_locked() ) {
+			return;
+		}
+		// Restore tampered files first so end_shared_write() never adopts them.
+		if ( class_exists( 'GrabWP_Tenancy_Integrity_Watchdog' ) ) {
+			GrabWP_Tenancy_Integrity_Watchdog::check();
+		}
+		self::chmod_shared_files( 0644 );
+		self::$shared_write_open = true;
+		add_action( 'shutdown', array( __CLASS__, 'end_shared_write' ), 1 );
+	}
+
+	/**
+	 * Close the write window: refresh watchdog snapshots so the legitimate
+	 * change becomes the new known-good state, then re-lock.
+	 *
+	 * @since 1.1.9
+	 */
+	public static function end_shared_write() {
+		if ( ! self::$shared_write_open ) {
+			return;
+		}
+		if ( class_exists( 'GrabWP_Tenancy_Integrity_Watchdog' ) && GrabWP_Tenancy_Integrity_Watchdog::count_snapshots() > 0 ) {
+			GrabWP_Tenancy_Integrity_Watchdog::create_snapshots();
+		}
+		self::lock_shared_files();
+	}
+
+	/**
+	 * Main-site hard rewrite flush (permalink save, plugin activation): open the
+	 * write window right before WordPress writes .htaccess / web.config.
+	 *
+	 * @since 1.1.9
+	 * @param bool $hard Whether to flush hard.
+	 * @return bool Unchanged.
+	 */
+	public static function allow_hard_flush( $hard ) {
+		if ( $hard ) {
+			self::begin_shared_write();
+		}
+		return $hard;
+	}
+
+	/** Permalinks screen POST: open the write window before core checks is_writable(). */
+	public static function on_permalink_screen() {
+		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
+			self::begin_shared_write();
+		}
+	}
+
+	// =========================================================================
 	// Root .htaccess Rewrite Rules
 	// =========================================================================
 
@@ -336,6 +506,7 @@ class GrabWP_Tenancy_Installer {
 	public static function add_site_path_rewrite_rules( $prefix = '' ) {
 		$htaccess_file = ABSPATH . '.htaccess';
 		$prefix        = '' !== $prefix ? $prefix : grabwp_tenancy_get_path_prefix();
+		self::begin_shared_write();
 
 		if ( ! function_exists( 'insert_with_markers' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/misc.php';
@@ -362,6 +533,7 @@ class GrabWP_Tenancy_Installer {
 	 */
 	public static function remove_site_path_rewrite_rules() {
 		$htaccess_file = ABSPATH . '.htaccess';
+		self::begin_shared_write();
 
 		if ( ! function_exists( 'insert_with_markers' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/misc.php';
@@ -672,6 +844,12 @@ PHP;
 	 */
 	private static function filesystem_is_writable( $path ) {
 		global $wp_filesystem;
+
+		// During an unlock window the files were just chmod-ed writable; non-direct
+		// WP_Filesystem transports may not see that, so trust the local check.
+		if ( self::$shared_write_open ) {
+			return is_writable( $path );
+		}
 
 		if ( empty( $wp_filesystem ) ) {
 			if ( ! function_exists( 'WP_Filesystem' ) ) {

@@ -300,6 +300,51 @@ Options -Indexes
 		</details>
 		<?php endif; ?>
 	</div>
+
+	<?php
+	// 6. Shared root files lock
+	$grabwp_shared_locked   = GrabWP_Tenancy_Installer::shared_files_locked();
+	$grabwp_shared_watching = GrabWP_Tenancy_Integrity_Watchdog::has_snapshots();
+	$grabwp_shared_unlocked = array();
+	?>
+	<div class="grabwp-env-card grabwp-shared-files-card">
+		<div class="grabwp-env-card-header">
+			<strong><?php echo esc_html( ( (int) $grabwp_step_num_idx + 1 ) . '. ' . __( 'Shared Files Lock', 'grabwp-tenancy' ) ); ?></strong>
+			<?php if ( $grabwp_shared_locked ) : ?>
+				<span class="grabwp-shared-files-state" data-state="locked" style="color: #46b450; font-size: 13px;"><?php esc_html_e( 'Locked', 'grabwp-tenancy' ); ?></span>
+			<?php else : ?>
+				<span class="grabwp-shared-files-state" data-state="unlocked" style="color: #666; font-size: 13px;"><?php esc_html_e( 'Unlocked', 'grabwp-tenancy' ); ?></span>
+			<?php endif; ?>
+		</div>
+		<p class="grabwp-env-note">
+			<?php esc_html_e( 'Makes the shared root files read-only (0444) so tenant plugins cannot rewrite them. GrabWP and main-site permalink saves unlock and re-lock automatically.', 'grabwp-tenancy' ); ?>
+			<?php esc_html_e( 'If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again.', 'grabwp-tenancy' ); ?>
+		</p>
+		<p class="grabwp-env-meta">
+			<?php
+			foreach ( GrabWP_Tenancy_Installer::get_protected_files() as $grabwp_shared_file ) {
+				if ( file_exists( ABSPATH . $grabwp_shared_file ) ) {
+					if ( $grabwp_shared_watching && 0444 !== ( fileperms( ABSPATH . $grabwp_shared_file ) & 0777 ) ) {
+						$grabwp_shared_unlocked[] = $grabwp_shared_file;
+					}
+					echo '<code>' . esc_html( $grabwp_shared_file . ' ' . substr( sprintf( '%o', fileperms( ABSPATH . $grabwp_shared_file ) ), -4 ) ) . '</code> ';
+				}
+			}
+			/* translators: %d: number of snapshot files. */
+			echo '<br>' . esc_html( sprintf( __( 'Integrity snapshots: %d', 'grabwp-tenancy' ), GrabWP_Tenancy_Integrity_Watchdog::count_snapshots() ) );
+			if ( $grabwp_shared_unlocked ) {
+				echo '<br><span class="grabwp-shared-files-unlockable" style="color: #dc3232;">' . esc_html__( 'Watched but could not be locked (check file ownership):', 'grabwp-tenancy' ) . ' ' . esc_html( implode( ', ', $grabwp_shared_unlocked ) ) . '</span>';
+			}
+			?>
+		</p>
+		<div class="grabwp-env-actions">
+			<button type="button" class="button button-small <?php echo ( $grabwp_shared_locked || $grabwp_shared_watching ) ? '' : 'button-primary'; ?> grabwp-fix-btn"
+				data-fix-action="<?php echo esc_attr( ( $grabwp_shared_locked || $grabwp_shared_watching ) ? 'grabwp_unlock_shared_files' : 'grabwp_lock_shared_files' ); ?>"
+				data-fix-nonce="<?php echo esc_attr( wp_create_nonce( 'grabwp_fix_component' ) ); ?>">
+				<?php ( $grabwp_shared_locked || $grabwp_shared_watching ) ? esc_html_e( 'Unlock shared files', 'grabwp-tenancy' ) : esc_html_e( 'Lock shared files', 'grabwp-tenancy' ); ?>
+			</button>
+		</div>
+	</div>
 	</div><!-- .grabwp-env-cards-grid -->
 </div>
 
