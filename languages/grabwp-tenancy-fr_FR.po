@@ -1,0 +1,1481 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GrabWP Tenancy 1.1.9\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/grabwp-tenancy\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French (France)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-11T19:14:49+00:00\n"
+"PO-Revision-Date: 2026-10-11 20:17+0000\n"
+"Language: fr_FR\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: grabwp-tenancy\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. Plugin Name of the plugin
+#: grabwp-tenancy.php
+#: admin/views/tenant-edit.php:134
+#: admin/views/tenants.php:16
+#: includes/class-grabwp-tenancy-admin.php:140
+#: includes/class-grabwp-tenancy-admin.php:350
+msgid "GrabWP Tenancy"
+msgstr "GrabWP Tenancy"
+
+#. Plugin URI of the plugin
+#: grabwp-tenancy.php
+msgid "https://grabwp.com/tenancy"
+msgstr "https://grabwp.com/tenancy"
+
+#. Description of the plugin
+#: grabwp-tenancy.php
+msgid "Foundation multi-tenant WordPress solution with shared MySQL database and separated uploads. Designed to be extended by GrabWP Tenancy Pro for advanced features."
+msgstr "Solution WordPress multi-tenant de base avec base de données MySQL partagée et téléversements séparés. Conçue pour être étendue par GrabWP Tenancy Pro pour des fonctionnalités avancées."
+
+#. Author of the plugin
+#: grabwp-tenancy.php
+msgid "GrabWP"
+msgstr "GrabWP"
+
+#. Author URI of the plugin
+#: grabwp-tenancy.php
+msgid "https://grabwp.com"
+msgstr "https://grabwp.com"
+
+#: admin/class-grabwp-tenancy-list-table.php:62
+msgid "Tenants per page"
+msgstr "Tenants par page"
+
+#: admin/class-grabwp-tenancy-list-table.php:77
+#: admin/views/tenant-clone.php:91
+#: admin/views/tenant-edit.php:66
+msgid "Tenant ID"
+msgstr "ID du tenant"
+
+#: admin/class-grabwp-tenancy-list-table.php:78
+#: admin/views/tenant-clone.php:92
+#: admin/views/tenant-edit.php:81
+msgid "Domains"
+msgstr "Domaines"
+
+#: admin/class-grabwp-tenancy-list-table.php:79
+msgid "Actions"
+msgstr "Actions"
+
+#: admin/class-grabwp-tenancy-list-table.php:278
+#: admin/views/tenant-create.php:29
+msgid "Main Site"
+msgstr "Site principal"
+
+#: admin/class-grabwp-tenancy-list-table.php:309
+msgid "Path access only"
+msgstr "Accès par chemin uniquement"
+
+#: admin/class-grabwp-tenancy-list-table.php:312
+msgid "No domains assigned"
+msgstr "Aucun domaine assigné"
+
+#: admin/class-grabwp-tenancy-list-table.php:328
+#: admin/class-grabwp-tenancy-list-table.php:339
+msgid "Visit Site"
+msgstr "Aller sur le site"
+
+#: admin/class-grabwp-tenancy-list-table.php:342
+msgid "Admin"
+msgstr "Admin"
+
+#: admin/class-grabwp-tenancy-list-table.php:346
+#: admin/views/status-base.php:82
+#: includes/class-grabwp-tenancy-admin.php:178
+#: includes/class-grabwp-tenancy-admin.php:179
+msgid "Settings"
+msgstr "Réglages"
+
+#. translators: %s: search term
+#: admin/class-grabwp-tenancy-list-table.php:400
+#, php-format
+msgid "No tenants found matching \"%s\"."
+msgstr "Aucun tenant trouvé correspondant à \"%s\"."
+
+#: admin/class-grabwp-tenancy-list-table.php:404
+msgid "No tenants found."
+msgstr "Aucun tenant trouvé."
+
+#: admin/class-grabwp-tenancy-list-table.php:517
+msgid "Search Tenants"
+msgstr "Rechercher des tenants"
+
+#: admin/class-grabwp-tenancy-list-table.php:518
+msgid "Search by ID or domain..."
+msgstr "Rechercher par ID ou domaine..."
+
+#: admin/class-grabwp-tenancy-list-table.php:519
+msgid "Search"
+msgstr "Rechercher"
+
+#: admin/views/partials/upsell-card.php:20
+#: admin/views/tenant-create.php:130
+#: admin/views/tenant-edit.php:135
+#: admin/views/tenants.php:64
+#: includes/class-grabwp-tenancy-admin.php:100
+msgid "Learn about Pro"
+msgstr "Découvrir la version Pro"
+
+#: admin/views/partials/upsell-card.php:27
+#: admin/views/partials/upsell-card.php:32
+#: admin/views/upgrade.php:27
+msgid "Pro"
+msgstr "Pro"
+
+#: admin/views/settings.php:16
+msgid "GrabWP Tenancy Settings"
+msgstr "Réglages de GrabWP Tenancy"
+
+#: admin/views/settings.php:25
+#: admin/views/status-base.php:80
+msgid "Tenant Capabilities"
+msgstr "Capacités des tenants"
+
+#: admin/views/settings.php:26
+msgid "Performance & Security"
+msgstr "Performance et sécurité"
+
+#: admin/views/settings.php:37
+#: includes/class-grabwp-tenancy-settings.php:113
+msgid "Install Plugins & Themes"
+msgstr "Installer des extensions et thèmes"
+
+#: admin/views/settings.php:38
+msgid "Disallow tenant admins to install, update, and delete plugins/themes (DISALLOW_FILE_MODS)."
+msgstr "Interdire aux administrateurs de tenants d'installer, de mettre à jour et de supprimer des extensions/thèmes (DISALLOW_FILE_MODS)."
+
+#: admin/views/settings.php:43
+msgid "Disallow file mods"
+msgstr "Interdire les modifications de fichiers"
+
+#: admin/views/settings.php:49
+#: includes/class-grabwp-tenancy-settings.php:119
+msgid "Edit Plugins & Themes"
+msgstr "Modifier les extensions et thèmes"
+
+#: admin/views/settings.php:50
+msgid "Disallow tenant admins to use the built-in plugin/theme file editor (DISALLOW_FILE_EDIT)."
+msgstr "Interdire aux administrateurs de tenants d'utiliser l'éditeur de fichiers d'extensions/thèmes intégré (DISALLOW_FILE_EDIT)."
+
+#: admin/views/settings.php:55
+msgid "Disallow file edit"
+msgstr "Interdire la modification de fichiers"
+
+#: admin/views/settings.php:61
+#: admin/views/status-base.php:91
+#: includes/class-grabwp-tenancy-settings.php:125
+msgid "Hide Plugin Management"
+msgstr "Masquer la gestion des extensions"
+
+#: admin/views/settings.php:62
+msgid "Hide the Plugins menu entirely from tenant admin dashboards."
+msgstr "Masquer entièrement le menu Extensions des tableaux de bord d'administration des tenants."
+
+#: admin/views/settings.php:67
+msgid "Hide Plugins menu"
+msgstr "Masquer le menu Extensions"
+
+#: admin/views/settings.php:73
+#: admin/views/status-base.php:92
+#: includes/class-grabwp-tenancy-settings.php:131
+msgid "Hide Theme Management"
+msgstr "Masquer la gestion des thèmes"
+
+#: admin/views/settings.php:74
+msgid "Hide the Appearance menu entirely from tenant admin dashboards."
+msgstr "Masquer entièrement le menu Apparence des tableaux de bord d'administration des tenants."
+
+#: admin/views/settings.php:79
+msgid "Hide Appearance menu"
+msgstr "Masquer le menu Apparence"
+
+#: admin/views/settings.php:85
+#: admin/views/status-base.php:93
+#: includes/class-grabwp-tenancy-settings.php:137
+msgid "Hide GrabWP Plugins"
+msgstr "Masquer les extensions GrabWP"
+
+#: admin/views/settings.php:86
+msgid "Hide GrabWP plugins from the plugin list on tenant sites."
+msgstr "Masquer les extensions GrabWP de la liste des extensions sur les sites tenants."
+
+#: admin/views/settings.php:91
+msgid "Hide from plugin list"
+msgstr "Masquer de la liste des extensions"
+
+#: admin/views/settings.php:103
+#: admin/views/settings.php:109
+#: includes/class-grabwp-tenancy-settings.php:143
+msgid "Disable WP-Cron"
+msgstr "Désactiver WP-Cron"
+
+#: admin/views/settings.php:104
+#: includes/class-grabwp-tenancy-settings.php:146
+msgid "Disable WordPress internal cron on tenant sites (DISABLE_WP_CRON). Use system cron instead."
+msgstr "Désactiver le cron interne de WordPress sur les sites tenants (DISABLE_WP_CRON). Utiliser le cron système à la place."
+
+#: admin/views/settings.php:115
+#: admin/views/settings.php:121
+#: includes/class-grabwp-tenancy-settings.php:149
+msgid "Disable XML-RPC"
+msgstr "Désactiver XML-RPC"
+
+#: admin/views/settings.php:116
+#: includes/class-grabwp-tenancy-settings.php:152
+msgid "Disable XML-RPC API on tenant sites. Reduces attack surface and prevents brute-force attempts."
+msgstr "Désactiver l'API XML-RPC sur les sites tenants. Réduit la surface d'attaque et empêche les tentatives de force brute."
+
+#: admin/views/settings.php:127
+#: includes/class-grabwp-tenancy-settings.php:155
+msgid "Post Revisions"
+msgstr "Révisions des publications"
+
+#: admin/views/settings.php:128
+#: includes/class-grabwp-tenancy-settings.php:158
+msgid "Maximum post revisions to keep (WP_POST_REVISIONS). Lower values save database space."
+msgstr "Nombre maximum de révisions de publications à conserver (WP_POST_REVISIONS). Des valeurs plus faibles permettent d'économiser de l'espace dans la base de données."
+
+#: admin/views/settings.php:136
+#: includes/class-grabwp-tenancy-settings.php:163
+msgid "Empty Trash Days"
+msgstr "Jours avant de vider la corbeille"
+
+#: admin/views/settings.php:137
+#: includes/class-grabwp-tenancy-settings.php:166
+msgid "Days before trashed posts are permanently deleted (EMPTY_TRASH_DAYS). Set to 0 to disable trash."
+msgstr "Nombre de jours avant que les publications dans la corbeille ne soient définitivement supprimées (EMPTY_TRASH_DAYS). Mettre à 0 pour désactiver la corbeille."
+
+#: admin/views/settings.php:145
+#: includes/class-grabwp-tenancy-settings.php:171
+msgid "Block External HTTP"
+msgstr "Bloquer les requêtes HTTP externes"
+
+#: admin/views/settings.php:146
+#: includes/class-grabwp-tenancy-settings.php:174
+msgid "Block all external HTTP requests from tenant sites (WP_HTTP_BLOCK_EXTERNAL). Allowlist hosts below."
+msgstr "Bloquer toutes les requêtes HTTP externes depuis les sites tenants (WP_HTTP_BLOCK_EXTERNAL). Liste blanche d'hôtes ci-dessous."
+
+#: admin/views/settings.php:151
+msgid "Block external HTTP"
+msgstr "Bloquer HTTP externe"
+
+#: admin/views/settings.php:157
+#: includes/class-grabwp-tenancy-settings.php:177
+msgid "Accessible Hosts"
+msgstr "Hôtes accessibles"
+
+#: admin/views/settings.php:158
+#: includes/class-grabwp-tenancy-settings.php:180
+msgid "Comma-separated hosts allowed when external HTTP is blocked (WP_ACCESSIBLE_HOSTS). Wildcards supported."
+msgstr "Hôtes séparés par des virgules autorisés lorsque les requêtes HTTP externes sont bloquées (WP_ACCESSIBLE_HOSTS). Les caractères génériques sont pris en charge."
+
+#: admin/views/settings.php:174
+msgid "Save Settings"
+msgstr "Enregistrer les réglages"
+
+#: admin/views/settings.php:181
+msgid "Scheduling and automatic backups"
+msgstr "Planification et sauvegardes automatiques"
+
+#: admin/views/settings.php:182
+msgid "Schedule automatic backups for each tenant site on an interval you control. Pro automatically pushes backup copies to secure offsite storage after each run, so you never lose client data to a server failure."
+msgstr "Planifiez des sauvegardes automatiques pour chaque site tenant à l'intervalle de votre choix. Pro envoie automatiquement des copies de sauvegarde vers un stockage externe sécurisé après chaque exécution, pour ne jamais perdre les données clients en cas de panne de serveur."
+
+#: admin/views/settings.php:183
+msgid "Learn about GrabWP Tenancy Pro"
+msgstr "Découvrir GrabWP Tenancy Pro"
+
+#: admin/views/status-base.php:25
+msgid "File Structure"
+msgstr "Structure des fichiers"
+
+#: admin/views/status-base.php:29
+msgid "Base Directory"
+msgstr "Répertoire de base"
+
+#: admin/views/status-base.php:33
+msgid "✓ Directory exists"
+msgstr "✓ Le répertoire existe"
+
+#: admin/views/status-base.php:35
+msgid "✗ Directory does not exist"
+msgstr "✗ Le répertoire n'existe pas"
+
+#: admin/views/status-base.php:38
+msgid "⚠ Using legacy path structure"
+msgstr "⚠ Utilisation d'une structure de chemin obsolète"
+
+#: admin/views/status-base.php:40
+msgid "ℹ Using custom path configuration"
+msgstr "ℹ Utilisation d'une configuration de chemin personnalisée"
+
+#: admin/views/status-base.php:46
+msgid "Tenant Mappings File"
+msgstr "Fichier de mappage des tenants"
+
+#: admin/views/status-base.php:50
+msgid "✓ File exists and is readable"
+msgstr "✓ Le fichier existe et est lisible"
+
+#: admin/views/status-base.php:52
+msgid "✗ File does not exist"
+msgstr "✗ Le fichier n'existe pas"
+
+#: admin/views/status-base.php:58
+msgid "Settings File"
+msgstr "Fichier de réglages"
+
+#: admin/views/status-base.php:62
+msgid "✓ File exists"
+msgstr "✓ Le fichier existe"
+
+#: admin/views/status-base.php:64
+msgid "⚠ Not created yet (using defaults)"
+msgstr "⚠ Pas encore créé (utilisation des valeurs par défaut)"
+
+#: admin/views/status-base.php:70
+msgid "Tenant Uploads Pattern"
+msgstr "Modèle de téléversement des tenants"
+
+#: admin/views/status-base.php:81
+msgid "Configured on the Settings page."
+msgstr "Configuré sur la page des réglages."
+
+#: admin/views/status-base.php:89
+msgid "Disallow File Mods"
+msgstr "Interdire les modifications de fichiers"
+
+#: admin/views/status-base.php:90
+msgid "Disallow File Edit"
+msgstr "Interdire la modification de fichiers"
+
+#: admin/views/status-base.php:102
+msgid "✓ Enabled"
+msgstr "✓ Activé"
+
+#: admin/views/status-base.php:104
+#: admin/views/status-general.php:453
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: admin/views/status-general.php:30
+msgid "Environment Checks"
+msgstr "Vérifications de l'environnement"
+
+#: admin/views/status-general.php:38
+msgid "1. wp-config.php Loader"
+msgstr "1. Chargeur de wp-config.php"
+
+#: admin/views/status-general.php:40
+#: admin/views/status-pro.php:46
+msgid "✓ Active"
+msgstr "✓ Actif"
+
+#: admin/views/status-general.php:42
+#: admin/views/status-general.php:429
+msgid "✗ Not loaded"
+msgstr "✗ Non chargé"
+
+#: admin/views/status-general.php:48
+#: admin/views/status-general.php:101
+#: admin/views/status-general.php:151
+#: admin/views/status-general.php:212
+#: admin/views/status-general.php:269
+msgid "Fix steps and install code"
+msgstr "Étapes de correction et code d'installation"
+
+#: admin/views/status-general.php:50
+msgid "Loads tenant detection before WordPress boots so domain/path routing can identify the tenant."
+msgstr "Charge la détection des tenants avant le démarrage de WordPress afin que le routage par domaine/chemin puisse identifier le tenant."
+
+#: admin/views/status-general.php:55
+#, php-format
+msgid "File: %1$s, place before %2$s"
+msgstr "Fichier : %1$s, placer avant %2$s"
+
+#: admin/views/status-general.php:65
+#: admin/views/status-general.php:112
+#: admin/views/status-general.php:176
+#: admin/views/status-general.php:236
+#: admin/views/status-general.php:287
+msgid "📋 Copy Code"
+msgstr "📋 Copier le code"
+
+#: admin/views/status-general.php:71
+#: admin/views/status-general.php:118
+#: admin/views/status-general.php:182
+#: admin/views/status-general.php:242
+#: admin/views/status-general.php:293
+msgid "⚡ Auto Fix"
+msgstr "⚡ Correction automatique"
+
+#: admin/views/status-general.php:74
+msgid "wp-config.php is not writable, manual install required"
+msgstr "wp-config.php n'est pas inscriptible, installation manuelle requise"
+
+#: admin/views/status-general.php:76
+msgid "Stop-editing marker not found, manual install required"
+msgstr "Marqueur de fin d'édition non trouvé, installation manuelle requise"
+
+#: admin/views/status-general.php:89
+msgid "2. MU-Plugin"
+msgstr "2. MU-Plugin"
+
+#: admin/views/status-general.php:91
+#: admin/views/status-general.php:137
+msgid "✓ Installed"
+msgstr "✓ Installé"
+
+#: admin/views/status-general.php:93
+msgid "⚠ Outdated"
+msgstr "⚠ Obsolète"
+
+#: admin/views/status-general.php:95
+#: admin/views/status-general.php:206
+msgid "✗ Missing"
+msgstr "✗ Manquant"
+
+#: admin/views/status-general.php:103
+msgid "MU-plugins load on every request, including tenant admin, for settings sync and management features."
+msgstr "Les MU-plugins se chargent à chaque requête, y compris dans l'administration du tenant, pour la synchronisation des réglages et les fonctionnalités de gestion."
+
+#: admin/views/status-general.php:106
+#: admin/views/status-general.php:217
+#: admin/views/status-general.php:274
+#, php-format
+msgid "File: %s"
+msgstr "Fichier : %s"
+
+#: admin/views/status-general.php:121
+msgid "mu-plugins directory is not writable, manual install required"
+msgstr "Le répertoire mu-plugins n'est pas inscriptible, installation manuelle requise"
+
+#: admin/views/status-general.php:135
+msgid "3. Root .htaccess Rewrite Rules"
+msgstr "3. Règles de réécriture .htaccess à la racine"
+
+#: admin/views/status-general.php:139
+msgid "⚠ Wrong position"
+msgstr "⚠ Mauvaise position"
+
+#: admin/views/status-general.php:141
+msgid "⚠ Invalid content"
+msgstr "⚠ Contenu invalide"
+
+#: admin/views/status-general.php:143
+msgid "⚠ Missing block"
+msgstr "⚠ Bloc manquant"
+
+#: admin/views/status-general.php:145
+msgid "✗ No .htaccess"
+msgstr "✗ Aucun .htaccess"
+
+#: admin/views/status-general.php:156
+#, php-format
+msgid "Apache rewrite rules for path-based tenant URLs like /%s/{id}/wp-admin."
+msgstr "Règles de réécriture Apache pour les URL de tenants basées sur le chemin, comme /%s/{id}/wp-admin."
+
+#: admin/views/status-general.php:162
+#, php-format
+msgid "File: %s, must appear BEFORE \"# BEGIN WordPress\""
+msgstr "Fichier : %s, doit apparaître AVANT \"# BEGIN WordPress\""
+
+#: admin/views/status-general.php:185
+msgid "Root directory or .htaccess is not writable, manual install required"
+msgstr "Le répertoire racine ou .htaccess n'est pas inscriptible, installation manuelle requise"
+
+#: admin/views/status-general.php:200
+msgid "Data Directory .htaccess"
+msgstr "Fichier .htaccess du répertoire de données"
+
+#: admin/views/status-general.php:202
+msgid "✓ Protected"
+msgstr "✓ Protégé"
+
+#: admin/views/status-general.php:204
+msgid "⚠ Incomplete"
+msgstr "⚠ Incomplet"
+
+#: admin/views/status-general.php:214
+msgid "Blocks direct HTTP access to PHP files and directory listing in the tenant data directory."
+msgstr "Bloque l'accès HTTP direct aux fichiers PHP et le listage du répertoire dans le répertoire de données du tenant."
+
+#: admin/views/status-general.php:245
+#: admin/views/status-general.php:296
+msgid "Data directory is not writable, manual install required"
+msgstr "Le répertoire de données n'est pas inscriptible, installation manuelle requise"
+
+#: admin/views/status-general.php:259
+msgid "index.php Protection"
+msgstr "Protection de index.php"
+
+#: admin/views/status-general.php:261
+msgid "✓ Present"
+msgstr "✓ Présent"
+
+#: admin/views/status-general.php:263
+msgid "⚠ Missing"
+msgstr "⚠ Manquant"
+
+#: admin/views/status-general.php:271
+msgid "Blank index.php prevents directory listing when .htaccess is unavailable."
+msgstr "Un fichier index.php vide empêche le listage du répertoire lorsque .htaccess n'est pas disponible."
+
+#: admin/views/status-general.php:312
+msgid "Shared Files Lock"
+msgstr "Verrouillage des fichiers partagés"
+
+#: admin/views/status-general.php:314
+msgid "Locked"
+msgstr "Verrouillé"
+
+#: admin/views/status-general.php:316
+msgid "Unlocked"
+msgstr "Déverrouillé"
+
+#: admin/views/status-general.php:320
+msgid "Makes the shared root files read-only (0444) so tenant plugins cannot rewrite them. GrabWP and main-site permalink saves unlock and re-lock automatically."
+msgstr "Rend les fichiers racines partagés en lecture seule (0444) afin que les extensions de tenants ne puissent pas les réécrire. GrabWP et les enregistrements de permaliens du site principal déverrouillent et reverrouillent automatiquement."
+
+#: admin/views/status-general.php:321
+msgid "If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again."
+msgstr "Si une extension du site principal (par exemple, une extension de cache) a besoin d'écrire dans ces fichiers, déverrouillez temporairement, puis reverrouillez."
+
+#. translators: %d: number of snapshot files.
+#: admin/views/status-general.php:334
+#, php-format
+msgid "Integrity snapshots: %d"
+msgstr "Instantanés d'intégrité : %d"
+
+#: admin/views/status-general.php:336
+msgid "Watched but could not be locked (check file ownership):"
+msgstr "Surveillé mais n'a pas pu être verrouillé (vérifiez la propriété du fichier) :"
+
+#: admin/views/status-general.php:344
+msgid "Unlock shared files"
+msgstr "Déverrouiller les fichiers partagés"
+
+#: admin/views/status-general.php:344
+msgid "Lock shared files"
+msgstr "Verrouiller les fichiers partagés"
+
+#: admin/views/status-general.php:353
+msgid "GrabWP Tenancy Information"
+msgstr "Informations sur GrabWP Tenancy"
+
+#: admin/views/status-general.php:356
+msgid "Base Plugin Version"
+msgstr "Version de l'extension de base"
+
+#: admin/views/status-general.php:360
+#: admin/views/status.php:84
+msgid "Pro Plugin"
+msgstr "Extension Pro"
+
+#: admin/views/status-general.php:363
+msgid "Active"
+msgstr "Actif"
+
+#: admin/views/status-general.php:368
+msgid "Inactive"
+msgstr "Inactif"
+
+#: admin/views/status-general.php:373
+msgid "Registered Tenants"
+msgstr "Tenants enregistrés"
+
+#: admin/views/status-general.php:377
+msgid "View all"
+msgstr "Voir tout"
+
+#: admin/views/status-general.php:387
+msgid "System Information"
+msgstr "Informations système"
+
+#. translators: 1: WordPress version, 2: PHP version, 3: server software label
+#: admin/views/status-general.php:392
+#, php-format
+msgid "WP %1$s · PHP %2$s · %3$s"
+msgstr "WP %1$s · PHP %2$s · %3$s"
+
+#: admin/views/status-general.php:402
+msgid "WordPress Version"
+msgstr "Version de WordPress"
+
+#: admin/views/status-general.php:406
+msgid "PHP Version"
+msgstr "Version de PHP"
+
+#: admin/views/status-general.php:410
+msgid "Database Engine"
+msgstr "Moteur de base de données"
+
+#: admin/views/status-general.php:414
+msgid "Web Server"
+msgstr "Serveur web"
+
+#: admin/views/status-general.php:418
+msgid "ℹ .htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
+msgstr "ℹ Les fichiers .htaccess ne sont pas utilisés par Nginx. Configurez plutôt le routage des tenants dans votre bloc serveur."
+
+#: admin/views/status-general.php:424
+msgid "mod_rewrite"
+msgstr "mod_rewrite"
+
+#: admin/views/status-general.php:427
+msgid "✓ Loaded"
+msgstr "✓ Chargé"
+
+#: admin/views/status-general.php:430
+msgid "Path routing requires mod_rewrite. Query string routing (?site=id) will be used as fallback."
+msgstr "Le routage par chemin nécessite mod_rewrite. Le routage par chaîne de requête (?site=id) sera utilisé comme solution de secours."
+
+#: admin/views/status-general.php:432
+msgid "Cannot detect (apache_get_modules unavailable)"
+msgstr "Impossible de détecter (apache_get_modules indisponible)"
+
+#: admin/views/status-general.php:438
+msgid "WordPress Multisite"
+msgstr "WordPress Multisite"
+
+#: admin/views/status-general.php:441
+msgid "⚠ Yes. GrabWP Tenancy is not designed for Multisite"
+msgstr "⚠ Oui. GrabWP Tenancy n'est pas conçu pour le Multisite"
+
+#: admin/views/status-general.php:443
+msgid "No"
+msgstr "Non"
+
+#: admin/views/status-general.php:448
+msgid "WP Debug Mode"
+msgstr "Mode de débogage WP"
+
+#: admin/views/status-general.php:451
+msgid "Enabled"
+msgstr "Activé"
+
+#: admin/views/status-general.php:458
+msgid "Data Dir Writable"
+msgstr "Répertoire de données inscriptible"
+
+#: admin/views/status-general.php:461
+#: admin/views/status-general.php:472
+msgid "✓ Yes"
+msgstr "✓ Oui"
+
+#: admin/views/status-general.php:463
+msgid "✗ No"
+msgstr "✗ Non"
+
+#: admin/views/status-general.php:464
+msgid "Plugin needs write access to create tenant directories and manage configuration files."
+msgstr "L'extension nécessite un accès en écriture pour créer les répertoires de tenants et gérer les fichiers de configuration."
+
+#: admin/views/status-general.php:469
+msgid "MU-Plugins Dir Writable"
+msgstr "Répertoire MU-Plugins inscriptible"
+
+#: admin/views/status-general.php:474
+msgid "⚠ No"
+msgstr "⚠ Non"
+
+#: admin/views/status-general.php:475
+msgid "Auto-install of MU-plugin will not work. Manual installation required."
+msgstr "L'installation automatique du MU-plugin ne fonctionnera pas. Installation manuelle requise."
+
+#: admin/views/status-pro.php:27
+msgid "GrabWP Tenancy Pro"
+msgstr "GrabWP Tenancy Pro"
+
+#: admin/views/status-pro.php:28
+msgid "Upgrade to GrabWP Tenancy Pro for advanced features including complete content isolation, separate databases per tenant, and enhanced management capabilities."
+msgstr "Passez à GrabWP Tenancy Pro pour bénéficier de fonctionnalités avancées, notamment l'isolation complète du contenu, des bases de données distinctes par locataire et des capacités de gestion améliorées."
+
+#: admin/views/status-pro.php:29
+#: includes/class-grabwp-tenancy-admin.php:197
+#: includes/class-grabwp-tenancy-admin.php:198
+#: includes/class-grabwp-tenancy-admin.php:313
+msgid "Upgrade to Pro"
+msgstr "Passez à la version Pro"
+
+#: admin/views/status-pro.php:38
+msgid "Pro Plugin Information"
+msgstr "Informations sur l'extension Pro"
+
+#: admin/views/status-pro.php:41
+msgid "Pro Version"
+msgstr "Version Pro"
+
+#: admin/views/status-pro.php:45
+#: includes/class-grabwp-tenancy-admin.php:187
+#: includes/class-grabwp-tenancy-admin.php:188
+msgid "Status"
+msgstr "État"
+
+#: admin/views/status-pro.php:54
+msgid "Content Isolation (Default)"
+msgstr "Isolation du contenu (par défaut)"
+
+#: admin/views/status-pro.php:55
+msgid "Default content isolation settings applied when creating new tenants."
+msgstr "Paramètres d'isolation du contenu par défaut appliqués lors de la création de nouveaux locataires."
+
+#: admin/views/status-pro.php:61
+msgid "Content Isolation"
+msgstr "Isolation du contenu"
+
+#: admin/views/status-pro.php:62
+msgid "Theme Isolation"
+msgstr "Isolation des thèmes"
+
+#: admin/views/status-pro.php:63
+msgid "Plugin Isolation"
+msgstr "Isolation des extensions"
+
+#: admin/views/status-pro.php:64
+msgid "Upload Isolation"
+msgstr "Isolation des téléversements"
+
+#: admin/views/status-pro.php:73
+msgid "✓ Isolated"
+msgstr "✓ Isolé"
+
+#: admin/views/status-pro.php:75
+msgid "Shared"
+msgstr "Partagé"
+
+#: admin/views/status-pro.php:85
+msgid "Database (Default)"
+msgstr "Base de données (par défaut)"
+
+#: admin/views/status-pro.php:86
+msgid "Default database configuration for new tenants."
+msgstr "Configuration de base de données par défaut pour les nouveaux locataires."
+
+#: admin/views/status-pro.php:94
+#: admin/views/tenant-clone.php:93
+msgid "Database Type"
+msgstr "Type de base de données"
+
+#: admin/views/status-pro.php:97
+msgid "Isolated MySQL Database"
+msgstr "Base de données MySQL isolée"
+
+#: admin/views/status-pro.php:99
+msgid "Isolated SQLite Database"
+msgstr "Base de données SQLite isolée"
+
+#: admin/views/status-pro.php:101
+msgid "Shared Database (with table prefixes)"
+msgstr "Base de données partagée (avec préfixes de tables)"
+
+#: admin/views/status-pro.php:108
+msgid "MySQL Host"
+msgstr "Hôte MySQL"
+
+#: admin/views/status-pro.php:117
+msgid "MySQL Database"
+msgstr "Base de données MySQL"
+
+#: admin/views/status-pro.php:126
+msgid "MySQL Username"
+msgstr "Identifiant MySQL"
+
+#: admin/views/status.php:71
+msgid "GrabWP Tenancy Status"
+msgstr "État de GrabWP Tenancy"
+
+#: admin/views/status.php:76
+msgid "Plugin General"
+msgstr "Généralités de l'extension"
+
+#: admin/views/status.php:80
+msgid "Base Plugin"
+msgstr "Extension de base"
+
+#: admin/views/status.php:97
+msgid "GrabWP Tenancy:"
+msgstr "GrabWP Tenancy :"
+
+#: admin/views/status.php:98
+msgid "You're using a legacy path structure. To comply with WordPress standards:"
+msgstr "Vous utilisez une structure de chemin obsolète. Pour vous conformer aux standards de WordPress :"
+
+#: admin/views/status.php:99
+msgid "1. Deactivate the plugin"
+msgstr "1. Désactivez l'extension"
+
+#: admin/views/status.php:102
+#, php-format
+msgid "2. Rename and move the entire %1$s folder to %2$s"
+msgstr "2. Renommez et déplacez le dossier %1$s entier vers %2$s"
+
+#: admin/views/status.php:108
+msgid "3. Reactivate the plugin"
+msgstr "3. Réactivez l'extension"
+
+#: admin/views/status.php:129
+msgid "← active"
+msgstr "← actif"
+
+#: admin/views/tenant-clone.php:23
+msgid "Validating source & target tenants"
+msgstr "Validation des locataires source et cible"
+
+#: admin/views/tenant-clone.php:24
+msgid "Exporting source database"
+msgstr "Exportation de la base de données source"
+
+#: admin/views/tenant-clone.php:25
+msgid "Importing database into target tenant"
+msgstr "Importation de la base de données dans le locataire cible"
+
+#: admin/views/tenant-clone.php:26
+msgid "Updating site URLs"
+msgstr "Mise à jour des URL du site"
+
+#: admin/views/tenant-clone.php:27
+msgid "Copying uploads"
+msgstr "Copie des téléversements"
+
+#: admin/views/tenant-clone.php:28
+msgid "Cleaning up"
+msgstr "Nettoyage"
+
+#: admin/views/tenant-clone.php:43
+msgid "Clone Main Site"
+msgstr "Cloner le site principal"
+
+#: admin/views/tenant-clone.php:46
+#, php-format
+msgid "Clone Tenant: %s"
+msgstr "Cloner le locataire : %s"
+
+#: admin/views/tenant-clone.php:53
+#, php-format
+msgid "Source database type: %s"
+msgstr "Type de base de données source : %s"
+
+#: admin/views/tenant-clone.php:53
+#: admin/views/tenant-clone.php:93
+msgid "Shared MySQL"
+msgstr "MySQL partagé"
+
+#: admin/views/tenant-clone.php:59
+msgid "Choose clone target:"
+msgstr "Choisissez la cible du clone :"
+
+#: admin/views/tenant-clone.php:63
+msgid "Clone to existing site"
+msgstr "Cloner vers un site existant"
+
+#: admin/views/tenant-clone.php:67
+msgid "Clone to new site"
+msgstr "Cloner vers un nouveau site"
+
+#: admin/views/tenant-clone.php:81
+msgid "Target Tenant"
+msgstr "Locataire cible"
+
+#: admin/views/tenant-clone.php:85
+msgid "— Loading tenants…"
+msgstr "- Chargement des locataires…"
+
+#: admin/views/tenant-clone.php:87
+msgid "Select an existing tenant to clone data into. Create the target tenant first if needed."
+msgstr "Sélectionnez un locataire existant vers lequel cloner les données. Créez d'abord le locataire cible si nécessaire."
+
+#: admin/views/tenant-clone.php:98
+msgid "Warning:"
+msgstr "Attention :"
+
+#: admin/views/tenant-clone.php:99
+msgid "This will overwrite all data in the target tenant (database, uploads). This action cannot be undone."
+msgstr "Cela écrasera toutes les données du locataire cible (base de données, téléversements). Cette action est irréversible."
+
+#: admin/views/tenant-clone.php:107
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:78
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:79
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:123
+msgid "Clone Tenant"
+msgstr "Cloner le locataire"
+
+#: admin/views/tenant-clone.php:110
+#: admin/views/tenant-create.php:119
+#: admin/views/tenant-edit.php:124
+msgid "Cancel"
+msgstr "Annuler"
+
+#: admin/views/tenant-clone.php:131
+msgid "Clone complete!"
+msgstr "Clonage terminé !"
+
+#: admin/views/tenant-clone.php:132
+msgid "The source tenant data has been cloned into the target tenant."
+msgstr "Les données du locataire source ont été clonées dans le locataire cible."
+
+#: admin/views/tenant-clone.php:135
+msgid "Target tenant:"
+msgstr "Locataire cible :"
+
+#: admin/views/tenant-clone.php:137
+msgid "Edit tenant"
+msgstr "Modifier le locataire"
+
+#: admin/views/tenant-clone.php:138
+msgid "Homepage"
+msgstr "Page d'accueil"
+
+#: admin/views/tenant-clone.php:139
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: admin/views/tenant-clone.php:146
+msgid "Tired of doing this by hand?"
+msgstr "Fatigué de faire cela manuellement ?"
+
+#: admin/views/tenant-clone.php:147
+msgid "GrabWP Tenancy Pro schedules automatic backups for every client site and pushes copies to secure offsite storage. No more manual steps, no missed backups."
+msgstr "GrabWP Tenancy Pro planifie des sauvegardes automatiques pour chaque site client et envoie des copies vers un stockage hors site sécurisé. Plus d'étapes manuelles, plus de sauvegardes manquées."
+
+#: admin/views/tenant-clone.php:148
+#: admin/views/upgrade.php:86
+msgid "Get GrabWP Tenancy Pro"
+msgstr "Obtenir GrabWP Tenancy Pro"
+
+#: admin/views/tenant-clone.php:156
+msgid "Back to Tenants"
+msgstr "Retour aux locataires"
+
+#: admin/views/tenant-clone.php:194
+msgid "— No eligible tenants found —"
+msgstr "- Aucun locataire éligible trouvé -"
+
+#: admin/views/tenant-clone.php:199
+msgid "— Select target tenant —"
+msgstr "- Sélectionnez le locataire cible -"
+
+#: admin/views/tenant-clone.php:326
+msgid "Are you sure? All data in the target tenant will be overwritten."
+msgstr "Êtes-vous sûr ? Toutes les données du locataire cible seront écrasées."
+
+#: admin/views/tenant-create.php:16
+#: includes/class-grabwp-tenancy-admin.php:160
+msgid "Add New Tenant"
+msgstr "Ajouter un nouveau locataire"
+
+#: admin/views/tenant-create.php:17
+msgid "Create a new tenant. A path-based URL will be assigned automatically."
+msgstr "Créez un nouveau locataire. Une URL basée sur le chemin sera assignée automatiquement."
+
+#. translators: %s: source tenant ID or "Main Site"
+#: admin/views/tenant-create.php:33
+#, php-format
+msgid "After creating this tenant, you will be redirected to clone %s into it."
+msgstr "Après avoir créé ce locataire, vous serez redirigé pour y cloner %s."
+
+#: admin/views/tenant-create.php:66
+msgid "Domain Setup"
+msgstr "Configuration du domaine"
+
+#: admin/views/tenant-create.php:67
+msgid "Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page."
+msgstr "Saisissez sans http:// ni www (par ex. monsite.com, blog.monsite.com). Vous pouvez ajouter un domaine à tout moment depuis la page de modification du locataire."
+
+#: admin/views/tenant-create.php:74
+msgid "I have a domain"
+msgstr "J'ai un domaine"
+
+#: admin/views/tenant-create.php:79
+msgid "Enter domain (e.g. mysite.com)"
+msgstr "Saisissez le domaine (par ex. monsite.com)"
+
+#: admin/views/tenant-create.php:80
+msgid "Clear"
+msgstr "Effacer"
+
+#: admin/views/tenant-create.php:81
+#: admin/views/tenant-edit.php:91
+#: admin/views/tenant-edit.php:99
+#: includes/class-grabwp-tenancy-admin.php:250
+msgid "Remove"
+msgstr "Retirer"
+
+#: admin/views/tenant-create.php:89
+msgid "I'll set up a domain later"
+msgstr "Je configurerai un domaine plus tard"
+
+#: admin/views/tenant-create.php:93
+msgid "Your site will be accessible at:"
+msgstr "Votre site sera accessible sur :"
+
+#: admin/views/tenant-create.php:114
+msgid "Create Tenant & Clone"
+msgstr "Créer le locataire et cloner"
+
+#: admin/views/tenant-create.php:115
+msgid "Create Tenant"
+msgstr "Créer le locataire"
+
+#: admin/views/tenant-create.php:128
+msgid "GrabWP Tenancy Pro adds isolated databases, custom plugin & theme management, scheduled backups, cloud storage offload, and more for every client site."
+msgstr "GrabWP Tenancy Pro ajoute des bases de données isolées, la gestion personnalisée des extensions et des thèmes, des sauvegardes planifiées, le déchargement vers le stockage cloud et plus encore pour chaque site client."
+
+#: admin/views/tenant-create.php:129
+msgid "Better isolation, more control"
+msgstr "Meilleure isolation, plus de contrôle"
+
+#. translators: %s: tenant ID
+#: admin/views/tenant-edit.php:19
+#, php-format
+msgid "Edit Tenant: %s"
+msgstr "Modifier le locataire : %s"
+
+#: admin/views/tenant-edit.php:32
+msgid "Edit tenant settings and domain mappings."
+msgstr "Modifiez les paramètres du locataire et les mappages de domaine."
+
+#: admin/views/tenant-edit.php:40
+#: includes/class-grabwp-tenancy-admin.php:406
+#: includes/class-grabwp-tenancy-tenant-crud.php:172
+msgid "Tenant updated successfully."
+msgstr "Locataire mis à jour avec succès."
+
+#: admin/views/tenant-edit.php:70
+msgid "Path URL"
+msgstr "URL du chemin"
+
+#: admin/views/tenant-edit.php:75
+msgid "Copy"
+msgstr "Copier"
+
+#: admin/views/tenant-edit.php:77
+msgid "This URL is always available, no DNS configuration needed."
+msgstr "Cette URL est toujours disponible, aucune configuration DNS n'est requise."
+
+#: admin/views/tenant-edit.php:90
+#: admin/views/tenant-edit.php:98
+#: includes/class-grabwp-tenancy-admin.php:249
+msgid "Enter domain (e.g., tenant1.grabwp.local)"
+msgstr "Saisissez le domaine (par ex., locataire1.grabwp.local)"
+
+#: admin/views/tenant-edit.php:104
+msgid "Add New Domain"
+msgstr "Ajouter un nouveau domaine"
+
+#: admin/views/tenant-edit.php:106
+msgid "Valid format: example.com, subdomain.example.com (no http:// or www)"
+msgstr "Format valide : example.com, sous-domaine.example.com (sans http:// ni www)"
+
+#: admin/views/tenant-edit.php:121
+msgid "Update Tenant"
+msgstr "Mettre à jour le locataire"
+
+#: admin/views/tenant-edit.php:133
+msgid "Need more control? GrabWP Tenancy Pro adds isolated databases (MySQL or SQLite), scheduled backups, cloud storage offload, and more for every client site."
+msgstr "Besoin de plus de contrôle ? GrabWP Tenancy Pro ajoute des bases de données isolées (MySQL ou SQLite), des sauvegardes planifiées, le déchargement vers le stockage cloud, et plus encore pour chaque site client."
+
+#: admin/views/tenants.php:18
+#: includes/class-grabwp-tenancy-admin.php:161
+msgid "Add New"
+msgstr "Ajouter"
+
+#: admin/views/tenants.php:22
+msgid "Manage your multi-tenant WordPress sites."
+msgstr "Gérez vos sites WordPress multi-locataires."
+
+#: admin/views/tenants.php:39
+msgid "No Tenants Found"
+msgstr "Aucun locataire trouvé"
+
+#: admin/views/tenants.php:40
+msgid "Create your first tenant to get started with multi-tenancy."
+msgstr "Créez votre premier locataire pour démarrer avec la multi-location."
+
+#: admin/views/tenants.php:42
+msgid "Create Your First Tenant"
+msgstr "Créer votre premier locataire"
+
+#: admin/views/tenants.php:62
+msgid "Need more isolation?"
+msgstr "Besoin de plus d'isolation ?"
+
+#: admin/views/tenants.php:63
+msgid "GrabWP Tenancy Pro supports plugin & theme management,  seperated MySQL or SQLite, scheduled backups, cloud storage offload, and customization options for every client site."
+msgstr "GrabWP Tenancy Pro prend en charge la gestion des extensions et des thèmes, MySQL ou SQLite séparés, les sauvegardes planifiées, le déchargement vers le stockage cloud et des options de personnalisation pour chaque site client."
+
+#: admin/views/upgrade.php:17
+msgid "Upgrade to GrabWP Tenancy Pro"
+msgstr "Passer à GrabWP Tenancy Pro"
+
+#: admin/views/upgrade.php:19
+msgid "GrabWP Tenancy Pro gives you the tools to manage client sites at scale: scheduled backups, dedicated databases, cloud storage offload, and more."
+msgstr "GrabWP Tenancy Pro vous donne les outils pour gérer les sites clients à grande échelle : sauvegardes planifiées, bases de données dédiées, déchargement vers le stockage cloud, et plus encore."
+
+#: admin/views/upgrade.php:25
+msgid "Feature"
+msgstr "Fonctionnalité"
+
+#: admin/views/upgrade.php:26
+msgid "Free"
+msgstr "Gratuit"
+
+#: admin/views/upgrade.php:32
+msgid "Multiple tenants via shared MySQL"
+msgstr "Plusieurs locataires via MySQL partagé"
+
+#: admin/views/upgrade.php:37
+msgid "Dedicated database per tenant (MySQL / SQLite)"
+msgstr "Base de données dédiée par locataire (MySQL / SQLite)"
+
+#: admin/views/upgrade.php:42
+msgid "Full tenant backup and restore"
+msgstr "Sauvegarde et restauration complètes du locataire"
+
+#: admin/views/upgrade.php:47
+msgid "Scheduled automatic backups (daily, weekly, etc.)"
+msgstr "Sauvegardes automatiques planifiées (quotidiennes, hebdomadaires, etc.)"
+
+#: admin/views/upgrade.php:52
+msgid "Cloud offload to S3-compatible storage"
+msgstr "Déchargement cloud vers un stockage compatible S3"
+
+#: admin/views/upgrade.php:57
+msgid "WP-CLI backup commands"
+msgstr "Commandes de sauvegarde WP-CLI"
+
+#: admin/views/upgrade.php:62
+msgid "Cross-database migration (shared, dedicated, SQLite)"
+msgstr "Migration inter-bases de données (partagée, dédiée, SQLite)"
+
+#: admin/views/upgrade.php:67
+msgid "Path alias routing (/site/my-shop/)"
+msgstr "Routage d'alias de chemin (/site/ma-boutique/)"
+
+#: admin/views/upgrade.php:72
+msgid "Extension management (symlink/copy/repair)"
+msgstr "Gestion des extensions (lien symbolique/copie/réparation)"
+
+#: admin/views/upgrade.php:77
+msgid "Storage driver selection (Local / S3)"
+msgstr "Sélection du pilote de stockage (Local / S3)"
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:138
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:254
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:271
+#: includes/class-grabwp-tenancy-admin.php:274
+msgid "Security check failed."
+msgstr "Échec de la vérification de sécurité."
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:191
+msgid "Please select a target tenant."
+msgstr "Veuillez sélectionner un locataire cible."
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:195
+msgid "Cannot clone a tenant into itself."
+msgstr "Impossible de cloner un locataire sur lui-même."
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:208
+#: includes/backup/class-grabwp-tenancy-clone.php:143
+msgid "Target tenant not found."
+msgstr "Locataire cible introuvable."
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:266
+#: includes/class-grabwp-tenancy-tenant-crud.php:38
+#: includes/class-grabwp-tenancy-tenant-crud.php:95
+#: includes/class-grabwp-tenancy-tenant-crud.php:141
+msgid "Insufficient permissions."
+msgstr "Autorisations insuffisantes."
+
+#: includes/backup/class-grabwp-tenancy-clone-db-exporter.php:88
+msgid "Cannot open SQL output file."
+msgstr "Impossible d'ouvrir le fichier de sortie SQL."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:70
+msgid "Clone job not found or expired."
+msgstr "Tâche de clonage introuvable ou expirée."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:75
+msgid "Clone is already completed."
+msgstr "Le clonage est déjà terminé."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:115
+msgid "Invalid source tenant ID."
+msgstr "ID de locataire source non valide."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:118
+msgid "Invalid target tenant ID."
+msgstr "ID de locataire cible non valide."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:129
+msgid "Invalid clone step."
+msgstr "Étape de clonage non valide."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:138
+msgid "Source tenant not found."
+msgstr "Locataire source introuvable."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:150
+msgid "Cannot create temp staging directory."
+msgstr "Impossible de créer le répertoire de transit temporaire."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:157
+msgid "Source and target tenants validated."
+msgstr "Locataires source et cible validés."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:171
+msgid "Source database exported."
+msgstr "Base de données source exportée."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:182
+msgid "Export files not found."
+msgstr "Fichiers d'exportation introuvables."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:187
+msgid "Export metadata is invalid."
+msgstr "Les métadonnées d'exportation ne sont pas valides."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:195
+msgid "Database imported into target tenant."
+msgstr "Base de données importée dans le locataire cible."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:218
+msgid "Uploads copied."
+msgstr "Téléversements copiés."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:252
+msgid "Site URLs updated."
+msgstr "URL du site mises à jour."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:262
+msgid "Clone complete."
+msgstr "Clonage terminé."
+
+#: includes/class-grabwp-tenancy-admin-form-handler.php:142
+msgid "Failed to save settings. Please check file permissions."
+msgstr "Échec de l'enregistrement des paramètres. Veuillez vérifier les autorisations des fichiers."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:52
+msgid "load.php is not included in wp-config.php."
+msgstr "load.php n'est pas inclus dans wp-config.php."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:54
+#: includes/class-grabwp-tenancy-admin-notice.php:64
+#: includes/class-grabwp-tenancy-admin-notice.php:74
+#: includes/class-grabwp-tenancy-admin-notice.php:110
+msgid "View Status →"
+msgstr "Voir l'état →"
+
+#: includes/class-grabwp-tenancy-admin-notice.php:62
+msgid "MU-plugin is not installed. Tenant features may not work."
+msgstr "Le mu-plugin n'est pas installé. Les fonctionnalités du locataire peuvent ne pas fonctionner."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:72
+msgid "Data directory is missing."
+msgstr "Le répertoire de données est manquant."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:108
+msgid "Root .htaccess needs to be updated for tenant routing."
+msgstr "Le fichier .htaccess racine doit être mis à jour pour le routage des locataires."
+
+#: includes/class-grabwp-tenancy-admin.php:99
+msgid "GrabWP Tenancy Pro adds scheduled auto backups, offsite cloud storage, dedicated database isolation, and more for every client site."
+msgstr "GrabWP Tenancy Pro ajoute des sauvegardes automatiques planifiées, le stockage cloud hors site, l'isolation dédiée de la base de données, et plus encore pour chaque site client."
+
+#: includes/class-grabwp-tenancy-admin.php:141
+msgid "Tenancy"
+msgstr "Tenancy"
+
+#: includes/class-grabwp-tenancy-admin.php:151
+#: includes/class-grabwp-tenancy-admin.php:152
+msgid "All Tenants"
+msgstr "Tous les locataires"
+
+#: includes/class-grabwp-tenancy-admin.php:169
+#: includes/class-grabwp-tenancy-admin.php:170
+msgid "Edit Tenant"
+msgstr "Modifier le locataire"
+
+#: includes/class-grabwp-tenancy-admin.php:251
+msgid "To confirm deletion, type the tenant ID:"
+msgstr "Pour confirmer la suppression, saisissez l'ID du locataire :"
+
+#: includes/class-grabwp-tenancy-admin.php:252
+msgid "Incorrect tenant ID. Deletion cancelled."
+msgstr "ID de locataire incorrect. Suppression annulée."
+
+#: includes/class-grabwp-tenancy-admin.php:280
+msgid "Tenant ID is required."
+msgstr "L'ID du locataire est requis."
+
+#: includes/class-grabwp-tenancy-admin.php:285
+#: includes/class-grabwp-tenancy-tenant-crud.php:109
+#: includes/class-grabwp-tenancy-tenant-crud.php:165
+msgid "Tenant not found."
+msgstr "Locataire introuvable."
+
+#: includes/class-grabwp-tenancy-admin.php:350
+msgid "Template not found."
+msgstr "Modèle introuvable."
+
+#: includes/class-grabwp-tenancy-admin.php:405
+#: includes/class-grabwp-tenancy-tenant-crud.php:80
+msgid "Tenant created successfully."
+msgstr "Locataire créé avec succès."
+
+#: includes/class-grabwp-tenancy-admin.php:407
+msgid "Tenant deleted successfully."
+msgstr "Locataire supprimé avec succès."
+
+#: includes/class-grabwp-tenancy-admin.php:408
+msgid "Settings saved successfully."
+msgstr "Paramètres enregistrés avec succès."
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:258
+msgid "A tenant request changed protected files; they were restored from the snapshot:"
+msgstr "Une requête d'un tenant a modifié des fichiers protégés ; ils ont été restaurés à partir de l'instantané :"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:260
+msgid "tenant"
+msgstr "tenant"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:263
+msgid "See grabwp_debug.log for details. If you changed these files yourself, use Unlock then Lock on the Status page to refresh the snapshot."
+msgstr "Consultez grabwp_debug.log pour plus de détails. Si vous avez modifié ces fichiers vous-même, utilisez Déverrouiller puis Verrouiller sur la page État pour rafraîchir l'instantané."
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:265
+msgid "Dismiss"
+msgstr "Ignorer"
+
+#: includes/class-grabwp-tenancy-settings.php:116
+msgid "Disallow tenant admins to install, update, and delete plugins/themes (DISALLOW_FILE_MODS)"
+msgstr "Interdire aux administrateurs de tenants d'installer, mettre à jour et supprimer des extensions/thèmes (DISALLOW_FILE_MODS)"
+
+#: includes/class-grabwp-tenancy-settings.php:122
+msgid "Disallow tenant admins to use the built-in plugin/theme file editor (DISALLOW_FILE_EDIT)"
+msgstr "Interdire aux administrateurs de tenants d'utiliser l'éditeur de fichiers d'extensions/thèmes intégré (DISALLOW_FILE_EDIT)"
+
+#: includes/class-grabwp-tenancy-settings.php:128
+msgid "Hide the Plugins menu entirely from tenant admin dashboards"
+msgstr "Masquer entièrement le menu Extensions des tableaux de bord des administrateurs de tenants"
+
+#: includes/class-grabwp-tenancy-settings.php:134
+msgid "Hide the Appearance menu entirely from tenant admin dashboards"
+msgstr "Masquer entièrement le menu Apparence des tableaux de bord des administrateurs de tenants"
+
+#: includes/class-grabwp-tenancy-settings.php:140
+msgid "Hide GrabWP plugins from the plugin list on tenant sites"
+msgstr "Masquer les extensions GrabWP de la liste des extensions sur les sites des tenants"
+
+#: includes/class-grabwp-tenancy-status-checker.php:178
+msgid "Multiple tenants.php files detected"
+msgstr "Plusieurs fichiers tenants.php détectés"
+
+#: includes/class-grabwp-tenancy-status-checker.php:179
+msgid "Only one tenants.php is loaded at boot. Stale copies at other locations may cause confusion during debugging or migration. Remove unused copies."
+msgstr "Un seul fichier tenants.php est chargé au démarrage. Les anciennes copies situées à d'autres emplacements peuvent causer de la confusion lors du débogage ou de la migration. Supprimez les copies inutilisées."
+
+#: includes/class-grabwp-tenancy-status-checker.php:205
+msgid "Multiple global config.php files detected"
+msgstr "Plusieurs fichiers de configuration globale config.php détectés"
+
+#: includes/class-grabwp-tenancy-status-checker.php:206
+msgid "Pro global configuration exists at both new and legacy locations. Boot loads the new path first; changes saved to the other copy are silently ignored. Remove the unused copy."
+msgstr "La configuration globale Pro existe à la fois aux nouveaux et aux anciens emplacements. Le démarrage charge le nouveau chemin en premier ; les modifications enregistrées sur l'autre copie sont ignorées silencieusement. Supprimez la copie inutilisée."
+
+#: includes/class-grabwp-tenancy-status-checker.php:216
+msgid "Data directory inside uploads/"
+msgstr "Répertoire de données à l'intérieur de uploads/"
+
+#: includes/class-grabwp-tenancy-status-checker.php:217
+msgid "Tenant data is inside wp-content/uploads/ — exposed to media upload scanners, backup tools, and CDN sync. Recommended: wp-content/grabwp-tenancy/."
+msgstr "Les données des tenants se trouvent dans wp-content/uploads/ - ce qui les expose aux scanners de téléversement de médias, aux outils de sauvegarde et à la synchronisation CDN. Recommandé : wp-content/grabwp-tenancy/."
+
+#: includes/class-grabwp-tenancy-status-checker.php:226
+msgid "Pro config directory inside uploads/"
+msgstr "Répertoire de configuration Pro à l'intérieur de uploads/"
+
+#: includes/class-grabwp-tenancy-status-checker.php:227
+msgid "Pro tenant configs are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-pro/."
+msgstr "Les configurations des tenants Pro se trouvent dans wp-content/uploads/. Recommandé : wp-content/grabwp-tenancy-pro/."
+
+#: includes/class-grabwp-tenancy-status-checker.php:237
+msgid "SQLite directory inside uploads/"
+msgstr "Répertoire SQLite à l'intérieur de uploads/"
+
+#: includes/class-grabwp-tenancy-status-checker.php:238
+msgid "SQLite databases are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-sqlite/."
+msgstr "Les bases de données SQLite se trouvent dans wp-content/uploads/. Recommandé : wp-content/grabwp-tenancy-sqlite/."
+
+#: includes/class-grabwp-tenancy-status-checker.php:257
+msgid "Directory paths hardcoded in wp-config.php"
+msgstr "Chemins de répertoires codés en dur dans wp-config.php"
+
+#: includes/class-grabwp-tenancy-status-checker.php:258
+msgid "Constants defined before load.php override all auto-detection and Pro admin directory settings."
+msgstr "Les constantes définies avant load.php remplacent toute détection automatique et les réglages de répertoire d'administration Pro."
+
+#: includes/class-grabwp-tenancy-status-checker.php:273
+msgid "Multiple tenant-aliases.php files detected"
+msgstr "Plusieurs fichiers tenant-aliases.php détectés"
+
+#: includes/class-grabwp-tenancy-status-checker.php:274
+msgid "Only the copy at the active base directory is loaded. Remove stale copies to prevent confusion."
+msgstr "Seule la copie dans le répertoire de base actif est chargée. Supprimez les anciennes copies pour éviter toute confusion."
+
+#: includes/class-grabwp-tenancy-status-checker.php:290
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:66
+msgid "Failed to generate a unique tenant ID. Please try again."
+msgstr "Échec de la génération d'un ID de tenant unique. Veuillez réessayer."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:86
+msgid "Failed to create tenant."
+msgstr "Échec de la création du tenant."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:99
+#: includes/class-grabwp-tenancy-tenant-crud.php:145
+msgid "Invalid tenant ID."
+msgstr "ID de tenant non valide."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:116
+msgid "Failed to delete tenant."
+msgstr "Échec de la suppression du tenant."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:126
+msgid "Tenant deleted successfully. All files and database tables removed."
+msgstr "Tenant supprimé avec succès. Tous les fichiers et tables de base de données ont été retirés."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:128
+msgid "Tenant deleted successfully. Files removed, but some database tables may remain."
+msgstr "Tenant supprimé avec succès. Les fichiers ont été retirés, mais certaines tables de base de données peuvent rester."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:131
+msgid "Tenant deleted, but some files or database tables may remain."
+msgstr "Tenant supprimé, mais certains fichiers ou tables de base de données peuvent rester."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:175
+msgid "Failed to update tenant."
+msgstr "Échec de la mise à jour du tenant."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:195
+msgid "Please enter at least one valid domain."
+msgstr "Veuillez saisir au moins un domaine valide."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:203
+#, php-format
+msgid "Domain(s) already in use by other tenants: %s. Each domain can only be assigned to one tenant."
+msgstr "Domaine(s) déjà utilisé(s) par d'autres tenants : %s. Chaque domaine ne peut être attribué qu'à un seul tenant."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:204
+#, php-format
+msgid "Domain(s) already in use: %s. Each domain can only be assigned to one tenant."
+msgstr "Domaine(s) déjà utilisé(s) : %s. Chaque domaine ne peut être attribué qu'à un seul tenant."

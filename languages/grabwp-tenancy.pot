@@ -2,23 +2,24 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: GrabWP Tenancy 1.1.2\n"
+"Project-Id-Version: GrabWP Tenancy 1.1.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/grabwp-tenancy\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-30T18:45:13+00:00\n"
+"POT-Creation-Date: 2026-10-11T19:14:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: grabwp-tenancy\n"
 
 #. Plugin Name of the plugin
 #: grabwp-tenancy.php
+#: admin/views/tenant-edit.php:134
 #: admin/views/tenants.php:16
-#: includes/class-grabwp-tenancy-admin.php:55
-#: includes/class-grabwp-tenancy-admin.php:203
+#: includes/class-grabwp-tenancy-admin.php:140
+#: includes/class-grabwp-tenancy-admin.php:350
 msgid "GrabWP Tenancy"
 msgstr ""
 
@@ -62,208 +63,309 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: admin/class-grabwp-tenancy-list-table.php:266
+#: admin/class-grabwp-tenancy-list-table.php:278
 #: admin/views/tenant-create.php:29
 msgid "Main Site"
 msgstr ""
 
-#: admin/class-grabwp-tenancy-list-table.php:297
+#: admin/class-grabwp-tenancy-list-table.php:309
 msgid "Path access only"
 msgstr ""
 
-#: admin/class-grabwp-tenancy-list-table.php:300
+#: admin/class-grabwp-tenancy-list-table.php:312
 msgid "No domains assigned"
 msgstr ""
 
-#: admin/class-grabwp-tenancy-list-table.php:316
-#: admin/class-grabwp-tenancy-list-table.php:327
+#: admin/class-grabwp-tenancy-list-table.php:328
+#: admin/class-grabwp-tenancy-list-table.php:339
 msgid "Visit Site"
 msgstr ""
 
-#: admin/class-grabwp-tenancy-list-table.php:330
+#: admin/class-grabwp-tenancy-list-table.php:342
 msgid "Admin"
 msgstr ""
 
-#: admin/class-grabwp-tenancy-list-table.php:334
-#: admin/views/status-base.php:83
-#: includes/class-grabwp-tenancy-admin.php:93
-#: includes/class-grabwp-tenancy-admin.php:94
+#: admin/class-grabwp-tenancy-list-table.php:346
+#: admin/views/status-base.php:82
+#: includes/class-grabwp-tenancy-admin.php:178
+#: includes/class-grabwp-tenancy-admin.php:179
 msgid "Settings"
 msgstr ""
 
 #. translators: %s: search term
-#: admin/class-grabwp-tenancy-list-table.php:388
+#: admin/class-grabwp-tenancy-list-table.php:400
 #, php-format
 msgid "No tenants found matching \"%s\"."
 msgstr ""
 
-#: admin/class-grabwp-tenancy-list-table.php:392
+#: admin/class-grabwp-tenancy-list-table.php:404
 msgid "No tenants found."
 msgstr ""
 
-#: admin/class-grabwp-tenancy-list-table.php:505
+#: admin/class-grabwp-tenancy-list-table.php:517
 msgid "Search Tenants"
 msgstr ""
 
-#: admin/class-grabwp-tenancy-list-table.php:506
+#: admin/class-grabwp-tenancy-list-table.php:518
 msgid "Search by ID or domain..."
 msgstr ""
 
-#: admin/class-grabwp-tenancy-list-table.php:507
+#: admin/class-grabwp-tenancy-list-table.php:519
 msgid "Search"
+msgstr ""
+
+#: admin/views/partials/upsell-card.php:20
+#: admin/views/tenant-create.php:130
+#: admin/views/tenant-edit.php:135
+#: admin/views/tenants.php:64
+#: includes/class-grabwp-tenancy-admin.php:100
+msgid "Learn about Pro"
+msgstr ""
+
+#: admin/views/partials/upsell-card.php:27
+#: admin/views/partials/upsell-card.php:32
+#: admin/views/upgrade.php:27
+msgid "Pro"
 msgstr ""
 
 #: admin/views/settings.php:16
 msgid "GrabWP Tenancy Settings"
 msgstr ""
 
-#: admin/views/settings.php:17
-msgid "Configure your multi-tenant WordPress setup."
-msgstr ""
-
 #: admin/views/settings.php:25
-#: includes/class-grabwp-tenancy-admin.php:261
-msgid "Settings saved successfully."
-msgstr ""
-
-#: admin/views/settings.php:32
+#: admin/views/status-base.php:80
 msgid "Tenant Capabilities"
 msgstr ""
 
-#: admin/views/settings.php:33
-msgid "Control what tenant site administrators are allowed to do."
+#: admin/views/settings.php:26
+msgid "Performance & Security"
 msgstr ""
 
-#: admin/views/settings.php:41
+#: admin/views/settings.php:37
+#: includes/class-grabwp-tenancy-settings.php:113
 msgid "Install Plugins & Themes"
 msgstr ""
 
-#: admin/views/settings.php:45
-msgid "Disallow tenant admins to install, update, and delete plugins/themes (DISALLOW_FILE_MODS)"
+#: admin/views/settings.php:38
+msgid "Disallow tenant admins to install, update, and delete plugins/themes (DISALLOW_FILE_MODS)."
 msgstr ""
 
-#: admin/views/settings.php:50
+#: admin/views/settings.php:43
+msgid "Disallow file mods"
+msgstr ""
+
+#: admin/views/settings.php:49
+#: includes/class-grabwp-tenancy-settings.php:119
 msgid "Edit Plugins & Themes"
 msgstr ""
 
-#: admin/views/settings.php:54
-msgid "Disallow tenant admins to use the built-in plugin/theme file editor (DISALLOW_FILE_EDIT)"
+#: admin/views/settings.php:50
+msgid "Disallow tenant admins to use the built-in plugin/theme file editor (DISALLOW_FILE_EDIT)."
 msgstr ""
 
-#: admin/views/settings.php:59
-#: admin/views/status-base.php:94
+#: admin/views/settings.php:55
+msgid "Disallow file edit"
+msgstr ""
+
+#: admin/views/settings.php:61
+#: admin/views/status-base.php:91
+#: includes/class-grabwp-tenancy-settings.php:125
 msgid "Hide Plugin Management"
 msgstr ""
 
-#: admin/views/settings.php:63
-msgid "Hide the Plugins menu entirely from tenant admin dashboards"
+#: admin/views/settings.php:62
+msgid "Hide the Plugins menu entirely from tenant admin dashboards."
 msgstr ""
 
-#: admin/views/settings.php:68
-#: admin/views/status-base.php:95
+#: admin/views/settings.php:67
+msgid "Hide Plugins menu"
+msgstr ""
+
+#: admin/views/settings.php:73
+#: admin/views/status-base.php:92
+#: includes/class-grabwp-tenancy-settings.php:131
 msgid "Hide Theme Management"
 msgstr ""
 
-#: admin/views/settings.php:72
-msgid "Hide the Appearance menu entirely from tenant admin dashboards"
+#: admin/views/settings.php:74
+msgid "Hide the Appearance menu entirely from tenant admin dashboards."
 msgstr ""
 
-#: admin/views/settings.php:77
-#: admin/views/status-base.php:96
+#: admin/views/settings.php:79
+msgid "Hide Appearance menu"
+msgstr ""
+
+#: admin/views/settings.php:85
+#: admin/views/status-base.php:93
+#: includes/class-grabwp-tenancy-settings.php:137
 msgid "Hide GrabWP Plugins"
 msgstr ""
 
-#: admin/views/settings.php:81
-msgid "Hide GrabWP plugins from the plugin list on tenant sites"
+#: admin/views/settings.php:86
+msgid "Hide GrabWP plugins from the plugin list on tenant sites."
 msgstr ""
 
-#: admin/views/settings.php:87
+#: admin/views/settings.php:91
+msgid "Hide from plugin list"
+msgstr ""
+
+#: admin/views/settings.php:103
+#: admin/views/settings.php:109
+#: includes/class-grabwp-tenancy-settings.php:143
+msgid "Disable WP-Cron"
+msgstr ""
+
+#: admin/views/settings.php:104
+#: includes/class-grabwp-tenancy-settings.php:146
+msgid "Disable WordPress internal cron on tenant sites (DISABLE_WP_CRON). Use system cron instead."
+msgstr ""
+
+#: admin/views/settings.php:115
+#: admin/views/settings.php:121
+#: includes/class-grabwp-tenancy-settings.php:149
+msgid "Disable XML-RPC"
+msgstr ""
+
+#: admin/views/settings.php:116
+#: includes/class-grabwp-tenancy-settings.php:152
+msgid "Disable XML-RPC API on tenant sites. Reduces attack surface and prevents brute-force attempts."
+msgstr ""
+
+#: admin/views/settings.php:127
+#: includes/class-grabwp-tenancy-settings.php:155
+msgid "Post Revisions"
+msgstr ""
+
+#: admin/views/settings.php:128
+#: includes/class-grabwp-tenancy-settings.php:158
+msgid "Maximum post revisions to keep (WP_POST_REVISIONS). Lower values save database space."
+msgstr ""
+
+#: admin/views/settings.php:136
+#: includes/class-grabwp-tenancy-settings.php:163
+msgid "Empty Trash Days"
+msgstr ""
+
+#: admin/views/settings.php:137
+#: includes/class-grabwp-tenancy-settings.php:166
+msgid "Days before trashed posts are permanently deleted (EMPTY_TRASH_DAYS). Set to 0 to disable trash."
+msgstr ""
+
+#: admin/views/settings.php:145
+#: includes/class-grabwp-tenancy-settings.php:171
+msgid "Block External HTTP"
+msgstr ""
+
+#: admin/views/settings.php:146
+#: includes/class-grabwp-tenancy-settings.php:174
+msgid "Block all external HTTP requests from tenant sites (WP_HTTP_BLOCK_EXTERNAL). Allowlist hosts below."
+msgstr ""
+
+#: admin/views/settings.php:151
+msgid "Block external HTTP"
+msgstr ""
+
+#: admin/views/settings.php:157
+#: includes/class-grabwp-tenancy-settings.php:177
+msgid "Accessible Hosts"
+msgstr ""
+
+#: admin/views/settings.php:158
+#: includes/class-grabwp-tenancy-settings.php:180
+msgid "Comma-separated hosts allowed when external HTTP is blocked (WP_ACCESSIBLE_HOSTS). Wildcards supported."
+msgstr ""
+
+#: admin/views/settings.php:174
 msgid "Save Settings"
 msgstr ""
 
-#: admin/views/status-base.php:24
+#: admin/views/settings.php:181
+msgid "Scheduling and automatic backups"
+msgstr ""
+
+#: admin/views/settings.php:182
+msgid "Schedule automatic backups for each tenant site on an interval you control. Pro automatically pushes backup copies to secure offsite storage after each run, so you never lose client data to a server failure."
+msgstr ""
+
+#: admin/views/settings.php:183
+msgid "Learn about GrabWP Tenancy Pro"
+msgstr ""
+
+#: admin/views/status-base.php:25
 msgid "File Structure"
 msgstr ""
 
-#: admin/views/status-base.php:28
+#: admin/views/status-base.php:29
 msgid "Base Directory"
 msgstr ""
 
-#: admin/views/status-base.php:32
+#: admin/views/status-base.php:33
 msgid "✓ Directory exists"
 msgstr ""
 
-#: admin/views/status-base.php:34
+#: admin/views/status-base.php:35
 msgid "✗ Directory does not exist"
 msgstr ""
 
-#: admin/views/status-base.php:37
+#: admin/views/status-base.php:38
 msgid "⚠ Using legacy path structure"
 msgstr ""
 
-#: admin/views/status-base.php:39
+#: admin/views/status-base.php:40
 msgid "ℹ Using custom path configuration"
 msgstr ""
 
-#: admin/views/status-base.php:45
+#: admin/views/status-base.php:46
 msgid "Tenant Mappings File"
 msgstr ""
 
-#: admin/views/status-base.php:49
+#: admin/views/status-base.php:50
 msgid "✓ File exists and is readable"
 msgstr ""
 
-#: admin/views/status-base.php:51
+#: admin/views/status-base.php:52
 msgid "✗ File does not exist"
 msgstr ""
 
-#: admin/views/status-base.php:57
+#: admin/views/status-base.php:58
 msgid "Settings File"
 msgstr ""
 
-#: admin/views/status-base.php:61
+#: admin/views/status-base.php:62
 msgid "✓ File exists"
 msgstr ""
 
-#: admin/views/status-base.php:63
+#: admin/views/status-base.php:64
 msgid "⚠ Not created yet (using defaults)"
 msgstr ""
 
-#: admin/views/status-base.php:69
+#: admin/views/status-base.php:70
 msgid "Tenant Uploads Pattern"
 msgstr ""
 
-#: admin/views/status-base.php:78
-msgid "Tenant Capabilities (Settings)"
+#: admin/views/status-base.php:81
+msgid "Configured on the Settings page."
 msgstr ""
 
-#: admin/views/status-base.php:82
-#, php-format
-msgid "These settings are configured on the %s page."
-msgstr ""
-
-#: admin/views/status-base.php:92
+#: admin/views/status-base.php:89
 msgid "Disallow File Mods"
 msgstr ""
 
-#: admin/views/status-base.php:93
+#: admin/views/status-base.php:90
 msgid "Disallow File Edit"
 msgstr ""
 
-#: admin/views/status-base.php:105
+#: admin/views/status-base.php:102
 msgid "✓ Enabled"
 msgstr ""
 
-#: admin/views/status-base.php:107
-msgid "— Disabled"
+#: admin/views/status-base.php:104
+#: admin/views/status-general.php:453
+msgid "Disabled"
 msgstr ""
 
 #: admin/views/status-general.php:30
 msgid "Environment Checks"
-msgstr ""
-
-#: admin/views/status-general.php:31
-msgid "Quick health-check of all critical plugin components."
 msgstr ""
 
 #: admin/views/status-general.php:38
@@ -276,277 +378,329 @@ msgid "✓ Active"
 msgstr ""
 
 #: admin/views/status-general.php:42
-#: admin/views/status-general.php:345
+#: admin/views/status-general.php:429
 msgid "✗ Not loaded"
 msgstr ""
 
 #: admin/views/status-general.php:48
-msgid "This line loads the tenant detection script before WordPress boots. Without it, domain/path routing cannot identify which tenant is being accessed."
+#: admin/views/status-general.php:101
+#: admin/views/status-general.php:151
+#: admin/views/status-general.php:212
+#: admin/views/status-general.php:269
+msgid "Fix steps and install code"
 msgstr ""
 
-#: admin/views/status-general.php:53
+#: admin/views/status-general.php:50
+msgid "Loads tenant detection before WordPress boots so domain/path routing can identify the tenant."
+msgstr ""
+
+#: admin/views/status-general.php:55
 #, php-format
-msgid "File: %1$s — place before %2$s"
+msgid "File: %1$s, place before %2$s"
 msgstr ""
 
-#: admin/views/status-general.php:63
-#: admin/views/status-general.php:107
-#: admin/views/status-general.php:160
-#: admin/views/status-general.php:217
-#: admin/views/status-general.php:265
+#: admin/views/status-general.php:65
+#: admin/views/status-general.php:112
+#: admin/views/status-general.php:176
+#: admin/views/status-general.php:236
+#: admin/views/status-general.php:287
 msgid "📋 Copy Code"
 msgstr ""
 
-#: admin/views/status-general.php:69
-#: admin/views/status-general.php:113
-#: admin/views/status-general.php:166
-#: admin/views/status-general.php:223
-#: admin/views/status-general.php:271
+#: admin/views/status-general.php:71
+#: admin/views/status-general.php:118
+#: admin/views/status-general.php:182
+#: admin/views/status-general.php:242
+#: admin/views/status-general.php:293
 msgid "⚡ Auto Fix"
 msgstr ""
 
-#: admin/views/status-general.php:72
-msgid "wp-config.php is not writable — manual install required"
-msgstr ""
-
 #: admin/views/status-general.php:74
-msgid "Stop-editing marker not found — manual install required"
+msgid "wp-config.php is not writable, manual install required"
 msgstr ""
 
-#: admin/views/status-general.php:86
+#: admin/views/status-general.php:76
+msgid "Stop-editing marker not found, manual install required"
+msgstr ""
+
+#: admin/views/status-general.php:89
 msgid "2. MU-Plugin"
 msgstr ""
 
-#: admin/views/status-general.php:88
-#: admin/views/status-general.php:131
+#: admin/views/status-general.php:91
+#: admin/views/status-general.php:137
 msgid "✓ Installed"
 msgstr ""
 
-#: admin/views/status-general.php:90
+#: admin/views/status-general.php:93
 msgid "⚠ Outdated"
 msgstr ""
 
-#: admin/views/status-general.php:92
-#: admin/views/status-general.php:189
+#: admin/views/status-general.php:95
+#: admin/views/status-general.php:206
 msgid "✗ Missing"
 msgstr ""
 
-#: admin/views/status-general.php:98
-msgid "WordPress MU-plugins load on every request, even in tenant context. This file ensures GrabWP Tenancy and Pro are available inside tenant admin dashboards for settings sync, plugin/theme hiding, and management features."
+#: admin/views/status-general.php:103
+msgid "MU-plugins load on every request, including tenant admin, for settings sync and management features."
 msgstr ""
 
-#: admin/views/status-general.php:101
-#: admin/views/status-general.php:198
-#: admin/views/status-general.php:252
+#: admin/views/status-general.php:106
+#: admin/views/status-general.php:217
+#: admin/views/status-general.php:274
 #, php-format
 msgid "File: %s"
 msgstr ""
 
-#: admin/views/status-general.php:116
-msgid "mu-plugins directory is not writable — manual install required"
-msgstr ""
-
-#: admin/views/status-general.php:129
-msgid "3. Root .htaccess Rewrite Rules"
-msgstr ""
-
-#: admin/views/status-general.php:133
-msgid "⚠ Wrong position"
+#: admin/views/status-general.php:121
+msgid "mu-plugins directory is not writable, manual install required"
 msgstr ""
 
 #: admin/views/status-general.php:135
-msgid "⚠ Invalid content"
-msgstr ""
-
-#: admin/views/status-general.php:137
-msgid "⚠ Missing block"
+msgid "3. Root .htaccess Rewrite Rules"
 msgstr ""
 
 #: admin/views/status-general.php:139
-msgid "✗ No .htaccess"
+msgid "⚠ Wrong position"
+msgstr ""
+
+#: admin/views/status-general.php:141
+msgid "⚠ Invalid content"
+msgstr ""
+
+#: admin/views/status-general.php:143
+msgid "⚠ Missing block"
 msgstr ""
 
 #: admin/views/status-general.php:145
-msgid "These Apache rewrite rules convert clean URLs like /site/abc123/wp-admin into internal WordPress requests with a ?site=abc123 parameter. This is how path-based tenant routing works."
+msgid "✗ No .htaccess"
 msgstr ""
 
-#: admin/views/status-general.php:148
+#: admin/views/status-general.php:156
 #, php-format
-msgid "File: %s — must appear BEFORE \"# BEGIN WordPress\""
+msgid "Apache rewrite rules for path-based tenant URLs like /%s/{id}/wp-admin."
 msgstr ""
 
-#: admin/views/status-general.php:169
-msgid "Root directory or .htaccess is not writable — manual install required"
-msgstr ""
-
-#: admin/views/status-general.php:183
-msgid "Data Directory .htaccess"
+#: admin/views/status-general.php:162
+#, php-format
+msgid "File: %s, must appear BEFORE \"# BEGIN WordPress\""
 msgstr ""
 
 #: admin/views/status-general.php:185
+msgid "Root directory or .htaccess is not writable, manual install required"
+msgstr ""
+
+#: admin/views/status-general.php:200
+msgid "Data Directory .htaccess"
+msgstr ""
+
+#: admin/views/status-general.php:202
 msgid "✓ Protected"
 msgstr ""
 
-#: admin/views/status-general.php:187
+#: admin/views/status-general.php:204
 msgid "⚠ Incomplete"
 msgstr ""
 
-#: admin/views/status-general.php:195
-msgid "Prevents direct HTTP access to PHP files and directory listing in the tenant data directory. This is a security measure to protect tenant configuration files from being accessed via URL."
+#: admin/views/status-general.php:214
+msgid "Blocks direct HTTP access to PHP files and directory listing in the tenant data directory."
 msgstr ""
 
-#: admin/views/status-general.php:226
-#: admin/views/status-general.php:274
-msgid "Data directory is not writable — manual install required"
+#: admin/views/status-general.php:245
+#: admin/views/status-general.php:296
+msgid "Data directory is not writable, manual install required"
 msgstr ""
 
-#: admin/views/status-general.php:239
+#: admin/views/status-general.php:259
 msgid "index.php Protection"
 msgstr ""
 
-#: admin/views/status-general.php:241
+#: admin/views/status-general.php:261
 msgid "✓ Present"
 msgstr ""
 
-#: admin/views/status-general.php:243
+#: admin/views/status-general.php:263
 msgid "⚠ Missing"
 msgstr ""
 
-#: admin/views/status-general.php:249
-msgid "A blank index.php file that prevents web servers from listing tenant directory contents when .htaccess is not supported or misconfigured. Standard WordPress security practice."
+#: admin/views/status-general.php:271
+msgid "Blank index.php prevents directory listing when .htaccess is unavailable."
 msgstr ""
 
-#: admin/views/status-general.php:283
+#: admin/views/status-general.php:312
+msgid "Shared Files Lock"
+msgstr ""
+
+#: admin/views/status-general.php:314
+msgid "Locked"
+msgstr ""
+
+#: admin/views/status-general.php:316
+msgid "Unlocked"
+msgstr ""
+
+#: admin/views/status-general.php:320
+msgid "Makes the shared root files read-only (0444) so tenant plugins cannot rewrite them. GrabWP and main-site permalink saves unlock and re-lock automatically."
+msgstr ""
+
+#: admin/views/status-general.php:321
+msgid "If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again."
+msgstr ""
+
+#. translators: %d: number of snapshot files.
+#: admin/views/status-general.php:334
+#, php-format
+msgid "Integrity snapshots: %d"
+msgstr ""
+
+#: admin/views/status-general.php:336
+msgid "Watched but could not be locked (check file ownership):"
+msgstr ""
+
+#: admin/views/status-general.php:344
+msgid "Unlock shared files"
+msgstr ""
+
+#: admin/views/status-general.php:344
+msgid "Lock shared files"
+msgstr ""
+
+#: admin/views/status-general.php:353
 msgid "GrabWP Tenancy Information"
 msgstr ""
 
-#: admin/views/status-general.php:286
+#: admin/views/status-general.php:356
 msgid "Base Plugin Version"
 msgstr ""
 
-#: admin/views/status-general.php:290
+#: admin/views/status-general.php:360
 #: admin/views/status.php:84
 msgid "Pro Plugin"
 msgstr ""
 
-#: admin/views/status-general.php:293
+#: admin/views/status-general.php:363
 msgid "Active"
 msgstr ""
 
-#: admin/views/status-general.php:298
+#: admin/views/status-general.php:368
 msgid "Inactive"
 msgstr ""
 
-#: admin/views/status-general.php:303
+#: admin/views/status-general.php:373
 msgid "Registered Tenants"
 msgstr ""
 
-#: admin/views/status-general.php:307
+#: admin/views/status-general.php:377
 msgid "View all"
 msgstr ""
 
-#: admin/views/status-general.php:315
+#: admin/views/status-general.php:387
 msgid "System Information"
 msgstr ""
 
-#: admin/views/status-general.php:318
+#. translators: 1: WordPress version, 2: PHP version, 3: server software label
+#: admin/views/status-general.php:392
+#, php-format
+msgid "WP %1$s · PHP %2$s · %3$s"
+msgstr ""
+
+#: admin/views/status-general.php:402
 msgid "WordPress Version"
 msgstr ""
 
-#: admin/views/status-general.php:322
+#: admin/views/status-general.php:406
 msgid "PHP Version"
 msgstr ""
 
-#: admin/views/status-general.php:326
+#: admin/views/status-general.php:410
 msgid "Database Engine"
 msgstr ""
 
-#: admin/views/status-general.php:330
+#: admin/views/status-general.php:414
 msgid "Web Server"
 msgstr ""
 
-#: admin/views/status-general.php:334
+#: admin/views/status-general.php:418
 msgid "ℹ .htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
 msgstr ""
 
-#: admin/views/status-general.php:340
+#: admin/views/status-general.php:424
 msgid "mod_rewrite"
 msgstr ""
 
-#: admin/views/status-general.php:343
+#: admin/views/status-general.php:427
 msgid "✓ Loaded"
 msgstr ""
 
-#: admin/views/status-general.php:346
-msgid "Path routing (/site/id) requires mod_rewrite. Query string routing (?site=id) will be used as fallback."
+#: admin/views/status-general.php:430
+msgid "Path routing requires mod_rewrite. Query string routing (?site=id) will be used as fallback."
 msgstr ""
 
-#: admin/views/status-general.php:348
-msgid "— Cannot detect (apache_get_modules unavailable)"
+#: admin/views/status-general.php:432
+msgid "Cannot detect (apache_get_modules unavailable)"
 msgstr ""
 
-#: admin/views/status-general.php:354
+#: admin/views/status-general.php:438
 msgid "WordPress Multisite"
 msgstr ""
 
-#: admin/views/status-general.php:357
-msgid "⚠ Yes — GrabWP Tenancy is not designed for Multisite"
+#: admin/views/status-general.php:441
+msgid "⚠ Yes. GrabWP Tenancy is not designed for Multisite"
 msgstr ""
 
-#: admin/views/status-general.php:359
+#: admin/views/status-general.php:443
 msgid "No"
 msgstr ""
 
-#: admin/views/status-general.php:364
+#: admin/views/status-general.php:448
 msgid "WP Debug Mode"
 msgstr ""
 
-#: admin/views/status-general.php:367
+#: admin/views/status-general.php:451
 msgid "Enabled"
 msgstr ""
 
-#: admin/views/status-general.php:369
-msgid "Disabled"
-msgstr ""
-
-#: admin/views/status-general.php:374
+#: admin/views/status-general.php:458
 msgid "Data Dir Writable"
 msgstr ""
 
-#: admin/views/status-general.php:377
-#: admin/views/status-general.php:388
+#: admin/views/status-general.php:461
+#: admin/views/status-general.php:472
 msgid "✓ Yes"
 msgstr ""
 
-#: admin/views/status-general.php:379
+#: admin/views/status-general.php:463
 msgid "✗ No"
 msgstr ""
 
-#: admin/views/status-general.php:380
+#: admin/views/status-general.php:464
 msgid "Plugin needs write access to create tenant directories and manage configuration files."
 msgstr ""
 
-#: admin/views/status-general.php:385
+#: admin/views/status-general.php:469
 msgid "MU-Plugins Dir Writable"
 msgstr ""
 
-#: admin/views/status-general.php:390
+#: admin/views/status-general.php:474
 msgid "⚠ No"
 msgstr ""
 
-#: admin/views/status-general.php:391
+#: admin/views/status-general.php:475
 msgid "Auto-install of MU-plugin will not work. Manual installation required."
 msgstr ""
 
-#: admin/views/status-pro.php:24
+#: admin/views/status-pro.php:27
 msgid "GrabWP Tenancy Pro"
 msgstr ""
 
-#: admin/views/status-pro.php:26
+#: admin/views/status-pro.php:28
 msgid "Upgrade to GrabWP Tenancy Pro for advanced features including complete content isolation, separate databases per tenant, and enhanced management capabilities."
 msgstr ""
 
-#: admin/views/status-pro.php:30
+#: admin/views/status-pro.php:29
+#: includes/class-grabwp-tenancy-admin.php:197
+#: includes/class-grabwp-tenancy-admin.php:198
+#: includes/class-grabwp-tenancy-admin.php:313
 msgid "Upgrade to Pro"
 msgstr ""
 
@@ -559,77 +713,77 @@ msgid "Pro Version"
 msgstr ""
 
 #: admin/views/status-pro.php:45
-#: includes/class-grabwp-tenancy-admin.php:102
-#: includes/class-grabwp-tenancy-admin.php:103
+#: includes/class-grabwp-tenancy-admin.php:187
+#: includes/class-grabwp-tenancy-admin.php:188
 msgid "Status"
 msgstr ""
 
-#: admin/views/status-pro.php:52
-msgid "Content Isolation (Default Config)"
+#: admin/views/status-pro.php:54
+msgid "Content Isolation (Default)"
 msgstr ""
 
-#: admin/views/status-pro.php:53
+#: admin/views/status-pro.php:55
 msgid "Default content isolation settings applied when creating new tenants."
 msgstr ""
 
-#: admin/views/status-pro.php:58
+#: admin/views/status-pro.php:61
 msgid "Content Isolation"
 msgstr ""
 
-#: admin/views/status-pro.php:59
+#: admin/views/status-pro.php:62
 msgid "Theme Isolation"
 msgstr ""
 
-#: admin/views/status-pro.php:60
+#: admin/views/status-pro.php:63
 msgid "Plugin Isolation"
 msgstr ""
 
-#: admin/views/status-pro.php:61
+#: admin/views/status-pro.php:64
 msgid "Upload Isolation"
 msgstr ""
 
-#: admin/views/status-pro.php:70
+#: admin/views/status-pro.php:73
 msgid "✓ Isolated"
 msgstr ""
 
-#: admin/views/status-pro.php:72
-msgid "— Shared"
+#: admin/views/status-pro.php:75
+msgid "Shared"
 msgstr ""
 
-#: admin/views/status-pro.php:81
-msgid "Database (Default Config)"
+#: admin/views/status-pro.php:85
+msgid "Database (Default)"
 msgstr ""
 
-#: admin/views/status-pro.php:82
+#: admin/views/status-pro.php:86
 msgid "Default database configuration for new tenants."
 msgstr ""
 
-#: admin/views/status-pro.php:89
+#: admin/views/status-pro.php:94
 #: admin/views/tenant-clone.php:93
 msgid "Database Type"
 msgstr ""
 
-#: admin/views/status-pro.php:92
+#: admin/views/status-pro.php:97
 msgid "Isolated MySQL Database"
 msgstr ""
 
-#: admin/views/status-pro.php:94
+#: admin/views/status-pro.php:99
 msgid "Isolated SQLite Database"
 msgstr ""
 
-#: admin/views/status-pro.php:96
+#: admin/views/status-pro.php:101
 msgid "Shared Database (with table prefixes)"
 msgstr ""
 
-#: admin/views/status-pro.php:103
+#: admin/views/status-pro.php:108
 msgid "MySQL Host"
 msgstr ""
 
-#: admin/views/status-pro.php:112
+#: admin/views/status-pro.php:117
 msgid "MySQL Database"
 msgstr ""
 
-#: admin/views/status-pro.php:121
+#: admin/views/status-pro.php:126
 msgid "MySQL Username"
 msgstr ""
 
@@ -664,6 +818,10 @@ msgstr ""
 
 #: admin/views/status.php:108
 msgid "3. Reactivate the plugin"
+msgstr ""
+
+#: admin/views/status.php:129
+msgid "← active"
 msgstr ""
 
 #: admin/views/tenant-clone.php:23
@@ -750,7 +908,7 @@ msgstr ""
 
 #: admin/views/tenant-clone.php:110
 #: admin/views/tenant-create.php:119
-#: admin/views/tenant-edit.php:125
+#: admin/views/tenant-edit.php:124
 msgid "Cancel"
 msgstr ""
 
@@ -778,24 +936,37 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: admin/views/tenant-clone.php:145
+#: admin/views/tenant-clone.php:146
+msgid "Tired of doing this by hand?"
+msgstr ""
+
+#: admin/views/tenant-clone.php:147
+msgid "GrabWP Tenancy Pro schedules automatic backups for every client site and pushes copies to secure offsite storage. No more manual steps, no missed backups."
+msgstr ""
+
+#: admin/views/tenant-clone.php:148
+#: admin/views/upgrade.php:86
+msgid "Get GrabWP Tenancy Pro"
+msgstr ""
+
+#: admin/views/tenant-clone.php:156
 msgid "Back to Tenants"
 msgstr ""
 
-#: admin/views/tenant-clone.php:183
+#: admin/views/tenant-clone.php:194
 msgid "— No eligible tenants found —"
 msgstr ""
 
-#: admin/views/tenant-clone.php:188
+#: admin/views/tenant-clone.php:199
 msgid "— Select target tenant —"
 msgstr ""
 
-#: admin/views/tenant-clone.php:315
+#: admin/views/tenant-clone.php:326
 msgid "Are you sure? All data in the target tenant will be overwritten."
 msgstr ""
 
 #: admin/views/tenant-create.php:16
-#: includes/class-grabwp-tenancy-admin.php:75
+#: includes/class-grabwp-tenancy-admin.php:160
 msgid "Add New Tenant"
 msgstr ""
 
@@ -809,43 +980,39 @@ msgstr ""
 msgid "After creating this tenant, you will be redirected to clone %s into it."
 msgstr ""
 
-#: admin/views/tenant-create.php:65
+#: admin/views/tenant-create.php:66
 msgid "Domain Setup"
 msgstr ""
 
-#: admin/views/tenant-create.php:71
+#: admin/views/tenant-create.php:67
+msgid "Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page."
+msgstr ""
+
+#: admin/views/tenant-create.php:74
 msgid "I have a domain"
 msgstr ""
 
-#: admin/views/tenant-create.php:76
+#: admin/views/tenant-create.php:79
 msgid "Enter domain (e.g. mysite.com)"
 msgstr ""
 
-#: admin/views/tenant-create.php:77
+#: admin/views/tenant-create.php:80
 msgid "Clear"
 msgstr ""
 
-#: admin/views/tenant-create.php:78
+#: admin/views/tenant-create.php:81
 #: admin/views/tenant-edit.php:91
 #: admin/views/tenant-edit.php:99
-#: includes/class-grabwp-tenancy-admin.php:146
+#: includes/class-grabwp-tenancy-admin.php:250
 msgid "Remove"
 msgstr ""
 
-#: admin/views/tenant-create.php:82
-msgid "Enter without http:// or www (e.g. mysite.com, blog.mysite.com)"
-msgstr ""
-
-#: admin/views/tenant-create.php:88
+#: admin/views/tenant-create.php:89
 msgid "I'll set up a domain later"
 msgstr ""
 
-#: admin/views/tenant-create.php:92
+#: admin/views/tenant-create.php:93
 msgid "Your site will be accessible at:"
-msgstr ""
-
-#: admin/views/tenant-create.php:95
-msgid "You can add a domain anytime from the tenant edit page."
 msgstr ""
 
 #: admin/views/tenant-create.php:114
@@ -854,6 +1021,14 @@ msgstr ""
 
 #: admin/views/tenant-create.php:115
 msgid "Create Tenant"
+msgstr ""
+
+#: admin/views/tenant-create.php:128
+msgid "GrabWP Tenancy Pro adds isolated databases, custom plugin & theme management, scheduled backups, cloud storage offload, and more for every client site."
+msgstr ""
+
+#: admin/views/tenant-create.php:129
+msgid "Better isolation, more control"
 msgstr ""
 
 #. translators: %s: tenant ID
@@ -867,7 +1042,7 @@ msgid "Edit tenant settings and domain mappings."
 msgstr ""
 
 #: admin/views/tenant-edit.php:40
-#: includes/class-grabwp-tenancy-admin.php:259
+#: includes/class-grabwp-tenancy-admin.php:406
 #: includes/class-grabwp-tenancy-tenant-crud.php:172
 msgid "Tenant updated successfully."
 msgstr ""
@@ -886,7 +1061,7 @@ msgstr ""
 
 #: admin/views/tenant-edit.php:90
 #: admin/views/tenant-edit.php:98
-#: includes/class-grabwp-tenancy-admin.php:145
+#: includes/class-grabwp-tenancy-admin.php:249
 msgid "Enter domain (e.g., tenant1.grabwp.local)"
 msgstr ""
 
@@ -895,19 +1070,19 @@ msgid "Add New Domain"
 msgstr ""
 
 #: admin/views/tenant-edit.php:106
-msgid "Domain mapping is optional. The path URL above is always available."
-msgstr ""
-
-#: admin/views/tenant-edit.php:107
 msgid "Valid format: example.com, subdomain.example.com (no http:// or www)"
 msgstr ""
 
-#: admin/views/tenant-edit.php:122
+#: admin/views/tenant-edit.php:121
 msgid "Update Tenant"
 msgstr ""
 
+#: admin/views/tenant-edit.php:133
+msgid "Need more control? GrabWP Tenancy Pro adds isolated databases (MySQL or SQLite), scheduled backups, cloud storage offload, and more for every client site."
+msgstr ""
+
 #: admin/views/tenants.php:18
-#: includes/class-grabwp-tenancy-admin.php:76
+#: includes/class-grabwp-tenancy-admin.php:161
 msgid "Add New"
 msgstr ""
 
@@ -927,10 +1102,74 @@ msgstr ""
 msgid "Create Your First Tenant"
 msgstr ""
 
+#: admin/views/tenants.php:62
+msgid "Need more isolation?"
+msgstr ""
+
+#: admin/views/tenants.php:63
+msgid "GrabWP Tenancy Pro supports plugin & theme management,  seperated MySQL or SQLite, scheduled backups, cloud storage offload, and customization options for every client site."
+msgstr ""
+
+#: admin/views/upgrade.php:17
+msgid "Upgrade to GrabWP Tenancy Pro"
+msgstr ""
+
+#: admin/views/upgrade.php:19
+msgid "GrabWP Tenancy Pro gives you the tools to manage client sites at scale: scheduled backups, dedicated databases, cloud storage offload, and more."
+msgstr ""
+
+#: admin/views/upgrade.php:25
+msgid "Feature"
+msgstr ""
+
+#: admin/views/upgrade.php:26
+msgid "Free"
+msgstr ""
+
+#: admin/views/upgrade.php:32
+msgid "Multiple tenants via shared MySQL"
+msgstr ""
+
+#: admin/views/upgrade.php:37
+msgid "Dedicated database per tenant (MySQL / SQLite)"
+msgstr ""
+
+#: admin/views/upgrade.php:42
+msgid "Full tenant backup and restore"
+msgstr ""
+
+#: admin/views/upgrade.php:47
+msgid "Scheduled automatic backups (daily, weekly, etc.)"
+msgstr ""
+
+#: admin/views/upgrade.php:52
+msgid "Cloud offload to S3-compatible storage"
+msgstr ""
+
+#: admin/views/upgrade.php:57
+msgid "WP-CLI backup commands"
+msgstr ""
+
+#: admin/views/upgrade.php:62
+msgid "Cross-database migration (shared, dedicated, SQLite)"
+msgstr ""
+
+#: admin/views/upgrade.php:67
+msgid "Path alias routing (/site/my-shop/)"
+msgstr ""
+
+#: admin/views/upgrade.php:72
+msgid "Extension management (symlink/copy/repair)"
+msgstr ""
+
+#: admin/views/upgrade.php:77
+msgid "Storage driver selection (Local / S3)"
+msgstr ""
+
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:138
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:254
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:170
+#: includes/class-grabwp-tenancy-admin.php:274
 msgid "Security check failed."
 msgstr ""
 
@@ -1022,75 +1261,175 @@ msgstr ""
 msgid "Failed to save settings. Please check file permissions."
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin-notice.php:50
+#: includes/class-grabwp-tenancy-admin-notice.php:52
 msgid "load.php is not included in wp-config.php."
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin-notice.php:52
-#: includes/class-grabwp-tenancy-admin-notice.php:62
-#: includes/class-grabwp-tenancy-admin-notice.php:72
-#: includes/class-grabwp-tenancy-admin-notice.php:104
+#: includes/class-grabwp-tenancy-admin-notice.php:54
+#: includes/class-grabwp-tenancy-admin-notice.php:64
+#: includes/class-grabwp-tenancy-admin-notice.php:74
+#: includes/class-grabwp-tenancy-admin-notice.php:110
 msgid "View Status →"
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin-notice.php:60
+#: includes/class-grabwp-tenancy-admin-notice.php:62
 msgid "MU-plugin is not installed. Tenant features may not work."
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin-notice.php:70
+#: includes/class-grabwp-tenancy-admin-notice.php:72
 msgid "Data directory is missing."
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin-notice.php:102
+#: includes/class-grabwp-tenancy-admin-notice.php:108
 msgid "Root .htaccess needs to be updated for tenant routing."
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin.php:56
+#: includes/class-grabwp-tenancy-admin.php:99
+msgid "GrabWP Tenancy Pro adds scheduled auto backups, offsite cloud storage, dedicated database isolation, and more for every client site."
+msgstr ""
+
+#: includes/class-grabwp-tenancy-admin.php:141
 msgid "Tenancy"
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin.php:66
-#: includes/class-grabwp-tenancy-admin.php:67
+#: includes/class-grabwp-tenancy-admin.php:151
+#: includes/class-grabwp-tenancy-admin.php:152
 msgid "All Tenants"
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin.php:84
-#: includes/class-grabwp-tenancy-admin.php:85
+#: includes/class-grabwp-tenancy-admin.php:169
+#: includes/class-grabwp-tenancy-admin.php:170
 msgid "Edit Tenant"
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin.php:147
+#: includes/class-grabwp-tenancy-admin.php:251
 msgid "To confirm deletion, type the tenant ID:"
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin.php:148
+#: includes/class-grabwp-tenancy-admin.php:252
 msgid "Incorrect tenant ID. Deletion cancelled."
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin.php:176
+#: includes/class-grabwp-tenancy-admin.php:280
 msgid "Tenant ID is required."
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin.php:181
+#: includes/class-grabwp-tenancy-admin.php:285
 #: includes/class-grabwp-tenancy-tenant-crud.php:109
 #: includes/class-grabwp-tenancy-tenant-crud.php:165
 msgid "Tenant not found."
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin.php:203
+#: includes/class-grabwp-tenancy-admin.php:350
 msgid "Template not found."
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin.php:258
+#: includes/class-grabwp-tenancy-admin.php:405
 #: includes/class-grabwp-tenancy-tenant-crud.php:80
 msgid "Tenant created successfully."
 msgstr ""
 
-#: includes/class-grabwp-tenancy-admin.php:260
+#: includes/class-grabwp-tenancy-admin.php:407
 msgid "Tenant deleted successfully."
 msgstr ""
 
-#: includes/class-grabwp-tenancy-status-checker.php:153
+#: includes/class-grabwp-tenancy-admin.php:408
+msgid "Settings saved successfully."
+msgstr ""
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:258
+msgid "A tenant request changed protected files; they were restored from the snapshot:"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:260
+msgid "tenant"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:263
+msgid "See grabwp_debug.log for details. If you changed these files yourself, use Unlock then Lock on the Status page to refresh the snapshot."
+msgstr ""
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:265
+msgid "Dismiss"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-settings.php:116
+msgid "Disallow tenant admins to install, update, and delete plugins/themes (DISALLOW_FILE_MODS)"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-settings.php:122
+msgid "Disallow tenant admins to use the built-in plugin/theme file editor (DISALLOW_FILE_EDIT)"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-settings.php:128
+msgid "Hide the Plugins menu entirely from tenant admin dashboards"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-settings.php:134
+msgid "Hide the Appearance menu entirely from tenant admin dashboards"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-settings.php:140
+msgid "Hide GrabWP plugins from the plugin list on tenant sites"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:178
+msgid "Multiple tenants.php files detected"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:179
+msgid "Only one tenants.php is loaded at boot. Stale copies at other locations may cause confusion during debugging or migration. Remove unused copies."
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:205
+msgid "Multiple global config.php files detected"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:206
+msgid "Pro global configuration exists at both new and legacy locations. Boot loads the new path first; changes saved to the other copy are silently ignored. Remove the unused copy."
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:216
+msgid "Data directory inside uploads/"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:217
+msgid "Tenant data is inside wp-content/uploads/ — exposed to media upload scanners, backup tools, and CDN sync. Recommended: wp-content/grabwp-tenancy/."
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:226
+msgid "Pro config directory inside uploads/"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:227
+msgid "Pro tenant configs are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-pro/."
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:237
+msgid "SQLite directory inside uploads/"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:238
+msgid "SQLite databases are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-sqlite/."
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:257
+msgid "Directory paths hardcoded in wp-config.php"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:258
+msgid "Constants defined before load.php override all auto-detection and Pro admin directory settings."
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:273
+msgid "Multiple tenant-aliases.php files detected"
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:274
+msgid "Only the copy at the active base directory is loaded. Remove stale copies to prevent confusion."
+msgstr ""
+
+#: includes/class-grabwp-tenancy-status-checker.php:290
 msgid "Unknown"
 msgstr ""
 

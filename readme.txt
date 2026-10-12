@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.9
+Stable tag: 1.1.10
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,9 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.10 =
+* Enhance: Bundled translations for Vietnamese, Spanish, Indonesian, French and Simplified Chinese. The plugin shows in these languages out of the box, no Loco Translate or extra language pack needed.
 
 = 1.1.9 =
 * New: Shared files lock. wp-config.php, .htaccess, .user.ini and web.config in the WordPress root are made read-only (0444) so tenant plugins cannot rewrite them. It is on by default, including on sites that update. Turn it off with Unlock shared files on the Status page.

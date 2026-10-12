@@ -1,0 +1,1481 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GrabWP Tenancy 1.1.9\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/grabwp-tenancy\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Chinese (China)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-11T19:14:49+00:00\n"
+"PO-Revision-Date: 2026-10-11 20:03+0000\n"
+"Language: zh_CN\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: grabwp-tenancy\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. Plugin Name of the plugin
+#: grabwp-tenancy.php
+#: admin/views/tenant-edit.php:134
+#: admin/views/tenants.php:16
+#: includes/class-grabwp-tenancy-admin.php:140
+#: includes/class-grabwp-tenancy-admin.php:350
+msgid "GrabWP Tenancy"
+msgstr "GrabWP Tenancy"
+
+#. Plugin URI of the plugin
+#: grabwp-tenancy.php
+msgid "https://grabwp.com/tenancy"
+msgstr "https://grabwp.com/tenancy"
+
+#. Description of the plugin
+#: grabwp-tenancy.php
+msgid "Foundation multi-tenant WordPress solution with shared MySQL database and separated uploads. Designed to be extended by GrabWP Tenancy Pro for advanced features."
+msgstr "基础的 WordPress 多租户解决方案，共享 MySQL 数据库并分离上传目录。旨在通过 GrabWP Tenancy Pro 进行扩展以获得高级功能。"
+
+#. Author of the plugin
+#: grabwp-tenancy.php
+msgid "GrabWP"
+msgstr "GrabWP"
+
+#. Author URI of the plugin
+#: grabwp-tenancy.php
+msgid "https://grabwp.com"
+msgstr "https://grabwp.com"
+
+#: admin/class-grabwp-tenancy-list-table.php:62
+msgid "Tenants per page"
+msgstr "每页显示租户数量"
+
+#: admin/class-grabwp-tenancy-list-table.php:77
+#: admin/views/tenant-clone.php:91
+#: admin/views/tenant-edit.php:66
+msgid "Tenant ID"
+msgstr "租户 ID"
+
+#: admin/class-grabwp-tenancy-list-table.php:78
+#: admin/views/tenant-clone.php:92
+#: admin/views/tenant-edit.php:81
+msgid "Domains"
+msgstr "域名"
+
+#: admin/class-grabwp-tenancy-list-table.php:79
+msgid "Actions"
+msgstr "操作"
+
+#: admin/class-grabwp-tenancy-list-table.php:278
+#: admin/views/tenant-create.php:29
+msgid "Main Site"
+msgstr "主站点"
+
+#: admin/class-grabwp-tenancy-list-table.php:309
+msgid "Path access only"
+msgstr "仅限路径访问"
+
+#: admin/class-grabwp-tenancy-list-table.php:312
+msgid "No domains assigned"
+msgstr "未分配域名"
+
+#: admin/class-grabwp-tenancy-list-table.php:328
+#: admin/class-grabwp-tenancy-list-table.php:339
+msgid "Visit Site"
+msgstr "访问站点"
+
+#: admin/class-grabwp-tenancy-list-table.php:342
+msgid "Admin"
+msgstr "管理"
+
+#: admin/class-grabwp-tenancy-list-table.php:346
+#: admin/views/status-base.php:82
+#: includes/class-grabwp-tenancy-admin.php:178
+#: includes/class-grabwp-tenancy-admin.php:179
+msgid "Settings"
+msgstr "设置"
+
+#. translators: %s: search term
+#: admin/class-grabwp-tenancy-list-table.php:400
+#, php-format
+msgid "No tenants found matching \"%s\"."
+msgstr "找不到与“%s”匹配的租户。"
+
+#: admin/class-grabwp-tenancy-list-table.php:404
+msgid "No tenants found."
+msgstr "未找到租户。"
+
+#: admin/class-grabwp-tenancy-list-table.php:517
+msgid "Search Tenants"
+msgstr "搜索租户"
+
+#: admin/class-grabwp-tenancy-list-table.php:518
+msgid "Search by ID or domain..."
+msgstr "按 ID 或域名搜索..."
+
+#: admin/class-grabwp-tenancy-list-table.php:519
+msgid "Search"
+msgstr "搜索"
+
+#: admin/views/partials/upsell-card.php:20
+#: admin/views/tenant-create.php:130
+#: admin/views/tenant-edit.php:135
+#: admin/views/tenants.php:64
+#: includes/class-grabwp-tenancy-admin.php:100
+msgid "Learn about Pro"
+msgstr "了解 Pro"
+
+#: admin/views/partials/upsell-card.php:27
+#: admin/views/partials/upsell-card.php:32
+#: admin/views/upgrade.php:27
+msgid "Pro"
+msgstr "Pro"
+
+#: admin/views/settings.php:16
+msgid "GrabWP Tenancy Settings"
+msgstr "GrabWP Tenancy 设置"
+
+#: admin/views/settings.php:25
+#: admin/views/status-base.php:80
+msgid "Tenant Capabilities"
+msgstr "租户权限"
+
+#: admin/views/settings.php:26
+msgid "Performance & Security"
+msgstr "性能与安全"
+
+#: admin/views/settings.php:37
+#: includes/class-grabwp-tenancy-settings.php:113
+msgid "Install Plugins & Themes"
+msgstr "安装插件和主题"
+
+#: admin/views/settings.php:38
+msgid "Disallow tenant admins to install, update, and delete plugins/themes (DISALLOW_FILE_MODS)."
+msgstr "不允许租户管理员安装、更新和删除插件/主题（DISALLOW_FILE_MODS）。"
+
+#: admin/views/settings.php:43
+msgid "Disallow file mods"
+msgstr "不允许修改文件"
+
+#: admin/views/settings.php:49
+#: includes/class-grabwp-tenancy-settings.php:119
+msgid "Edit Plugins & Themes"
+msgstr "编辑插件和主题"
+
+#: admin/views/settings.php:50
+msgid "Disallow tenant admins to use the built-in plugin/theme file editor (DISALLOW_FILE_EDIT)."
+msgstr "不允许租户管理员使用内置的插件/主题文件编辑器（DISALLOW_FILE_EDIT）。"
+
+#: admin/views/settings.php:55
+msgid "Disallow file edit"
+msgstr "不允许编辑文件"
+
+#: admin/views/settings.php:61
+#: admin/views/status-base.php:91
+#: includes/class-grabwp-tenancy-settings.php:125
+msgid "Hide Plugin Management"
+msgstr "隐藏插件管理"
+
+#: admin/views/settings.php:62
+msgid "Hide the Plugins menu entirely from tenant admin dashboards."
+msgstr "从租户管理员仪表盘中完全隐藏“插件”菜单。"
+
+#: admin/views/settings.php:67
+msgid "Hide Plugins menu"
+msgstr "隐藏“插件”菜单"
+
+#: admin/views/settings.php:73
+#: admin/views/status-base.php:92
+#: includes/class-grabwp-tenancy-settings.php:131
+msgid "Hide Theme Management"
+msgstr "隐藏主题管理"
+
+#: admin/views/settings.php:74
+msgid "Hide the Appearance menu entirely from tenant admin dashboards."
+msgstr "从租户管理员仪表盘中完全隐藏“外观”菜单。"
+
+#: admin/views/settings.php:79
+msgid "Hide Appearance menu"
+msgstr "隐藏“外观”菜单"
+
+#: admin/views/settings.php:85
+#: admin/views/status-base.php:93
+#: includes/class-grabwp-tenancy-settings.php:137
+msgid "Hide GrabWP Plugins"
+msgstr "隐藏 GrabWP 插件"
+
+#: admin/views/settings.php:86
+msgid "Hide GrabWP plugins from the plugin list on tenant sites."
+msgstr "从租户站点的插件列表中隐藏 GrabWP 插件。"
+
+#: admin/views/settings.php:91
+msgid "Hide from plugin list"
+msgstr "从插件列表中隐藏"
+
+#: admin/views/settings.php:103
+#: admin/views/settings.php:109
+#: includes/class-grabwp-tenancy-settings.php:143
+msgid "Disable WP-Cron"
+msgstr "禁用 WP-Cron"
+
+#: admin/views/settings.php:104
+#: includes/class-grabwp-tenancy-settings.php:146
+msgid "Disable WordPress internal cron on tenant sites (DISABLE_WP_CRON). Use system cron instead."
+msgstr "在租户站点上禁用 WordPress 内部 cron（DISABLE_WP_CRON）。请改用系统 cron。"
+
+#: admin/views/settings.php:115
+#: admin/views/settings.php:121
+#: includes/class-grabwp-tenancy-settings.php:149
+msgid "Disable XML-RPC"
+msgstr "禁用 XML-RPC"
+
+#: admin/views/settings.php:116
+#: includes/class-grabwp-tenancy-settings.php:152
+msgid "Disable XML-RPC API on tenant sites. Reduces attack surface and prevents brute-force attempts."
+msgstr "在租户站点上禁用 XML-RPC API。减少攻击面并防止暴力破解尝试。"
+
+#: admin/views/settings.php:127
+#: includes/class-grabwp-tenancy-settings.php:155
+msgid "Post Revisions"
+msgstr "文章修订版本"
+
+#: admin/views/settings.php:128
+#: includes/class-grabwp-tenancy-settings.php:158
+msgid "Maximum post revisions to keep (WP_POST_REVISIONS). Lower values save database space."
+msgstr "要保留的最大文章修订版本数（WP_POST_REVISIONS）。较低的值可节省数据库空间。"
+
+#: admin/views/settings.php:136
+#: includes/class-grabwp-tenancy-settings.php:163
+msgid "Empty Trash Days"
+msgstr "清空回收站天数"
+
+#: admin/views/settings.php:137
+#: includes/class-grabwp-tenancy-settings.php:166
+msgid "Days before trashed posts are permanently deleted (EMPTY_TRASH_DAYS). Set to 0 to disable trash."
+msgstr "移至回收站的文章被永久删除前的天数（EMPTY_TRASH_DAYS）。设置为 0 以禁用回收站。"
+
+#: admin/views/settings.php:145
+#: includes/class-grabwp-tenancy-settings.php:171
+msgid "Block External HTTP"
+msgstr "阻止外部 HTTP"
+
+#: admin/views/settings.php:146
+#: includes/class-grabwp-tenancy-settings.php:174
+msgid "Block all external HTTP requests from tenant sites (WP_HTTP_BLOCK_EXTERNAL). Allowlist hosts below."
+msgstr "阻止来自租户站点的所有外部 HTTP 请求（WP_HTTP_BLOCK_EXTERNAL）。在下方将主机列入白名单。"
+
+#: admin/views/settings.php:151
+msgid "Block external HTTP"
+msgstr "阻止外部 HTTP"
+
+#: admin/views/settings.php:157
+#: includes/class-grabwp-tenancy-settings.php:177
+msgid "Accessible Hosts"
+msgstr "可访问的主机"
+
+#: admin/views/settings.php:158
+#: includes/class-grabwp-tenancy-settings.php:180
+msgid "Comma-separated hosts allowed when external HTTP is blocked (WP_ACCESSIBLE_HOSTS). Wildcards supported."
+msgstr "当外部 HTTP 被阻止时允许的逗号分隔主机（WP_ACCESSIBLE_HOSTS）。支持通配符。"
+
+#: admin/views/settings.php:174
+msgid "Save Settings"
+msgstr "保存设置"
+
+#: admin/views/settings.php:181
+msgid "Scheduling and automatic backups"
+msgstr "计划任务和自动备份"
+
+#: admin/views/settings.php:182
+msgid "Schedule automatic backups for each tenant site on an interval you control. Pro automatically pushes backup copies to secure offsite storage after each run, so you never lose client data to a server failure."
+msgstr "按照您控制的时间间隔为每个租户站点安排自动备份。Pro 会在每次运行后自动将备份副本推送到安全的异地存储中，因此您永远不会因服务器故障而丢失客户数据。"
+
+#: admin/views/settings.php:183
+msgid "Learn about GrabWP Tenancy Pro"
+msgstr "了解 GrabWP Tenancy Pro"
+
+#: admin/views/status-base.php:25
+msgid "File Structure"
+msgstr "文件结构"
+
+#: admin/views/status-base.php:29
+msgid "Base Directory"
+msgstr "基础目录"
+
+#: admin/views/status-base.php:33
+msgid "✓ Directory exists"
+msgstr "✓ 目录存在"
+
+#: admin/views/status-base.php:35
+msgid "✗ Directory does not exist"
+msgstr "✗ 目录不存在"
+
+#: admin/views/status-base.php:38
+msgid "⚠ Using legacy path structure"
+msgstr "⚠ 使用传统的路径结构"
+
+#: admin/views/status-base.php:40
+msgid "ℹ Using custom path configuration"
+msgstr "ℹ 使用自定义路径配置"
+
+#: admin/views/status-base.php:46
+msgid "Tenant Mappings File"
+msgstr "租户映射文件"
+
+#: admin/views/status-base.php:50
+msgid "✓ File exists and is readable"
+msgstr "✓ 文件存在且可读"
+
+#: admin/views/status-base.php:52
+msgid "✗ File does not exist"
+msgstr "✗ 文件不存在"
+
+#: admin/views/status-base.php:58
+msgid "Settings File"
+msgstr "设置文件"
+
+#: admin/views/status-base.php:62
+msgid "✓ File exists"
+msgstr "✓ 文件存在"
+
+#: admin/views/status-base.php:64
+msgid "⚠ Not created yet (using defaults)"
+msgstr "⚠ 尚未创建（使用默认值）"
+
+#: admin/views/status-base.php:70
+msgid "Tenant Uploads Pattern"
+msgstr "租户上传模式"
+
+#: admin/views/status-base.php:81
+msgid "Configured on the Settings page."
+msgstr "在设置页面配置。"
+
+#: admin/views/status-base.php:89
+msgid "Disallow File Mods"
+msgstr "不允许修改文件"
+
+#: admin/views/status-base.php:90
+msgid "Disallow File Edit"
+msgstr "不允许编辑文件"
+
+#: admin/views/status-base.php:102
+msgid "✓ Enabled"
+msgstr "✓ 已启用"
+
+#: admin/views/status-base.php:104
+#: admin/views/status-general.php:453
+msgid "Disabled"
+msgstr "已禁用"
+
+#: admin/views/status-general.php:30
+msgid "Environment Checks"
+msgstr "环境检查"
+
+#: admin/views/status-general.php:38
+msgid "1. wp-config.php Loader"
+msgstr "1. wp-config.php 加载器"
+
+#: admin/views/status-general.php:40
+#: admin/views/status-pro.php:46
+msgid "✓ Active"
+msgstr "✓ 激活"
+
+#: admin/views/status-general.php:42
+#: admin/views/status-general.php:429
+msgid "✗ Not loaded"
+msgstr "✗ 未加载"
+
+#: admin/views/status-general.php:48
+#: admin/views/status-general.php:101
+#: admin/views/status-general.php:151
+#: admin/views/status-general.php:212
+#: admin/views/status-general.php:269
+msgid "Fix steps and install code"
+msgstr "修复步骤和安装代码"
+
+#: admin/views/status-general.php:50
+msgid "Loads tenant detection before WordPress boots so domain/path routing can identify the tenant."
+msgstr "在 WordPress 启动之前加载租户检测，以便域名/路径路由可以识别租户。"
+
+#: admin/views/status-general.php:55
+#, php-format
+msgid "File: %1$s, place before %2$s"
+msgstr "文件：%1$s，放置在 %2$s 之前"
+
+#: admin/views/status-general.php:65
+#: admin/views/status-general.php:112
+#: admin/views/status-general.php:176
+#: admin/views/status-general.php:236
+#: admin/views/status-general.php:287
+msgid "📋 Copy Code"
+msgstr "📋 复制代码"
+
+#: admin/views/status-general.php:71
+#: admin/views/status-general.php:118
+#: admin/views/status-general.php:182
+#: admin/views/status-general.php:242
+#: admin/views/status-general.php:293
+msgid "⚡ Auto Fix"
+msgstr "⚡ 自动修复"
+
+#: admin/views/status-general.php:74
+msgid "wp-config.php is not writable, manual install required"
+msgstr "wp-config.php 不可写，需要手动安装"
+
+#: admin/views/status-general.php:76
+msgid "Stop-editing marker not found, manual install required"
+msgstr "未找到停止编辑标记，需要手动安装"
+
+#: admin/views/status-general.php:89
+msgid "2. MU-Plugin"
+msgstr "2. MU-Plugin"
+
+#: admin/views/status-general.php:91
+#: admin/views/status-general.php:137
+msgid "✓ Installed"
+msgstr "✓ 已安装"
+
+#: admin/views/status-general.php:93
+msgid "⚠ Outdated"
+msgstr "⚠ 已过期"
+
+#: admin/views/status-general.php:95
+#: admin/views/status-general.php:206
+msgid "✗ Missing"
+msgstr "✗ 缺失"
+
+#: admin/views/status-general.php:103
+msgid "MU-plugins load on every request, including tenant admin, for settings sync and management features."
+msgstr "MU-plugins 会在每个请求中加载（包括租户管理员），用于设置同步和管理功能。"
+
+#: admin/views/status-general.php:106
+#: admin/views/status-general.php:217
+#: admin/views/status-general.php:274
+#, php-format
+msgid "File: %s"
+msgstr "文件：%s"
+
+#: admin/views/status-general.php:121
+msgid "mu-plugins directory is not writable, manual install required"
+msgstr "mu-plugins 目录不可写，需要手动安装"
+
+#: admin/views/status-general.php:135
+msgid "3. Root .htaccess Rewrite Rules"
+msgstr "3. 根目录 .htaccess 重写规则"
+
+#: admin/views/status-general.php:139
+msgid "⚠ Wrong position"
+msgstr "⚠ 位置错误"
+
+#: admin/views/status-general.php:141
+msgid "⚠ Invalid content"
+msgstr "⚠ 内容无效"
+
+#: admin/views/status-general.php:143
+msgid "⚠ Missing block"
+msgstr "⚠ 缺失代码块"
+
+#: admin/views/status-general.php:145
+msgid "✗ No .htaccess"
+msgstr "✗ 没有 .htaccess"
+
+#: admin/views/status-general.php:156
+#, php-format
+msgid "Apache rewrite rules for path-based tenant URLs like /%s/{id}/wp-admin."
+msgstr "用于基于路径的租户 URL（如 /%s/{id}/wp-admin）的 Apache 重写规则。"
+
+#: admin/views/status-general.php:162
+#, php-format
+msgid "File: %s, must appear BEFORE \"# BEGIN WordPress\""
+msgstr "文件：%s，必须出现在“# BEGIN WordPress”之前"
+
+#: admin/views/status-general.php:185
+msgid "Root directory or .htaccess is not writable, manual install required"
+msgstr "根目录或 .htaccess 不可写，需要手动安装"
+
+#: admin/views/status-general.php:200
+msgid "Data Directory .htaccess"
+msgstr "数据目录 .htaccess"
+
+#: admin/views/status-general.php:202
+msgid "✓ Protected"
+msgstr "✓ 受保护"
+
+#: admin/views/status-general.php:204
+msgid "⚠ Incomplete"
+msgstr "⚠ 不完整"
+
+#: admin/views/status-general.php:214
+msgid "Blocks direct HTTP access to PHP files and directory listing in the tenant data directory."
+msgstr "阻止直接通过 HTTP 访问租户数据目录中的 PHP 文件和目录列表。"
+
+#: admin/views/status-general.php:245
+#: admin/views/status-general.php:296
+msgid "Data directory is not writable, manual install required"
+msgstr "数据目录不可写，需要手动安装"
+
+#: admin/views/status-general.php:259
+msgid "index.php Protection"
+msgstr "index.php 保护"
+
+#: admin/views/status-general.php:261
+msgid "✓ Present"
+msgstr "✓ 存在"
+
+#: admin/views/status-general.php:263
+msgid "⚠ Missing"
+msgstr "⚠ 缺失"
+
+#: admin/views/status-general.php:271
+msgid "Blank index.php prevents directory listing when .htaccess is unavailable."
+msgstr "当 .htaccess 不可用时，空白的 index.php 可防止列出目录。"
+
+#: admin/views/status-general.php:312
+msgid "Shared Files Lock"
+msgstr "共享文件锁定"
+
+#: admin/views/status-general.php:314
+msgid "Locked"
+msgstr "已锁定"
+
+#: admin/views/status-general.php:316
+msgid "Unlocked"
+msgstr "已解锁"
+
+#: admin/views/status-general.php:320
+msgid "Makes the shared root files read-only (0444) so tenant plugins cannot rewrite them. GrabWP and main-site permalink saves unlock and re-lock automatically."
+msgstr "使共享的根目录文件变为只读（0444），这样租户插件就无法重写它们。GrabWP 和主站点的固定链接保存会自动解锁和重新锁定。"
+
+#: admin/views/status-general.php:321
+msgid "If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again."
+msgstr "如果主站点插件（例如缓存插件）需要写入这些文件，请暂时解锁，然后再锁定。"
+
+#. translators: %d: number of snapshot files.
+#: admin/views/status-general.php:334
+#, php-format
+msgid "Integrity snapshots: %d"
+msgstr "完整性快照：%d"
+
+#: admin/views/status-general.php:336
+msgid "Watched but could not be locked (check file ownership):"
+msgstr "正在监视但无法锁定（请检查文件所有权）："
+
+#: admin/views/status-general.php:344
+msgid "Unlock shared files"
+msgstr "解锁共享文件"
+
+#: admin/views/status-general.php:344
+msgid "Lock shared files"
+msgstr "锁定共享文件"
+
+#: admin/views/status-general.php:353
+msgid "GrabWP Tenancy Information"
+msgstr "GrabWP Tenancy 信息"
+
+#: admin/views/status-general.php:356
+msgid "Base Plugin Version"
+msgstr "基础插件版本"
+
+#: admin/views/status-general.php:360
+#: admin/views/status.php:84
+msgid "Pro Plugin"
+msgstr "Pro 插件"
+
+#: admin/views/status-general.php:363
+msgid "Active"
+msgstr "已启用"
+
+#: admin/views/status-general.php:368
+msgid "Inactive"
+msgstr "未启用"
+
+#: admin/views/status-general.php:373
+msgid "Registered Tenants"
+msgstr "已注册的租户"
+
+#: admin/views/status-general.php:377
+msgid "View all"
+msgstr "查看全部"
+
+#: admin/views/status-general.php:387
+msgid "System Information"
+msgstr "系统信息"
+
+#. translators: 1: WordPress version, 2: PHP version, 3: server software label
+#: admin/views/status-general.php:392
+#, php-format
+msgid "WP %1$s · PHP %2$s · %3$s"
+msgstr "WP %1$s · PHP %2$s · %3$s"
+
+#: admin/views/status-general.php:402
+msgid "WordPress Version"
+msgstr "WordPress 版本"
+
+#: admin/views/status-general.php:406
+msgid "PHP Version"
+msgstr "PHP 版本"
+
+#: admin/views/status-general.php:410
+msgid "Database Engine"
+msgstr "数据库引擎"
+
+#: admin/views/status-general.php:414
+msgid "Web Server"
+msgstr "Web 服务器"
+
+#: admin/views/status-general.php:418
+msgid "ℹ .htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
+msgstr "ℹ Nginx 不使用 .htaccess 文件。请改为在您的 server 块中配置租户路由。"
+
+#: admin/views/status-general.php:424
+msgid "mod_rewrite"
+msgstr "mod_rewrite"
+
+#: admin/views/status-general.php:427
+msgid "✓ Loaded"
+msgstr "✓ 已加载"
+
+#: admin/views/status-general.php:430
+msgid "Path routing requires mod_rewrite. Query string routing (?site=id) will be used as fallback."
+msgstr "路径路由需要 mod_rewrite。查询字符串路由（?site=id）将作为回退使用。"
+
+#: admin/views/status-general.php:432
+msgid "Cannot detect (apache_get_modules unavailable)"
+msgstr "无法检测（apache_get_modules 不可用）"
+
+#: admin/views/status-general.php:438
+msgid "WordPress Multisite"
+msgstr "WordPress 多站点"
+
+#: admin/views/status-general.php:441
+msgid "⚠ Yes. GrabWP Tenancy is not designed for Multisite"
+msgstr "⚠ 是。GrabWP Tenancy 不是为多站点设计的"
+
+#: admin/views/status-general.php:443
+msgid "No"
+msgstr "否"
+
+#: admin/views/status-general.php:448
+msgid "WP Debug Mode"
+msgstr "WP 调试模式"
+
+#: admin/views/status-general.php:451
+msgid "Enabled"
+msgstr "已启用"
+
+#: admin/views/status-general.php:458
+msgid "Data Dir Writable"
+msgstr "数据目录可写"
+
+#: admin/views/status-general.php:461
+#: admin/views/status-general.php:472
+msgid "✓ Yes"
+msgstr "✓ 是"
+
+#: admin/views/status-general.php:463
+msgid "✗ No"
+msgstr "✗ 否"
+
+#: admin/views/status-general.php:464
+msgid "Plugin needs write access to create tenant directories and manage configuration files."
+msgstr "插件需要写入权限以创建租户目录和管理配置文件。"
+
+#: admin/views/status-general.php:469
+msgid "MU-Plugins Dir Writable"
+msgstr "MU-Plugins 目录可写"
+
+#: admin/views/status-general.php:474
+msgid "⚠ No"
+msgstr "⚠ 否"
+
+#: admin/views/status-general.php:475
+msgid "Auto-install of MU-plugin will not work. Manual installation required."
+msgstr "自动安装 MU-plugin 将不起作用。需要手动安装。"
+
+#: admin/views/status-pro.php:27
+msgid "GrabWP Tenancy Pro"
+msgstr "GrabWP Tenancy Pro"
+
+#: admin/views/status-pro.php:28
+msgid "Upgrade to GrabWP Tenancy Pro for advanced features including complete content isolation, separate databases per tenant, and enhanced management capabilities."
+msgstr "升级到 GrabWP Tenancy Pro 以获得高级功能，包括完整的内容隔离、每个租户独立的数据库以及增强的管理功能。"
+
+#: admin/views/status-pro.php:29
+#: includes/class-grabwp-tenancy-admin.php:197
+#: includes/class-grabwp-tenancy-admin.php:198
+#: includes/class-grabwp-tenancy-admin.php:313
+msgid "Upgrade to Pro"
+msgstr "升级到 Pro"
+
+#: admin/views/status-pro.php:38
+msgid "Pro Plugin Information"
+msgstr "Pro 插件信息"
+
+#: admin/views/status-pro.php:41
+msgid "Pro Version"
+msgstr "Pro 版本"
+
+#: admin/views/status-pro.php:45
+#: includes/class-grabwp-tenancy-admin.php:187
+#: includes/class-grabwp-tenancy-admin.php:188
+msgid "Status"
+msgstr "状态"
+
+#: admin/views/status-pro.php:54
+msgid "Content Isolation (Default)"
+msgstr "内容隔离 (默认)"
+
+#: admin/views/status-pro.php:55
+msgid "Default content isolation settings applied when creating new tenants."
+msgstr "创建新租户时应用的默认内容隔离设置。"
+
+#: admin/views/status-pro.php:61
+msgid "Content Isolation"
+msgstr "内容隔离"
+
+#: admin/views/status-pro.php:62
+msgid "Theme Isolation"
+msgstr "主题隔离"
+
+#: admin/views/status-pro.php:63
+msgid "Plugin Isolation"
+msgstr "插件隔离"
+
+#: admin/views/status-pro.php:64
+msgid "Upload Isolation"
+msgstr "上传隔离"
+
+#: admin/views/status-pro.php:73
+msgid "✓ Isolated"
+msgstr "✓ 已隔离"
+
+#: admin/views/status-pro.php:75
+msgid "Shared"
+msgstr "共享"
+
+#: admin/views/status-pro.php:85
+msgid "Database (Default)"
+msgstr "数据库 (默认)"
+
+#: admin/views/status-pro.php:86
+msgid "Default database configuration for new tenants."
+msgstr "新租户的默认数据库配置。"
+
+#: admin/views/status-pro.php:94
+#: admin/views/tenant-clone.php:93
+msgid "Database Type"
+msgstr "数据库类型"
+
+#: admin/views/status-pro.php:97
+msgid "Isolated MySQL Database"
+msgstr "独立的 MySQL 数据库"
+
+#: admin/views/status-pro.php:99
+msgid "Isolated SQLite Database"
+msgstr "独立的 SQLite 数据库"
+
+#: admin/views/status-pro.php:101
+msgid "Shared Database (with table prefixes)"
+msgstr "共享数据库 (带表前缀)"
+
+#: admin/views/status-pro.php:108
+msgid "MySQL Host"
+msgstr "MySQL 主机"
+
+#: admin/views/status-pro.php:117
+msgid "MySQL Database"
+msgstr "MySQL 数据库"
+
+#: admin/views/status-pro.php:126
+msgid "MySQL Username"
+msgstr "MySQL 用户名"
+
+#: admin/views/status.php:71
+msgid "GrabWP Tenancy Status"
+msgstr "GrabWP Tenancy 状态"
+
+#: admin/views/status.php:76
+msgid "Plugin General"
+msgstr "插件常规"
+
+#: admin/views/status.php:80
+msgid "Base Plugin"
+msgstr "基础插件"
+
+#: admin/views/status.php:97
+msgid "GrabWP Tenancy:"
+msgstr "GrabWP Tenancy:"
+
+#: admin/views/status.php:98
+msgid "You're using a legacy path structure. To comply with WordPress standards:"
+msgstr "您正在使用传统的路径结构。为了符合 WordPress 标准:"
+
+#: admin/views/status.php:99
+msgid "1. Deactivate the plugin"
+msgstr "1. 停用该插件"
+
+#: admin/views/status.php:102
+#, php-format
+msgid "2. Rename and move the entire %1$s folder to %2$s"
+msgstr "2. 重命名并将整个 %1$s 文件夹移动到 %2$s"
+
+#: admin/views/status.php:108
+msgid "3. Reactivate the plugin"
+msgstr "3. 重新启用该插件"
+
+#: admin/views/status.php:129
+msgid "← active"
+msgstr "← 已启用"
+
+#: admin/views/tenant-clone.php:23
+msgid "Validating source & target tenants"
+msgstr "正在验证源租户和目标租户"
+
+#: admin/views/tenant-clone.php:24
+msgid "Exporting source database"
+msgstr "正在导出源数据库"
+
+#: admin/views/tenant-clone.php:25
+msgid "Importing database into target tenant"
+msgstr "正在将数据库导入到目标租户"
+
+#: admin/views/tenant-clone.php:26
+msgid "Updating site URLs"
+msgstr "正在更新站点 URL"
+
+#: admin/views/tenant-clone.php:27
+msgid "Copying uploads"
+msgstr "正在复制上传文件"
+
+#: admin/views/tenant-clone.php:28
+msgid "Cleaning up"
+msgstr "正在清理"
+
+#: admin/views/tenant-clone.php:43
+msgid "Clone Main Site"
+msgstr "克隆主站点"
+
+#: admin/views/tenant-clone.php:46
+#, php-format
+msgid "Clone Tenant: %s"
+msgstr "克隆租户: %s"
+
+#: admin/views/tenant-clone.php:53
+#, php-format
+msgid "Source database type: %s"
+msgstr "源数据库类型: %s"
+
+#: admin/views/tenant-clone.php:53
+#: admin/views/tenant-clone.php:93
+msgid "Shared MySQL"
+msgstr "共享 MySQL"
+
+#: admin/views/tenant-clone.php:59
+msgid "Choose clone target:"
+msgstr "选择克隆目标:"
+
+#: admin/views/tenant-clone.php:63
+msgid "Clone to existing site"
+msgstr "克隆到现有站点"
+
+#: admin/views/tenant-clone.php:67
+msgid "Clone to new site"
+msgstr "克隆到新站点"
+
+#: admin/views/tenant-clone.php:81
+msgid "Target Tenant"
+msgstr "目标租户"
+
+#: admin/views/tenant-clone.php:85
+msgid "— Loading tenants…"
+msgstr "- 正在加载租户…"
+
+#: admin/views/tenant-clone.php:87
+msgid "Select an existing tenant to clone data into. Create the target tenant first if needed."
+msgstr "选择一个现有的租户以将数据克隆到其中。如果需要，请先创建目标租户。"
+
+#: admin/views/tenant-clone.php:98
+msgid "Warning:"
+msgstr "警告:"
+
+#: admin/views/tenant-clone.php:99
+msgid "This will overwrite all data in the target tenant (database, uploads). This action cannot be undone."
+msgstr "这将覆盖目标租户中的所有数据 (数据库、上传文件)。此操作无法撤销。"
+
+#: admin/views/tenant-clone.php:107
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:78
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:79
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:123
+msgid "Clone Tenant"
+msgstr "克隆租户"
+
+#: admin/views/tenant-clone.php:110
+#: admin/views/tenant-create.php:119
+#: admin/views/tenant-edit.php:124
+msgid "Cancel"
+msgstr "取消"
+
+#: admin/views/tenant-clone.php:131
+msgid "Clone complete!"
+msgstr "克隆完成！"
+
+#: admin/views/tenant-clone.php:132
+msgid "The source tenant data has been cloned into the target tenant."
+msgstr "源租户数据已克隆到目标租户中。"
+
+#: admin/views/tenant-clone.php:135
+msgid "Target tenant:"
+msgstr "目标租户:"
+
+#: admin/views/tenant-clone.php:137
+msgid "Edit tenant"
+msgstr "编辑租户"
+
+#: admin/views/tenant-clone.php:138
+msgid "Homepage"
+msgstr "主页"
+
+#: admin/views/tenant-clone.php:139
+msgid "Dashboard"
+msgstr "仪表盘"
+
+#: admin/views/tenant-clone.php:146
+msgid "Tired of doing this by hand?"
+msgstr "厌倦了手工操作？"
+
+#: admin/views/tenant-clone.php:147
+msgid "GrabWP Tenancy Pro schedules automatic backups for every client site and pushes copies to secure offsite storage. No more manual steps, no missed backups."
+msgstr "GrabWP Tenancy Pro 为每个客户站点安排自动备份，并将副本推送到安全的异地存储。无需再手动操作，不会再错过备份。"
+
+#: admin/views/tenant-clone.php:148
+#: admin/views/upgrade.php:86
+msgid "Get GrabWP Tenancy Pro"
+msgstr "获取 GrabWP Tenancy Pro"
+
+#: admin/views/tenant-clone.php:156
+msgid "Back to Tenants"
+msgstr "返回租户"
+
+#: admin/views/tenant-clone.php:194
+msgid "— No eligible tenants found —"
+msgstr "- 未找到符合条件的租户 -"
+
+#: admin/views/tenant-clone.php:199
+msgid "— Select target tenant —"
+msgstr "- 选择目标租户 -"
+
+#: admin/views/tenant-clone.php:326
+msgid "Are you sure? All data in the target tenant will be overwritten."
+msgstr "您确定吗？目标租户中的所有数据将被覆盖。"
+
+#: admin/views/tenant-create.php:16
+#: includes/class-grabwp-tenancy-admin.php:160
+msgid "Add New Tenant"
+msgstr "添加新租户"
+
+#: admin/views/tenant-create.php:17
+msgid "Create a new tenant. A path-based URL will be assigned automatically."
+msgstr "创建一个新租户。将自动分配一个基于路径的 URL。"
+
+#. translators: %s: source tenant ID or "Main Site"
+#: admin/views/tenant-create.php:33
+#, php-format
+msgid "After creating this tenant, you will be redirected to clone %s into it."
+msgstr "创建此租户后，您将被重定向以将 %s 克隆到其中。"
+
+#: admin/views/tenant-create.php:66
+msgid "Domain Setup"
+msgstr "域名设置"
+
+#: admin/views/tenant-create.php:67
+msgid "Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page."
+msgstr "输入时不带 http:// 或 www (例如 mysite.com、blog.mysite.com)。您可以随时从租户编辑页面添加域名。"
+
+#: admin/views/tenant-create.php:74
+msgid "I have a domain"
+msgstr "我有一个域名"
+
+#: admin/views/tenant-create.php:79
+msgid "Enter domain (e.g. mysite.com)"
+msgstr "输入域名 (例如 mysite.com)"
+
+#: admin/views/tenant-create.php:80
+msgid "Clear"
+msgstr "清除"
+
+#: admin/views/tenant-create.php:81
+#: admin/views/tenant-edit.php:91
+#: admin/views/tenant-edit.php:99
+#: includes/class-grabwp-tenancy-admin.php:250
+msgid "Remove"
+msgstr "移除"
+
+#: admin/views/tenant-create.php:89
+msgid "I'll set up a domain later"
+msgstr "我稍后再设置域名"
+
+#: admin/views/tenant-create.php:93
+msgid "Your site will be accessible at:"
+msgstr "您的站点将可通过以下地址访问:"
+
+#: admin/views/tenant-create.php:114
+msgid "Create Tenant & Clone"
+msgstr "创建租户并克隆"
+
+#: admin/views/tenant-create.php:115
+msgid "Create Tenant"
+msgstr "创建租户"
+
+#: admin/views/tenant-create.php:128
+msgid "GrabWP Tenancy Pro adds isolated databases, custom plugin & theme management, scheduled backups, cloud storage offload, and more for every client site."
+msgstr "GrabWP Tenancy Pro 为每个客户站点添加了独立的数据库、自定义插件和主题管理、定时备份、云存储分流等功能。"
+
+#: admin/views/tenant-create.php:129
+msgid "Better isolation, more control"
+msgstr "更好的隔离，更多的控制"
+
+#. translators: %s: tenant ID
+#: admin/views/tenant-edit.php:19
+#, php-format
+msgid "Edit Tenant: %s"
+msgstr "编辑租户: %s"
+
+#: admin/views/tenant-edit.php:32
+msgid "Edit tenant settings and domain mappings."
+msgstr "编辑租户设置和域名映射。"
+
+#: admin/views/tenant-edit.php:40
+#: includes/class-grabwp-tenancy-admin.php:406
+#: includes/class-grabwp-tenancy-tenant-crud.php:172
+msgid "Tenant updated successfully."
+msgstr "租户更新成功。"
+
+#: admin/views/tenant-edit.php:70
+msgid "Path URL"
+msgstr "路径 URL"
+
+#: admin/views/tenant-edit.php:75
+msgid "Copy"
+msgstr "复制"
+
+#: admin/views/tenant-edit.php:77
+msgid "This URL is always available, no DNS configuration needed."
+msgstr "此 URL 始终可用，无需 DNS 配置。"
+
+#: admin/views/tenant-edit.php:90
+#: admin/views/tenant-edit.php:98
+#: includes/class-grabwp-tenancy-admin.php:249
+msgid "Enter domain (e.g., tenant1.grabwp.local)"
+msgstr "输入域名 (例如，tenant1.grabwp.local)"
+
+#: admin/views/tenant-edit.php:104
+msgid "Add New Domain"
+msgstr "添加新域名"
+
+#: admin/views/tenant-edit.php:106
+msgid "Valid format: example.com, subdomain.example.com (no http:// or www)"
+msgstr "有效格式: example.com, subdomain.example.com (不带 http:// 或 www)"
+
+#: admin/views/tenant-edit.php:121
+msgid "Update Tenant"
+msgstr "更新租户"
+
+#: admin/views/tenant-edit.php:133
+msgid "Need more control? GrabWP Tenancy Pro adds isolated databases (MySQL or SQLite), scheduled backups, cloud storage offload, and more for every client site."
+msgstr "需要更多控制？GrabWP Tenancy Pro 为每个客户站点添加了独立的数据库 (MySQL 或 SQLite)、定时备份、云存储分流等功能。"
+
+#: admin/views/tenants.php:18
+#: includes/class-grabwp-tenancy-admin.php:161
+msgid "Add New"
+msgstr "新建"
+
+#: admin/views/tenants.php:22
+msgid "Manage your multi-tenant WordPress sites."
+msgstr "管理您的多租户 WordPress 站点。"
+
+#: admin/views/tenants.php:39
+msgid "No Tenants Found"
+msgstr "未找到租户"
+
+#: admin/views/tenants.php:40
+msgid "Create your first tenant to get started with multi-tenancy."
+msgstr "创建您的第一个租户以开始使用多租户功能。"
+
+#: admin/views/tenants.php:42
+msgid "Create Your First Tenant"
+msgstr "创建您的第一个租户"
+
+#: admin/views/tenants.php:62
+msgid "Need more isolation?"
+msgstr "需要更多隔离？"
+
+#: admin/views/tenants.php:63
+msgid "GrabWP Tenancy Pro supports plugin & theme management,  seperated MySQL or SQLite, scheduled backups, cloud storage offload, and customization options for every client site."
+msgstr "GrabWP Tenancy Pro 支持插件和主题管理、独立的 MySQL 或 SQLite、定时备份、云存储分流以及每个客户站点的自定义选项。"
+
+#: admin/views/upgrade.php:17
+msgid "Upgrade to GrabWP Tenancy Pro"
+msgstr "升级到 GrabWP Tenancy Pro"
+
+#: admin/views/upgrade.php:19
+msgid "GrabWP Tenancy Pro gives you the tools to manage client sites at scale: scheduled backups, dedicated databases, cloud storage offload, and more."
+msgstr "GrabWP Tenancy Pro 为您提供大规模管理客户站点的工具: 定时备份、专用数据库、云存储分流等。"
+
+#: admin/views/upgrade.php:25
+msgid "Feature"
+msgstr "功能"
+
+#: admin/views/upgrade.php:26
+msgid "Free"
+msgstr "免费"
+
+#: admin/views/upgrade.php:32
+msgid "Multiple tenants via shared MySQL"
+msgstr "通过共享 MySQL 的多租户"
+
+#: admin/views/upgrade.php:37
+msgid "Dedicated database per tenant (MySQL / SQLite)"
+msgstr "每个租户专用的数据库 (MySQL / SQLite)"
+
+#: admin/views/upgrade.php:42
+msgid "Full tenant backup and restore"
+msgstr "完整的租户备份和恢复"
+
+#: admin/views/upgrade.php:47
+msgid "Scheduled automatic backups (daily, weekly, etc.)"
+msgstr "定时自动备份 (每天、每周等)"
+
+#: admin/views/upgrade.php:52
+msgid "Cloud offload to S3-compatible storage"
+msgstr "云分流至兼容 S3 的存储"
+
+#: admin/views/upgrade.php:57
+msgid "WP-CLI backup commands"
+msgstr "WP-CLI 备份命令"
+
+#: admin/views/upgrade.php:62
+msgid "Cross-database migration (shared, dedicated, SQLite)"
+msgstr "跨数据库迁移 (共享、专用、SQLite)"
+
+#: admin/views/upgrade.php:67
+msgid "Path alias routing (/site/my-shop/)"
+msgstr "路径别名路由 (/site/my-shop/)"
+
+#: admin/views/upgrade.php:72
+msgid "Extension management (symlink/copy/repair)"
+msgstr "扩展管理 (符号链接/复制/修复)"
+
+#: admin/views/upgrade.php:77
+msgid "Storage driver selection (Local / S3)"
+msgstr "存储驱动程序选择 (本地 / S3)"
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:138
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:254
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:271
+#: includes/class-grabwp-tenancy-admin.php:274
+msgid "Security check failed."
+msgstr "安全检查失败。"
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:191
+msgid "Please select a target tenant."
+msgstr "请选择一个目标租户。"
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:195
+msgid "Cannot clone a tenant into itself."
+msgstr "无法将租户克隆到其自身。"
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:208
+#: includes/backup/class-grabwp-tenancy-clone.php:143
+msgid "Target tenant not found."
+msgstr "未找到目标租户。"
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:266
+#: includes/class-grabwp-tenancy-tenant-crud.php:38
+#: includes/class-grabwp-tenancy-tenant-crud.php:95
+#: includes/class-grabwp-tenancy-tenant-crud.php:141
+msgid "Insufficient permissions."
+msgstr "权限不足。"
+
+#: includes/backup/class-grabwp-tenancy-clone-db-exporter.php:88
+msgid "Cannot open SQL output file."
+msgstr "无法打开 SQL 输出文件。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:70
+msgid "Clone job not found or expired."
+msgstr "克隆任务未找到或已过期。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:75
+msgid "Clone is already completed."
+msgstr "克隆已完成。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:115
+msgid "Invalid source tenant ID."
+msgstr "无效的源租户 ID。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:118
+msgid "Invalid target tenant ID."
+msgstr "无效的目标租户 ID。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:129
+msgid "Invalid clone step."
+msgstr "无效的克隆步骤。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:138
+msgid "Source tenant not found."
+msgstr "未找到源租户。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:150
+msgid "Cannot create temp staging directory."
+msgstr "无法创建临时暂存目录。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:157
+msgid "Source and target tenants validated."
+msgstr "源租户和目标租户已验证。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:171
+msgid "Source database exported."
+msgstr "源数据库已导出。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:182
+msgid "Export files not found."
+msgstr "未找到导出文件。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:187
+msgid "Export metadata is invalid."
+msgstr "导出元数据无效。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:195
+msgid "Database imported into target tenant."
+msgstr "数据库已导入目标租户。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:218
+msgid "Uploads copied."
+msgstr "上传文件已复制。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:252
+msgid "Site URLs updated."
+msgstr "站点 URL 已更新。"
+
+#: includes/backup/class-grabwp-tenancy-clone.php:262
+msgid "Clone complete."
+msgstr "克隆完成。"
+
+#: includes/class-grabwp-tenancy-admin-form-handler.php:142
+msgid "Failed to save settings. Please check file permissions."
+msgstr "保存设置失败。请检查文件权限。"
+
+#: includes/class-grabwp-tenancy-admin-notice.php:52
+msgid "load.php is not included in wp-config.php."
+msgstr "load.php 未包含在 wp-config.php 中。"
+
+#: includes/class-grabwp-tenancy-admin-notice.php:54
+#: includes/class-grabwp-tenancy-admin-notice.php:64
+#: includes/class-grabwp-tenancy-admin-notice.php:74
+#: includes/class-grabwp-tenancy-admin-notice.php:110
+msgid "View Status →"
+msgstr "查看状态 →"
+
+#: includes/class-grabwp-tenancy-admin-notice.php:62
+msgid "MU-plugin is not installed. Tenant features may not work."
+msgstr "未安装 MU-plugin。租户功能可能无法正常工作。"
+
+#: includes/class-grabwp-tenancy-admin-notice.php:72
+msgid "Data directory is missing."
+msgstr "数据目录缺失。"
+
+#: includes/class-grabwp-tenancy-admin-notice.php:108
+msgid "Root .htaccess needs to be updated for tenant routing."
+msgstr "需要更新根目录的 .htaccess 以用于租户路由。"
+
+#: includes/class-grabwp-tenancy-admin.php:99
+msgid "GrabWP Tenancy Pro adds scheduled auto backups, offsite cloud storage, dedicated database isolation, and more for every client site."
+msgstr "GrabWP Tenancy Pro 为每个客户站点添加了定时自动备份、异地云存储、专用数据库隔离等功能。"
+
+#: includes/class-grabwp-tenancy-admin.php:141
+msgid "Tenancy"
+msgstr "Tenancy"
+
+#: includes/class-grabwp-tenancy-admin.php:151
+#: includes/class-grabwp-tenancy-admin.php:152
+msgid "All Tenants"
+msgstr "所有租户"
+
+#: includes/class-grabwp-tenancy-admin.php:169
+#: includes/class-grabwp-tenancy-admin.php:170
+msgid "Edit Tenant"
+msgstr "编辑租户"
+
+#: includes/class-grabwp-tenancy-admin.php:251
+msgid "To confirm deletion, type the tenant ID:"
+msgstr "要确认删除，请键入租户 ID:"
+
+#: includes/class-grabwp-tenancy-admin.php:252
+msgid "Incorrect tenant ID. Deletion cancelled."
+msgstr "租户 ID 不正确。删除已取消。"
+
+#: includes/class-grabwp-tenancy-admin.php:280
+msgid "Tenant ID is required."
+msgstr "需要提供租户 ID。"
+
+#: includes/class-grabwp-tenancy-admin.php:285
+#: includes/class-grabwp-tenancy-tenant-crud.php:109
+#: includes/class-grabwp-tenancy-tenant-crud.php:165
+msgid "Tenant not found."
+msgstr "未找到租户。"
+
+#: includes/class-grabwp-tenancy-admin.php:350
+msgid "Template not found."
+msgstr "未找到模板。"
+
+#: includes/class-grabwp-tenancy-admin.php:405
+#: includes/class-grabwp-tenancy-tenant-crud.php:80
+msgid "Tenant created successfully."
+msgstr "租户创建成功。"
+
+#: includes/class-grabwp-tenancy-admin.php:407
+msgid "Tenant deleted successfully."
+msgstr "租户删除成功。"
+
+#: includes/class-grabwp-tenancy-admin.php:408
+msgid "Settings saved successfully."
+msgstr "设置保存成功。"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:258
+msgid "A tenant request changed protected files; they were restored from the snapshot:"
+msgstr "一个租户请求更改了受保护的文件；它们已从快照中恢复："
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:260
+msgid "tenant"
+msgstr "租户"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:263
+msgid "See grabwp_debug.log for details. If you changed these files yourself, use Unlock then Lock on the Status page to refresh the snapshot."
+msgstr "详情请查看 grabwp_debug.log。如果您自己更改了这些文件，请在“状态”页面上使用“解锁”然后“锁定”以刷新快照。"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:265
+msgid "Dismiss"
+msgstr "忽略"
+
+#: includes/class-grabwp-tenancy-settings.php:116
+msgid "Disallow tenant admins to install, update, and delete plugins/themes (DISALLOW_FILE_MODS)"
+msgstr "禁止租户管理员安装、更新和删除插件/主题 (DISALLOW_FILE_MODS)"
+
+#: includes/class-grabwp-tenancy-settings.php:122
+msgid "Disallow tenant admins to use the built-in plugin/theme file editor (DISALLOW_FILE_EDIT)"
+msgstr "禁止租户管理员使用内置的插件/主题文件编辑器 (DISALLOW_FILE_EDIT)"
+
+#: includes/class-grabwp-tenancy-settings.php:128
+msgid "Hide the Plugins menu entirely from tenant admin dashboards"
+msgstr "在租户管理员仪表盘中完全隐藏“插件”菜单"
+
+#: includes/class-grabwp-tenancy-settings.php:134
+msgid "Hide the Appearance menu entirely from tenant admin dashboards"
+msgstr "在租户管理员仪表盘中完全隐藏“外观”菜单"
+
+#: includes/class-grabwp-tenancy-settings.php:140
+msgid "Hide GrabWP plugins from the plugin list on tenant sites"
+msgstr "在租户站点的插件列表中隐藏 GrabWP 插件"
+
+#: includes/class-grabwp-tenancy-status-checker.php:178
+msgid "Multiple tenants.php files detected"
+msgstr "检测到多个 tenants.php 文件"
+
+#: includes/class-grabwp-tenancy-status-checker.php:179
+msgid "Only one tenants.php is loaded at boot. Stale copies at other locations may cause confusion during debugging or migration. Remove unused copies."
+msgstr "启动时仅加载一个 tenants.php。其他位置的过时副本可能会在调试或迁移过程中引起混乱。请删除未使用的副本。"
+
+#: includes/class-grabwp-tenancy-status-checker.php:205
+msgid "Multiple global config.php files detected"
+msgstr "检测到多个全局 config.php 文件"
+
+#: includes/class-grabwp-tenancy-status-checker.php:206
+msgid "Pro global configuration exists at both new and legacy locations. Boot loads the new path first; changes saved to the other copy are silently ignored. Remove the unused copy."
+msgstr "Pro 全局配置同时存在于新位置和旧位置。启动时优先加载新路径；保存到另一个副本的更改将被静默忽略。请删除未使用的副本。"
+
+#: includes/class-grabwp-tenancy-status-checker.php:216
+msgid "Data directory inside uploads/"
+msgstr "数据目录位于 uploads/ 内部"
+
+#: includes/class-grabwp-tenancy-status-checker.php:217
+msgid "Tenant data is inside wp-content/uploads/ — exposed to media upload scanners, backup tools, and CDN sync. Recommended: wp-content/grabwp-tenancy/."
+msgstr "租户数据位于 wp-content/uploads/ 内部，暴露给媒体上传扫描器、备份工具和 CDN 同步。推荐：wp-content/grabwp-tenancy/。"
+
+#: includes/class-grabwp-tenancy-status-checker.php:226
+msgid "Pro config directory inside uploads/"
+msgstr "Pro 配置目录位于 uploads/ 内部"
+
+#: includes/class-grabwp-tenancy-status-checker.php:227
+msgid "Pro tenant configs are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-pro/."
+msgstr "Pro 租户配置位于 wp-content/uploads/ 内部。推荐：wp-content/grabwp-tenancy-pro/。"
+
+#: includes/class-grabwp-tenancy-status-checker.php:237
+msgid "SQLite directory inside uploads/"
+msgstr "SQLite 目录位于 uploads/ 内部"
+
+#: includes/class-grabwp-tenancy-status-checker.php:238
+msgid "SQLite databases are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-sqlite/."
+msgstr "SQLite 数据库位于 wp-content/uploads/ 内部。推荐：wp-content/grabwp-tenancy-sqlite/。"
+
+#: includes/class-grabwp-tenancy-status-checker.php:257
+msgid "Directory paths hardcoded in wp-config.php"
+msgstr "wp-config.php 中硬编码了目录路径"
+
+#: includes/class-grabwp-tenancy-status-checker.php:258
+msgid "Constants defined before load.php override all auto-detection and Pro admin directory settings."
+msgstr "在 load.php 之前定义的常量会覆盖所有自动检测和 Pro 管理目录设置。"
+
+#: includes/class-grabwp-tenancy-status-checker.php:273
+msgid "Multiple tenant-aliases.php files detected"
+msgstr "检测到多个 tenant-aliases.php 文件"
+
+#: includes/class-grabwp-tenancy-status-checker.php:274
+msgid "Only the copy at the active base directory is loaded. Remove stale copies to prevent confusion."
+msgstr "仅加载活动基础目录中的副本。请删除过时的副本以防混淆。"
+
+#: includes/class-grabwp-tenancy-status-checker.php:290
+msgid "Unknown"
+msgstr "未知"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:66
+msgid "Failed to generate a unique tenant ID. Please try again."
+msgstr "无法生成唯一的租户 ID。请重试。"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:86
+msgid "Failed to create tenant."
+msgstr "无法创建租户。"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:99
+#: includes/class-grabwp-tenancy-tenant-crud.php:145
+msgid "Invalid tenant ID."
+msgstr "无效的租户 ID。"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:116
+msgid "Failed to delete tenant."
+msgstr "无法删除租户。"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:126
+msgid "Tenant deleted successfully. All files and database tables removed."
+msgstr "租户删除成功。所有文件和数据库表均已移除。"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:128
+msgid "Tenant deleted successfully. Files removed, but some database tables may remain."
+msgstr "租户删除成功。文件已移除，但可能仍保留某些数据库表。"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:131
+msgid "Tenant deleted, but some files or database tables may remain."
+msgstr "租户已删除，但可能仍保留某些文件或数据库表。"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:175
+msgid "Failed to update tenant."
+msgstr "无法更新租户。"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:195
+msgid "Please enter at least one valid domain."
+msgstr "请输入至少一个有效的域名。"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:203
+#, php-format
+msgid "Domain(s) already in use by other tenants: %s. Each domain can only be assigned to one tenant."
+msgstr "域名已被其他租户使用：%s。每个域名只能分配给一个租户。"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:204
+#, php-format
+msgid "Domain(s) already in use: %s. Each domain can only be assigned to one tenant."
+msgstr "域名已被使用：%s。每个域名只能分配给一个租户。"
