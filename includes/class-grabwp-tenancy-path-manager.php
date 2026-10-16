@@ -242,6 +242,47 @@ class GrabWP_Tenancy_Path_Manager {
 	}
 
 	/**
+	 * Suspension flag file the early loader checks for a tenant.
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 * @return string
+	 */
+	public static function get_suspension_file( $tenant_id ) {
+		return self::get_configured_base_path() . '/suspended/' . $tenant_id . '.php';
+	}
+
+	/**
+	 * Write a tenant's suspension flag { reason, status, html }; the early loader then serves its html.
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 * @param array  $flag      Flag data.
+	 * @return bool
+	 */
+	public static function write_suspension( $tenant_id, array $flag ) {
+		$file = self::get_suspension_file( $tenant_id );
+		if ( ! grabwp_tenancy_validate_tenant_id( $tenant_id ) || ! self::ensure_directory_exists( dirname( $file ) ) ) {
+			return false;
+		}
+		GrabWP_Tenancy_Installer::create_index_protection_for_directory( dirname( $file ) );
+		return self::atomic_put_php_file( $file, "<?php\nreturn " . var_export( $flag, true ) . ";\n" ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
+	}
+
+	/**
+	 * Remove a tenant's suspension flag.
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 * @return bool True when a flag was removed.
+	 */
+	public static function clear_suspension( $tenant_id ) {
+		$file = self::get_suspension_file( $tenant_id );
+		if ( ! grabwp_tenancy_validate_tenant_id( $tenant_id ) || ! is_file( $file ) || ! @unlink( $file ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.unlink_unlink
+			return false;
+		}
+		clearstatcache( true, $file );
+		return true;
+	}
+
+	/**
 	 * Check if old structure is being used
 	 *
 	 * @return bool True if old structure detected

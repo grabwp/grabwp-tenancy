@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.11
+Stable tag: 1.1.12
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,10 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.12 =
+* New: Early suspended-site block. When a tenant is flagged as suspended, its stored page is served with a 503 status before WordPress loads, for the front end, wp-admin, REST, XML-RPC and cron. WP-CLI always passes. Active tenants pay only one file check per request.
+* Enhance: Deleting a tenant also removes its suspension flag.
 
 = 1.1.11 =
 * Enhance: Bundled Arabic translation. The plugin shows in Arabic out of the box, including the six Arabic plural forms.

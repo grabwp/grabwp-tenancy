@@ -116,6 +116,8 @@ class GrabWP_Tenancy_Tenant_Crud {
 			return array( 'message' => __( 'Failed to delete tenant.', 'grabwp-tenancy' ), 'type' => 'error' );
 		}
 
+		GrabWP_Tenancy_Path_Manager::clear_suspension( $tenant_id );
+
 		$loader              = new GrabWP_Tenancy_Loader( $this->plugin );
 		$directories_removed = $loader->remove_tenant_directories( $tenant_id );
 		$tables_removed      = $loader->remove_tenant_database_tables( $tenant_id );
