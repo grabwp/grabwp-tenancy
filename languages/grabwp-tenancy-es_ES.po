@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-11T19:14:49+00:00\n"
-"PO-Revision-Date: 2026-10-11 19:40+0000\n"
+"PO-Revision-Date: 2026-10-14 17:46+0000\n"
 "Language: es_ES\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: grabwp-tenancy\n"
@@ -18,8 +18,8 @@ msgstr ""
 #: grabwp-tenancy.php
 #: admin/views/tenant-edit.php:134
 #: admin/views/tenants.php:16
-#: includes/class-grabwp-tenancy-admin.php:140
-#: includes/class-grabwp-tenancy-admin.php:350
+#: includes/class-grabwp-tenancy-admin.php:142
+#: includes/class-grabwp-tenancy-admin.php:352
 msgid "GrabWP Tenancy"
 msgstr "GrabWP Tenancy"
 
@@ -87,8 +87,8 @@ msgstr "Admin"
 
 #: admin/class-grabwp-tenancy-list-table.php:346
 #: admin/views/status-base.php:82
-#: includes/class-grabwp-tenancy-admin.php:178
-#: includes/class-grabwp-tenancy-admin.php:179
+#: includes/class-grabwp-tenancy-admin.php:180
+#: includes/class-grabwp-tenancy-admin.php:181
 msgid "Settings"
 msgstr "Ajustes"
 
@@ -115,7 +115,7 @@ msgid "Search"
 msgstr "Buscar"
 
 #: admin/views/partials/upsell-card.php:20
-#: admin/views/tenant-create.php:130
+#: admin/views/tenant-create.php:142
 #: admin/views/tenant-edit.php:135
 #: admin/views/tenants.php:64
 #: includes/class-grabwp-tenancy-admin.php:100
@@ -360,7 +360,7 @@ msgid "✓ Enabled"
 msgstr "✓ Activado"
 
 #: admin/views/status-base.php:104
-#: admin/views/status-general.php:453
+#: admin/views/status-general.php:137
 msgid "Disabled"
 msgstr "Desactivado"
 
@@ -368,324 +368,324 @@ msgstr "Desactivado"
 msgid "Environment Checks"
 msgstr "Comprobaciones del entorno"
 
-#: admin/views/status-general.php:38
+#: admin/views/partials/status-env-cards.php:29
 msgid "1. wp-config.php Loader"
 msgstr "1. Cargador de wp-config.php"
 
-#: admin/views/status-general.php:40
+#: admin/views/partials/status-env-cards.php:31
 #: admin/views/status-pro.php:46
 msgid "✓ Active"
 msgstr "✓ Activo"
 
-#: admin/views/status-general.php:42
-#: admin/views/status-general.php:429
+#: admin/views/partials/status-env-cards.php:33
+#: admin/views/status-general.php:113
 msgid "✗ Not loaded"
 msgstr "✗ No cargado"
 
-#: admin/views/status-general.php:48
-#: admin/views/status-general.php:101
-#: admin/views/status-general.php:151
-#: admin/views/status-general.php:212
-#: admin/views/status-general.php:269
+#: admin/views/partials/status-env-cards.php:39
+#: admin/views/partials/status-env-cards.php:92
+#: admin/views/partials/status-env-cards.php:142
+#: admin/views/partials/status-env-cards.php:203
+#: admin/views/partials/status-env-cards.php:260
 msgid "Fix steps and install code"
 msgstr "Pasos de corrección e instalar código"
 
-#: admin/views/status-general.php:50
+#: admin/views/partials/status-env-cards.php:41
 msgid "Loads tenant detection before WordPress boots so domain/path routing can identify the tenant."
 msgstr "Carga la detección de tenants antes de que arranque WordPress para que el enrutamiento por dominio/ruta pueda identificar al tenant."
 
-#: admin/views/status-general.php:55
+#: admin/views/partials/status-env-cards.php:46
 #, php-format
 msgid "File: %1$s, place before %2$s"
 msgstr "Archivo: %1$s, colócalo antes de %2$s"
 
-#: admin/views/status-general.php:65
-#: admin/views/status-general.php:112
-#: admin/views/status-general.php:176
-#: admin/views/status-general.php:236
-#: admin/views/status-general.php:287
+#: admin/views/partials/status-env-cards.php:56
+#: admin/views/partials/status-env-cards.php:103
+#: admin/views/partials/status-env-cards.php:167
+#: admin/views/partials/status-env-cards.php:227
+#: admin/views/partials/status-env-cards.php:278
 msgid "📋 Copy Code"
 msgstr "📋 Copiar código"
 
-#: admin/views/status-general.php:71
-#: admin/views/status-general.php:118
-#: admin/views/status-general.php:182
-#: admin/views/status-general.php:242
-#: admin/views/status-general.php:293
+#: admin/views/partials/status-env-cards.php:62
+#: admin/views/partials/status-env-cards.php:109
+#: admin/views/partials/status-env-cards.php:173
+#: admin/views/partials/status-env-cards.php:233
+#: admin/views/partials/status-env-cards.php:284
 msgid "⚡ Auto Fix"
 msgstr "⚡ Corrección automática"
 
-#: admin/views/status-general.php:74
+#: admin/views/partials/status-env-cards.php:65
 msgid "wp-config.php is not writable, manual install required"
 msgstr "wp-config.php no tiene permisos de escritura, se requiere instalación manual"
 
-#: admin/views/status-general.php:76
+#: admin/views/partials/status-env-cards.php:67
 msgid "Stop-editing marker not found, manual install required"
 msgstr "No se encontró el marcador de fin de edición, se requiere instalación manual"
 
-#: admin/views/status-general.php:89
+#: admin/views/partials/status-env-cards.php:80
 msgid "2. MU-Plugin"
 msgstr "2. MU-Plugin"
 
-#: admin/views/status-general.php:91
-#: admin/views/status-general.php:137
+#: admin/views/partials/status-env-cards.php:82
+#: admin/views/partials/status-env-cards.php:128
 msgid "✓ Installed"
 msgstr "✓ Instalado"
 
-#: admin/views/status-general.php:93
+#: admin/views/partials/status-env-cards.php:84
 msgid "⚠ Outdated"
 msgstr "⚠ Obsoleto"
 
-#: admin/views/status-general.php:95
-#: admin/views/status-general.php:206
+#: admin/views/partials/status-env-cards.php:86
+#: admin/views/partials/status-env-cards.php:197
 msgid "✗ Missing"
 msgstr "✗ Ausente"
 
-#: admin/views/status-general.php:103
+#: admin/views/partials/status-env-cards.php:94
 msgid "MU-plugins load on every request, including tenant admin, for settings sync and management features."
 msgstr "Los mu-plugins se cargan en cada petición, incluyendo la administración del tenant, para la sincronización de ajustes y características de gestión."
 
-#: admin/views/status-general.php:106
-#: admin/views/status-general.php:217
-#: admin/views/status-general.php:274
+#: admin/views/partials/status-env-cards.php:97
+#: admin/views/partials/status-env-cards.php:208
+#: admin/views/partials/status-env-cards.php:265
 #, php-format
 msgid "File: %s"
 msgstr "Archivo: %s"
 
-#: admin/views/status-general.php:121
+#: admin/views/partials/status-env-cards.php:112
 msgid "mu-plugins directory is not writable, manual install required"
 msgstr "El directorio mu-plugins no tiene permisos de escritura, se requiere instalación manual"
 
-#: admin/views/status-general.php:135
+#: admin/views/partials/status-env-cards.php:126
 msgid "3. Root .htaccess Rewrite Rules"
 msgstr "3. Reglas de reescritura .htaccess en la raíz"
 
-#: admin/views/status-general.php:139
+#: admin/views/partials/status-env-cards.php:130
 msgid "⚠ Wrong position"
 msgstr "⚠ Posición incorrecta"
 
-#: admin/views/status-general.php:141
+#: admin/views/partials/status-env-cards.php:132
 msgid "⚠ Invalid content"
 msgstr "⚠ Contenido no válido"
 
-#: admin/views/status-general.php:143
+#: admin/views/partials/status-env-cards.php:134
 msgid "⚠ Missing block"
 msgstr "⚠ Falta el bloque"
 
-#: admin/views/status-general.php:145
+#: admin/views/partials/status-env-cards.php:136
 msgid "✗ No .htaccess"
 msgstr "✗ No hay .htaccess"
 
-#: admin/views/status-general.php:156
+#: admin/views/partials/status-env-cards.php:147
 #, php-format
 msgid "Apache rewrite rules for path-based tenant URLs like /%s/{id}/wp-admin."
 msgstr "Reglas de reescritura de Apache para URLs de tenants basadas en rutas como /%s/{id}/wp-admin."
 
-#: admin/views/status-general.php:162
+#: admin/views/partials/status-env-cards.php:153
 #, php-format
 msgid "File: %s, must appear BEFORE \"# BEGIN WordPress\""
 msgstr "Archivo: %s, debe aparecer ANTES de \"# BEGIN WordPress\""
 
-#: admin/views/status-general.php:185
+#: admin/views/partials/status-env-cards.php:176
 msgid "Root directory or .htaccess is not writable, manual install required"
 msgstr "El directorio raíz o .htaccess no tienen permisos de escritura, se requiere instalación manual"
 
-#: admin/views/status-general.php:200
+#: admin/views/partials/status-env-cards.php:191
 msgid "Data Directory .htaccess"
 msgstr ".htaccess del directorio de datos"
 
-#: admin/views/status-general.php:202
+#: admin/views/partials/status-env-cards.php:193
 msgid "✓ Protected"
 msgstr "✓ Protegido"
 
-#: admin/views/status-general.php:204
+#: admin/views/partials/status-env-cards.php:195
 msgid "⚠ Incomplete"
 msgstr "⚠ Incompleto"
 
-#: admin/views/status-general.php:214
+#: admin/views/partials/status-env-cards.php:205
 msgid "Blocks direct HTTP access to PHP files and directory listing in the tenant data directory."
 msgstr "Bloquea el acceso HTTP directo a los archivos PHP y al listado de directorios en el directorio de datos del tenant."
 
-#: admin/views/status-general.php:245
-#: admin/views/status-general.php:296
+#: admin/views/partials/status-env-cards.php:236
+#: admin/views/partials/status-env-cards.php:287
 msgid "Data directory is not writable, manual install required"
 msgstr "El directorio de datos no tiene permisos de escritura, se requiere instalación manual"
 
-#: admin/views/status-general.php:259
+#: admin/views/partials/status-env-cards.php:250
 msgid "index.php Protection"
 msgstr "Protección de index.php"
 
-#: admin/views/status-general.php:261
+#: admin/views/partials/status-env-cards.php:252
 msgid "✓ Present"
 msgstr "✓ Presente"
 
-#: admin/views/status-general.php:263
+#: admin/views/partials/status-env-cards.php:254
 msgid "⚠ Missing"
 msgstr "⚠ Ausente"
 
-#: admin/views/status-general.php:271
+#: admin/views/partials/status-env-cards.php:262
 msgid "Blank index.php prevents directory listing when .htaccess is unavailable."
 msgstr "Un index.php en blanco evita el listado de directorios cuando .htaccess no está disponible."
 
-#: admin/views/status-general.php:312
+#: admin/views/partials/status-env-cards.php:303
 msgid "Shared Files Lock"
 msgstr "Bloqueo de archivos compartidos"
 
-#: admin/views/status-general.php:314
+#: admin/views/partials/status-env-cards.php:305
 msgid "Locked"
 msgstr "Bloqueado"
 
-#: admin/views/status-general.php:316
+#: admin/views/partials/status-env-cards.php:307
 msgid "Unlocked"
 msgstr "Desbloqueado"
 
-#: admin/views/status-general.php:320
+#: admin/views/partials/status-env-cards.php:311
 msgid "Makes the shared root files read-only (0444) so tenant plugins cannot rewrite them. GrabWP and main-site permalink saves unlock and re-lock automatically."
 msgstr "Hace que los archivos compartidos en la raíz sean de solo lectura (0444) para que los plugins de los tenants no puedan reescribirlos. GrabWP y los guardados de enlaces permanentes del sitio principal desbloquean y vuelven a bloquear automáticamente."
 
-#: admin/views/status-general.php:321
+#: admin/views/partials/status-env-cards.php:312
 msgid "If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again."
 msgstr "Si un plugin del sitio principal (por ejemplo, un plugin de caché) necesita escribir en estos archivos, desbloquéalos temporalmente y luego vuelve a bloquearlos."
 
 #. translators: %d: number of snapshot files.
-#: admin/views/status-general.php:334
+#: admin/views/partials/status-env-cards.php:325
 #, php-format
 msgid "Integrity snapshots: %d"
 msgstr "Instantáneas de integridad: %d"
 
-#: admin/views/status-general.php:336
+#: admin/views/partials/status-env-cards.php:327
 msgid "Watched but could not be locked (check file ownership):"
 msgstr "Vigilado pero no se pudo bloquear (comprueba la propiedad del archivo):"
 
-#: admin/views/status-general.php:344
+#: admin/views/partials/status-env-cards.php:335
 msgid "Unlock shared files"
 msgstr "Desbloquear archivos compartidos"
 
-#: admin/views/status-general.php:344
+#: admin/views/partials/status-env-cards.php:335
 msgid "Lock shared files"
 msgstr "Bloquear archivos compartidos"
 
-#: admin/views/status-general.php:353
+#: admin/views/status-general.php:37
 msgid "GrabWP Tenancy Information"
 msgstr "Información de GrabWP Tenancy"
 
-#: admin/views/status-general.php:356
+#: admin/views/status-general.php:40
 msgid "Base Plugin Version"
 msgstr "Versión del plugin base"
 
-#: admin/views/status-general.php:360
-#: admin/views/status.php:84
+#: admin/views/status-general.php:44
+#: admin/views/status.php:80
 msgid "Pro Plugin"
 msgstr "Plugin Pro"
 
-#: admin/views/status-general.php:363
+#: admin/views/status-general.php:47
 msgid "Active"
 msgstr "Activo"
 
-#: admin/views/status-general.php:368
+#: admin/views/status-general.php:52
 msgid "Inactive"
 msgstr "Inactivo"
 
-#: admin/views/status-general.php:373
+#: admin/views/status-general.php:57
 msgid "Registered Tenants"
 msgstr "Tenants registrados"
 
-#: admin/views/status-general.php:377
+#: admin/views/status-general.php:61
 msgid "View all"
 msgstr "Ver todo"
 
-#: admin/views/status-general.php:387
+#: admin/views/status-general.php:71
 msgid "System Information"
 msgstr "Información del sistema"
 
 #. translators: 1: WordPress version, 2: PHP version, 3: server software label
-#: admin/views/status-general.php:392
+#: admin/views/status-general.php:76
 #, php-format
 msgid "WP %1$s · PHP %2$s · %3$s"
 msgstr "WP %1$s · PHP %2$s · %3$s"
 
-#: admin/views/status-general.php:402
+#: admin/views/status-general.php:86
 msgid "WordPress Version"
 msgstr "Versión de WordPress"
 
-#: admin/views/status-general.php:406
+#: admin/views/status-general.php:90
 msgid "PHP Version"
 msgstr "Versión de PHP"
 
-#: admin/views/status-general.php:410
+#: admin/views/status-general.php:94
 msgid "Database Engine"
 msgstr "Motor de base de datos"
 
-#: admin/views/status-general.php:414
+#: admin/views/status-general.php:98
 msgid "Web Server"
 msgstr "Servidor web"
 
-#: admin/views/status-general.php:418
+#: admin/views/status-general.php:102
 msgid "ℹ .htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
 msgstr "ℹ Nginx no usa archivos .htaccess. Configura el enrutamiento del tenant en tu bloque de servidor en su lugar."
 
-#: admin/views/status-general.php:424
+#: admin/views/status-general.php:108
 msgid "mod_rewrite"
 msgstr "mod_rewrite"
 
-#: admin/views/status-general.php:427
+#: admin/views/status-general.php:111
 msgid "✓ Loaded"
 msgstr "✓ Cargado"
 
-#: admin/views/status-general.php:430
+#: admin/views/status-general.php:114
 msgid "Path routing requires mod_rewrite. Query string routing (?site=id) will be used as fallback."
 msgstr "El enrutamiento por rutas requiere mod_rewrite. Se usará el enrutamiento por cadena de consulta (?site=id) como alternativa."
 
-#: admin/views/status-general.php:432
+#: admin/views/status-general.php:116
 msgid "Cannot detect (apache_get_modules unavailable)"
 msgstr "No se puede detectar (apache_get_modules no disponible)"
 
-#: admin/views/status-general.php:438
+#: admin/views/status-general.php:122
 msgid "WordPress Multisite"
 msgstr "WordPress Multisite"
 
-#: admin/views/status-general.php:441
+#: admin/views/status-general.php:125
 msgid "⚠ Yes. GrabWP Tenancy is not designed for Multisite"
 msgstr "⚠ Sí. GrabWP Tenancy no está diseñado para Multisite"
 
-#: admin/views/status-general.php:443
+#: admin/views/status-general.php:127
 msgid "No"
 msgstr "No"
 
-#: admin/views/status-general.php:448
+#: admin/views/status-general.php:132
 msgid "WP Debug Mode"
 msgstr "Modo de depuración de WP"
 
-#: admin/views/status-general.php:451
+#: admin/views/status-general.php:135
 msgid "Enabled"
 msgstr "Activado"
 
-#: admin/views/status-general.php:458
+#: admin/views/status-general.php:142
 msgid "Data Dir Writable"
 msgstr "Directorio de datos escribible"
 
-#: admin/views/status-general.php:461
-#: admin/views/status-general.php:472
+#: admin/views/status-general.php:145
+#: admin/views/status-general.php:156
 msgid "✓ Yes"
 msgstr "✓ Sí"
 
-#: admin/views/status-general.php:463
+#: admin/views/status-general.php:147
 msgid "✗ No"
 msgstr "✗ No"
 
-#: admin/views/status-general.php:464
+#: admin/views/status-general.php:148
 msgid "Plugin needs write access to create tenant directories and manage configuration files."
 msgstr "El plugin necesita acceso de escritura para crear los directorios de los tenants y gestionar los archivos de configuración."
 
-#: admin/views/status-general.php:469
+#: admin/views/status-general.php:153
 msgid "MU-Plugins Dir Writable"
 msgstr "Directorio MU-Plugins escribible"
 
-#: admin/views/status-general.php:474
+#: admin/views/status-general.php:158
 msgid "⚠ No"
 msgstr "⚠ No"
 
-#: admin/views/status-general.php:475
+#: admin/views/status-general.php:159
 msgid "Auto-install of MU-plugin will not work. Manual installation required."
 msgstr "La autoinstalación del mu-plugin no funcionará. Se requiere instalación manual."
 
@@ -698,9 +698,9 @@ msgid "Upgrade to GrabWP Tenancy Pro for advanced features including complete co
 msgstr "Actualiza a GrabWP Tenancy Pro para obtener características avanzadas, incluyendo aislamiento de contenido completo, bases de datos separadas por inquilino y capacidades de gestión mejoradas."
 
 #: admin/views/status-pro.php:29
-#: includes/class-grabwp-tenancy-admin.php:197
-#: includes/class-grabwp-tenancy-admin.php:198
-#: includes/class-grabwp-tenancy-admin.php:313
+#: includes/class-grabwp-tenancy-admin.php:199
+#: includes/class-grabwp-tenancy-admin.php:200
+#: includes/class-grabwp-tenancy-admin.php:315
 msgid "Upgrade to Pro"
 msgstr "Actualizar a Pro"
 
@@ -713,8 +713,8 @@ msgid "Pro Version"
 msgstr "Versión Pro"
 
 #: admin/views/status-pro.php:45
-#: includes/class-grabwp-tenancy-admin.php:187
-#: includes/class-grabwp-tenancy-admin.php:188
+#: includes/class-grabwp-tenancy-admin.php:189
+#: includes/class-grabwp-tenancy-admin.php:190
 msgid "Status"
 msgstr "Estado"
 
@@ -787,40 +787,40 @@ msgstr "Base de datos MySQL"
 msgid "MySQL Username"
 msgstr "Nombre de usuario MySQL"
 
-#: admin/views/status.php:71
+#: admin/views/status.php:65
 msgid "GrabWP Tenancy Status"
 msgstr "Estado de GrabWP Tenancy"
 
-#: admin/views/status.php:76
+#: admin/views/status.php:72
 msgid "Plugin General"
 msgstr "General del plugin"
 
-#: admin/views/status.php:80
+#: admin/views/status.php:76
 msgid "Base Plugin"
 msgstr "Plugin base"
 
-#: admin/views/status.php:97
+#: admin/views/status.php:93
 msgid "GrabWP Tenancy:"
 msgstr "GrabWP Tenancy:"
 
-#: admin/views/status.php:98
+#: admin/views/status.php:94
 msgid "You're using a legacy path structure. To comply with WordPress standards:"
 msgstr "Estás usando una estructura de rutas heredada. Para cumplir con los estándares de WordPress:"
 
-#: admin/views/status.php:99
+#: admin/views/status.php:95
 msgid "1. Deactivate the plugin"
 msgstr "1. Desactiva el plugin"
 
-#: admin/views/status.php:102
+#: admin/views/status.php:98
 #, php-format
 msgid "2. Rename and move the entire %1$s folder to %2$s"
 msgstr "2. Renombra y mueve toda la carpeta %1$s a %2$s"
 
-#: admin/views/status.php:108
+#: admin/views/status.php:104
 msgid "3. Reactivate the plugin"
 msgstr "3. Reactiva el plugin"
 
-#: admin/views/status.php:129
+#: admin/views/status.php:125
 msgid "← active"
 msgstr "← activo"
 
@@ -907,7 +907,7 @@ msgid "Clone Tenant"
 msgstr "Clonar inquilino"
 
 #: admin/views/tenant-clone.php:110
-#: admin/views/tenant-create.php:119
+#: admin/views/tenant-create.php:131
 #: admin/views/tenant-edit.php:124
 msgid "Cancel"
 msgstr "Cancelar"
@@ -966,7 +966,7 @@ msgid "Are you sure? All data in the target tenant will be overwritten."
 msgstr "¿Estás seguro? Todos los datos del inquilino de destino se sobrescribirán."
 
 #: admin/views/tenant-create.php:16
-#: includes/class-grabwp-tenancy-admin.php:160
+#: includes/class-grabwp-tenancy-admin.php:162
 msgid "Add New Tenant"
 msgstr "Añadir nuevo inquilino"
 
@@ -1003,7 +1003,7 @@ msgstr "Limpiar"
 #: admin/views/tenant-create.php:81
 #: admin/views/tenant-edit.php:91
 #: admin/views/tenant-edit.php:99
-#: includes/class-grabwp-tenancy-admin.php:250
+#: includes/class-grabwp-tenancy-admin.php:252
 msgid "Remove"
 msgstr "Eliminar"
 
@@ -1015,19 +1015,19 @@ msgstr "Configuraré un dominio más tarde"
 msgid "Your site will be accessible at:"
 msgstr "Tu sitio será accesible en:"
 
-#: admin/views/tenant-create.php:114
+#: admin/views/tenant-create.php:126
 msgid "Create Tenant & Clone"
 msgstr "Crear inquilino y clonar"
 
-#: admin/views/tenant-create.php:115
+#: admin/views/tenant-create.php:127
 msgid "Create Tenant"
 msgstr "Crear inquilino"
 
-#: admin/views/tenant-create.php:128
+#: admin/views/tenant-create.php:140
 msgid "GrabWP Tenancy Pro adds isolated databases, custom plugin & theme management, scheduled backups, cloud storage offload, and more for every client site."
 msgstr "GrabWP Tenancy Pro añade bases de datos aisladas, gestión de plugins y temas personalizados, copias de seguridad programadas, descarga a almacenamiento en la nube y más para cada sitio de cliente."
 
-#: admin/views/tenant-create.php:129
+#: admin/views/tenant-create.php:141
 msgid "Better isolation, more control"
 msgstr "Mejor aislamiento, más control"
 
@@ -1042,15 +1042,17 @@ msgid "Edit tenant settings and domain mappings."
 msgstr "Editar ajustes del inquilino y asignaciones de dominio."
 
 #: admin/views/tenant-edit.php:40
-#: includes/class-grabwp-tenancy-admin.php:406
-#: includes/class-grabwp-tenancy-tenant-crud.php:172
+#: includes/class-grabwp-tenancy-admin.php:408
+#: includes/class-grabwp-tenancy-tenant-crud.php:174
 msgid "Tenant updated successfully."
 msgstr "Inquilino actualizado con éxito."
 
+#: admin/views/setup-steps/site.php:75
 #: admin/views/tenant-edit.php:70
 msgid "Path URL"
 msgstr "URL de la ruta"
 
+#: admin/views/partials/site-result.php:63
 #: admin/views/tenant-edit.php:75
 msgid "Copy"
 msgstr "Copiar"
@@ -1061,7 +1063,7 @@ msgstr "Esta URL siempre está disponible, no es necesaria ninguna configuració
 
 #: admin/views/tenant-edit.php:90
 #: admin/views/tenant-edit.php:98
-#: includes/class-grabwp-tenancy-admin.php:249
+#: includes/class-grabwp-tenancy-admin.php:251
 msgid "Enter domain (e.g., tenant1.grabwp.local)"
 msgstr "Introduce el dominio (ej., inquilino1.grabwp.local)"
 
@@ -1082,7 +1084,7 @@ msgid "Need more control? GrabWP Tenancy Pro adds isolated databases (MySQL or S
 msgstr "¿Necesitas más control? GrabWP Tenancy Pro añade bases de datos aisladas (MySQL o SQLite), copias de seguridad programadas, descarga a almacenamiento en la nube y más para cada sitio de cliente."
 
 #: admin/views/tenants.php:18
-#: includes/class-grabwp-tenancy-admin.php:161
+#: includes/class-grabwp-tenancy-admin.php:163
 msgid "Add New"
 msgstr "Añadir nuevo"
 
@@ -1169,7 +1171,7 @@ msgstr "Selección del controlador de almacenamiento (Local / S3)"
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:138
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:254
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:274
+#: includes/class-grabwp-tenancy-admin.php:276
 msgid "Security check failed."
 msgstr "El control de seguridad ha fallado."
 
@@ -1187,9 +1189,13 @@ msgid "Target tenant not found."
 msgstr "No se ha encontrado el inquilino de destino."
 
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:266
+#: includes/class-grabwp-tenancy-setup-wizard.php:446
+#: includes/class-grabwp-tenancy-setup-wizard.php:553
+#: includes/class-grabwp-tenancy-setup-wizard.php:590
 #: includes/class-grabwp-tenancy-tenant-crud.php:38
 #: includes/class-grabwp-tenancy-tenant-crud.php:95
-#: includes/class-grabwp-tenancy-tenant-crud.php:141
+#: includes/class-grabwp-tenancy-tenant-crud.php:143
+#: includes/class-grabwp-tenancy-tenant-installer.php:124
 msgid "Insufficient permissions."
 msgstr "Permisos insuficientes."
 
@@ -1257,7 +1263,7 @@ msgstr "URL del sitio actualizadas."
 msgid "Clone complete."
 msgstr "Clonación completada."
 
-#: includes/class-grabwp-tenancy-admin-form-handler.php:142
+#: includes/class-grabwp-tenancy-admin-form-handler.php:179
 msgid "Failed to save settings. Please check file permissions."
 msgstr "Error al guardar los ajustes. Por favor, comprueba los permisos de los archivos."
 
@@ -1288,52 +1294,52 @@ msgstr "El .htaccess de la raíz necesita ser actualizado para el enrutamiento d
 msgid "GrabWP Tenancy Pro adds scheduled auto backups, offsite cloud storage, dedicated database isolation, and more for every client site."
 msgstr "GrabWP Tenancy Pro añade copias de seguridad automáticas programadas, almacenamiento externo en la nube, aislamiento de base de datos dedicada y más para cada sitio de cliente."
 
-#: includes/class-grabwp-tenancy-admin.php:141
+#: includes/class-grabwp-tenancy-admin.php:143
 msgid "Tenancy"
 msgstr "Tenancy"
 
-#: includes/class-grabwp-tenancy-admin.php:151
-#: includes/class-grabwp-tenancy-admin.php:152
+#: includes/class-grabwp-tenancy-admin.php:153
+#: includes/class-grabwp-tenancy-admin.php:154
 msgid "All Tenants"
 msgstr "Todos los inquilinos"
 
-#: includes/class-grabwp-tenancy-admin.php:169
-#: includes/class-grabwp-tenancy-admin.php:170
+#: includes/class-grabwp-tenancy-admin.php:171
+#: includes/class-grabwp-tenancy-admin.php:172
 msgid "Edit Tenant"
 msgstr "Editar inquilino"
 
-#: includes/class-grabwp-tenancy-admin.php:251
+#: includes/class-grabwp-tenancy-admin.php:253
 msgid "To confirm deletion, type the tenant ID:"
 msgstr "Para confirmar el borrado, teclea el ID del inquilino:"
 
-#: includes/class-grabwp-tenancy-admin.php:252
+#: includes/class-grabwp-tenancy-admin.php:254
 msgid "Incorrect tenant ID. Deletion cancelled."
 msgstr "ID del inquilino incorrecto. Borrado cancelado."
 
-#: includes/class-grabwp-tenancy-admin.php:280
+#: includes/class-grabwp-tenancy-admin.php:282
 msgid "Tenant ID is required."
 msgstr "El ID del inquilino es obligatorio."
 
-#: includes/class-grabwp-tenancy-admin.php:285
+#: includes/class-grabwp-tenancy-admin.php:287
 #: includes/class-grabwp-tenancy-tenant-crud.php:109
-#: includes/class-grabwp-tenancy-tenant-crud.php:165
+#: includes/class-grabwp-tenancy-tenant-crud.php:167
 msgid "Tenant not found."
 msgstr "No se ha encontrado el inquilino."
 
-#: includes/class-grabwp-tenancy-admin.php:350
+#: includes/class-grabwp-tenancy-admin.php:352
 msgid "Template not found."
 msgstr "No se ha encontrado la plantilla."
 
-#: includes/class-grabwp-tenancy-admin.php:405
+#: includes/class-grabwp-tenancy-admin.php:407
 #: includes/class-grabwp-tenancy-tenant-crud.php:80
 msgid "Tenant created successfully."
 msgstr "Inquilino creado con éxito."
 
-#: includes/class-grabwp-tenancy-admin.php:407
+#: includes/class-grabwp-tenancy-admin.php:409
 msgid "Tenant deleted successfully."
 msgstr "Inquilino borrado con éxito."
 
-#: includes/class-grabwp-tenancy-admin.php:408
+#: includes/class-grabwp-tenancy-admin.php:410
 msgid "Settings saved successfully."
 msgstr "Ajustes guardados con éxito."
 
@@ -1350,6 +1356,7 @@ msgid "See grabwp_debug.log for details. If you changed these files yourself, us
 msgstr "Revisa grabwp_debug.log para más detalles. Si has cambiado estos archivos tú mismo, usa Desbloquear y luego Bloquear en la página de Estado para actualizar la instantánea."
 
 #: includes/class-grabwp-tenancy-integrity-watchdog.php:265
+#: includes/class-grabwp-tenancy-setup-wizard.php:435
 msgid "Dismiss"
 msgstr "Descartar"
 
@@ -1442,7 +1449,8 @@ msgid "Failed to create tenant."
 msgstr "Fallo al crear el inquilino."
 
 #: includes/class-grabwp-tenancy-tenant-crud.php:99
-#: includes/class-grabwp-tenancy-tenant-crud.php:145
+#: includes/class-grabwp-tenancy-tenant-crud.php:147
+#: includes/class-grabwp-tenancy-tenant-installer.php:128
 msgid "Invalid tenant ID."
 msgstr "ID de inquilino no válido."
 
@@ -1450,32 +1458,339 @@ msgstr "ID de inquilino no válido."
 msgid "Failed to delete tenant."
 msgstr "Fallo al borrar el inquilino."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:126
+#: includes/class-grabwp-tenancy-tenant-crud.php:128
 msgid "Tenant deleted successfully. All files and database tables removed."
 msgstr "Inquilino borrado con éxito. Todos los archivos y tablas de la base de datos eliminados."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:128
+#: includes/class-grabwp-tenancy-tenant-crud.php:130
 msgid "Tenant deleted successfully. Files removed, but some database tables may remain."
 msgstr "Inquilino borrado con éxito. Archivos eliminados, pero puede que queden algunas tablas de la base de datos."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:131
+#: includes/class-grabwp-tenancy-tenant-crud.php:133
 msgid "Tenant deleted, but some files or database tables may remain."
 msgstr "Inquilino borrado, pero puede que queden algunos archivos o tablas de la base de datos."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:175
+#: includes/class-grabwp-tenancy-tenant-crud.php:177
 msgid "Failed to update tenant."
 msgstr "Fallo al actualizar el inquilino."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:195
+#: includes/class-grabwp-tenancy-tenant-crud.php:197
 msgid "Please enter at least one valid domain."
 msgstr "Por favor, introduce al menos un dominio válido."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:203
+#: includes/class-grabwp-tenancy-tenant-crud.php:205
 #, php-format
 msgid "Domain(s) already in use by other tenants: %s. Each domain can only be assigned to one tenant."
 msgstr "Dominio(s) ya en uso por otros inquilinos: %s. Cada dominio solo puede asignarse a un inquilino."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:204
+#: includes/class-grabwp-tenancy-tenant-crud.php:206
 #, php-format
 msgid "Domain(s) already in use: %s. Each domain can only be assigned to one tenant."
 msgstr "Dominio(s) ya en uso: %s. Cada dominio solo puede asignarse a un inquilino."
+
+#. translators: %s: reason the install failed.
+#: admin/views/partials/site-result.php:33
+#, php-format
+msgid "The site was created but WordPress could not be installed automatically: %s"
+msgstr "El sitio se ha creado, pero WordPress no se ha podido instalar automáticamente: %s"
+
+#: admin/views/partials/site-result.php:39
+msgid "Finish install in browser"
+msgstr "Terminar la instalación en el navegador"
+
+#. translators: %s: tenant ID.
+#: admin/views/partials/site-result.php:49
+#, php-format
+msgid "Site created: %s"
+msgstr "Sitio creado: %s"
+
+#: admin/views/partials/site-result.php:58
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: admin/views/partials/site-result.php:60
+msgid "Password"
+msgstr "Contraseña"
+
+#: admin/views/partials/site-result.php:62
+msgid "Show"
+msgstr "Mostrar"
+
+#: admin/views/partials/site-result.php:62
+msgid "Hide"
+msgstr "Ocultar"
+
+#: admin/views/partials/site-result.php:65
+msgid "This password is shown once. You do not need it: the 1-click Admin button logs you in."
+msgstr "Esta contraseña se muestra una sola vez. No la necesitas: el botón Admin de 1 clic inicia tu sesión."
+
+#: admin/views/partials/site-result.php:68
+#: admin/views/setup-steps/done.php:35
+msgid "Open site admin (1-click)"
+msgstr "Abrir la administración del sitio (1 clic)"
+
+#: admin/views/setup-steps/check.php:38
+msgid "Check your server"
+msgstr "Comprueba tu servidor"
+
+#. translators: %s: example path URL such as /site/{id}
+#: admin/views/setup-steps/check.php:43
+#, php-format
+msgid "GrabWP set these up when you activated it. Path URLs like %s need every item below."
+msgstr "GrabWP configuró esto al activarlo. Las URL de ruta como %s necesitan todos los elementos de abajo."
+
+#: admin/views/setup-steps/check.php:55
+msgid "Site can reach itself (loopback)"
+msgstr "El sitio puede conectarse consigo mismo (loopback)"
+
+#: admin/views/setup-steps/check.php:57
+msgid "OK"
+msgstr "OK"
+
+#: admin/views/setup-steps/check.php:59
+msgid "Failed"
+msgstr "Error"
+
+#: admin/views/setup-steps/check.php:65
+msgid "GrabWP can install WordPress in new sites for you."
+msgstr "GrabWP puede instalar WordPress en los sitios nuevos por ti."
+
+#: admin/views/setup-steps/check.php:66
+msgid "This server cannot open its own address, so new sites must be installed in the browser. Check firewall, basic auth, or the server routing rules."
+msgstr "Este servidor no puede abrir su propia dirección, así que los sitios nuevos deben instalarse en el navegador. Revisa el cortafuegos, la autenticación básica o las reglas de enrutamiento del servidor."
+
+#: admin/views/setup-steps/check.php:73
+msgid ".htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
+msgstr "Nginx no usa archivos .htaccess. Configura el enrutamiento de tenants en el bloque server."
+
+#. translators: %d: number of items that need attention.
+#: admin/views/setup-steps/check.php:82
+#, php-format
+msgid "%d item needs attention."
+msgid_plural "%d items need attention."
+msgstr[0] "%d elemento necesita atención."
+msgstr[1] "%d elementos necesitan atención."
+
+#: admin/views/setup-steps/check.php:86
+msgid "Fix automatically"
+msgstr "Corregir automáticamente"
+
+#: admin/views/setup-steps/check.php:91
+msgid "Everything is ready."
+msgstr "Todo está listo."
+
+#: admin/views/setup-steps/done.php:19
+msgid "You're ready"
+msgstr "Todo listo"
+
+#: admin/views/setup-steps/done.php:27
+msgid "Open this step"
+msgstr "Abrir este paso"
+
+#: admin/views/setup-steps/done.php:36
+msgid "Visit site"
+msgstr "Visitar el sitio"
+
+#: admin/views/setup-steps/done.php:38
+msgid "All tenants"
+msgstr "Todos los tenants"
+
+#: admin/views/setup-steps/done.php:51
+msgid "Next:"
+msgstr "Siguiente:"
+
+#: admin/views/setup-steps/site.php:37
+#: includes/class-grabwp-tenancy-setup-wizard.php:722
+msgid "Activate a license to create tenants."
+msgstr "Activa una licencia para crear tenants."
+
+#: admin/views/setup-steps/site.php:38
+msgid "Go to the License step"
+msgstr "Ir al paso Licencia"
+
+#: admin/views/setup-steps/site.php:44
+#: admin/views/setup-wizard.php:18
+msgid "Save and continue"
+msgstr "Guardar y continuar"
+
+#: admin/views/setup-steps/site.php:47
+msgid "Site"
+msgstr "Sitio"
+
+#: admin/views/setup-steps/site.php:50
+msgid "Create a new site"
+msgstr "Crear un sitio nuevo"
+
+#: admin/views/setup-steps/site.php:51
+msgid "Use an existing site"
+msgstr "Usar un sitio existente"
+
+#: admin/views/setup-steps/site.php:52
+msgid "Existing site"
+msgstr "Sitio existente"
+
+#: admin/views/setup-steps/site.php:65
+msgid "Site title"
+msgstr "Título del sitio"
+
+#: admin/views/setup-steps/site.php:70
+msgid "Address"
+msgstr "Dirección"
+
+#: admin/views/setup-steps/site.php:78
+msgid "Works now. No DNS needed. The ID is created on save."
+msgstr "Funciona ya. No necesita DNS. El ID se crea al guardar."
+
+#: admin/views/setup-steps/site.php:81
+#: admin/views/setup-steps/site.php:83
+msgid "Custom domain"
+msgstr "Dominio personalizado"
+
+#: admin/views/setup-steps/site.php:84
+msgid "Point the domain's DNS to this server first."
+msgstr "Primero apunta el DNS del dominio a este servidor."
+
+#: admin/views/setup-steps/site.php:90
+msgid "Admin email"
+msgstr "Correo del administrador"
+
+#: admin/views/setup-steps/site.php:95
+#: admin/views/tenant-create.php:103
+msgid "WordPress"
+msgstr "WordPress"
+
+#: admin/views/setup-steps/site.php:99
+#: admin/views/tenant-create.php:107
+msgid "Install WordPress now"
+msgstr "Instalar WordPress ahora"
+
+#: admin/views/setup-steps/site.php:101
+#: admin/views/tenant-create.php:109
+msgid "Creates the site's database and an administrator named after the site ID with a random password. Use the 1-click Admin button to log in; you never need the password."
+msgstr "Crea la base de datos del sitio y un administrador con el nombre del ID del sitio y una contraseña aleatoria. Usa el botón Admin de 1 clic para acceder; nunca necesitarás la contraseña."
+
+#: admin/views/setup-steps/site.php:103
+msgid "Turned off because this server cannot reach itself (see the Check step). You can finish the install in the browser after the site is created."
+msgstr "Desactivado porque este servidor no puede conectarse consigo mismo (consulta el paso Comprobación). Puedes terminar la instalación en el navegador después de crear el sitio."
+
+#: admin/views/setup-wizard.php:24
+#: includes/class-grabwp-tenancy-setup-wizard.php:43
+#: includes/class-grabwp-tenancy-setup-wizard.php:44
+msgid "GrabWP setup"
+msgstr "Configuración de GrabWP"
+
+#: admin/views/setup-wizard.php:25
+msgid "Exit setup"
+msgstr "Salir de la configuración"
+
+#: admin/views/setup-wizard.php:85
+msgid "Back"
+msgstr "Atrás"
+
+#: admin/views/setup-wizard.php:89
+msgid "Skip this step"
+msgstr "Omitir este paso"
+
+#: admin/views/status.php:66
+msgid "Run setup wizard"
+msgstr "Ejecutar el asistente de configuración"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:112
+msgid "Check"
+msgstr "Comprobación"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:116
+msgid "Continue"
+msgstr "Continuar"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:120
+msgid "First site"
+msgstr "Primer sitio"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:124
+msgid "Create site"
+msgstr "Crear sitio"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:129
+msgid "Done"
+msgstr "Listo"
+
+#. translators: %d: number of setup steps left.
+#: includes/class-grabwp-tenancy-setup-wizard.php:426
+#, php-format
+msgid "GrabWP: finish setup to get your first site running (%d step left)."
+msgid_plural "GrabWP: finish setup to get your first site running (%d steps left)."
+msgstr[0] "GrabWP: termina la configuración para poner en marcha tu primer sitio (queda %d paso)."
+msgstr[1] "GrabWP: termina la configuración para poner en marcha tu primer sitio (quedan %d pasos)."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:432
+msgid "Continue setup"
+msgstr "Continuar la configuración"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:596
+msgid "Unknown setup step."
+msgstr "Paso de configuración desconocido."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:671
+msgid "Create your first site"
+msgstr "Crea tu primer sitio"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:672
+msgid "A new site that opens on a path URL right away. No DNS needed."
+msgstr "Un sitio nuevo que se abre al instante en una URL de ruta. No necesita DNS."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:673
+msgid "My First Site"
+msgstr "Mi primer sitio"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:732
+msgid "Pick a site from the list."
+msgstr "Elige un sitio de la lista."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:741
+msgid "Enter a site title (up to 100 characters)."
+msgstr "Introduce un título para el sitio (hasta 100 caracteres)."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:745
+msgid "Enter a valid admin email."
+msgstr "Introduce un correo de administrador válido."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:752
+msgid "Enter the custom domain, or choose Path URL."
+msgstr "Introduce el dominio personalizado o elige URL de la ruta."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:800
+msgid "Server checked"
+msgstr "Servidor comprobado"
+
+#. translators: %s: tenant ID.
+#: includes/class-grabwp-tenancy-setup-wizard.php:817
+#, php-format
+msgid "Site %s created and installed"
+msgstr "Sitio %s creado e instalado"
+
+#. translators: %s: tenant ID.
+#: includes/class-grabwp-tenancy-setup-wizard.php:819
+#, php-format
+msgid "Site %s created; WordPress is not installed yet"
+msgstr "Sitio %s creado; WordPress aún no está instalado"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:825
+msgid "First site: Skipped"
+msgstr "Primer sitio: omitido"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:843
+msgid "Map a custom domain"
+msgstr "Asignar un dominio personalizado"
+
+#. translators: %s: name of a setup item.
+#: includes/class-grabwp-tenancy-setup-wizard.php:879
+#, php-format
+msgid "%s: Skipped"
+msgstr "%s: omitido"
+
+#. translators: %d: HTTP status code.
+#: includes/class-grabwp-tenancy-tenant-installer.php:183
+#, php-format
+msgid "The site answered with HTTP %d."
+msgstr "El sitio respondió con HTTP %d."

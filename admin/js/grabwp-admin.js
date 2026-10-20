@@ -14,6 +14,7 @@
 		initLowercaseDomains();
 		initDomainManagement();
 		initCreatePageHelpers();
+		initRoutingModeRadios();
 		initCopyToClipboard();
 		initAjaxInstallButton( {
 			btnId:        'grabwp-install-mu-btn',
@@ -32,6 +33,8 @@
 			defaultLabel: 'Auto Install to wp-config.php'
 		} );
 		initPathUrlCopy();
+		initPasswordReveal();
+		initSetupWizard();
 		initDomainOptionRadio();
 		initStatusPageFix();
 		initCodeBlockCopy();
@@ -115,11 +118,20 @@
 	}
 
 	function initCreatePageHelpers() {
-		// Auto-fill the first empty domain input on the create page.
+		// Suggest a domain in the first empty input once "I have a domain" is picked.
 		var firstInput = document.querySelector( '.grabwp-domain-inputs input[name="domains[]"]' );
-		if ( firstInput && firstInput.value.trim() === '' ) {
-			firstInput.value = generateTenantDomain();
+		var hasDomain  = document.querySelector( 'input[name="domain_option"][value="has_domain"]' );
+		// Domain mode needs a real domain: never fill in a made-up one.
+		var domainMode = !! document.querySelector( 'form[data-routing-mode="domain"]' );
+		function suggestDomain() {
+			if ( ! domainMode && firstInput && firstInput.value.trim() === '' && ( ! hasDomain || hasDomain.checked ) ) {
+				firstInput.value = generateTenantDomain();
+			}
 		}
+		if ( hasDomain ) {
+			hasDomain.addEventListener( 'change', suggestDomain );
+		}
+		suggestDomain();
 
 		// Clear button: wipe the nearest domains[] input inside the same row.
 		document.addEventListener( 'click', function ( e ) {
@@ -207,7 +219,8 @@
 
 		if ( cfg.emptyFallback ) {
 			var form = container.closest( 'form' );
-			if ( form ) {
+			// Domain mode: no placeholder domain, the server asks for a real one.
+			if ( form && form.getAttribute( 'data-routing-mode' ) !== 'domain' ) {
 				form.addEventListener( 'submit', function () {
 					var inputs   = container.querySelectorAll( 'input[name="domains[]"]' );
 					var hasValue = false;
@@ -336,6 +349,28 @@
 	}
 
 	/* ---------------------------------------------------------------
+	 * Routing settings: path rows only apply outside domain mode
+	 * ------------------------------------------------------------- */
+
+	function initRoutingModeRadios() {
+		var rows = document.querySelector( '.grabwp-routing-path-rows' );
+		if ( ! rows ) {
+			return;
+		}
+
+		document.addEventListener( 'change', function ( e ) {
+			if ( e.target.name === 'routing_mode' ) {
+				rows.hidden = e.target.value === 'domain';
+			}
+		} );
+
+		// A hidden field that fails validation would block the submit invisibly.
+		rows.addEventListener( 'invalid', function () {
+			rows.hidden = false;
+		}, true );
+	}
+
+	/* ---------------------------------------------------------------
 	 * Domain option radio toggle (create tenant page)
 	 * ------------------------------------------------------------- */
 
@@ -384,6 +419,99 @@
 	/* ---------------------------------------------------------------
 	 * Path / URL copy buttons
 	 * ------------------------------------------------------------- */
+
+	/**
+	 * Setup wizard: spinner on save, First site mode toggle, fix-all on Check.
+	 */
+	function initSetupWizard() {
+		var form = document.querySelector( '.grabwp-setup-form' );
+		if ( ! form ) {
+			return;
+		}
+
+		form.addEventListener( 'submit', function ( e ) {
+			if ( e.submitter && e.submitter.classList.contains( 'grabwp-setup-skip' ) ) {
+				return;
+			}
+			var primary = form.querySelector( '.grabwp-setup-primary' );
+			var spinner = form.querySelector( '.grabwp-setup-spinner' );
+			// Disable after the browser has collected the form data.
+			setTimeout( function () {
+				if ( primary ) {
+					primary.disabled = true;
+				}
+				if ( spinner ) {
+					spinner.classList.add( 'is-active' );
+				}
+			}, 0 );
+		} );
+
+		var site = form.querySelector( '.grabwp-setup-site' );
+		if ( site ) {
+			var primaryBtn   = form.querySelector( '.grabwp-setup-primary' );
+			var createLabel  = primaryBtn ? primaryBtn.textContent : '';
+			var existingText = site.getAttribute( 'data-existing-label' );
+			var syncMode = function () {
+				var picked   = form.querySelector( 'input[name="site_mode"]:checked' );
+				var existing = picked && 'existing' === picked.value;
+				var rows     = site.querySelectorAll( '.grabwp-setup-new-only' );
+				for ( var i = 0; i < rows.length; i++ ) {
+					rows[ i ].classList.toggle( 'hidden', existing );
+				}
+				if ( primaryBtn ) {
+					primaryBtn.textContent = existing ? existingText : createLabel;
+				}
+			};
+			var modes = form.querySelectorAll( 'input[name="site_mode"]' );
+			for ( var m = 0; m < modes.length; m++ ) {
+				modes[ m ].addEventListener( 'change', syncMode );
+			}
+			syncMode();
+		}
+
+		var fixAll = form.querySelector( '.grabwp-setup-fix-all' );
+		if ( fixAll ) {
+			fixAll.addEventListener( 'click', function () {
+				fixAll.disabled = true;
+				var buttons = form.querySelectorAll( '.grabwp-env-card .grabwp-fix-btn[data-fix-action^="grabwp_install"], .grabwp-env-card .grabwp-fix-btn[data-fix-action^="grabwp_fix"]' );
+				var recheck = form.querySelector( '.grabwp-setup-recheck' );
+				// One fix at a time, then a fresh check once every fix has answered.
+				var run = function ( i ) {
+					if ( i >= buttons.length ) {
+						window.location.href = recheck ? recheck.href.replace( /recheck=\d+/, 'recheck=' + Date.now() ) : window.location.href;
+						return;
+					}
+					var data = new FormData();
+					data.append( 'action', buttons[ i ].getAttribute( 'data-fix-action' ) );
+					data.append( '_ajax_nonce', buttons[ i ].getAttribute( 'data-fix-nonce' ) );
+					var next = function () {
+						run( i + 1 );
+					};
+					fetch( ajaxurl, { method: 'POST', body: data, credentials: 'same-origin' } ).then( next, next );
+				};
+				run( 0 );
+			} );
+		}
+	}
+
+	/**
+	 * Show / hide a one-time password field (site created result panel).
+	 */
+	function initPasswordReveal() {
+		document.addEventListener( 'click', function ( e ) {
+			var btn = e.target.closest ? e.target.closest( '.grabwp-reveal-password' ) : null;
+			if ( ! btn ) {
+				return;
+			}
+			var input = document.getElementById( btn.getAttribute( 'data-target' ) );
+			if ( ! input ) {
+				return;
+			}
+			var show       = 'password' === input.type;
+			input.type      = show ? 'text' : 'password';
+			btn.textContent = btn.getAttribute( show ? 'data-hide-label' : 'data-show-label' );
+		} );
+	}
 
 	function initPathUrlCopy() {
 		document.addEventListener( 'click', function ( e ) {

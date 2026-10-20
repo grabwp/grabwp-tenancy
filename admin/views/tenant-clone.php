@@ -224,7 +224,7 @@ $create_new_url = add_query_arg( [
 		var target = targets.find(function(t) { return t.id === tid; });
 		if (target) {
 			$('#target-info-id').text(target.id);
-			$('#target-info-domains').text(target.domains.join(', ') || 'nodomain.local');
+			$('#target-info-domains').text(target.domains.filter(function(d) { return d !== 'nodomain.local'; }).join(', ') || '<?php echo esc_js( __( 'Path URL only', 'grabwp-tenancy' ) ); ?>');
 			$info.show();
 		}
 		$btn.prop('disabled', false);

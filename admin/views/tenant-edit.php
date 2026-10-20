@@ -56,8 +56,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endif; ?>
 	<?php endif; ?>
 
+	<?php $grabwp_routing_mode = grabwp_tenancy_get_routing_mode(); ?>
 	<div>
-		<form method="post" class="grabwp-tenancy-form">
+		<form method="post" class="grabwp-tenancy-form" data-routing-mode="<?php echo esc_attr( $grabwp_routing_mode ); ?>">
 			<?php wp_nonce_field( 'grabwp_tenancy_update' ); ?>
 			<input type="hidden" name="action" value="update_tenant" />
 			<input type="hidden" name="tenant_id" value="<?php echo esc_attr( $tenant->get_id() ); ?>" />
@@ -66,20 +67,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<th scope="row"><?php esc_html_e( 'Tenant ID', 'grabwp-tenancy' ); ?></th>
 					<td><code><?php echo esc_html( $tenant->get_id() ); ?></code></td>
 				</tr>
+				<?php if ( 'domain' !== $grabwp_routing_mode ) : ?>
 				<tr>
 					<th scope="row"><?php esc_html_e( 'Path URL', 'grabwp-tenancy' ); ?></th>
 					<td>
-						<?php $grabwp_tenancy_path_url = site_url( '/' . grabwp_tenancy_get_path_prefix() . '/' . $tenant->get_id() . '/' ); ?>
-						<code id="grabwp-path-url-value"><?php echo esc_html( $grabwp_tenancy_path_url ); ?></code>
+						<?php $grabwp_tenancy_path_url = $tenant->get_path_url() . '/'; ?>
+						<code id="grabwp-path-url-value" dir="ltr"><?php echo esc_html( $grabwp_tenancy_path_url ); ?></code>
 						<button type="button" class="button button-small grabwp-copy-path-url" data-copy-value="<?php echo esc_attr( $grabwp_tenancy_path_url ); ?>">
 							<?php esc_html_e( 'Copy', 'grabwp-tenancy' ); ?>
 						</button>
 						<p class="description"><?php esc_html_e( 'This URL is always available, no DNS configuration needed.', 'grabwp-tenancy' ); ?></p>
 					</td>
 				</tr>
+				<?php endif; ?>
 				<tr>
 					<th scope="row"><?php esc_html_e( 'Domains', 'grabwp-tenancy' ); ?></th>
 					<td>
+						<?php if ( 'path' === $grabwp_routing_mode ) : ?>
+						<details class="grabwp-stored-domains">
+							<summary>
+								<?php
+								$grabwp_routing_stored = count( $tenant->get_real_domains() );
+								printf(
+									/* translators: %d: number of domains stored for the site. */
+									esc_html( _n( 'Stored domains (%d): kept, not used for links in Path mode', 'Stored domains (%d): kept, not used for links in Path mode', $grabwp_routing_stored, 'grabwp-tenancy' ) ),
+									(int) $grabwp_routing_stored
+								);
+								?>
+							</summary>
+						<?php endif; ?>
 						<div class="grabwp-edit-domain-inputs">
 							<?php
 							$grabwp_tenancy_domains = $tenant->get_domains();
@@ -104,6 +120,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<?php esc_html_e( 'Add New Domain', 'grabwp-tenancy' ); ?>
 						</button>
 						<p class="description"><?php esc_html_e( 'Valid format: example.com, subdomain.example.com (no http:// or www)', 'grabwp-tenancy' ); ?></p>
+						<?php if ( 'path' === $grabwp_routing_mode ) : ?>
+						</details>
+						<?php elseif ( 'domain' === $grabwp_routing_mode ) : ?>
+						<p class="description"><?php esc_html_e( 'Domain mode needs at least one domain.', 'grabwp-tenancy' ); ?></p>
+						<?php endif; ?>
 					</td>
 				</tr>
 				<?php

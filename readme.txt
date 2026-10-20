@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.12
+Stable tag: 1.1.13
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,14 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.13 =
+* New: Setup wizard. After activation on a new site, GrabWP opens a short guided setup: server check, routing mode, first site, done. Exit keeps your place, and Tenancy > Status > Run (or Resume) setup wizard opens it again at any time.
+* New: Routing mode under Tenancy > Settings > Routing: path URLs, custom domains, or both. In domain mode a tenant's path URL redirects (301) to its domain. Switching modes asks for confirmation and never deletes or rewrites existing sites.
+* New: Add New installs WordPress in the new site right away (option ticked by default) and shows the admin username and a one-time password, with a 1-click Admin button.
+* Enhance: Add New defaults to the path URL; a domain can be mapped later.
+* Enhance: Automatic installs complete the WordPress install step, so a new site never stays open on install.php.
+* Enhance: Server checks read fresh files and bypass page caches, and Fix buttons run one at a time, so a fix shows as done right away.
 
 = 1.1.12 =
 * New: Early suspended-site block. When a tenant is flagged as suspended, its stored page is served with a 503 status before WordPress loads, for the front end, wp-admin, REST, XML-RPC and cron. WP-CLI always passes. Active tenants pay only one file check per request.

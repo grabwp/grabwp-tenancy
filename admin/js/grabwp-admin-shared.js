@@ -104,7 +104,11 @@
 	function initNav( nav, index ) {
 		var key = storeKey( nav, index );
 		var saved = storageGet( key );
-		var start = ( saved && tabByHref( nav, saved ) ) ? saved : null;
+		var linked = window.location.hash;
+		var start = ( linked && tabByHref( nav, linked ) ) ? linked : null;
+		if ( ! start && saved && tabByHref( nav, saved ) ) {
+			start = saved;
+		}
 		if ( ! start ) {
 			var current = nav.querySelector( 'a.nav-tab.nav-tab-active' );
 			start = current ? current.getAttribute( 'href' ) : null;

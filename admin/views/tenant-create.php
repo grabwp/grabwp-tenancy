@@ -14,7 +14,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="wrap">
 	<h1><?php esc_html_e( 'Add New Tenant', 'grabwp-tenancy' ); ?></h1>
-	<p class="grabwp-tenancy-page-intro"><?php esc_html_e( 'Create a new tenant. A path-based URL will be assigned automatically.', 'grabwp-tenancy' ); ?></p>
+	<?php $grabwp_routing_mode = grabwp_tenancy_get_routing_mode(); ?>
+	<p class="grabwp-tenancy-page-intro">
+		<?php
+		if ( 'domain' === $grabwp_routing_mode ) {
+			esc_html_e( 'Create a new tenant. It opens on the domain you enter.', 'grabwp-tenancy' );
+		} else {
+			esc_html_e( 'Create a new tenant. A path-based URL will be assigned automatically.', 'grabwp-tenancy' );
+		}
+		?>
+	</p>
 
 	<?php
 	// Clone source passthrough: if coming from clone page, show info and redirect back after creation.
@@ -54,7 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php endif; ?>
 
 	<div>
-		<form method="post" class="grabwp-tenancy-form">
+		<form method="post" class="grabwp-tenancy-form" data-routing-mode="<?php echo esc_attr( $grabwp_routing_mode ); ?>">
 			<?php wp_nonce_field( 'grabwp_tenancy_create' ); ?>
 			<input type="hidden" name="action" value="create_tenant" />
 			<?php if ( $grabwp_clone_source ) : ?>
@@ -67,37 +76,68 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<span class="dashicons dashicons-editor-help grabwp-help-tip" title="<?php esc_attr_e( 'Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page.', 'grabwp-tenancy' ); ?>" aria-label="<?php esc_attr_e( 'Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page.', 'grabwp-tenancy' ); ?>"></span>
 					</th>
 					<td>
-						<fieldset>
-							<div class="grabwp-mb-sm">
-								<label>
-									<input type="radio" name="domain_option" value="has_domain" checked />
-									<?php esc_html_e( 'I have a domain', 'grabwp-tenancy' ); ?>
-								</label>
-								<div id="grabwp-domain-section">
-									<div class="grabwp-domain-inputs">
-										<div class="grabwp-domain-input">
-											<input type="text" name="domains[]" class="regular-text" autocapitalize="none" spellcheck="false" placeholder="<?php esc_attr_e( 'Enter domain (e.g. mysite.com)', 'grabwp-tenancy' ); ?>" />
-											<button type="button" class="button grabwp-clear-domain grabwp-ml-sm"><?php esc_html_e( 'Clear', 'grabwp-tenancy' ); ?></button>
-											<button type="button" class="button grabwp-remove-domain grabwp-ml-sm"><?php esc_html_e( 'Remove', 'grabwp-tenancy' ); ?></button>
+						<?php if ( 'path' === $grabwp_routing_mode ) : ?>
+							<div id="grabwp-no-domain-section" class="grabwp-path-url-info">
+								<p>
+									<strong><?php esc_html_e( 'Your site will be accessible at:', 'grabwp-tenancy' ); ?></strong><br />
+									<code dir="ltr"><?php echo esc_html( site_url( '/' . grabwp_tenancy_get_path_prefix() . '/{tenant-id}/' ) ); ?></code>
+								</p>
+							</div>
+						<?php elseif ( 'domain' === $grabwp_routing_mode ) : ?>
+							<div id="grabwp-domain-section">
+								<div class="grabwp-domain-inputs">
+									<div class="grabwp-domain-input">
+										<input type="text" name="domains[]" class="regular-text" required autocapitalize="none" spellcheck="false" dir="ltr" placeholder="<?php esc_attr_e( 'Enter domain (e.g. mysite.com)', 'grabwp-tenancy' ); ?>" />
+										<button type="button" class="button grabwp-clear-domain grabwp-ml-sm"><?php esc_html_e( 'Clear', 'grabwp-tenancy' ); ?></button>
+									</div>
+								</div>
+								<p class="description"><?php esc_html_e( 'Domain mode needs at least one domain.', 'grabwp-tenancy' ); ?></p>
+							</div>
+						<?php else : ?>
+							<fieldset>
+								<div class="grabwp-mb-sm">
+									<label>
+										<input type="radio" name="domain_option" value="has_domain" />
+										<?php esc_html_e( 'I have a domain', 'grabwp-tenancy' ); ?>
+									</label>
+									<div id="grabwp-domain-section" class="hidden">
+										<div class="grabwp-domain-inputs">
+											<div class="grabwp-domain-input">
+												<input type="text" name="domains[]" class="regular-text" autocapitalize="none" spellcheck="false" placeholder="<?php esc_attr_e( 'Enter domain (e.g. mysite.com)', 'grabwp-tenancy' ); ?>" />
+												<button type="button" class="button grabwp-clear-domain grabwp-ml-sm"><?php esc_html_e( 'Clear', 'grabwp-tenancy' ); ?></button>
+												<button type="button" class="button grabwp-remove-domain grabwp-ml-sm"><?php esc_html_e( 'Remove', 'grabwp-tenancy' ); ?></button>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div>
-								<label>
-									<input type="radio" name="domain_option" value="map_later" />
-									<?php esc_html_e( "I'll set up a domain later", 'grabwp-tenancy' ); ?>
-								</label>
-								<div id="grabwp-no-domain-section" class="grabwp-path-url-info hidden">
-									<p>
-										<strong><?php esc_html_e( 'Your site will be accessible at:', 'grabwp-tenancy' ); ?></strong><br />
-										<code><?php echo esc_html( site_url( '/' . grabwp_tenancy_get_path_prefix() . '/{tenant-id}/' ) ); ?></code>
-									</p>
+								<div>
+									<label>
+										<input type="radio" name="domain_option" value="map_later" checked />
+										<?php esc_html_e( "I'll set up a domain later", 'grabwp-tenancy' ); ?>
+									</label>
+									<div id="grabwp-no-domain-section" class="grabwp-path-url-info">
+										<p>
+											<strong><?php esc_html_e( 'Your site will be accessible at:', 'grabwp-tenancy' ); ?></strong><br />
+											<code><?php echo esc_html( site_url( '/' . grabwp_tenancy_get_path_prefix() . '/{tenant-id}/' ) ); ?></code>
+										</p>
+									</div>
 								</div>
-							</div>
-						</fieldset>
+							</fieldset>
+						<?php endif; ?>
 					</td>
 				</tr>
+				<?php if ( ! $grabwp_clone_source ) : ?>
+				<tr>
+					<th scope="row"><?php esc_html_e( 'WordPress', 'grabwp-tenancy' ); ?></th>
+					<td>
+						<label>
+							<input type="checkbox" name="install_wp" value="1" checked />
+							<?php esc_html_e( 'Install WordPress now', 'grabwp-tenancy' ); ?>
+						</label>
+						<p class="description"><?php esc_html_e( 'Creates the site\'s database and an administrator named after the site ID with a random password. Use the 1-click Admin button to log in; you never need the password.', 'grabwp-tenancy' ); ?></p>
+					</td>
+				</tr>
+				<?php endif; ?>
 				<?php
 				/**
 				 * Add extra fields to tenant creation form

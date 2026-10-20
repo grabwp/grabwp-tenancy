@@ -222,7 +222,8 @@ class GrabWP_Tenancy_Clone {
 	 * Step 4: Comprehensive URL replacement + strip GrabWP plugins if mainsite source.
 	 */
 	private function step_fix_urls( $source_tenant_id, $target_tenant_id, $target_domains ) {
-		$new_url = GrabWP_Tenancy_Tenant::build_site_url( $target_tenant_id, $target_domains );
+		// Stored URLs keep today's form in every routing mode: a tenant with a domain gets its domain.
+		$new_url = GrabWP_Tenancy_Tenant::build_site_url( $target_tenant_id, $target_domains, 'both' );
 
 		$replacer = new GrabWP_Tenancy_Clone_Url_Replacer();
 

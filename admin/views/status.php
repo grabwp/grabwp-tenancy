@@ -53,13 +53,7 @@ if ( $grabwp_status_is_pro && class_exists( 'GrabWP_Tenancy_Pro_Config' ) ) {
 }
 
 // Environment checks (used by general tab).
-$grabwp_status_wp_config      = GrabWP_Tenancy_Status_Checker::get_wp_config_status();
-$grabwp_status_mu_plugin      = GrabWP_Tenancy_Status_Checker::get_mu_plugin_status();
-$grabwp_status_htaccess       = GrabWP_Tenancy_Status_Checker::get_root_htaccess_status();
-$grabwp_status_data_htaccess  = GrabWP_Tenancy_Status_Checker::get_data_htaccess_status( $grabwp_status_base_path );
-$grabwp_status_server         = GrabWP_Tenancy_Status_Checker::get_server_environment();
-$grabwp_status_base_dir_writable = is_dir( $grabwp_status_base_path ) ? wp_is_writable( $grabwp_status_base_path ) : false;
-$grabwp_status_index_exists      = file_exists( $grabwp_status_base_path . '/index.php' );
+extract( GrabWP_Tenancy_Status_Checker::get_env_card_data() ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 $grabwp_status_plugin_version    = $this->plugin->version;
 
 // Active tab.
@@ -68,7 +62,10 @@ $grabwp_status_active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unsl
 ?>
 
 <div class="wrap">
-	<h1><?php esc_html_e( 'GrabWP Tenancy Status', 'grabwp-tenancy' ); ?></h1>
+	<h1 class="wp-heading-inline"><?php esc_html_e( 'GrabWP Tenancy Status', 'grabwp-tenancy' ); ?></h1>
+	<?php $grabwp_status_wizard = GrabWP_Tenancy_Setup_Wizard::get_entry_link(); ?>
+	<a href="<?php echo esc_url( $grabwp_status_wizard['url'] ); ?>" class="page-title-action grabwp-run-setup-wizard"><?php echo esc_html( $grabwp_status_wizard['label'] ); ?></a>
+	<hr class="wp-header-end">
 
 	<nav class="nav-tab-wrapper grabwp-tenancy-tabs">
 		<a href="<?php echo esc_url( add_query_arg( 'tab', 'general' ) ); ?>"

@@ -29,13 +29,194 @@ function grabwp_tenancy_load_tenant_mappings() {
 
 	$mappings_file = GRABWP_TENANCY_BASE_DIR . '/tenants.php';
 	if ( file_exists( $mappings_file ) && is_readable( $mappings_file ) ) {
-		$tenant_mappings = array();
+		$tenant_mappings        = array();
+		$grabwp_tenancy_routing = null;
 		include $mappings_file;
+		grabwp_tenancy_routing_config( is_array( $grabwp_tenancy_routing ) ? $grabwp_tenancy_routing : array() );
 		return $tenant_mappings;
 	}
 
+	grabwp_tenancy_routing_config( array() );
 	$tenant_mappings = array();
 	return $tenant_mappings;
+}
+
+/**
+ * Routing block of tenants.php ($grabwp_tenancy_routing), cached per request.
+ *
+ * The mappings loader stores it while it includes tenants.php, so reading the
+ * mode costs no extra I/O. Without a stored value the loader is called first.
+ *
+ * @param array|null $set Array to store, or null to read.
+ * @return array Key 'mode' when stored.
+ */
+function grabwp_tenancy_routing_config( $set = null ) {
+	static $config = null;
+
+	if ( null !== $set ) {
+		$config = is_array( $set ) ? $set : array();
+		return $config;
+	}
+
+	if ( null === $config ) {
+		grabwp_tenancy_load_tenant_mappings();
+	}
+
+	return $config;
+}
+
+/**
+ * Valid routing modes.
+ *
+ * @return string[]
+ */
+function grabwp_tenancy_routing_modes() {
+	return array( 'path', 'domain', 'both' );
+}
+
+/**
+ * Site-wide routing mode: 'path', 'domain' or 'both'.
+ *
+ * This is the site policy. It differs from GRABWP_TENANCY_ROUTING_METHOD,
+ * which says how the current request matched a tenant.
+ *
+ * A valid GRABWP_TENANCY_ROUTING_MODE constant (set in wp-config.php) wins.
+ * Otherwise the mode stored in tenants.php applies. No stored mode means
+ * 'both', which is how GrabWP routed before routing modes existed.
+ *
+ * @return string
+ */
+function grabwp_tenancy_get_routing_mode() {
+	$modes = grabwp_tenancy_routing_modes();
+
+	if ( defined( 'GRABWP_TENANCY_ROUTING_MODE' ) && in_array( GRABWP_TENANCY_ROUTING_MODE, $modes, true ) ) {
+		return GRABWP_TENANCY_ROUTING_MODE;
+	}
+
+	$config = grabwp_tenancy_routing_config();
+	if ( isset( $config['mode'] ) && in_array( $config['mode'], $modes, true ) ) {
+		return $config['mode'];
+	}
+
+	return 'both';
+}
+
+/**
+ * First real (non-placeholder) domain of a tenant mapping.
+ *
+ * Mapping arrays may also hold a 'protocol' string key, which is skipped.
+ *
+ * @param array  $tenant_mappings Tenant mappings.
+ * @param string $tenant_id       Tenant ID.
+ * @return string Domain, or '' when the tenant has none.
+ */
+function grabwp_tenancy_first_real_domain( $tenant_mappings, $tenant_id ) {
+	if ( ! isset( $tenant_mappings[ $tenant_id ] ) || ! is_array( $tenant_mappings[ $tenant_id ] ) ) {
+		return '';
+	}
+
+	foreach ( $tenant_mappings[ $tenant_id ] as $key => $domain ) {
+		if ( is_int( $key ) && is_string( $domain ) && '' !== $domain && 'nodomain.local' !== $domain ) {
+			return $domain;
+		}
+	}
+
+	return '';
+}
+
+/**
+ * Domain mode redirect target for a path or query request, or ''.
+ *
+ * Only a GET or HEAD request in domain mode, for a tenant that has a domain,
+ * gets a target. The verify probe, installer loopbacks, cron and CLI never do.
+ *
+ * @param string $tenant_id        Matched tenant ID.
+ * @param string $matched_path     URL path prefix that matched, e.g. '/site/abc123'; '' for the query route.
+ * @param bool   $strip_site_param Drop the site= pair from the query (query route).
+ * @return string
+ */
+function grabwp_tenancy_domain_redirect_target( $tenant_id, $matched_path, $strip_site_param = false ) {
+	if ( 'domain' !== grabwp_tenancy_get_routing_mode() ) {
+		return '';
+	}
+
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+	$method = isset( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( (string) $_SERVER['REQUEST_METHOD'] ) : 'GET';
+	if ( 'GET' !== $method && 'HEAD' !== $method ) {
+		return '';
+	}
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( isset( $_GET['grabwp-verify-domain'] ) || isset( $_GET['grabwp-loopback'] ) ) {
+		return '';
+	}
+
+	if ( ( defined( 'WP_CLI' ) && WP_CLI ) || ( defined( 'DOING_CRON' ) && DOING_CRON ) ) {
+		return '';
+	}
+
+	$domain = grabwp_tenancy_first_real_domain( grabwp_tenancy_load_tenant_mappings(), $tenant_id );
+	if ( '' === $domain ) {
+		return '';
+	}
+
+	$server_info = grabwp_tenancy_get_server_info();
+	if ( strtolower( $domain ) === strtolower( (string) $server_info['host'] ) ) {
+		return '';
+	}
+
+	// Raw REQUEST_URI only: behind the Apache rule QUERY_STRING also carries the rewritten site= value.
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+	$uri   = isset( $_SERVER['REQUEST_URI'] ) ? (string) $_SERVER['REQUEST_URI'] : '/';
+	$qpos  = strpos( $uri, '?' );
+	$path  = false === $qpos ? $uri : substr( $uri, 0, $qpos );
+	$query = false === $qpos ? '' : substr( $uri, $qpos + 1 );
+
+	if ( '' !== $matched_path ) {
+		if ( 0 !== strpos( $path, $matched_path ) ) {
+			return '';
+		}
+		$path = (string) substr( $path, strlen( $matched_path ) );
+	}
+
+	if ( '' === $path || '/' !== $path[0] ) {
+		$path = '/' . $path;
+	}
+
+	if ( $strip_site_param && '' !== $query ) {
+		$pairs = array();
+		foreach ( explode( '&', $query ) as $pair ) {
+			if ( '' === $pair || 'site' === $pair || 0 === strpos( $pair, 'site=' ) ) {
+				continue;
+			}
+			$pairs[] = $pair;
+		}
+		$query = implode( '&', $pairs );
+	}
+
+	return $server_info['protocol'] . '://' . $domain . $path . ( '' !== $query ? '?' . $query : '' );
+}
+
+/**
+ * Send the domain mode 301 for a path or query request when it applies.
+ *
+ * Returns without output when no redirect applies; the request is then
+ * served exactly as before routing modes existed.
+ *
+ * @param string $tenant_id        Matched tenant ID.
+ * @param string $matched_path     URL path prefix that matched; '' for the query route.
+ * @param bool   $strip_site_param Drop the site= pair from the query.
+ */
+function grabwp_tenancy_maybe_redirect_to_domain( $tenant_id, $matched_path, $strip_site_param = false ) {
+	$target = grabwp_tenancy_domain_redirect_target( $tenant_id, $matched_path, $strip_site_param );
+	if ( '' === $target ) {
+		return;
+	}
+
+	header( 'X-Redirect-By: GrabWP Tenancy' );
+	// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+	header( 'Location: ' . $target, true, 301 );
+	exit;
 }
 
 /**
@@ -107,6 +288,8 @@ function grabwp_tenancy_identify_tenant_from_path() {
 		return false;
 	}
 
+	grabwp_tenancy_maybe_redirect_to_domain( $tenant_id, '/' . $prefix . '/' . $tenant_id );
+
 	if ( ! defined( 'GRABWP_TENANCY_TENANT_ID' ) ) {
 		define( 'GRABWP_TENANCY_TENANT_ID', $tenant_id );
 	}
@@ -161,6 +344,8 @@ function grabwp_tenancy_identify_tenant_from_query() {
 	if ( ! isset( $tenant_mappings[ $tenant_id ] ) ) {
 		return false;
 	}
+
+	grabwp_tenancy_maybe_redirect_to_domain( $tenant_id, '', true );
 
 	if ( ! defined( 'GRABWP_TENANCY_TENANT_ID' ) ) {
 		define( 'GRABWP_TENANCY_TENANT_ID', $tenant_id );

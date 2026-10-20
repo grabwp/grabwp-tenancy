@@ -292,6 +292,22 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 		$domains = $item->get_domains();
 		$output  = '';
 
+		// Path mode: the path URL is the address; stored domains are kept but unused.
+		if ( 'path' === grabwp_tenancy_get_routing_mode() ) {
+			$output = '<code dir="ltr">' . esc_html( $item->get_site_url() ) . '</code>';
+			$stored = count( $item->get_real_domains() );
+			if ( $stored > 0 ) {
+				$output .= '<br><span class="description">' . esc_html(
+					sprintf(
+						/* translators: %d: number of domains stored for the site. */
+						_n( '%d stored domain, not used in Path mode', '%d stored domains, not used in Path mode', $stored, 'grabwp-tenancy' ),
+						$stored
+					)
+				) . '</span>';
+			}
+			return $output;
+		}
+
 		if ( ! empty( $domains ) ) {
 			// Filter out nodomain.local placeholder
 			$real_domains = array_filter(

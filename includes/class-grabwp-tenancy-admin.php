@@ -124,6 +124,8 @@ class GrabWP_Tenancy_Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 5 );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 
+		GrabWP_Tenancy_Setup_Wizard::register();
+
 		require_once GRABWP_TENANCY_PLUGIN_DIR . 'includes/backup/class-grabwp-tenancy-clone-admin.php';
 		GrabWP_Tenancy_Clone_Admin::get_instance();
 
@@ -289,6 +291,14 @@ class GrabWP_Tenancy_Admin {
 	}
 
 	public function settings_page() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- nonce checked below.
+		$routing_to = isset( $_GET['routing_confirm'] ) ? sanitize_key( wp_unslash( $_GET['routing_confirm'] ) ) : '';
+		if ( '' !== $routing_to && GrabWP_Tenancy_Routing::is_valid( $routing_to ) && ! GrabWP_Tenancy_Routing::is_locked()
+			&& isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'grabwp_tenancy_routing_confirm' ) ) {
+			$this->render_admin_page( 'settings-routing-confirm', array( 'plan' => GrabWP_Tenancy_Routing::plan_transition( $routing_to ) ) );
+			return;
+		}
+
 		$settings = GrabWP_Tenancy_Settings::get_instance();
 		$this->render_admin_page( 'settings', array( 'settings' => $settings->get_all() ) );
 	}
@@ -400,12 +410,13 @@ class GrabWP_Tenancy_Admin {
 
 		if ( isset( $_GET['message'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'grabwp_tenancy_notice' ) ) {
 			$message = sanitize_text_field( wp_unslash( $_GET['message'] ) );
-			if ( in_array( $message, array( 'created', 'updated', 'deleted', 'settings_saved' ), true ) ) {
+			if ( in_array( $message, array( 'created', 'updated', 'deleted', 'settings_saved', 'routing_saved' ), true ) ) {
 				$messages_map = array(
 					'created'        => __( 'Tenant created successfully.', 'grabwp-tenancy' ),
 					'updated'        => __( 'Tenant updated successfully.', 'grabwp-tenancy' ),
 					'deleted'        => __( 'Tenant deleted successfully.', 'grabwp-tenancy' ),
 					'settings_saved' => __( 'Settings saved successfully.', 'grabwp-tenancy' ),
+					'routing_saved'  => __( 'Routing mode saved.', 'grabwp-tenancy' ),
 				);
 
 				if ( isset( $messages_map[ $message ] ) ) {
@@ -413,6 +424,14 @@ class GrabWP_Tenancy_Admin {
 						'<div class="notice notice-success is-dismissible"><p>%s</p></div>',
 						esc_html( $messages_map[ $message ] )
 					);
+				}
+
+				// One-time install result (password shown once) after Add New.
+				if ( 'created' === $message ) {
+					$grabwp_site_result = GrabWP_Tenancy_Tenant_Installer::pull_one_time_result();
+					if ( $grabwp_site_result ) {
+						include GRABWP_TENANCY_PLUGIN_DIR . 'admin/views/partials/site-result.php';
+					}
 				}
 			}
 		}

@@ -169,6 +169,11 @@ class GrabWP_Tenancy_Admin_Notice {
 	}
 
 	private static function send_result( $result ) {
+		if ( $result['success'] ) {
+			// The next request (the reload after a fix) must run the new files.
+			require_once GRABWP_TENANCY_PLUGIN_DIR . 'includes/class-grabwp-tenancy-status-checker.php';
+			GrabWP_Tenancy_Status_Checker::refresh_boot_files();
+		}
 		$result['success'] ? wp_send_json_success( $result['message'] ) : wp_send_json_error( $result['message'] );
 	}
 }

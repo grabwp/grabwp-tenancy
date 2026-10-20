@@ -40,12 +40,16 @@ class GrabWP_Tenancy_Status_Checker {
 		}
 
 		return array(
-			'path'          => $wp_config_path,
-			'readable'      => $readable,
-			'writable'      => $writable,
-			'loader_active' => $loader_active,
-			'loader_line'   => $loader_line,
-			'stop_editing'  => $stop_editing,
+			'path'           => $wp_config_path,
+			'readable'       => $readable,
+			'writable'       => $writable,
+			'loader_active'  => $loader_active,
+			'loader_line'    => $loader_line,
+			// Written in the last few minutes, but this request started before
+			// it was read (or ran an older cached copy): the next request
+			// confirms. An older line that still does not load is an error.
+			'loader_pending' => ! $loader_active && $loader_line && time() - (int) @filemtime( $wp_config_path ) < 10 * MINUTE_IN_SECONDS, // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			'stop_editing'   => $stop_editing,
 		);
 	}
 
@@ -299,6 +303,53 @@ class GrabWP_Tenancy_Status_Checker {
 			'mod_rewrite'     => $mod_rewrite,
 			'is_multisite'    => is_multisite(),
 			'wp_debug'        => defined( 'WP_DEBUG' ) && WP_DEBUG,
+		);
+	}
+
+	/**
+	 * Read files fresh: clear PHP's stat cache, and drop wp-config.php and the
+	 * MU loader from OPcache so the next request compiles the files on disk
+	 * (hosts often keep compiled copies without checking timestamps).
+	 *
+	 * @since 1.1.13
+	 */
+	public static function refresh_boot_files() {
+		clearstatcache( true );
+		if ( ! function_exists( 'opcache_invalidate' ) || ! filter_var( ini_get( 'opcache.enable' ), FILTER_VALIDATE_BOOLEAN ) ) {
+			return;
+		}
+		// With restrict_api set, only requests whose main script is under that path may call the API.
+		$restrict = (string) ini_get( 'opcache.restrict_api' );
+		$script   = isset( $_SERVER['SCRIPT_FILENAME'] ) ? (string) $_SERVER['SCRIPT_FILENAME'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+		if ( '' !== $restrict && 0 !== strpos( $script, $restrict ) ) {
+			return;
+		}
+		foreach ( array( ABSPATH . 'wp-config.php', dirname( ABSPATH ) . '/wp-config.php', GrabWP_Tenancy_Installer::get_mu_plugin_path() ) as $file ) {
+			// @: the parent directory may be outside open_basedir (core checks it the same way).
+			if ( @is_file( $file ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+				@opcache_invalidate( $file, true ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			}
+		}
+	}
+
+	/**
+	 * Data used by the environment check cards (Status page and setup wizard).
+	 *
+	 * @since 1.1.12
+	 * @return array Variables keyed by the names the cards partial expects.
+	 */
+	public static function get_env_card_data() {
+		self::refresh_boot_files();
+		$base_path = GrabWP_Tenancy_Path_Manager::get_tenants_base_dir();
+		return array(
+			'grabwp_status_base_path'         => $base_path,
+			'grabwp_status_wp_config'         => self::get_wp_config_status(),
+			'grabwp_status_mu_plugin'         => self::get_mu_plugin_status(),
+			'grabwp_status_htaccess'          => self::get_root_htaccess_status(),
+			'grabwp_status_data_htaccess'     => self::get_data_htaccess_status( $base_path ),
+			'grabwp_status_server'            => self::get_server_environment(),
+			'grabwp_status_base_dir_writable' => is_dir( $base_path ) ? wp_is_writable( $base_path ) : false,
+			'grabwp_status_index_exists'      => file_exists( $base_path . '/index.php' ),
 		);
 	}
 }

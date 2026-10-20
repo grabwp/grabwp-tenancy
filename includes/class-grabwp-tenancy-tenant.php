@@ -149,23 +149,47 @@ class GrabWP_Tenancy_Tenant {
 	}
 
 	/**
-	 * Get tenant site URL (front-end home page).
+	 * Get tenant site URL (front-end home page), following the routing mode.
 	 *
-	 * Domain-based: https://tenant-domain.com
-	 * Path-based:   https://mainsite.com/site/{tenant_id}/
+	 * Domain-based: https://tenant-domain.com (modes 'domain' and 'both', tenant has a domain)
+	 * Path-based:   https://mainsite.com/site/{alias-or-id} (mode 'path', or no domain)
 	 *
-	 * @return string
+	 * @param string|null $mode Routing mode; null uses the site's mode. Callers
+	 *                          that write or check stored URLs pass 'both'.
+	 * @return string URL without trailing slash.
 	 */
-	public function get_site_url() {
+	public function get_site_url( $mode = null ) {
 		$real_domains = $this->get_real_domains();
 		$protocol     = is_ssl() ? 'https' : 'http';
 
-		if ( ! empty( $real_domains ) ) {
+		if ( ! empty( $real_domains ) && 'path' !== self::effective_mode( $mode ) ) {
 			return $protocol . '://' . reset( $real_domains );
 		}
 
-		$slug = $this->get_path_slug();
-		return site_url( '/' . grabwp_tenancy_get_path_prefix() . '/' . $slug );
+		return $this->get_path_url();
+	}
+
+	/**
+	 * Path URL of the tenant (alias when one exists), without trailing slash.
+	 *
+	 * Unlike GrabWP_Tenancy_Tenant_Installer::get_path_url(), which uses the
+	 * tenant ID and ends with a slash.
+	 *
+	 * @return string
+	 */
+	public function get_path_url() {
+		return site_url( '/' . grabwp_tenancy_get_path_prefix() . '/' . $this->get_path_slug() );
+	}
+
+	/**
+	 * @param string|null $mode Mode passed by the caller, or null.
+	 * @return string
+	 */
+	private static function effective_mode( $mode ) {
+		if ( null === $mode ) {
+			return grabwp_tenancy_get_routing_mode();
+		}
+		return $mode;
 	}
 
 	/**
@@ -262,7 +286,7 @@ class GrabWP_Tenancy_Tenant {
 		$real_domains = $this->get_real_domains();
 		$protocol     = is_ssl() ? 'https' : 'http';
 
-		if ( ! empty( $real_domains ) ) {
+		if ( ! empty( $real_domains ) && 'path' !== self::effective_mode( null ) ) {
 			$domain    = reset( $real_domains );
 			$admin_url = $protocol . '://' . $domain . '/wp-admin/';
 			$token     = self::generate_admin_token( $this->id );
@@ -276,10 +300,8 @@ class GrabWP_Tenancy_Tenant {
 			return $admin_url;
 		}
 
-		// Path-based routing fallback.
-		$slug      = $this->get_path_slug();
-		$path_url  = site_url( '/' . grabwp_tenancy_get_path_prefix() . '/' . $slug );
-		$admin_url = $path_url . '/wp-admin/';
+		// Path-based routing (path mode, or no domain).
+		$admin_url = $this->get_path_url() . '/wp-admin/';
 		$token     = self::generate_admin_token( $this->id );
 
 		if ( $token ) {
@@ -378,17 +400,18 @@ class GrabWP_Tenancy_Tenant {
 	/**
 	 * Resolve tenant site URL from a tenant ID (no Tenant object needed).
 	 *
-	 * @param string $tenant_id Tenant ID.
+	 * @param string      $tenant_id Tenant ID.
+	 * @param string|null $mode      Routing mode; null uses the site's mode.
 	 * @return string Site URL, or empty string if tenant not found.
 	 */
-	public static function resolve_site_url( $tenant_id ) {
+	public static function resolve_site_url( $tenant_id, $mode = null ) {
 		$domains = self::load_domains( $tenant_id );
 		if ( empty( $domains ) ) {
 			return '';
 		}
 
 		$tenant = new self( $tenant_id, array( 'domains' => $domains ) );
-		return $tenant->get_site_url();
+		return $tenant->get_site_url( $mode );
 	}
 
 	/**
@@ -412,13 +435,14 @@ class GrabWP_Tenancy_Tenant {
 	 *
 	 * Useful in clone/fix-urls contexts where domains are already known.
 	 *
-	 * @param string $tenant_id Tenant ID.
-	 * @param array  $domains   Domains array.
+	 * @param string      $tenant_id Tenant ID.
+	 * @param array       $domains   Domains array.
+	 * @param string|null $mode      Routing mode; null uses the site's mode.
 	 * @return string Site URL.
 	 */
-	public static function build_site_url( $tenant_id, $domains ) {
+	public static function build_site_url( $tenant_id, $domains, $mode = null ) {
 		$tenant = new self( $tenant_id, array( 'domains' => $domains ) );
-		return $tenant->get_site_url();
+		return $tenant->get_site_url( $mode );
 	}
 
 	/**

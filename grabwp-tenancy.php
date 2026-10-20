@@ -3,7 +3,7 @@
  * Plugin Name: GrabWP Tenancy
  * Plugin URI: https://grabwp.com/tenancy
  * Description: Foundation multi-tenant WordPress solution with shared MySQL database and separated uploads. Designed to be extended by GrabWP Tenancy Pro for advanced features.
- * Version: 1.1.12
+ * Version: 1.1.13
  * Author: GrabWP
  * Author URI: https://grabwp.com
  * License: GPLv2 or later
@@ -29,7 +29,7 @@ if ( ! defined( 'GRABWP_MAINSITE_ID' ) ) {
 }
 
 // Define plugin constants
-define( 'GRABWP_TENANCY_VERSION', '1.1.12' );
+define( 'GRABWP_TENANCY_VERSION', '1.1.13' );
 define( 'GRABWP_TENANCY_PLUGIN_FILE', __FILE__ );
 define( 'GRABWP_TENANCY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 // Use content_url() to avoid symlink path resolution issues on some hosts
@@ -163,6 +163,10 @@ final class GrabWP_Tenancy {
 		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-admin.php';
 		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-admin-notice.php';
 		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-integrity-watchdog.php';
+		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-tenant-crud.php';
+		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-routing.php';
+		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-tenant-installer.php';
+		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-setup-wizard.php';
 
 		
 		
@@ -522,6 +526,10 @@ final class GrabWP_Tenancy {
 		if ( ! $this->is_tenant && class_exists( 'GrabWP_Tenancy_Installer' )
 			&& apply_filters( 'grabwp_tenancy_auto_protect_shared_files', true ) ) {
 			GrabWP_Tenancy_Installer::protect_shared_files();
+		}
+		// First activation on a site without tenants opens the setup wizard once.
+		if ( ! $this->is_tenant && class_exists( 'GrabWP_Tenancy_Setup_Wizard' ) ) {
+			GrabWP_Tenancy_Setup_Wizard::maybe_queue_redirect( 'base', 0 === count( GrabWP_Tenancy_Tenant_Installer::get_tenant_mappings() ) );
 		}
 		do_action( 'grabwp_tenancy_activate' );
 	}

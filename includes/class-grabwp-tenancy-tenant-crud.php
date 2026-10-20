@@ -48,11 +48,16 @@ class GrabWP_Tenancy_Tenant_Crud {
 		}
 		$validated_domains = $this->resolve_validated_domains( $domains );
 
-		$mappings_file   = $this->get_mappings_file_path();
-		$tenant_mappings = array();
-		if ( file_exists( $mappings_file ) ) {
-			include $mappings_file;
+		$domain_error = $this->check_domain_mode( $validated_domains );
+		if ( true !== $domain_error ) {
+			return $domain_error;
 		}
+
+		$current = self::read_tenants_file();
+		if ( false === $current ) {
+			return self::read_error();
+		}
+		$tenant_mappings = $current['mappings'];
 
 		$tenant_id    = GrabWP_Tenancy_Tenant::generate_id();
 		$max_attempts = 10;
@@ -99,11 +104,11 @@ class GrabWP_Tenancy_Tenant_Crud {
 			return array( 'message' => __( 'Invalid tenant ID.', 'grabwp-tenancy' ), 'type' => 'error' );
 		}
 
-		$mappings_file   = $this->get_mappings_file_path();
-		$tenant_mappings = array();
-		if ( file_exists( $mappings_file ) ) {
-			include $mappings_file;
+		$current = self::read_tenants_file();
+		if ( false === $current ) {
+			return self::read_error();
 		}
+		$tenant_mappings = $current['mappings'];
 
 		if ( ! isset( $tenant_mappings[ $tenant_id ] ) ) {
 			return array( 'message' => __( 'Tenant not found.', 'grabwp-tenancy' ), 'type' => 'error' );
@@ -157,11 +162,16 @@ class GrabWP_Tenancy_Tenant_Crud {
 		}
 		$validated_domains = $this->resolve_validated_domains( $domains );
 
-		$mappings_file   = $this->get_mappings_file_path();
-		$tenant_mappings = array();
-		if ( file_exists( $mappings_file ) ) {
-			include $mappings_file;
+		$domain_error = $this->check_domain_mode( $validated_domains );
+		if ( true !== $domain_error ) {
+			return $domain_error;
 		}
+
+		$current = self::read_tenants_file();
+		if ( false === $current ) {
+			return self::read_error();
+		}
+		$tenant_mappings = $current['mappings'];
 
 		if ( ! isset( $tenant_mappings[ $tenant_id ] ) ) {
 			return array( 'message' => __( 'Tenant not found.', 'grabwp-tenancy' ), 'type' => 'error' );
@@ -222,23 +232,120 @@ class GrabWP_Tenancy_Tenant_Crud {
 		return $validated_domains;
 	}
 
-	private function get_mappings_file_path() {
-		return GrabWP_Tenancy_Path_Manager::get_tenants_file_path();
+	/**
+	 * Domain mode needs at least one real domain for each site.
+	 *
+	 * @param array $validated_domains Validated domains.
+	 * @return true|array True when allowed, error array otherwise.
+	 */
+	private function check_domain_mode( $validated_domains ) {
+		if ( 'domain' !== grabwp_tenancy_get_routing_mode() ) {
+			return true;
+		}
+
+		if ( empty( $this->domain_validator->filter_real_domains( $validated_domains ) ) ) {
+			return array( 'message' => __( 'Domain mode needs at least one domain for each site.', 'grabwp-tenancy' ), 'type' => 'error' );
+		}
+
+		return true;
 	}
 
-	private function save_tenant_mappings( $tenant_mappings ) {
-		$mappings_file = $this->get_mappings_file_path();
+	/**
+	 * @return array Error result for an unreadable tenants.php.
+	 */
+	private static function read_error() {
+		return array( 'message' => __( 'Could not read tenants.php, so nothing was changed. Check the file and its permissions.', 'grabwp-tenancy' ), 'type' => 'error' );
+	}
+
+	/**
+	 * Read tenants.php fresh from disk.
+	 *
+	 * A missing file reads as empty. A file that exists but cannot be read, does
+	 * not parse, or does not define the mappings array returns false, so a
+	 * writer can abort instead of saving empty mappings over real ones.
+	 *
+	 * @return array|false { exists: bool, mappings: array, routing: array|null } or false.
+	 */
+	public static function read_tenants_file() {
+		$mappings_file = GrabWP_Tenancy_Path_Manager::get_tenants_file_path();
+		clearstatcache( true, $mappings_file );
+
+		if ( ! file_exists( $mappings_file ) ) {
+			return array(
+				'exists'   => false,
+				'mappings' => array(),
+				'routing'  => null,
+			);
+		}
+
+		if ( ! is_readable( $mappings_file ) ) {
+			return false;
+		}
+
+		if ( function_exists( 'opcache_invalidate' ) ) {
+			opcache_invalidate( $mappings_file, true );
+		}
+
+		$tenant_mappings        = null;
+		$grabwp_tenancy_routing = null;
+		ob_start();
+		try {
+			include $mappings_file;
+		} catch ( \Throwable $e ) {
+			ob_end_clean();
+			return false;
+		}
+		ob_end_clean();
+
+		if ( ! is_array( $tenant_mappings ) ) {
+			return false;
+		}
+
+		return array(
+			'exists'   => true,
+			'mappings' => $tenant_mappings,
+			'routing'  => is_array( $grabwp_tenancy_routing ) ? $grabwp_tenancy_routing : null,
+		);
+	}
+
+	/**
+	 * The only writer of tenants.php.
+	 *
+	 * With $routing null, the routing block currently on disk is read right
+	 * before the write and emitted again, so no mappings change can drop the
+	 * routing mode. When that read fails, nothing is written.
+	 *
+	 * @param array      $tenant_mappings Tenant ID => domains.
+	 * @param array|null $routing         Routing block to write, or null to keep the stored one.
+	 * @return bool
+	 */
+	public static function write_tenants_file( array $tenant_mappings, $routing = null ) {
+		if ( null === $routing ) {
+			$current = self::read_tenants_file();
+			if ( false === $current ) {
+				return false;
+			}
+			$routing = $current['routing'];
+		}
 
 		$content  = "<?php\n";
 		$content .= "/**\n";
 		$content .= " * Tenant Domain Mappings\n";
 		$content .= " * Format: \$tenant_mappings['tenant_id'] = array( 'domain1', 'domain2' );\n";
 		$content .= " */\n\n";
+		$content .= self::routing_block( $routing );
 		$content .= "\$tenant_mappings = array(\n";
 
 		foreach ( $tenant_mappings as $tenant_id => $domains ) {
 			$content .= "    '" . $tenant_id . "' => array(\n";
-			foreach ( $domains as $domain ) {
+			foreach ( (array) $domains as $key => $domain ) {
+				if ( is_string( $key ) ) {
+					// Named settings such as 'protocol' keep their key.
+					if ( is_scalar( $domain ) ) {
+						$content .= '        ' . var_export( $key, true ) . ' => ' . var_export( $domain, true ) . ",\n"; // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
+					}
+					continue;
+				}
 				$content .= "        '" . $domain . "',\n";
 			}
 			$content .= "    ),\n";
@@ -246,6 +353,33 @@ class GrabWP_Tenancy_Tenant_Crud {
 
 		$content .= ");\n";
 
-		return GrabWP_Tenancy_Path_Manager::atomic_put_php_file( $mappings_file, $content );
+		return GrabWP_Tenancy_Path_Manager::atomic_put_php_file( GrabWP_Tenancy_Path_Manager::get_tenants_file_path(), $content );
+	}
+
+	/**
+	 * PHP source of the routing block; '' when there is nothing valid to keep.
+	 *
+	 * @param array|null $routing Key 'mode'.
+	 * @return string
+	 */
+	private static function routing_block( $routing ) {
+		if ( ! is_array( $routing ) ) {
+			return '';
+		}
+
+		$lines = '';
+		if ( isset( $routing['mode'] ) && in_array( $routing['mode'], grabwp_tenancy_routing_modes(), true ) ) {
+			$lines .= "    'mode' => " . var_export( $routing['mode'], true ) . ",\n"; // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
+		}
+
+		if ( '' === $lines ) {
+			return '';
+		}
+
+		return "// Routing mode (path, domain or both).\n\$grabwp_tenancy_routing = array(\n" . $lines . ");\n\n";
+	}
+
+	private function save_tenant_mappings( $tenant_mappings ) {
+		return self::write_tenants_file( $tenant_mappings );
 	}
 }

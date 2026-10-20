@@ -50,6 +50,9 @@ class GrabWP_Tenancy_Admin_Form_Handler {
 			case 'save_settings':
 				$this->process_save_settings();
 				break;
+			case 'switch_routing_mode':
+				$this->process_switch_routing_mode();
+				break;
 			default:
 				do_action( 'grabwp_tenancy_handle_custom_action', $action, $_POST );
 				break;
@@ -83,10 +86,47 @@ class GrabWP_Tenancy_Admin_Form_Handler {
 				exit;
 			}
 
+			if ( ! empty( $_POST['install_wp'] ) && ! empty( $result['tenant_id'] ) ) {
+				$this->install_created_tenant( $result['tenant_id'], $domains );
+			}
+
 			$this->redirect_success_with_tenant( 'grabwp-tenancy', 'created', $result['tenant_id'] );
 		} else {
 			$this->redirect_error( 'grabwp-tenancy-create', $result['message'] );
 		}
+	}
+
+	/**
+	 * Install WordPress in a tenant just created from Add New and keep the
+	 * one-time result (password or error) for the next screen.
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 * @param array  $domains   Domains posted with the form.
+	 */
+	private function install_created_tenant( $tenant_id, $domains ) {
+		$title = $tenant_id;
+		foreach ( (array) $domains as $domain ) {
+			if ( 'nodomain.local' !== $domain && '' !== $domain ) {
+				$title = $domain;
+				break;
+			}
+		}
+
+		$install = GrabWP_Tenancy_Tenant_Installer::install(
+			$tenant_id,
+			array(
+				'title'       => $title,
+				'admin_email' => wp_get_current_user()->user_email,
+			)
+		);
+
+		GrabWP_Tenancy_Tenant_Installer::set_one_time_result(
+			array(
+				'tenant_id'     => $tenant_id,
+				'password'      => $install['password'],
+				'install_error' => $install['ok'] ? '' : $install['error'],
+			)
+		);
 	}
 
 	private function process_update_tenant() {
@@ -136,11 +176,86 @@ class GrabWP_Tenancy_Admin_Form_Handler {
 			$raw_settings[ $key ] = isset( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : '';
 		}
 
-		if ( $settings_instance->save( $raw_settings ) ) {
-			$this->redirect_success( 'grabwp-tenancy-settings', 'settings_saved' );
-		} else {
+		if ( ! $settings_instance->save( $raw_settings ) ) {
 			$this->redirect_error( 'grabwp-tenancy-settings', __( 'Failed to save settings. Please check file permissions.', 'grabwp-tenancy' ) );
 		}
+
+		/**
+		 * Save extra Routing rows (Pro path prefix and aliases).
+		 *
+		 * @param string[] $errors Error messages.
+		 * @param array    $post   Raw $_POST.
+		 */
+		$errors = (array) apply_filters( 'grabwp_tenancy_save_routing_settings', array(), $_POST );
+		if ( ! empty( $errors ) ) {
+			$this->redirect_error( 'grabwp-tenancy-settings', implode( ' ', $errors ) );
+		}
+
+		$posted = isset( $_POST['routing_mode'] ) ? sanitize_key( wp_unslash( $_POST['routing_mode'] ) ) : '';
+		$change = GrabWP_Tenancy_Routing::apply_posted_mode( $posted );
+		if ( 'failed' === $change ) {
+			$this->redirect_error( 'grabwp-tenancy-settings', __( 'Could not write tenants.php. Check file permissions.', 'grabwp-tenancy' ) );
+		}
+		if ( 'saved' === $change ) {
+			$this->redirect_routing_saved();
+		}
+		if ( 'confirm' === $change ) {
+			wp_safe_redirect(
+				add_query_arg(
+					array(
+						'page'            => 'grabwp-tenancy-settings',
+						'routing_confirm' => $posted,
+						'_wpnonce'        => wp_create_nonce( 'grabwp_tenancy_routing_confirm' ),
+					),
+					admin_url( 'admin.php' )
+				)
+			);
+			exit;
+		}
+
+		$this->redirect_success( 'grabwp-tenancy-settings', 'settings_saved' );
+	}
+
+	private function process_switch_routing_mode() {
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'grabwp_tenancy_switch_routing' ) ) {
+			return;
+		}
+
+		$mode = isset( $_POST['routing_mode'] ) ? sanitize_key( wp_unslash( $_POST['routing_mode'] ) ) : '';
+		if ( GrabWP_Tenancy_Routing::is_locked() ) {
+			$this->redirect_error( 'grabwp-tenancy-settings', __( 'The routing mode is set in wp-config.php and cannot be changed here.', 'grabwp-tenancy' ) );
+		}
+		if ( ! GrabWP_Tenancy_Routing::is_valid( $mode ) ) {
+			$this->redirect_error( 'grabwp-tenancy-settings', __( 'Invalid routing mode.', 'grabwp-tenancy' ) );
+		}
+
+		$plan = GrabWP_Tenancy_Routing::plan_transition( $mode );
+		if ( ! empty( $plan['blocked'] ) ) {
+			$this->redirect_error( 'grabwp-tenancy-settings', __( 'Domain mode needs a domain for every site. These sites have none yet:', 'grabwp-tenancy' ) . ' ' . implode( ', ', $plan['blocked'] ) );
+		}
+
+		$this->save_routing_mode( $mode );
+	}
+
+	/**
+	 * Store the mode and go back to the Routing tab; never returns.
+	 *
+	 * @param string $mode Valid routing mode.
+	 */
+	private function save_routing_mode( $mode ) {
+		if ( ! GrabWP_Tenancy_Routing::save_mode( $mode ) ) {
+			$this->redirect_error( 'grabwp-tenancy-settings', __( 'Could not write tenants.php. Check file permissions.', 'grabwp-tenancy' ) );
+		}
+		$this->redirect_routing_saved();
+	}
+
+	/**
+	 * Back to the Routing tab with the "saved" notice; never returns.
+	 */
+	private function redirect_routing_saved() {
+		$nonce = wp_create_nonce( 'grabwp_tenancy_notice' );
+		wp_safe_redirect( admin_url( 'admin.php?page=grabwp-tenancy-settings&message=routing_saved&_wpnonce=' . urlencode( $nonce ) . '#tab-routing' ) );
+		exit;
 	}
 
 	private function extract_domains_from_post() {
