@@ -3,7 +3,7 @@
  * Plugin Name: GrabWP Tenancy
  * Plugin URI: https://grabwp.com/tenancy
  * Description: Foundation multi-tenant WordPress solution with shared MySQL database and separated uploads. Designed to be extended by GrabWP Tenancy Pro for advanced features.
- * Version: 1.1.13
+ * Version: 1.1.14
  * Author: GrabWP
  * Author URI: https://grabwp.com
  * License: GPLv2 or later
@@ -29,7 +29,7 @@ if ( ! defined( 'GRABWP_MAINSITE_ID' ) ) {
 }
 
 // Define plugin constants
-define( 'GRABWP_TENANCY_VERSION', '1.1.13' );
+define( 'GRABWP_TENANCY_VERSION', '1.1.14' );
 define( 'GRABWP_TENANCY_PLUGIN_FILE', __FILE__ );
 define( 'GRABWP_TENANCY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 // Use content_url() to avoid symlink path resolution issues on some hosts
@@ -178,6 +178,9 @@ final class GrabWP_Tenancy {
 	 * @since 1.0.0
 	 */
 	public function init() {
+		// Record constants already set by wp-config.php before GrabWP defines any.
+		GrabWP_Tenancy_Settings::capture_preset_constants();
+
 		// Set tenant context from early loading
 		$this->tenant_id = defined( 'GRABWP_TENANCY_TENANT_ID' ) ? GRABWP_TENANCY_TENANT_ID : '';
 		$this->is_tenant = defined( 'GRABWP_TENANCY_IS_TENANT' ) ? GRABWP_TENANCY_IS_TENANT : false;
@@ -302,7 +305,6 @@ final class GrabWP_Tenancy {
 		}
 
 		// Hide GrabWP plugins from the tenant plugin list when configured.
-		$this->hide_pro_plugin_from_tenant_admin();
 		$this->hide_grabwp_plugin_from_tenant_admin();
 	}
 
@@ -424,20 +426,8 @@ final class GrabWP_Tenancy {
 
 
 	/**
-	 * Hide Pro plugin from tenant admin dashboards
-	 * Prevents tenants from accidentally deactivating the Pro plugin
-	 *
-	 * @since 1.0.0
-	 */
-	private function hide_pro_plugin_from_tenant_admin() {
-		if ( $this->get_effective_setting( 'hide_grabwp_plugins' ) ) {
-			add_filter( 'all_plugins', array( $this, 'filter_pro_plugin_from_list' ) );
-		}
-	}
-
-
-	/**
-	 * Hide GrabWP base plugin from tenant admin dashboards
+	 * Hide GrabWP plugins from tenant admin dashboards
+	 * Prevents tenants from accidentally deactivating GrabWP plugins
 	 *
 	 * @since 1.0.0
 	 */
@@ -446,40 +436,39 @@ final class GrabWP_Tenancy {
 			add_filter( 'all_plugins', array( $this, 'filter_grabwp_plugin_from_list' ) );
 		}
 	}
-	
+
 	/**
-	 * Filter plugins list to hide Pro plugin on tenant sites
+	 * Filter plugins list to hide GrabWP plugins on tenant sites (kept for callers of the old name).
 	 *
 	 * @since 1.0.0
 	 * @param array $plugins All plugins list
 	 * @return array Filtered plugins list
 	 */
 	public function filter_pro_plugin_from_list( $plugins ) {
-		// Hide Pro plugin
-		$pro_plugin_file = 'grabwp-tenancy-pro/grabwp-tenancy-pro.php';
-		if ( isset( $plugins[ $pro_plugin_file ] ) ) {
-			unset( $plugins[ $pro_plugin_file ] );
-		}
-
-		// Hide SQLite plugin — accidental activate/deactivate breaks all SQLite-backed sites
-		unset( $plugins['sqlite-database-integration/load.php'] );
-
-		return $plugins;
+		return $this->filter_grabwp_plugin_from_list( $plugins );
 	}
 
 	/**
-	 * Filter plugins list to hide GrabWP base plugin on tenant sites
+	 * Filter plugins list to hide every GrabWP plugin on tenant sites
+	 *
+	 * Matches any plugin whose folder slug (or single-file name) starts with
+	 * grabwp- or grabwp_, so new GrabWP add-ons are hidden without a list update.
 	 *
 	 * @since 1.0.0
 	 * @param array $plugins All plugins list
 	 * @return array Filtered plugins list
 	 */
 	public function filter_grabwp_plugin_from_list( $plugins ) {
-		// Hide Pro plugin
-		$grabwp_plugin_file = 'grabwp-tenancy/grabwp-tenancy.php';
-		if ( isset( $plugins[ $grabwp_plugin_file ] ) ) {
-			unset( $plugins[ $grabwp_plugin_file ] );
+		foreach ( array_keys( (array) $plugins ) as $plugin_file ) {
+			$slug = dirname( $plugin_file );
+			$slug = strtolower( '.' === $slug ? basename( $plugin_file, '.php' ) : $slug );
+			if ( 0 === strpos( $slug, 'grabwp-' ) || 0 === strpos( $slug, 'grabwp_' ) ) {
+				unset( $plugins[ $plugin_file ] );
+			}
 		}
+
+		// Hide SQLite plugin: accidental activate/deactivate breaks all SQLite-backed sites
+		unset( $plugins['sqlite-database-integration/load.php'] );
 
 		return $plugins;
 	}

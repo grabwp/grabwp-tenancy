@@ -71,6 +71,135 @@ class GrabWP_Tenancy_Admin {
 	}
 
 	/**
+	 * Build a help tip for plain-text supporting copy.
+	 *
+	 * Uses the core toggle tip (WordPress 7.1+) when available. Core reserves
+	 * wp_get_tooltip() for a control's accessible name; our tips explain context,
+	 * which core assigns to wp_get_toggletip(). Older WordPress gets the dashicon
+	 * with a native title tooltip.
+	 *
+	 * @since 1.1.13
+	 * @param string $text Translated plain-text tip. Markup is shown as text, not rendered.
+	 * @return string Escaped HTML, or an empty string when $text is empty.
+	 */
+	public static function get_help_tip( $text ) {
+		$text = trim( (string) $text );
+		if ( '' === $text ) {
+			return '';
+		}
+
+		/**
+		 * Filters whether GrabWP help tips use the core toggle tip.
+		 *
+		 * @since 1.1.13
+		 * @param bool   $use_core True when wp_get_toggletip() exists.
+		 * @param string $text     Tip text.
+		 */
+		if ( apply_filters( 'grabwp_tenancy_use_core_help_tip', function_exists( 'wp_get_toggletip' ), $text ) && function_exists( 'wp_get_toggletip' ) ) {
+			wp_enqueue_style( 'wp-tooltip' );
+			return wp_get_toggletip( $text, array( 'class' => 'grabwp-help-tip' ) );
+		}
+
+		return sprintf(
+			'<span class="dashicons dashicons-editor-help grabwp-help-tip" title="%1$s" aria-label="%1$s"></span>',
+			esc_attr( $text )
+		);
+	}
+
+	/**
+	 * Print a help tip. See get_help_tip().
+	 *
+	 * @since 1.1.13
+	 * @param string $text Translated plain-text tip.
+	 */
+	public static function help_tip( $text ) {
+		echo self::get_help_tip( $text ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by get_help_tip() and core wp_get_toggletip().
+	}
+
+	/**
+	 * Build a one-line notice when a constant set before GrabWP makes a setting ineffective.
+	 *
+	 * @since 1.1.13
+	 * @param string $key   Setting key.
+	 * @param mixed  $value Value GrabWP would apply (global or per-tenant).
+	 * @return string Escaped HTML, or an empty string when nothing overrules the setting.
+	 */
+	public static function get_constant_pin_notice( $key, $value ) {
+		$preset = GrabWP_Tenancy_Settings::get_preset_constant( $key, $value );
+		if ( null === $preset ) {
+			return '';
+		}
+
+		if ( is_bool( $preset['value'] ) ) {
+			$shown = $preset['value'] ? 'true' : 'false';
+		} elseif ( is_string( $preset['value'] ) ) {
+			$shown = "'" . $preset['value'] . "'";
+		} else {
+			$shown = (string) $preset['value'];
+		}
+		$name  = '<code dir="ltr">' . esc_html( $preset['name'] ) . '</code>';
+		$shown = '<code dir="ltr">' . esc_html( $shown ) . '</code>';
+
+		if ( self::wp_config_defines( $preset['name'] ) ) {
+			$text = sprintf(
+				/* translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false */
+				esc_html__( 'Your wp-config.php already sets %1$s to %2$s, so this setting has no effect. Remove that line to let GrabWP control it.', 'grabwp-tenancy' ),
+				$name,
+				$shown
+			);
+		} else {
+			$text = sprintf(
+				/* translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false */
+				esc_html__( 'Another plugin or file already sets %1$s to %2$s, so this setting has no effect.', 'grabwp-tenancy' ),
+				$name,
+				$shown
+			);
+		}
+
+		return '<div class="notice notice-warning inline grabwp-constant-pin"><p>' . $text . '</p></div>';
+	}
+
+	/**
+	 * Print the constant notice. See get_constant_pin_notice().
+	 *
+	 * @since 1.1.13
+	 * @param string $key   Setting key.
+	 * @param mixed  $value Value GrabWP would apply.
+	 */
+	public static function constant_pin_notice( $key, $value ) {
+		echo self::get_constant_pin_notice( $key, $value ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in get_constant_pin_notice().
+	}
+
+	/**
+	 * Whether wp-config.php has a define() for a constant, outside comments. Read-only.
+	 *
+	 * @since 1.1.13
+	 * @param string $name Constant name.
+	 * @return bool
+	 */
+	private static function wp_config_defines( $name ) {
+		static $code = null;
+		if ( null === $code ) {
+			$code = '';
+			$file = ABSPATH . 'wp-config.php';
+			if ( ! file_exists( $file ) && file_exists( dirname( ABSPATH ) . '/wp-config.php' ) && ! file_exists( dirname( ABSPATH ) . '/wp-settings.php' ) ) {
+				$file = dirname( ABSPATH ) . '/wp-config.php';
+			}
+			$source = is_readable( $file ) ? file_get_contents( $file ) : false; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Local read-only check.
+			if ( false !== $source ) {
+				foreach ( token_get_all( $source ) as $token ) {
+					if ( ! is_array( $token ) ) {
+						$code .= $token;
+					} elseif ( T_COMMENT !== $token[0] && T_DOC_COMMENT !== $token[0] ) {
+						$code .= $token[1];
+					}
+				}
+			}
+		}
+		return (bool) preg_match( '/\bdefine\s*\(\s*[\'"]' . preg_quote( $name, '/' ) . '[\'"]/i', $code );
+	}
+
+	/**
 	 * Render the shared Pro upsell card partial.
 	 *
 	 * @since 1.3.1

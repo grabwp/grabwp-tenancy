@@ -77,6 +77,18 @@
     margin-left: 4px;
 }
 
+/* Core toggle tip (WordPress 7.1+) from GrabWP_Tenancy_Admin::get_help_tip() */
+.wp-tooltip.grabwp-help-tip {
+    display: inline-flex;
+    width: auto;
+    height: auto;
+    margin-left: 0;
+    margin-inline-start: 2px;
+    font-size: inherit;
+    vertical-align: middle;
+    cursor: auto;
+}
+
 /* Two-column layout for related form-table blocks */
 .grabwp-settings-grid-2 {
     display: grid;

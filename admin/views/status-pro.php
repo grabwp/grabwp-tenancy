@@ -52,7 +52,7 @@ GrabWP_Tenancy_Admin::render_upsell_card(
 	<div class="grabwp-tenancy-form">
 		<h3>
 			<?php esc_html_e( 'Content Isolation (Default)', 'grabwp-tenancy' ); ?>
-			<span class="dashicons dashicons-editor-help grabwp-help-tip" title="<?php esc_attr_e( 'Default content isolation settings applied when creating new tenants.', 'grabwp-tenancy' ); ?>" aria-label="<?php esc_attr_e( 'Default content isolation settings applied when creating new tenants.', 'grabwp-tenancy' ); ?>"></span>
+			<?php GrabWP_Tenancy_Admin::help_tip( __( 'Default content isolation settings applied when creating new tenants.', 'grabwp-tenancy' ) ); ?>
 		</h3>
 		<table class="form-table">
 			<?php
@@ -83,7 +83,7 @@ GrabWP_Tenancy_Admin::render_upsell_card(
 	<div class="grabwp-tenancy-form">
 		<h3>
 			<?php esc_html_e( 'Database (Default)', 'grabwp-tenancy' ); ?>
-			<span class="dashicons dashicons-editor-help grabwp-help-tip" title="<?php esc_attr_e( 'Default database configuration for new tenants.', 'grabwp-tenancy' ); ?>" aria-label="<?php esc_attr_e( 'Default database configuration for new tenants.', 'grabwp-tenancy' ); ?>"></span>
+			<?php GrabWP_Tenancy_Admin::help_tip( __( 'Default database configuration for new tenants.', 'grabwp-tenancy' ) ); ?>
 		</h3>
 		<table class="form-table">
 			<?php

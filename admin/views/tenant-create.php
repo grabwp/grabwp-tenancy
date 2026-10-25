@@ -73,7 +73,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<tr>
 					<th scope="row">
 						<?php esc_html_e( 'Domain Setup', 'grabwp-tenancy' ); ?>
-						<span class="dashicons dashicons-editor-help grabwp-help-tip" title="<?php esc_attr_e( 'Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page.', 'grabwp-tenancy' ); ?>" aria-label="<?php esc_attr_e( 'Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page.', 'grabwp-tenancy' ); ?>"></span>
+						<?php GrabWP_Tenancy_Admin::help_tip( __( 'Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page.', 'grabwp-tenancy' ) ); ?>
 					</th>
 					<td>
 						<?php if ( 'path' === $grabwp_routing_mode ) : ?>

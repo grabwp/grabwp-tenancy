@@ -341,3 +341,44 @@
 	cursor: pointer;
 	margin-block-end: 8px;
 }
+
+/* Visible Actions column on WP List Tables */
+.wp-list-table .column-actions {
+	width: 7em;
+	text-align: end;
+	white-space: nowrap;
+}
+.wp-list-table .column-actions a,
+.wp-list-table .column-actions button {
+	display: inline-block;
+	margin-inline-start: 4px;
+	padding: 0;
+	border: 0;
+	background: none;
+	text-decoration: none;
+	line-height: 1;
+	vertical-align: middle;
+	cursor: pointer;
+	color: #2271b1;
+}
+.wp-list-table .column-actions .submitdelete,
+.wp-list-table .column-actions .button-link-delete {
+	color: #b32d2e;
+}
+.wp-list-table .column-actions .dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+	vertical-align: middle;
+}
+.wp-list-table .column-actions form {
+	display: inline-block;
+	margin: 0;
+}
+@media screen and (max-width: 782px) {
+	.wp-list-table .column-actions {
+		width: auto;
+		text-align: start;
+		white-space: normal;
+	}
+}

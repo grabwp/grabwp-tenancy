@@ -1093,7 +1093,8 @@ class GrabWP_Tenancy_Setup_Wizard {
 	 * know-how. It tells the effort, never which choice is best.
 	 *
 	 * @param string $name     Input name.
-	 * @param array  $options  Value => array( title, desc (HTML, see KSES), level, disabled ).
+	 * @param array  $options  Value => array( title, desc (HTML, see KSES), level, disabled,
+	 *                          tip (plain text help tip after the level label) ).
 	 * @param string $current  Checked value.
 	 * @param string $legend   Screen reader legend.
 	 * @param string $class    Extra fieldset class.
@@ -1106,10 +1107,10 @@ class GrabWP_Tenancy_Setup_Wizard {
 		);
 		echo '<fieldset class="grabwp-setup-choices ' . esc_attr( $class ) . '"><legend class="screen-reader-text">' . esc_html( $legend ) . '</legend>';
 		foreach ( $options as $value => $option ) {
-			$option = wp_parse_args( $option, array( 'title' => '', 'desc' => '', 'level' => 'simple', 'disabled' => $disabled ) );
+			$option = wp_parse_args( $option, array( 'title' => '', 'desc' => '', 'level' => 'simple', 'disabled' => $disabled, 'tip' => '' ) );
 			$level  = isset( $levels[ $option['level'] ] ) ? $option['level'] : 'simple';
 			printf(
-				'<label class="grabwp-setup-choice%1$s"><input type="radio" name="%2$s" value="%3$s"%4$s%5$s /><span><span class="grabwp-setup-choice-title">%6$s%7$s</span><span class="grabwp-setup-choice-desc description">%8$s</span></span></label>',
+				'<label class="grabwp-setup-choice%1$s"><input type="radio" name="%2$s" value="%3$s"%4$s%5$s /><span><span class="grabwp-setup-choice-title">%6$s%7$s%9$s</span><span class="grabwp-setup-choice-desc description">%8$s</span></span></label>',
 				$option['disabled'] ? ' is-disabled' : '',
 				esc_attr( $name ),
 				esc_attr( $value ),
@@ -1117,7 +1118,8 @@ class GrabWP_Tenancy_Setup_Wizard {
 				disabled( $option['disabled'], true, false ),
 				esc_html( $option['title'] ),
 				' <span class="grabwp-setup-level is-' . esc_attr( $level ) . '">' . esc_html( $levels[ $level ] ) . '</span>',
-				wp_kses( $option['desc'], self::KSES )
+				wp_kses( $option['desc'], self::KSES ),
+				GrabWP_Tenancy_Admin::get_help_tip( $option['tip'] )
 			);
 		}
 		echo '</fieldset>';

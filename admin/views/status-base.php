@@ -2,7 +2,7 @@
 /**
  * Status Page - Base Plugin Tab
  *
- * File structure, settings, and tenant capabilities.
+ * File structure and every GrabWP setting (capabilities, performance and security).
  *
  * @package GrabWP_Tenancy
  * @since 1.3.0
@@ -78,34 +78,51 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="grabwp-tenancy-form">
 		<h3>
 			<?php esc_html_e( 'Tenant Capabilities', 'grabwp-tenancy' ); ?>
-			<span class="dashicons dashicons-editor-help grabwp-help-tip" title="<?php esc_attr_e( 'Configured on the Settings page.', 'grabwp-tenancy' ); ?>" aria-label="<?php esc_attr_e( 'Configured on the Settings page.', 'grabwp-tenancy' ); ?>"></span>
+			<?php GrabWP_Tenancy_Admin::help_tip( __( 'Configured on the Settings page.', 'grabwp-tenancy' ) ); ?>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=grabwp-tenancy-settings' ) ); ?>" class="button button-small" style="margin-left: 8px; vertical-align: middle;"><?php esc_html_e( 'Settings', 'grabwp-tenancy' ); ?></a>
 		</h3>
 
+		<?php
+		// Same labels and order as the Settings screen; Yes means the label applies.
+		$grabwp_status_values = $grabwp_status_settings_inst->get_all();
+		$grabwp_status_groups = array(
+			'capabilities' => '',
+			'performance'  => __( 'Performance & Security', 'grabwp-tenancy' ),
+		);
+		foreach ( $grabwp_status_groups as $grabwp_status_group => $grabwp_status_heading ) :
+			if ( '' !== $grabwp_status_heading ) :
+				?>
+				<h3><?php echo esc_html( $grabwp_status_heading ); ?></h3>
+			<?php endif; ?>
 		<table class="form-table">
 			<?php
-			$grabwp_capability_settings = $grabwp_status_settings_inst->get_all();
-			$grabwp_capability_labels   = array(
-				'disallow_file_mods'     => __( 'Disallow File Mods', 'grabwp-tenancy' ),
-				'disallow_file_edit'     => __( 'Disallow File Edit', 'grabwp-tenancy' ),
-				'hide_plugin_management' => __( 'Hide Plugin Management', 'grabwp-tenancy' ),
-				'hide_theme_management'  => __( 'Hide Theme Management', 'grabwp-tenancy' ),
-				'hide_grabwp_plugins'    => __( 'Hide GrabWP Plugins', 'grabwp-tenancy' ),
-			);
-			foreach ( $grabwp_capability_labels as $grabwp_cap_key => $grabwp_cap_label ) :
-				$grabwp_cap_value = isset( $grabwp_capability_settings[ $grabwp_cap_key ] ) ? $grabwp_capability_settings[ $grabwp_cap_key ] : false;
+			foreach ( GrabWP_Tenancy_Settings::get_setting_fields() as $grabwp_cap_key => $grabwp_cap_field ) :
+				if ( $grabwp_status_group !== $grabwp_cap_field['group'] ) {
+					continue;
+				}
+				$grabwp_cap_value = isset( $grabwp_status_values[ $grabwp_cap_key ] ) ? $grabwp_status_values[ $grabwp_cap_key ] : false;
 				?>
 			<tr>
-				<th scope="row"><?php echo esc_html( $grabwp_cap_label ); ?></th>
+				<th scope="row"><?php echo esc_html( $grabwp_cap_field['label'] ); ?></th>
 				<td>
-					<?php if ( $grabwp_cap_value ) : ?>
-						<span style="color: #46b450;"><?php esc_html_e( '✓ Enabled', 'grabwp-tenancy' ); ?></span>
+					<?php if ( 'int' === $grabwp_cap_field['type'] ) : ?>
+						<?php echo esc_html( (string) (int) $grabwp_cap_value ); ?>
+					<?php elseif ( 'string' === $grabwp_cap_field['type'] ) : ?>
+						<?php if ( '' === (string) $grabwp_cap_value ) : ?>
+							<span style="color: #999;"><?php esc_html_e( 'empty', 'grabwp-tenancy' ); ?></span>
+						<?php else : ?>
+							<code dir="ltr"><?php echo esc_html( (string) $grabwp_cap_value ); ?></code>
+						<?php endif; ?>
+					<?php elseif ( $grabwp_cap_value ) : ?>
+						<span style="color: #46b450;"><?php esc_html_e( '✓ Yes', 'grabwp-tenancy' ); ?></span>
 					<?php else : ?>
-						<span style="color: #999;"><?php esc_html_e( 'Disabled', 'grabwp-tenancy' ); ?></span>
+						<span style="color: #999;"><?php esc_html_e( 'No', 'grabwp-tenancy' ); ?></span>
 					<?php endif; ?>
+					<?php GrabWP_Tenancy_Admin::constant_pin_notice( $grabwp_cap_key, $grabwp_cap_value ); ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>
 		</table>
+		<?php endforeach; ?>
 	</div>
 </div>

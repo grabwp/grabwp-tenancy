@@ -44,6 +44,13 @@ class GrabWP_Tenancy_Settings {
 	private $loaded = false;
 
 	/**
+	 * Values of controlled constants defined before GrabWP loaded, keyed by setting.
+	 *
+	 * @var array|null
+	 */
+	private static $preset_constants = null;
+
+	/**
 	 * Get singleton instance.
 	 *
 	 * @since  1.1.0
@@ -105,80 +112,175 @@ class GrabWP_Tenancy_Settings {
 	 * Canonical field schema for global settings and per-tenant overrides UI.
 	 *
 	 * @since  1.1.5
-	 * @return array Key => [ label, type, group, description, min?, max? ].
+	 * @return array Key => [ label, type, group, description, tech?, constant?, min?, max? ].
+	 *                `tech` and `constant` exist only for rows backed by a real WordPress constant.
 	 */
 	public static function get_setting_fields() {
+		// Each label says what "Yes" does, so a ticked box or a Yes choice always means the label.
 		return array(
 			'disallow_file_mods'     => array(
-				'label'       => __( 'Install Plugins & Themes', 'grabwp-tenancy' ),
+				'label'       => __( 'Disable Install Plugins & Themes', 'grabwp-tenancy' ),
 				'type'        => 'bool',
 				'group'       => 'capabilities',
-				'description' => __( 'Disallow tenant admins to install, update, and delete plugins/themes (DISALLOW_FILE_MODS)', 'grabwp-tenancy' ),
+				'description' => __( 'Tenant admins cannot install, update or delete plugins and themes.', 'grabwp-tenancy' ),
+				'tech'        => 'DISALLOW_FILE_MODS=true',
+				'constant'    => 'DISALLOW_FILE_MODS',
 			),
 			'disallow_file_edit'     => array(
-				'label'       => __( 'Edit Plugins & Themes', 'grabwp-tenancy' ),
+				'label'       => __( 'Disable Plugin & Theme File Editor', 'grabwp-tenancy' ),
 				'type'        => 'bool',
 				'group'       => 'capabilities',
-				'description' => __( 'Disallow tenant admins to use the built-in plugin/theme file editor (DISALLOW_FILE_EDIT)', 'grabwp-tenancy' ),
+				'description' => __( 'Tenant admins cannot use the built-in code editor for plugin and theme files.', 'grabwp-tenancy' ),
+				'tech'        => 'DISALLOW_FILE_EDIT=true',
+				'constant'    => 'DISALLOW_FILE_EDIT',
 			),
 			'hide_plugin_management' => array(
-				'label'       => __( 'Hide Plugin Management', 'grabwp-tenancy' ),
+				'label'       => __( 'Hide Plugins Menu', 'grabwp-tenancy' ),
 				'type'        => 'bool',
 				'group'       => 'capabilities',
-				'description' => __( 'Hide the Plugins menu entirely from tenant admin dashboards', 'grabwp-tenancy' ),
+				'description' => __( 'Removes the Plugins menu from tenant dashboards.', 'grabwp-tenancy' ),
 			),
 			'hide_theme_management'  => array(
-				'label'       => __( 'Hide Theme Management', 'grabwp-tenancy' ),
+				'label'       => __( 'Hide Appearance Menu', 'grabwp-tenancy' ),
 				'type'        => 'bool',
 				'group'       => 'capabilities',
-				'description' => __( 'Hide the Appearance menu entirely from tenant admin dashboards', 'grabwp-tenancy' ),
+				'description' => __( 'Removes the Appearance menu (themes) from tenant dashboards.', 'grabwp-tenancy' ),
 			),
 			'hide_grabwp_plugins'    => array(
 				'label'       => __( 'Hide GrabWP Plugins', 'grabwp-tenancy' ),
 				'type'        => 'bool',
 				'group'       => 'capabilities',
-				'description' => __( 'Hide GrabWP plugins from the plugin list on tenant sites', 'grabwp-tenancy' ),
+				'description' => __( 'Hides every GrabWP plugin and the SQLite plugin from the tenant Plugins list, so tenants cannot turn them off by mistake.', 'grabwp-tenancy' ),
 			),
 			'disable_wp_cron'        => array(
 				'label'       => __( 'Disable WP-Cron', 'grabwp-tenancy' ),
 				'type'        => 'bool',
 				'group'       => 'performance',
-				'description' => __( 'Disable WordPress internal cron on tenant sites (DISABLE_WP_CRON). Use system cron instead.', 'grabwp-tenancy' ),
+				'description' => __( 'Turns off the built-in task scheduler on tenant sites. Run a server cron job instead.', 'grabwp-tenancy' ),
+				'tech'        => 'DISABLE_WP_CRON=true',
+				'constant'    => 'DISABLE_WP_CRON',
 			),
 			'disable_xmlrpc'         => array(
 				'label'       => __( 'Disable XML-RPC', 'grabwp-tenancy' ),
 				'type'        => 'bool',
 				'group'       => 'performance',
-				'description' => __( 'Disable XML-RPC API on tenant sites. Reduces attack surface and prevents brute-force attempts.', 'grabwp-tenancy' ),
+				'description' => __( 'Turns off the old remote publishing API, a common target of password-guessing attacks.', 'grabwp-tenancy' ),
 			),
 			'wp_post_revisions'      => array(
-				'label'       => __( 'Post Revisions', 'grabwp-tenancy' ),
+				'label'       => __( 'Post Revisions to Keep', 'grabwp-tenancy' ),
 				'type'        => 'int',
 				'group'       => 'performance',
-				'description' => __( 'Maximum post revisions to keep (WP_POST_REVISIONS). Lower values save database space.', 'grabwp-tenancy' ),
+				'description' => __( 'How many older versions of each post to keep. 0 turns revisions off.', 'grabwp-tenancy' ),
+				'tech'        => 'WP_POST_REVISIONS',
+				'constant'    => 'WP_POST_REVISIONS',
 				'min'         => 0,
 				'max'         => 100,
 			),
 			'empty_trash_days'       => array(
-				'label'       => __( 'Empty Trash Days', 'grabwp-tenancy' ),
+				'label'       => __( 'Days Before Trash Is Emptied', 'grabwp-tenancy' ),
 				'type'        => 'int',
 				'group'       => 'performance',
-				'description' => __( 'Days before trashed posts are permanently deleted (EMPTY_TRASH_DAYS). Set to 0 to disable trash.', 'grabwp-tenancy' ),
+				'description' => __( 'Deleted items stay in the Trash this many days. 0 deletes them right away.', 'grabwp-tenancy' ),
+				'tech'        => 'EMPTY_TRASH_DAYS',
+				'constant'    => 'EMPTY_TRASH_DAYS',
 				'min'         => 0,
 				'max'         => 365,
 			),
 			'wp_http_block_external' => array(
-				'label'       => __( 'Block External HTTP', 'grabwp-tenancy' ),
+				'label'       => __( 'Block External Requests', 'grabwp-tenancy' ),
 				'type'        => 'bool',
 				'group'       => 'performance',
-				'description' => __( 'Block all external HTTP requests from tenant sites (WP_HTTP_BLOCK_EXTERNAL). Allowlist hosts below.', 'grabwp-tenancy' ),
+				'description' => __( 'Tenant sites cannot connect to other websites, except the allowed hosts below.', 'grabwp-tenancy' ),
+				'tech'        => 'WP_HTTP_BLOCK_EXTERNAL=true',
+				'constant'    => 'WP_HTTP_BLOCK_EXTERNAL',
 			),
 			'wp_accessible_hosts'    => array(
-				'label'       => __( 'Accessible Hosts', 'grabwp-tenancy' ),
+				'label'       => __( 'Allowed Hosts When Blocked', 'grabwp-tenancy' ),
 				'type'        => 'string',
 				'group'       => 'performance',
-				'description' => __( 'Comma-separated hosts allowed when external HTTP is blocked (WP_ACCESSIBLE_HOSTS). Wildcards supported.', 'grabwp-tenancy' ),
+				'description' => __( 'Comma-separated host names tenant sites can still reach when external requests are blocked. Wildcards like *.wordpress.org work.', 'grabwp-tenancy' ),
+				'tech'        => 'WP_ACCESSIBLE_HOSTS',
+				'constant'    => 'WP_ACCESSIBLE_HOSTS',
 			),
+		);
+	}
+
+	/**
+	 * Setting key => WordPress constant map, for rows backed by a real constant.
+	 *
+	 * Must match the `constant` entries of get_setting_fields(). Kept separate and
+	 * free of translation calls so it is safe to use while the plugin file is
+	 * still loading, before the locale is known.
+	 *
+	 * @since  1.1.14
+	 * @return array
+	 */
+	public static function get_setting_constants() {
+		return array(
+			'disallow_file_mods'     => 'DISALLOW_FILE_MODS',
+			'disallow_file_edit'     => 'DISALLOW_FILE_EDIT',
+			'disable_wp_cron'        => 'DISABLE_WP_CRON',
+			'wp_post_revisions'      => 'WP_POST_REVISIONS',
+			'empty_trash_days'       => 'EMPTY_TRASH_DAYS',
+			'wp_http_block_external' => 'WP_HTTP_BLOCK_EXTERNAL',
+			'wp_accessible_hosts'    => 'WP_ACCESSIBLE_HOSTS',
+		);
+	}
+
+	/**
+	 * Capture the constants GrabWP settings control that were defined before GrabWP.
+	 *
+	 * Called when the Base plugin loads, before any GrabWP define(). GrabWP only
+	 * defines these on tenant requests, so on the main site a defined constant comes
+	 * from wp-config.php or code loaded earlier (mu-plugins, earlier plugins).
+	 *
+	 * Uses get_setting_constants(), not get_setting_fields(): calling __() this
+	 * early would load the text domain before the locale is set and leave every
+	 * GrabWP string untranslated for the rest of the request.
+	 *
+	 * @since 1.1.13
+	 */
+	public static function capture_preset_constants() {
+		if ( null !== self::$preset_constants ) {
+			return;
+		}
+		self::$preset_constants = array();
+		foreach ( self::get_setting_constants() as $key => $constant ) {
+			if ( defined( $constant ) ) {
+				self::$preset_constants[ $key ] = constant( $constant );
+			}
+		}
+	}
+
+	/**
+	 * Get a constant that was defined before GrabWP and overrules a setting value.
+	 *
+	 * @since  1.1.13
+	 * @param  string $key   Setting key.
+	 * @param  mixed  $value Value GrabWP would apply (global or per-tenant).
+	 * @return array|null [ name, value ] when the preset constant differs from $value, else null.
+	 */
+	public static function get_preset_constant( $key, $value ) {
+		self::capture_preset_constants();
+		if ( ! array_key_exists( $key, self::$preset_constants ) ) {
+			return null;
+		}
+
+		$fields = self::get_setting_fields();
+		$preset = self::$preset_constants[ $key ];
+		$type   = $fields[ $key ]['type'];
+
+		if ( 'bool' === $type ) {
+			$same = (bool) $preset === (bool) $value;
+		} elseif ( 'int' === $type ) {
+			$same = ! is_bool( $preset ) && is_numeric( $preset ) && (int) $preset === (int) $value;
+		} else {
+			$same = (string) $preset === (string) $value;
+		}
+
+		return $same ? null : array(
+			'name'  => $fields[ $key ]['constant'],
+			'value' => $preset,
 		);
 	}
 

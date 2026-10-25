@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-06-30T18:45:13+00:00\n"
-"PO-Revision-Date: 2026-10-14 17:46+0000\n"
+"PO-Revision-Date: 2026-10-23 19:36+0000\n"
 "Language: vi\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: grabwp-tenancy\n"
@@ -16,10 +16,10 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: grabwp-tenancy.php
-#: admin/views/tenant-edit.php:134
+#: admin/views/tenant-edit.php:155
 #: admin/views/tenants.php:16
-#: includes/class-grabwp-tenancy-admin.php:142
-#: includes/class-grabwp-tenancy-admin.php:352
+#: includes/class-grabwp-tenancy-admin.php:271
+#: includes/class-grabwp-tenancy-admin.php:489
 msgid "GrabWP Tenancy"
 msgstr "GrabWP Tenancy"
 
@@ -49,13 +49,13 @@ msgstr "Số tenant mỗi trang"
 
 #: admin/class-grabwp-tenancy-list-table.php:77
 #: admin/views/tenant-clone.php:91
-#: admin/views/tenant-edit.php:66
+#: admin/views/tenant-edit.php:67
 msgid "Tenant ID"
 msgstr "Mã tenant"
 
 #: admin/class-grabwp-tenancy-list-table.php:78
 #: admin/views/tenant-clone.php:92
-#: admin/views/tenant-edit.php:81
+#: admin/views/tenant-edit.php:84
 msgid "Domains"
 msgstr "Tên miền"
 
@@ -64,53 +64,53 @@ msgid "Actions"
 msgstr "Thao tác"
 
 #: admin/class-grabwp-tenancy-list-table.php:278
-#: admin/views/tenant-create.php:29
+#: admin/views/tenant-create.php:38
 msgid "Main Site"
 msgstr "Site chính"
 
-#: admin/class-grabwp-tenancy-list-table.php:309
+#: admin/class-grabwp-tenancy-list-table.php:325
 msgid "Path access only"
 msgstr "Chỉ truy cập qua đường dẫn"
 
-#: admin/class-grabwp-tenancy-list-table.php:312
+#: admin/class-grabwp-tenancy-list-table.php:328
 msgid "No domains assigned"
 msgstr "Chưa gán tên miền"
 
-#: admin/class-grabwp-tenancy-list-table.php:328
-#: admin/class-grabwp-tenancy-list-table.php:339
+#: admin/class-grabwp-tenancy-list-table.php:344
+#: admin/class-grabwp-tenancy-list-table.php:355
 msgid "Visit Site"
 msgstr "Xem trang web"
 
-#: admin/class-grabwp-tenancy-list-table.php:342
+#: admin/class-grabwp-tenancy-list-table.php:358
 msgid "Admin"
 msgstr "Quản trị"
 
-#: admin/class-grabwp-tenancy-list-table.php:346
+#: admin/class-grabwp-tenancy-list-table.php:362
 #: admin/views/status-base.php:82
-#: includes/class-grabwp-tenancy-admin.php:180
-#: includes/class-grabwp-tenancy-admin.php:181
+#: includes/class-grabwp-tenancy-admin.php:309
+#: includes/class-grabwp-tenancy-admin.php:310
 msgid "Settings"
 msgstr "Cài đặt"
 
 #. translators: %s: search term
-#: admin/class-grabwp-tenancy-list-table.php:400
+#: admin/class-grabwp-tenancy-list-table.php:416
 #, php-format
 msgid "No tenants found matching \"%s\"."
 msgstr "Không tìm thấy tenant nào khớp với \"%s\"."
 
-#: admin/class-grabwp-tenancy-list-table.php:404
+#: admin/class-grabwp-tenancy-list-table.php:420
 msgid "No tenants found."
 msgstr "Không tìm thấy tenant nào."
 
-#: admin/class-grabwp-tenancy-list-table.php:517
+#: admin/class-grabwp-tenancy-list-table.php:533
 msgid "Search Tenants"
 msgstr "Tìm kiếm tenant"
 
-#: admin/class-grabwp-tenancy-list-table.php:518
+#: admin/class-grabwp-tenancy-list-table.php:534
 msgid "Search by ID or domain..."
 msgstr "Tìm theo ID hoặc tên miền..."
 
-#: admin/class-grabwp-tenancy-list-table.php:519
+#: admin/class-grabwp-tenancy-list-table.php:535
 msgid "Search"
 msgstr "Tìm kiếm"
 
@@ -118,7 +118,7 @@ msgstr "Tìm kiếm"
 msgid "GrabWP Tenancy Settings"
 msgstr "Cài đặt GrabWP Tenancy"
 
-#: includes/class-grabwp-tenancy-admin.php:410
+#: includes/class-grabwp-tenancy-admin.php:547
 msgid "Settings saved successfully."
 msgstr "Đã lưu cài đặt thành công."
 
@@ -127,55 +127,11 @@ msgstr "Đã lưu cài đặt thành công."
 msgid "Tenant Capabilities"
 msgstr "Quyền hạn tenant"
 
-#: admin/views/settings.php:37
-#: includes/class-grabwp-tenancy-settings.php:113
-msgid "Install Plugins & Themes"
-msgstr "Cài đặt plugin & giao diện"
-
-#: includes/class-grabwp-tenancy-settings.php:116
-msgid "Disallow tenant admins to install, update, and delete plugins/themes (DISALLOW_FILE_MODS)"
-msgstr "Không cho phép quản trị viên tenant cài đặt, cập nhật và xóa plugin/giao diện (DISALLOW_FILE_MODS)"
-
-#: admin/views/settings.php:49
-#: includes/class-grabwp-tenancy-settings.php:119
-msgid "Edit Plugins & Themes"
-msgstr "Chỉnh sửa plugin & giao diện"
-
-#: includes/class-grabwp-tenancy-settings.php:122
-msgid "Disallow tenant admins to use the built-in plugin/theme file editor (DISALLOW_FILE_EDIT)"
-msgstr "Không cho phép quản trị viên tenant sử dụng trình sửa tệp plugin/giao diện tích hợp (DISALLOW_FILE_EDIT)"
-
-#: admin/views/settings.php:61
-#: admin/views/status-base.php:91
-#: includes/class-grabwp-tenancy-settings.php:125
-msgid "Hide Plugin Management"
-msgstr "Ẩn quản lý plugin"
-
-#: includes/class-grabwp-tenancy-settings.php:128
-msgid "Hide the Plugins menu entirely from tenant admin dashboards"
-msgstr "Ẩn hoàn toàn menu Plugin khỏi bảng điều khiển quản trị tenant"
-
-#: admin/views/settings.php:73
-#: admin/views/status-base.php:92
-#: includes/class-grabwp-tenancy-settings.php:131
-msgid "Hide Theme Management"
-msgstr "Ẩn quản lý giao diện"
-
-#: includes/class-grabwp-tenancy-settings.php:134
-msgid "Hide the Appearance menu entirely from tenant admin dashboards"
-msgstr "Ẩn hoàn toàn menu Giao diện khỏi bảng điều khiển quản trị tenant"
-
-#: admin/views/settings.php:85
-#: admin/views/status-base.php:93
-#: includes/class-grabwp-tenancy-settings.php:137
+#: includes/class-grabwp-tenancy-settings.php:150
 msgid "Hide GrabWP Plugins"
 msgstr "Ẩn plugin GrabWP"
 
-#: includes/class-grabwp-tenancy-settings.php:140
-msgid "Hide GrabWP plugins from the plugin list on tenant sites"
-msgstr "Ẩn các plugin GrabWP khỏi danh sách plugin trên trang tenant"
-
-#: admin/views/settings.php:174
+#: admin/views/settings.php:61
 msgid "Save Settings"
 msgstr "Lưu cài đặt"
 
@@ -231,18 +187,6 @@ msgstr "⚠ Chưa được tạo (đang dùng mặc định)"
 msgid "Tenant Uploads Pattern"
 msgstr "Mẫu đường dẫn uploads của tenant"
 
-#: admin/views/status-base.php:89
-msgid "Disallow File Mods"
-msgstr "Cấm sửa đổi tệp"
-
-#: admin/views/status-base.php:90
-msgid "Disallow File Edit"
-msgstr "Cấm chỉnh sửa tệp"
-
-#: admin/views/status-base.php:102
-msgid "✓ Enabled"
-msgstr "✓ Đã bật"
-
 #: admin/views/status-general.php:30
 msgid "Environment Checks"
 msgstr "Kiểm tra môi trường"
@@ -256,93 +200,93 @@ msgstr "1. Trình tải wp-config.php"
 msgid "✓ Active"
 msgstr "✓ Đang hoạt động"
 
-#: admin/views/partials/status-env-cards.php:33
+#: admin/views/partials/status-env-cards.php:35
 #: admin/views/status-general.php:113
 msgid "✗ Not loaded"
 msgstr "✗ Chưa được tải"
 
-#: admin/views/partials/status-env-cards.php:56
-#: admin/views/partials/status-env-cards.php:103
-#: admin/views/partials/status-env-cards.php:167
-#: admin/views/partials/status-env-cards.php:227
-#: admin/views/partials/status-env-cards.php:278
+#: admin/views/partials/status-env-cards.php:58
+#: admin/views/partials/status-env-cards.php:105
+#: admin/views/partials/status-env-cards.php:169
+#: admin/views/partials/status-env-cards.php:229
+#: admin/views/partials/status-env-cards.php:280
 msgid "📋 Copy Code"
 msgstr "📋 Sao chép mã"
 
-#: admin/views/partials/status-env-cards.php:62
-#: admin/views/partials/status-env-cards.php:109
-#: admin/views/partials/status-env-cards.php:173
-#: admin/views/partials/status-env-cards.php:233
-#: admin/views/partials/status-env-cards.php:284
+#: admin/views/partials/status-env-cards.php:64
+#: admin/views/partials/status-env-cards.php:111
+#: admin/views/partials/status-env-cards.php:175
+#: admin/views/partials/status-env-cards.php:235
+#: admin/views/partials/status-env-cards.php:286
 msgid "⚡ Auto Fix"
 msgstr "⚡ Tự động sửa"
 
-#: admin/views/partials/status-env-cards.php:80
+#: admin/views/partials/status-env-cards.php:82
 msgid "2. MU-Plugin"
 msgstr "2. MU-Plugin"
 
-#: admin/views/partials/status-env-cards.php:82
-#: admin/views/partials/status-env-cards.php:128
+#: admin/views/partials/status-env-cards.php:84
+#: admin/views/partials/status-env-cards.php:130
 msgid "✓ Installed"
 msgstr "✓ Đã cài đặt"
 
-#: admin/views/partials/status-env-cards.php:84
+#: admin/views/partials/status-env-cards.php:86
 msgid "⚠ Outdated"
 msgstr "⚠ Đã lỗi thời"
 
-#: admin/views/partials/status-env-cards.php:86
-#: admin/views/partials/status-env-cards.php:197
+#: admin/views/partials/status-env-cards.php:88
+#: admin/views/partials/status-env-cards.php:199
 msgid "✗ Missing"
 msgstr "✗ Thiếu"
 
-#: admin/views/partials/status-env-cards.php:97
-#: admin/views/partials/status-env-cards.php:208
-#: admin/views/partials/status-env-cards.php:265
+#: admin/views/partials/status-env-cards.php:99
+#: admin/views/partials/status-env-cards.php:210
+#: admin/views/partials/status-env-cards.php:267
 #, php-format
 msgid "File: %s"
 msgstr "Tệp: %s"
 
-#: admin/views/partials/status-env-cards.php:126
+#: admin/views/partials/status-env-cards.php:128
 msgid "3. Root .htaccess Rewrite Rules"
 msgstr "3. Quy tắc Rewrite trong .htaccess gốc"
 
-#: admin/views/partials/status-env-cards.php:130
+#: admin/views/partials/status-env-cards.php:132
 msgid "⚠ Wrong position"
 msgstr "⚠ Sai vị trí"
 
-#: admin/views/partials/status-env-cards.php:132
+#: admin/views/partials/status-env-cards.php:134
 msgid "⚠ Invalid content"
 msgstr "⚠ Nội dung không hợp lệ"
 
-#: admin/views/partials/status-env-cards.php:134
+#: admin/views/partials/status-env-cards.php:136
 msgid "⚠ Missing block"
 msgstr "⚠ Thiếu khối"
 
-#: admin/views/partials/status-env-cards.php:136
+#: admin/views/partials/status-env-cards.php:138
 msgid "✗ No .htaccess"
 msgstr "✗ Không có .htaccess"
 
-#: admin/views/partials/status-env-cards.php:191
+#: admin/views/partials/status-env-cards.php:193
 msgid "Data Directory .htaccess"
 msgstr ".htaccess thư mục dữ liệu"
 
-#: admin/views/partials/status-env-cards.php:193
+#: admin/views/partials/status-env-cards.php:195
 msgid "✓ Protected"
 msgstr "✓ Đã bảo vệ"
 
-#: admin/views/partials/status-env-cards.php:195
+#: admin/views/partials/status-env-cards.php:197
 msgid "⚠ Incomplete"
 msgstr "⚠ Chưa hoàn chỉnh"
 
-#: admin/views/partials/status-env-cards.php:250
+#: admin/views/partials/status-env-cards.php:252
 msgid "index.php Protection"
 msgstr "Bảo vệ index.php"
 
-#: admin/views/partials/status-env-cards.php:252
+#: admin/views/partials/status-env-cards.php:254
 msgid "✓ Present"
 msgstr "✓ Có mặt"
 
-#: admin/views/partials/status-env-cards.php:254
+#: admin/views/partials/status-env-cards.php:256
 msgid "⚠ Missing"
 msgstr "⚠ Thiếu"
 
@@ -355,7 +299,7 @@ msgid "Base Plugin Version"
 msgstr "Phiên bản plugin cơ bản"
 
 #: admin/views/status-general.php:44
-#: admin/views/status.php:80
+#: admin/views/status.php:81
 msgid "Pro Plugin"
 msgstr "Plugin Pro"
 
@@ -411,6 +355,7 @@ msgstr "✓ Đã tải"
 msgid "WordPress Multisite"
 msgstr "WordPress Multisite"
 
+#: admin/views/status-base.php:119
 #: admin/views/status-general.php:127
 msgid "No"
 msgstr "Không"
@@ -423,7 +368,6 @@ msgstr "Chế độ gỡ lỗi WP"
 msgid "Enabled"
 msgstr "Đã bật"
 
-#: admin/views/status-base.php:104
 #: admin/views/status-general.php:137
 msgid "Disabled"
 msgstr "Đã tắt"
@@ -432,6 +376,7 @@ msgstr "Đã tắt"
 msgid "Data Dir Writable"
 msgstr "Thư mục dữ liệu có thể ghi"
 
+#: admin/views/status-base.php:117
 #: admin/views/status-general.php:145
 #: admin/views/status-general.php:156
 msgid "✓ Yes"
@@ -466,9 +411,9 @@ msgid "Upgrade to GrabWP Tenancy Pro for advanced features including complete co
 msgstr "Nâng cấp lên GrabWP Tenancy Pro để có các tính năng nâng cao bao gồm cách ly nội dung hoàn toàn, cơ sở dữ liệu riêng cho mỗi tenant và khả năng quản lý nâng cao."
 
 #: admin/views/status-pro.php:29
-#: includes/class-grabwp-tenancy-admin.php:199
-#: includes/class-grabwp-tenancy-admin.php:200
-#: includes/class-grabwp-tenancy-admin.php:315
+#: includes/class-grabwp-tenancy-admin.php:328
+#: includes/class-grabwp-tenancy-admin.php:329
+#: includes/class-grabwp-tenancy-admin.php:452
 msgid "Upgrade to Pro"
 msgstr "Nâng cấp lên Pro"
 
@@ -481,8 +426,8 @@ msgid "Pro Version"
 msgstr "Phiên bản Pro"
 
 #: admin/views/status-pro.php:45
-#: includes/class-grabwp-tenancy-admin.php:189
-#: includes/class-grabwp-tenancy-admin.php:190
+#: includes/class-grabwp-tenancy-admin.php:318
+#: includes/class-grabwp-tenancy-admin.php:319
 msgid "Status"
 msgstr "Trạng thái"
 
@@ -547,32 +492,32 @@ msgstr "Tên người dùng MySQL"
 msgid "GrabWP Tenancy Status"
 msgstr "Trạng thái GrabWP Tenancy"
 
-#: admin/views/status.php:72
+#: admin/views/status.php:73
 msgid "Plugin General"
 msgstr "Plugin tổng quan"
 
-#: admin/views/status.php:76
+#: admin/views/status.php:77
 msgid "Base Plugin"
 msgstr "Plugin cơ bản"
 
-#: admin/views/status.php:93
+#: admin/views/status.php:94
 msgid "GrabWP Tenancy:"
 msgstr "GrabWP Tenancy:"
 
-#: admin/views/status.php:94
+#: admin/views/status.php:95
 msgid "You're using a legacy path structure. To comply with WordPress standards:"
 msgstr "Bạn đang sử dụng cấu trúc đường dẫn cũ. Để tuân thủ chuẩn WordPress:"
 
-#: admin/views/status.php:95
+#: admin/views/status.php:96
 msgid "1. Deactivate the plugin"
 msgstr "1. Tắt plugin"
 
-#: admin/views/status.php:98
+#: admin/views/status.php:99
 #, php-format
 msgid "2. Rename and move the entire %1$s folder to %2$s"
 msgstr "2. Đổi tên và di chuyển toàn bộ thư mục %1$s sang %2$s"
 
-#: admin/views/status.php:104
+#: admin/views/status.php:105
 msgid "3. Reactivate the plugin"
 msgstr "3. Kích hoạt lại plugin"
 
@@ -658,9 +603,10 @@ msgstr "Thao tác này sẽ ghi đè toàn bộ dữ liệu trong tenant đích 
 msgid "Clone Tenant"
 msgstr "Sao chép tenant"
 
+#: admin/views/settings-routing-confirm.php:108
 #: admin/views/tenant-clone.php:110
-#: admin/views/tenant-create.php:131
-#: admin/views/tenant-edit.php:124
+#: admin/views/tenant-create.php:159
+#: admin/views/tenant-edit.php:145
 msgid "Cancel"
 msgstr "Hủy"
 
@@ -705,56 +651,59 @@ msgid "Are you sure? All data in the target tenant will be overwritten."
 msgstr "Bạn có chắc chắn? Toàn bộ dữ liệu trong tenant đích sẽ bị ghi đè."
 
 #: admin/views/tenant-create.php:16
-#: includes/class-grabwp-tenancy-admin.php:162
+#: includes/class-grabwp-tenancy-admin.php:291
 msgid "Add New Tenant"
 msgstr "Thêm tenant mới"
 
-#: admin/views/tenant-create.php:17
+#: admin/views/tenant-create.php:23
 msgid "Create a new tenant. A path-based URL will be assigned automatically."
 msgstr "Tạo tenant mới. URL theo đường dẫn sẽ được gán tự động."
 
 #. translators: %s: source tenant ID or "Main Site"
-#: admin/views/tenant-create.php:33
+#: admin/views/tenant-create.php:42
 #, php-format
 msgid "After creating this tenant, you will be redirected to clone %s into it."
 msgstr "Sau khi tạo tenant này, bạn sẽ được chuyển hướng để sao chép %s vào đó."
 
-#: admin/views/tenant-create.php:66
+#: admin/views/tenant-create.php:75
 msgid "Domain Setup"
 msgstr "Thiết lập tên miền"
 
-#: admin/views/tenant-create.php:74
+#: admin/views/tenant-create.php:101
 msgid "I have a domain"
 msgstr "Tôi có tên miền"
 
-#: admin/views/tenant-create.php:79
+#: admin/views/tenant-create.php:90
+#: admin/views/tenant-create.php:106
 msgid "Enter domain (e.g. mysite.com)"
 msgstr "Nhập tên miền (vd: mysite.com)"
 
-#: admin/views/tenant-create.php:80
+#: admin/views/tenant-create.php:91
+#: admin/views/tenant-create.php:107
 msgid "Clear"
 msgstr "Xóa"
 
-#: admin/views/tenant-create.php:81
-#: admin/views/tenant-edit.php:91
-#: admin/views/tenant-edit.php:99
-#: includes/class-grabwp-tenancy-admin.php:252
+#: admin/views/tenant-create.php:108
+#: admin/views/tenant-edit.php:107
+#: admin/views/tenant-edit.php:115
+#: includes/class-grabwp-tenancy-admin.php:381
 msgid "Remove"
 msgstr "Xóa"
 
-#: admin/views/tenant-create.php:89
+#: admin/views/tenant-create.php:116
 msgid "I'll set up a domain later"
 msgstr "Tôi sẽ thiết lập tên miền sau"
 
-#: admin/views/tenant-create.php:93
+#: admin/views/tenant-create.php:82
+#: admin/views/tenant-create.php:120
 msgid "Your site will be accessible at:"
 msgstr "Trang web của bạn sẽ truy cập được tại:"
 
-#: admin/views/tenant-create.php:126
+#: admin/views/tenant-create.php:154
 msgid "Create Tenant & Clone"
 msgstr "Tạo tenant & sao chép"
 
-#: admin/views/tenant-create.php:127
+#: admin/views/tenant-create.php:155
 msgid "Create Tenant"
 msgstr "Tạo tenant"
 
@@ -769,45 +718,45 @@ msgid "Edit tenant settings and domain mappings."
 msgstr "Chỉnh sửa cài đặt tenant và ánh xạ tên miền."
 
 #: admin/views/tenant-edit.php:40
-#: includes/class-grabwp-tenancy-admin.php:408
-#: includes/class-grabwp-tenancy-tenant-crud.php:174
+#: includes/class-grabwp-tenancy-admin.php:545
+#: includes/class-grabwp-tenancy-tenant-crud.php:184
 msgid "Tenant updated successfully."
 msgstr "Cập nhật tenant thành công."
 
-#: admin/views/setup-steps/site.php:75
-#: admin/views/tenant-edit.php:70
+#: admin/views/tenant-edit.php:72
 msgid "Path URL"
 msgstr "URL đường dẫn"
 
 #: admin/views/partials/site-result.php:63
-#: admin/views/tenant-edit.php:75
+#: admin/views/setup-steps/done.php:66
+#: admin/views/tenant-edit.php:77
 msgid "Copy"
 msgstr "Sao chép"
 
-#: admin/views/tenant-edit.php:77
+#: admin/views/tenant-edit.php:79
 msgid "This URL is always available, no DNS configuration needed."
 msgstr "URL này luôn khả dụng, không cần cấu hình DNS."
 
-#: admin/views/tenant-edit.php:90
-#: admin/views/tenant-edit.php:98
-#: includes/class-grabwp-tenancy-admin.php:251
+#: admin/views/tenant-edit.php:106
+#: admin/views/tenant-edit.php:114
+#: includes/class-grabwp-tenancy-admin.php:380
 msgid "Enter domain (e.g., tenant1.grabwp.local)"
 msgstr "Nhập tên miền (vd: tenant1.grabwp.local)"
 
-#: admin/views/tenant-edit.php:104
+#: admin/views/tenant-edit.php:120
 msgid "Add New Domain"
 msgstr "Thêm tên miền mới"
 
-#: admin/views/tenant-edit.php:106
+#: admin/views/tenant-edit.php:122
 msgid "Valid format: example.com, subdomain.example.com (no http:// or www)"
 msgstr "Định dạng hợp lệ: example.com, subdomain.example.com (không có http:// hoặc www)"
 
-#: admin/views/tenant-edit.php:121
+#: admin/views/tenant-edit.php:142
 msgid "Update Tenant"
 msgstr "Cập nhật tenant"
 
 #: admin/views/tenants.php:18
-#: includes/class-grabwp-tenancy-admin.php:163
+#: includes/class-grabwp-tenancy-admin.php:292
 msgid "Add New"
 msgstr "Thêm mới"
 
@@ -830,7 +779,7 @@ msgstr "Tạo tenant đầu tiên"
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:138
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:254
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:276
+#: includes/class-grabwp-tenancy-admin.php:405
 msgid "Security check failed."
 msgstr "Kiểm tra bảo mật thất bại."
 
@@ -848,13 +797,16 @@ msgid "Target tenant not found."
 msgstr "Không tìm thấy tenant đích."
 
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:266
-#: includes/class-grabwp-tenancy-setup-wizard.php:446
-#: includes/class-grabwp-tenancy-setup-wizard.php:553
-#: includes/class-grabwp-tenancy-setup-wizard.php:590
+#: includes/class-grabwp-tenancy-setup-wizard.php:739
+#: includes/class-grabwp-tenancy-setup-wizard.php:757
+#: includes/class-grabwp-tenancy-setup-wizard.php:795
+#: includes/class-grabwp-tenancy-setup-wizard.php:978
+#: includes/class-grabwp-tenancy-setup-wizard.php:1032
+#: includes/class-grabwp-tenancy-setup-wizard.php:1435
 #: includes/class-grabwp-tenancy-tenant-crud.php:38
-#: includes/class-grabwp-tenancy-tenant-crud.php:95
-#: includes/class-grabwp-tenancy-tenant-crud.php:143
-#: includes/class-grabwp-tenancy-tenant-installer.php:124
+#: includes/class-grabwp-tenancy-tenant-crud.php:100
+#: includes/class-grabwp-tenancy-tenant-crud.php:148
+#: includes/class-grabwp-tenancy-tenant-installer.php:156
 msgid "Insufficient permissions."
 msgstr "Không đủ quyền."
 
@@ -914,15 +866,15 @@ msgstr "Đã nhập cơ sở dữ liệu vào tenant đích."
 msgid "Uploads copied."
 msgstr "Đã sao chép uploads."
 
-#: includes/backup/class-grabwp-tenancy-clone.php:252
+#: includes/backup/class-grabwp-tenancy-clone.php:253
 msgid "Site URLs updated."
 msgstr "Đã cập nhật URL trang web."
 
-#: includes/backup/class-grabwp-tenancy-clone.php:262
+#: includes/backup/class-grabwp-tenancy-clone.php:263
 msgid "Clone complete."
 msgstr "Sao chép hoàn tất."
 
-#: includes/class-grabwp-tenancy-admin-form-handler.php:179
+#: includes/class-grabwp-tenancy-admin-form-handler.php:180
 msgid "Failed to save settings. Please check file permissions."
 msgstr "Lưu cài đặt thất bại. Vui lòng kiểm tra quyền tệp."
 
@@ -949,108 +901,108 @@ msgstr "Thiếu thư mục dữ liệu."
 msgid "Root .htaccess needs to be updated for tenant routing."
 msgstr ".htaccess gốc cần được cập nhật để định tuyến tenant."
 
-#: includes/class-grabwp-tenancy-admin.php:143
+#: includes/class-grabwp-tenancy-admin.php:272
 msgid "Tenancy"
 msgstr "Quản lý tenant"
 
-#: includes/class-grabwp-tenancy-admin.php:153
-#: includes/class-grabwp-tenancy-admin.php:154
+#: includes/class-grabwp-tenancy-admin.php:282
+#: includes/class-grabwp-tenancy-admin.php:283
 msgid "All Tenants"
 msgstr "Tất cả tenant"
 
-#: includes/class-grabwp-tenancy-admin.php:171
-#: includes/class-grabwp-tenancy-admin.php:172
+#: includes/class-grabwp-tenancy-admin.php:300
+#: includes/class-grabwp-tenancy-admin.php:301
 msgid "Edit Tenant"
 msgstr "Chỉnh sửa tenant"
 
-#: includes/class-grabwp-tenancy-admin.php:253
+#: includes/class-grabwp-tenancy-admin.php:382
 msgid "To confirm deletion, type the tenant ID:"
 msgstr "Để xác nhận xóa, hãy nhập ID của tenant:"
 
-#: includes/class-grabwp-tenancy-admin.php:254
+#: includes/class-grabwp-tenancy-admin.php:383
 msgid "Incorrect tenant ID. Deletion cancelled."
 msgstr "ID tenant không đúng. Đã hủy việc xóa."
 
-#: includes/class-grabwp-tenancy-admin.php:282
+#: includes/class-grabwp-tenancy-admin.php:411
 msgid "Tenant ID is required."
 msgstr "Cần mã tenant."
 
-#: includes/class-grabwp-tenancy-admin.php:287
-#: includes/class-grabwp-tenancy-tenant-crud.php:109
-#: includes/class-grabwp-tenancy-tenant-crud.php:167
+#: includes/class-grabwp-tenancy-admin.php:416
+#: includes/class-grabwp-tenancy-tenant-crud.php:114
+#: includes/class-grabwp-tenancy-tenant-crud.php:177
 msgid "Tenant not found."
 msgstr "Không tìm thấy tenant."
 
-#: includes/class-grabwp-tenancy-admin.php:352
+#: includes/class-grabwp-tenancy-admin.php:489
 msgid "Template not found."
 msgstr "Không tìm thấy mẫu giao diện."
 
-#: includes/class-grabwp-tenancy-admin.php:407
-#: includes/class-grabwp-tenancy-tenant-crud.php:80
+#: includes/class-grabwp-tenancy-admin.php:544
+#: includes/class-grabwp-tenancy-tenant-crud.php:85
 msgid "Tenant created successfully."
 msgstr "Tạo tenant thành công."
 
-#: includes/class-grabwp-tenancy-admin.php:409
+#: includes/class-grabwp-tenancy-admin.php:546
 msgid "Tenant deleted successfully."
 msgstr "Xóa tenant thành công."
 
-#: includes/class-grabwp-tenancy-status-checker.php:290
+#: includes/class-grabwp-tenancy-status-checker.php:294
 msgid "Unknown"
 msgstr "Không xác định"
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:66
+#: includes/class-grabwp-tenancy-tenant-crud.php:71
 msgid "Failed to generate a unique tenant ID. Please try again."
 msgstr "Không thể tạo ID tenant duy nhất. Vui lòng thử lại."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:86
+#: includes/class-grabwp-tenancy-tenant-crud.php:91
 msgid "Failed to create tenant."
 msgstr "Tạo tenant thất bại."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:99
-#: includes/class-grabwp-tenancy-tenant-crud.php:147
-#: includes/class-grabwp-tenancy-tenant-installer.php:128
+#: includes/class-grabwp-tenancy-tenant-crud.php:104
+#: includes/class-grabwp-tenancy-tenant-crud.php:152
+#: includes/class-grabwp-tenancy-tenant-installer.php:160
 msgid "Invalid tenant ID."
 msgstr "Mã tenant không hợp lệ."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:116
+#: includes/class-grabwp-tenancy-tenant-crud.php:121
 msgid "Failed to delete tenant."
 msgstr "Xóa tenant thất bại."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:128
+#: includes/class-grabwp-tenancy-tenant-crud.php:133
 msgid "Tenant deleted successfully. All files and database tables removed."
 msgstr "Tenant đã được xóa thành công. Tất cả files và database tables đã được xóa."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:130
+#: includes/class-grabwp-tenancy-tenant-crud.php:135
 msgid "Tenant deleted successfully. Files removed, but some database tables may remain."
 msgstr "Tenant đã được xóa thành công. Files đã được xóa, nhưng một số database tables có thể còn lại."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:133
+#: includes/class-grabwp-tenancy-tenant-crud.php:138
 msgid "Tenant deleted, but some files or database tables may remain."
 msgstr "Tenant đã được xóa, nhưng một số files hoặc database tables có thể còn lại."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:177
+#: includes/class-grabwp-tenancy-tenant-crud.php:187
 msgid "Failed to update tenant."
 msgstr "Cập nhật tenant thất bại."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:197
+#: includes/class-grabwp-tenancy-tenant-crud.php:207
 msgid "Please enter at least one valid domain."
 msgstr "Vui lòng nhập ít nhất một tên miền hợp lệ."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:205
+#: includes/class-grabwp-tenancy-tenant-crud.php:215
 #, php-format
 msgid "Domain(s) already in use by other tenants: %s. Each domain can only be assigned to one tenant."
 msgstr "Tên miền đã được sử dụng bởi tenant khác: %s. Mỗi tên miền chỉ có thể gán cho một tenant."
 
-#: includes/class-grabwp-tenancy-tenant-crud.php:206
+#: includes/class-grabwp-tenancy-tenant-crud.php:216
 #, php-format
 msgid "Domain(s) already in use: %s. Each domain can only be assigned to one tenant."
 msgstr "Tên miền đã được sử dụng: %s. Mỗi tên miền chỉ có thể gán cho một tenant."
 
 #: admin/views/partials/upsell-card.php:20
-#: admin/views/tenant-create.php:142
-#: admin/views/tenant-edit.php:135
+#: admin/views/tenant-create.php:170
+#: admin/views/tenant-edit.php:156
 #: admin/views/tenants.php:64
-#: includes/class-grabwp-tenancy-admin.php:100
+#: includes/class-grabwp-tenancy-admin.php:229
 msgid "Learn about Pro"
 msgstr "Tìm hiểu về Pro"
 
@@ -1061,124 +1013,27 @@ msgid "Pro"
 msgstr "Pro"
 
 #: admin/views/settings.php:26
+#: admin/views/status-base.php:90
 msgid "Performance & Security"
 msgstr "Hiệu suất & Bảo mật"
 
-#: admin/views/settings.php:38
-msgid "Disallow tenant admins to install, update, and delete plugins/themes (DISALLOW_FILE_MODS)."
-msgstr "Không cho phép quản trị viên tenant cài đặt, cập nhật và xóa plugin/theme (DISALLOW_FILE_MODS)."
-
-#: admin/views/settings.php:43
-msgid "Disallow file mods"
-msgstr "Không cho phép sửa đổi file"
-
-#: admin/views/settings.php:50
-msgid "Disallow tenant admins to use the built-in plugin/theme file editor (DISALLOW_FILE_EDIT)."
-msgstr "Không cho phép quản trị viên tenant sử dụng trình sửa file plugin/theme tích hợp sẵn (DISALLOW_FILE_EDIT)."
-
-#: admin/views/settings.php:55
-msgid "Disallow file edit"
-msgstr "Không cho phép sửa file"
-
-#: admin/views/settings.php:62
-msgid "Hide the Plugins menu entirely from tenant admin dashboards."
-msgstr "Ẩn hoàn toàn menu Plugin khỏi bảng điều khiển của quản trị viên tenant."
-
-#: admin/views/settings.php:67
-msgid "Hide Plugins menu"
-msgstr "Ẩn menu Plugin"
-
-#: admin/views/settings.php:74
-msgid "Hide the Appearance menu entirely from tenant admin dashboards."
-msgstr "Ẩn hoàn toàn menu Giao diện khỏi bảng điều khiển của quản trị viên tenant."
-
-#: admin/views/settings.php:79
-msgid "Hide Appearance menu"
-msgstr "Ẩn menu Giao diện"
-
-#: admin/views/settings.php:86
-msgid "Hide GrabWP plugins from the plugin list on tenant sites."
-msgstr "Ẩn các plugin GrabWP khỏi danh sách plugin trên các trang tenant."
-
-#: admin/views/settings.php:91
-msgid "Hide from plugin list"
-msgstr "Ẩn khỏi danh sách plugin"
-
-#: admin/views/settings.php:103
-#: admin/views/settings.php:109
-#: includes/class-grabwp-tenancy-settings.php:143
+#: includes/class-grabwp-tenancy-settings.php:156
 msgid "Disable WP-Cron"
 msgstr "Tắt WP-Cron"
 
-#: admin/views/settings.php:104
-#: includes/class-grabwp-tenancy-settings.php:146
-msgid "Disable WordPress internal cron on tenant sites (DISABLE_WP_CRON). Use system cron instead."
-msgstr "Tắt cron nội bộ của WordPress trên các trang tenant (DISABLE_WP_CRON). Thay vào đó hãy sử dụng cron của hệ thống."
-
-#: admin/views/settings.php:115
-#: admin/views/settings.php:121
-#: includes/class-grabwp-tenancy-settings.php:149
+#: includes/class-grabwp-tenancy-settings.php:164
 msgid "Disable XML-RPC"
 msgstr "Tắt XML-RPC"
 
-#: admin/views/settings.php:116
-#: includes/class-grabwp-tenancy-settings.php:152
-msgid "Disable XML-RPC API on tenant sites. Reduces attack surface and prevents brute-force attempts."
-msgstr "Tắt API XML-RPC trên các trang tenant. Giảm bề mặt tấn công và ngăn chặn các nỗ lực dò mật khẩu (brute-force)."
-
-#: admin/views/settings.php:127
-#: includes/class-grabwp-tenancy-settings.php:155
-msgid "Post Revisions"
-msgstr "Các bản lưu bài viết"
-
-#: admin/views/settings.php:128
-#: includes/class-grabwp-tenancy-settings.php:158
-msgid "Maximum post revisions to keep (WP_POST_REVISIONS). Lower values save database space."
-msgstr "Số lượng bản lưu bài viết tối đa được giữ lại (WP_POST_REVISIONS). Giá trị thấp hơn giúp tiết kiệm dung lượng cơ sở dữ liệu."
-
-#: admin/views/settings.php:136
-#: includes/class-grabwp-tenancy-settings.php:163
-msgid "Empty Trash Days"
-msgstr "Số ngày dọn thùng rác"
-
-#: admin/views/settings.php:137
-#: includes/class-grabwp-tenancy-settings.php:166
-msgid "Days before trashed posts are permanently deleted (EMPTY_TRASH_DAYS). Set to 0 to disable trash."
-msgstr "Số ngày trước khi các bài viết trong thùng rác bị xóa vĩnh viễn (EMPTY_TRASH_DAYS). Đặt bằng 0 để vô hiệu hóa thùng rác."
-
-#: admin/views/settings.php:145
-#: includes/class-grabwp-tenancy-settings.php:171
-msgid "Block External HTTP"
-msgstr "Chặn HTTP bên ngoài"
-
-#: admin/views/settings.php:146
-#: includes/class-grabwp-tenancy-settings.php:174
-msgid "Block all external HTTP requests from tenant sites (WP_HTTP_BLOCK_EXTERNAL). Allowlist hosts below."
-msgstr "Chặn tất cả các yêu cầu HTTP bên ngoài từ các trang tenant (WP_HTTP_BLOCK_EXTERNAL). Cho phép danh sách các host bên dưới."
-
-#: admin/views/settings.php:151
-msgid "Block external HTTP"
-msgstr "Chặn HTTP bên ngoài"
-
-#: admin/views/settings.php:157
-#: includes/class-grabwp-tenancy-settings.php:177
-msgid "Accessible Hosts"
-msgstr "Các host có thể truy cập"
-
-#: admin/views/settings.php:158
-#: includes/class-grabwp-tenancy-settings.php:180
-msgid "Comma-separated hosts allowed when external HTTP is blocked (WP_ACCESSIBLE_HOSTS). Wildcards supported."
-msgstr "Các host được phép truy cập, phân cách bằng dấu phẩy, khi HTTP bên ngoài bị chặn (WP_ACCESSIBLE_HOSTS). Hỗ trợ ký tự đại diện (wildcard)."
-
-#: admin/views/settings.php:181
+#: admin/views/settings.php:68
 msgid "Scheduling and automatic backups"
 msgstr "Lên lịch và sao lưu tự động"
 
-#: admin/views/settings.php:182
+#: admin/views/settings.php:69
 msgid "Schedule automatic backups for each tenant site on an interval you control. Pro automatically pushes backup copies to secure offsite storage after each run, so you never lose client data to a server failure."
 msgstr "Lên lịch sao lưu tự động cho mỗi trang tenant theo khoảng thời gian bạn kiểm soát. Pro tự động đẩy các bản sao lưu đến lưu trữ bên ngoài an toàn sau mỗi lần chạy, do đó bạn không bao giờ mất dữ liệu khách hàng vì lỗi máy chủ."
 
-#: admin/views/settings.php:183
+#: admin/views/settings.php:70
 msgid "Learn about GrabWP Tenancy Pro"
 msgstr "Tìm hiểu về GrabWP Tenancy Pro"
 
@@ -1186,101 +1041,97 @@ msgstr "Tìm hiểu về GrabWP Tenancy Pro"
 msgid "Configured on the Settings page."
 msgstr "Được cấu hình trên trang Cài đặt."
 
-#: admin/views/partials/status-env-cards.php:39
-#: admin/views/partials/status-env-cards.php:92
-#: admin/views/partials/status-env-cards.php:142
-#: admin/views/partials/status-env-cards.php:203
-#: admin/views/partials/status-env-cards.php:260
+#: admin/views/partials/status-env-cards.php:41
+#: admin/views/partials/status-env-cards.php:94
+#: admin/views/partials/status-env-cards.php:144
+#: admin/views/partials/status-env-cards.php:205
+#: admin/views/partials/status-env-cards.php:262
 msgid "Fix steps and install code"
 msgstr "Các bước sửa lỗi và mã cài đặt"
 
-#: admin/views/partials/status-env-cards.php:41
+#: admin/views/partials/status-env-cards.php:43
 msgid "Loads tenant detection before WordPress boots so domain/path routing can identify the tenant."
 msgstr "Tải trình phát hiện tenant trước khi WordPress khởi động để định tuyến tên miền/đường dẫn có thể xác định tenant."
 
-#: admin/views/partials/status-env-cards.php:46
+#: admin/views/partials/status-env-cards.php:48
 #, php-format
 msgid "File: %1$s, place before %2$s"
 msgstr "File: %1$s, đặt trước %2$s"
 
-#: admin/views/partials/status-env-cards.php:65
+#: admin/views/partials/status-env-cards.php:67
 msgid "wp-config.php is not writable, manual install required"
 msgstr "Không thể ghi vào file wp-config.php, yêu cầu cài đặt thủ công"
 
-#: admin/views/partials/status-env-cards.php:67
+#: admin/views/partials/status-env-cards.php:69
 msgid "Stop-editing marker not found, manual install required"
 msgstr "Không tìm thấy điểm đánh dấu dừng chỉnh sửa, yêu cầu cài đặt thủ công"
 
-#: admin/views/partials/status-env-cards.php:94
+#: admin/views/partials/status-env-cards.php:96
 msgid "MU-plugins load on every request, including tenant admin, for settings sync and management features."
 msgstr "Các mu-plugin được tải trên mọi yêu cầu, bao gồm cả quản trị tenant, cho việc đồng bộ cài đặt và tính năng quản lý."
 
-#: admin/views/partials/status-env-cards.php:112
+#: admin/views/partials/status-env-cards.php:114
 msgid "mu-plugins directory is not writable, manual install required"
 msgstr "Không thể ghi vào thư mục mu-plugins, yêu cầu cài đặt thủ công"
 
-#: admin/views/partials/status-env-cards.php:147
+#: admin/views/partials/status-env-cards.php:149
 #, php-format
 msgid "Apache rewrite rules for path-based tenant URLs like /%s/{id}/wp-admin."
 msgstr "Các quy tắc viết lại (rewrite) của Apache cho URL tenant dựa trên đường dẫn như /%s/{id}/wp-admin."
 
-#: admin/views/partials/status-env-cards.php:153
+#: admin/views/partials/status-env-cards.php:155
 #, php-format
 msgid "File: %s, must appear BEFORE \"# BEGIN WordPress\""
 msgstr "File: %s, phải xuất hiện TRƯỚC \"# BEGIN WordPress\""
 
-#: admin/views/partials/status-env-cards.php:176
+#: admin/views/partials/status-env-cards.php:178
 msgid "Root directory or .htaccess is not writable, manual install required"
 msgstr "Không thể ghi vào thư mục gốc hoặc .htaccess, yêu cầu cài đặt thủ công"
 
-#: admin/views/partials/status-env-cards.php:205
+#: admin/views/partials/status-env-cards.php:207
 msgid "Blocks direct HTTP access to PHP files and directory listing in the tenant data directory."
 msgstr "Chặn truy cập HTTP trực tiếp vào các file PHP và liệt kê thư mục trong thư mục dữ liệu tenant."
 
-#: admin/views/partials/status-env-cards.php:236
-#: admin/views/partials/status-env-cards.php:287
+#: admin/views/partials/status-env-cards.php:238
+#: admin/views/partials/status-env-cards.php:289
 msgid "Data directory is not writable, manual install required"
 msgstr "Không thể ghi vào thư mục dữ liệu, yêu cầu cài đặt thủ công"
 
-#: admin/views/partials/status-env-cards.php:262
+#: admin/views/partials/status-env-cards.php:264
 msgid "Blank index.php prevents directory listing when .htaccess is unavailable."
 msgstr "File index.php trống ngăn chặn liệt kê thư mục khi .htaccess không khả dụng."
 
-#: admin/views/partials/status-env-cards.php:303
+#: admin/views/partials/status-env-cards.php:305
 msgid "Shared Files Lock"
 msgstr "Khóa file chia sẻ"
 
-#: admin/views/partials/status-env-cards.php:305
+#: admin/views/partials/status-env-cards.php:307
 msgid "Locked"
 msgstr "Đã khóa"
 
-#: admin/views/partials/status-env-cards.php:307
+#: admin/views/partials/status-env-cards.php:309
 msgid "Unlocked"
 msgstr "Đã mở khóa"
 
-#: admin/views/partials/status-env-cards.php:311
+#: admin/views/partials/status-env-cards.php:313
 msgid "Makes the shared root files read-only (0444) so tenant plugins cannot rewrite them. GrabWP and main-site permalink saves unlock and re-lock automatically."
 msgstr "Thiết lập các file gốc chia sẻ ở trạng thái chỉ đọc (0444) để plugin tenant không thể ghi đè. Việc lưu đường dẫn tĩnh của GrabWP và trang web chính sẽ tự động mở khóa và khóa lại."
 
-#: admin/views/partials/status-env-cards.php:312
+#: admin/views/partials/status-env-cards.php:314
 msgid "If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again."
 msgstr "Nếu một plugin của trang web chính (ví dụ: plugin bộ nhớ cache) cần ghi vào các file này, hãy Mở khóa tạm thời, sau đó Khóa lại."
 
 #. translators: %d: number of snapshot files.
-#: admin/views/partials/status-env-cards.php:325
+#: admin/views/partials/status-env-cards.php:327
 #, php-format
 msgid "Integrity snapshots: %d"
 msgstr "Ảnh chụp toàn vẹn: %d"
 
-#: admin/views/partials/status-env-cards.php:327
-msgid "Watched but could not be locked (check file ownership):"
-msgstr "Đã theo dõi nhưng không thể khóa (kiểm tra quyền sở hữu file):"
-
-#: admin/views/partials/status-env-cards.php:335
+#: admin/views/partials/status-env-cards.php:338
 msgid "Unlock shared files"
 msgstr "Mở khóa các file chia sẻ"
 
-#: admin/views/partials/status-env-cards.php:335
+#: admin/views/partials/status-env-cards.php:338
 msgid "Lock shared files"
 msgstr "Khóa các file chia sẻ"
 
@@ -1314,7 +1165,7 @@ msgstr "Dùng chung"
 msgid "Database (Default)"
 msgstr "Cơ sở dữ liệu (Mặc định)"
 
-#: admin/views/status.php:125
+#: admin/views/status.php:126
 msgid "← active"
 msgstr "← đang hoạt động"
 
@@ -1331,19 +1182,19 @@ msgstr "GrabWP Tenancy Pro lên lịch sao lưu tự động cho mọi trang web
 msgid "Get GrabWP Tenancy Pro"
 msgstr "Sở hữu GrabWP Tenancy Pro"
 
-#: admin/views/tenant-create.php:67
+#: admin/views/tenant-create.php:76
 msgid "Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page."
 msgstr "Nhập không có http:// hoặc www (ví dụ: mysite.com, blog.mysite.com). Bạn có thể thêm tên miền bất cứ lúc nào từ trang chỉnh sửa tenant."
 
-#: admin/views/tenant-create.php:140
+#: admin/views/tenant-create.php:168
 msgid "GrabWP Tenancy Pro adds isolated databases, custom plugin & theme management, scheduled backups, cloud storage offload, and more for every client site."
 msgstr "GrabWP Tenancy Pro bổ sung các cơ sở dữ liệu cách ly, quản lý plugin & theme tùy chỉnh, sao lưu theo lịch trình, chuyển tải lưu trữ đám mây, và nhiều tính năng khác cho mỗi trang web khách hàng."
 
-#: admin/views/tenant-create.php:141
+#: admin/views/tenant-create.php:169
 msgid "Better isolation, more control"
 msgstr "Cách ly tốt hơn, kiểm soát nhiều hơn"
 
-#: admin/views/tenant-edit.php:133
+#: admin/views/tenant-edit.php:154
 msgid "Need more control? GrabWP Tenancy Pro adds isolated databases (MySQL or SQLite), scheduled backups, cloud storage offload, and more for every client site."
 msgstr "Cần kiểm soát nhiều hơn? GrabWP Tenancy Pro bổ sung cơ sở dữ liệu cách ly (MySQL hoặc SQLite), sao lưu theo lịch trình, chuyển tải lưu trữ đám mây và nhiều tính năng khác cho mỗi trang web khách hàng."
 
@@ -1411,7 +1262,7 @@ msgstr "Quản lý tiện ích mở rộng (symlink/copy/repair)"
 msgid "Storage driver selection (Local / S3)"
 msgstr "Lựa chọn trình điều khiển lưu trữ (Local / S3)"
 
-#: includes/class-grabwp-tenancy-admin.php:99
+#: includes/class-grabwp-tenancy-admin.php:228
 msgid "GrabWP Tenancy Pro adds scheduled auto backups, offsite cloud storage, dedicated database isolation, and more for every client site."
 msgstr "GrabWP Tenancy Pro bổ sung sao lưu tự động theo lịch trình, lưu trữ đám mây bên ngoài, cách ly cơ sở dữ liệu chuyên dụng, và nhiều tính năng khác cho mỗi trang web khách hàng."
 
@@ -1428,95 +1279,103 @@ msgid "See grabwp_debug.log for details. If you changed these files yourself, us
 msgstr "Xem grabwp_debug.log để biết chi tiết. Nếu bạn tự thay đổi các file này, hãy sử dụng Mở khóa sau đó Khóa trên trang Trạng thái để làm mới ảnh chụp."
 
 #: includes/class-grabwp-tenancy-integrity-watchdog.php:265
-#: includes/class-grabwp-tenancy-setup-wizard.php:435
+#: includes/class-grabwp-tenancy-setup-wizard.php:700
+#: includes/class-grabwp-tenancy-setup-wizard.php:727
 msgid "Dismiss"
 msgstr "Bỏ qua"
 
-#: includes/class-grabwp-tenancy-status-checker.php:178
+#: includes/class-grabwp-tenancy-status-checker.php:182
 msgid "Multiple tenants.php files detected"
 msgstr "Phát hiện nhiều file tenants.php"
 
-#: includes/class-grabwp-tenancy-status-checker.php:179
+#: includes/class-grabwp-tenancy-status-checker.php:183
 msgid "Only one tenants.php is loaded at boot. Stale copies at other locations may cause confusion during debugging or migration. Remove unused copies."
 msgstr "Chỉ có một file tenants.php được tải lúc khởi động. Các bản sao cũ ở các vị trí khác có thể gây nhầm lẫn trong quá trình gỡ lỗi hoặc di chuyển. Hãy xóa các bản sao không dùng đến."
 
-#: includes/class-grabwp-tenancy-status-checker.php:205
+#: includes/class-grabwp-tenancy-status-checker.php:209
 msgid "Multiple global config.php files detected"
 msgstr "Phát hiện nhiều file config.php toàn cục"
 
-#: includes/class-grabwp-tenancy-status-checker.php:206
+#: includes/class-grabwp-tenancy-status-checker.php:210
 msgid "Pro global configuration exists at both new and legacy locations. Boot loads the new path first; changes saved to the other copy are silently ignored. Remove the unused copy."
 msgstr "Cấu hình toàn cục Pro tồn tại ở cả vị trí mới và cũ. Quá trình khởi động tải đường dẫn mới trước tiên; những thay đổi lưu vào bản sao kia sẽ bị bỏ qua. Hãy xóa bản sao không dùng đến."
 
-#: includes/class-grabwp-tenancy-status-checker.php:216
+#: includes/class-grabwp-tenancy-status-checker.php:220
 msgid "Data directory inside uploads/"
 msgstr "Thư mục dữ liệu nằm trong uploads/"
 
-#: includes/class-grabwp-tenancy-status-checker.php:217
+#: includes/class-grabwp-tenancy-status-checker.php:221
 msgid "Tenant data is inside wp-content/uploads/ — exposed to media upload scanners, backup tools, and CDN sync. Recommended: wp-content/grabwp-tenancy/."
 msgstr "Dữ liệu tenant nằm trong thư mục wp-content/uploads/ - hiển thị đối với trình quét tải lên phương tiện, công cụ sao lưu và đồng bộ CDN. Khuyên dùng: wp-content/grabwp-tenancy/."
 
-#: includes/class-grabwp-tenancy-status-checker.php:226
+#: includes/class-grabwp-tenancy-status-checker.php:230
 msgid "Pro config directory inside uploads/"
 msgstr "Thư mục cấu hình Pro nằm trong uploads/"
 
-#: includes/class-grabwp-tenancy-status-checker.php:227
+#: includes/class-grabwp-tenancy-status-checker.php:231
 msgid "Pro tenant configs are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-pro/."
 msgstr "Cấu hình tenant Pro nằm trong wp-content/uploads/. Khuyên dùng: wp-content/grabwp-tenancy-pro/."
 
-#: includes/class-grabwp-tenancy-status-checker.php:237
+#: includes/class-grabwp-tenancy-status-checker.php:241
 msgid "SQLite directory inside uploads/"
 msgstr "Thư mục SQLite nằm trong uploads/"
 
-#: includes/class-grabwp-tenancy-status-checker.php:238
+#: includes/class-grabwp-tenancy-status-checker.php:242
 msgid "SQLite databases are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-sqlite/."
 msgstr "Cơ sở dữ liệu SQLite nằm trong wp-content/uploads/. Khuyên dùng: wp-content/grabwp-tenancy-sqlite/."
 
-#: includes/class-grabwp-tenancy-status-checker.php:257
+#: includes/class-grabwp-tenancy-status-checker.php:261
 msgid "Directory paths hardcoded in wp-config.php"
 msgstr "Các đường dẫn thư mục được hardcode trong wp-config.php"
 
-#: includes/class-grabwp-tenancy-status-checker.php:258
+#: includes/class-grabwp-tenancy-status-checker.php:262
 msgid "Constants defined before load.php override all auto-detection and Pro admin directory settings."
 msgstr "Các hằng số được định nghĩa trước file load.php sẽ ghi đè tất cả cài đặt tự động phát hiện và cài đặt thư mục quản trị Pro."
 
-#: includes/class-grabwp-tenancy-status-checker.php:273
+#: includes/class-grabwp-tenancy-status-checker.php:277
 msgid "Multiple tenant-aliases.php files detected"
 msgstr "Phát hiện nhiều file tenant-aliases.php"
 
-#: includes/class-grabwp-tenancy-status-checker.php:274
+#: includes/class-grabwp-tenancy-status-checker.php:278
 msgid "Only the copy at the active base directory is loaded. Remove stale copies to prevent confusion."
 msgstr "Chỉ bản sao ở thư mục cơ sở đang hoạt động mới được tải. Hãy xóa các bản sao cũ để tránh gây nhầm lẫn."
 
 #. translators: %s: reason the install failed.
 #: admin/views/partials/site-result.php:33
+#: admin/views/setup-steps/done.php:50
 #, php-format
 msgid "The site was created but WordPress could not be installed automatically: %s"
 msgstr "Trang web đã được tạo nhưng không thể tự động cài đặt WordPress: %s"
 
 #: admin/views/partials/site-result.php:39
+#: admin/views/setup-steps/done.php:56
 msgid "Finish install in browser"
 msgstr "Hoàn tất cài đặt trong trình duyệt"
 
 #. translators: %s: tenant ID.
 #: admin/views/partials/site-result.php:49
+#: admin/views/setup-steps/done.php:38
 #, php-format
 msgid "Site created: %s"
 msgstr "Đã tạo trang web: %s"
 
 #: admin/views/partials/site-result.php:58
+#: admin/views/setup-steps/done.php:61
 msgid "Username"
 msgstr "Tên người dùng"
 
 #: admin/views/partials/site-result.php:60
+#: admin/views/setup-steps/done.php:63
 msgid "Password"
 msgstr "Mật khẩu"
 
 #: admin/views/partials/site-result.php:62
+#: admin/views/setup-steps/done.php:65
 msgid "Show"
 msgstr "Hiện"
 
 #: admin/views/partials/site-result.php:62
+#: admin/views/setup-steps/done.php:65
 msgid "Hide"
 msgstr "Ẩn"
 
@@ -1525,123 +1384,97 @@ msgid "This password is shown once. You do not need it: the 1-click Admin button
 msgstr "Mật khẩu này chỉ hiển thị một lần. Bạn không cần đến nó: nút Quản trị 1 nhấp sẽ đăng nhập cho bạn."
 
 #: admin/views/partials/site-result.php:68
-#: admin/views/setup-steps/done.php:35
+#: admin/views/setup-steps/done.php:92
 msgid "Open site admin (1-click)"
 msgstr "Mở trang quản trị (1 nhấp)"
 
-#: admin/views/setup-steps/check.php:38
-msgid "Check your server"
-msgstr "Kiểm tra máy chủ"
-
-#. translators: %s: example path URL such as /site/{id}
-#: admin/views/setup-steps/check.php:43
-#, php-format
-msgid "GrabWP set these up when you activated it. Path URLs like %s need every item below."
-msgstr "GrabWP đã thiết lập các mục này khi bạn kích hoạt. URL đường dẫn như %s cần tất cả các mục bên dưới."
-
-#: admin/views/setup-steps/check.php:55
+#: admin/views/setup-steps/check.php:110
 msgid "Site can reach itself (loopback)"
 msgstr "Trang web có thể tự truy cập chính nó (loopback)"
 
-#: admin/views/setup-steps/check.php:57
+#: admin/views/setup-steps/check.php:112
 msgid "OK"
 msgstr "OK"
 
-#: admin/views/setup-steps/check.php:59
+#: admin/views/setup-steps/check.php:114
 msgid "Failed"
 msgstr "Thất bại"
 
-#: admin/views/setup-steps/check.php:65
+#: admin/views/setup-steps/check.php:120
 msgid "GrabWP can install WordPress in new sites for you."
 msgstr "GrabWP có thể cài đặt WordPress cho các trang web mới giúp bạn."
 
-#: admin/views/setup-steps/check.php:66
+#: admin/views/setup-steps/check.php:121
 msgid "This server cannot open its own address, so new sites must be installed in the browser. Check firewall, basic auth, or the server routing rules."
 msgstr "Máy chủ này không thể mở địa chỉ của chính nó, vì vậy các trang web mới phải được cài đặt trong trình duyệt. Hãy kiểm tra tường lửa, basic auth hoặc quy tắc định tuyến của máy chủ."
 
-#: admin/views/setup-steps/check.php:73
+#: admin/views/setup-steps/check.php:128
 msgid ".htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
 msgstr "Nginx không sử dụng tệp .htaccess. Hãy cấu hình định tuyến tenant trong khối server."
 
 #. translators: %d: number of items that need attention.
-#: admin/views/setup-steps/check.php:82
+#: admin/views/setup-steps/check.php:74
 #, php-format
 msgid "%d item needs attention."
 msgid_plural "%d items need attention."
 msgstr[0] "%d mục cần chú ý."
 
-#: admin/views/setup-steps/check.php:86
+#: admin/views/setup-steps/check.php:78
 msgid "Fix automatically"
 msgstr "Tự động khắc phục"
 
-#: admin/views/setup-steps/check.php:91
-msgid "Everything is ready."
-msgstr "Mọi thứ đã sẵn sàng."
-
-#: admin/views/setup-steps/done.php:19
+#: admin/views/setup-steps/done.php:21
 msgid "You're ready"
 msgstr "Bạn đã sẵn sàng"
 
-#: admin/views/setup-steps/done.php:27
+#: admin/views/setup-steps/done.php:81
 msgid "Open this step"
 msgstr "Mở bước này"
 
-#: admin/views/setup-steps/done.php:36
+#: admin/views/setup-steps/done.php:93
 msgid "Visit site"
 msgstr "Xem trang web"
 
-#: admin/views/setup-steps/done.php:38
-msgid "All tenants"
-msgstr "Tất cả tenant"
-
-#: admin/views/setup-steps/done.php:51
-msgid "Next:"
-msgstr "Tiếp theo:"
-
-#: admin/views/setup-steps/site.php:37
-#: includes/class-grabwp-tenancy-setup-wizard.php:722
-msgid "Activate a license to create tenants."
-msgstr "Kích hoạt bản quyền để tạo tenant."
-
-#: admin/views/setup-steps/site.php:38
-msgid "Go to the License step"
-msgstr "Đến bước Bản quyền"
-
-#: admin/views/setup-steps/site.php:44
+#: admin/views/setup-steps/site.php:34
 #: admin/views/setup-wizard.php:18
 msgid "Save and continue"
 msgstr "Lưu và tiếp tục"
 
-#: admin/views/setup-steps/site.php:47
+#: admin/views/settings-routing-confirm.php:36
+#: admin/views/settings-routing-confirm.php:62
+#: admin/views/setup-steps/site.php:37
+#: admin/views/setup-steps/site.php:55
 msgid "Site"
 msgstr "Trang web"
 
-#: admin/views/setup-steps/site.php:50
+#: admin/views/setup-steps/site.php:44
 msgid "Create a new site"
 msgstr "Tạo trang web mới"
 
-#: admin/views/setup-steps/site.php:51
+#: admin/views/setup-steps/site.php:49
 msgid "Use an existing site"
 msgstr "Dùng trang web có sẵn"
 
-#: admin/views/setup-steps/site.php:52
+#: admin/views/setup-steps/site.php:58
 msgid "Existing site"
 msgstr "Trang web có sẵn"
 
-#: admin/views/setup-steps/site.php:65
+#: admin/views/setup-steps/site.php:70
 msgid "Site title"
 msgstr "Tiêu đề trang web"
 
-#: admin/views/setup-steps/site.php:70
+#: admin/views/setup-steps/site.php:75
+#: admin/views/setup-steps/site.php:103
 msgid "Address"
 msgstr "Địa chỉ"
 
-#: admin/views/setup-steps/site.php:78
+#: admin/views/setup-steps/site.php:80
 msgid "Works now. No DNS needed. The ID is created on save."
 msgstr "Dùng được ngay. Không cần DNS. ID được tạo khi lưu."
 
-#: admin/views/setup-steps/site.php:81
 #: admin/views/setup-steps/site.php:83
+#: admin/views/setup-steps/site.php:97
+#: admin/views/setup-steps/site.php:106
 msgid "Custom domain"
 msgstr "Tên miền riêng"
 
@@ -1649,146 +1482,707 @@ msgstr "Tên miền riêng"
 msgid "Point the domain's DNS to this server first."
 msgstr "Hãy trỏ DNS của tên miền về máy chủ này trước."
 
-#: admin/views/setup-steps/site.php:90
-msgid "Admin email"
-msgstr "Email quản trị"
-
-#: admin/views/setup-steps/site.php:95
-#: admin/views/tenant-create.php:103
+#: admin/views/setup-steps/site.php:120
+#: admin/views/tenant-create.php:131
 msgid "WordPress"
 msgstr "WordPress"
 
-#: admin/views/setup-steps/site.php:99
-#: admin/views/tenant-create.php:107
+#: admin/views/tenant-create.php:135
 msgid "Install WordPress now"
 msgstr "Cài đặt WordPress ngay"
 
-#: admin/views/setup-steps/site.php:101
-#: admin/views/tenant-create.php:109
+#: admin/views/tenant-create.php:137
 msgid "Creates the site's database and an administrator named after the site ID with a random password. Use the 1-click Admin button to log in; you never need the password."
 msgstr "Tạo cơ sở dữ liệu của trang web và một quản trị viên mang tên ID trang web với mật khẩu ngẫu nhiên. Dùng nút Quản trị 1 nhấp để đăng nhập; bạn không bao giờ cần đến mật khẩu."
 
-#: admin/views/setup-steps/site.php:103
+#: admin/views/setup-steps/site.php:128
 msgid "Turned off because this server cannot reach itself (see the Check step). You can finish the install in the browser after the site is created."
 msgstr "Đã tắt vì máy chủ này không thể tự truy cập chính nó (xem bước Kiểm tra). Bạn có thể hoàn tất cài đặt trong trình duyệt sau khi tạo trang web."
 
-#: admin/views/setup-wizard.php:24
-#: includes/class-grabwp-tenancy-setup-wizard.php:43
-#: includes/class-grabwp-tenancy-setup-wizard.php:44
+#: admin/views/setup-wizard.php:25
+#: includes/class-grabwp-tenancy-setup-wizard.php:67
+#: includes/class-grabwp-tenancy-setup-wizard.php:68
 msgid "GrabWP setup"
 msgstr "Thiết lập GrabWP"
 
-#: admin/views/setup-wizard.php:25
+#: admin/views/setup-wizard.php:26
 msgid "Exit setup"
 msgstr "Thoát thiết lập"
 
-#: admin/views/setup-wizard.php:85
+#: admin/views/setup-wizard.php:125
 msgid "Back"
 msgstr "Quay lại"
 
-#: admin/views/setup-wizard.php:89
+#: admin/views/setup-wizard.php:129
 msgid "Skip this step"
 msgstr "Bỏ qua bước này"
 
-#: admin/views/status.php:66
+#: includes/class-grabwp-tenancy-setup-wizard.php:355
 msgid "Run setup wizard"
 msgstr "Chạy trình hướng dẫn thiết lập"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:112
-msgid "Check"
-msgstr "Kiểm tra"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:116
+#: includes/class-grabwp-tenancy-setup-wizard.php:143
+#: includes/class-grabwp-tenancy-setup-wizard.php:151
 msgid "Continue"
 msgstr "Tiếp tục"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:120
+#: includes/class-grabwp-tenancy-setup-wizard.php:165
 msgid "First site"
 msgstr "Trang web đầu tiên"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:124
+#: includes/class-grabwp-tenancy-setup-wizard.php:170
 msgid "Create site"
 msgstr "Tạo trang web"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:129
+#: includes/class-grabwp-tenancy-setup-wizard.php:186
 msgid "Done"
 msgstr "Hoàn tất"
 
 #. translators: %d: number of setup steps left.
-#: includes/class-grabwp-tenancy-setup-wizard.php:426
+#: includes/class-grabwp-tenancy-setup-wizard.php:691
 #, php-format
 msgid "GrabWP: finish setup to get your first site running (%d step left)."
 msgid_plural "GrabWP: finish setup to get your first site running (%d steps left)."
 msgstr[0] "GrabWP: hoàn tất thiết lập để chạy trang web đầu tiên (còn %d bước)."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:432
+#: includes/class-grabwp-tenancy-setup-wizard.php:697
 msgid "Continue setup"
 msgstr "Tiếp tục thiết lập"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:596
+#: includes/class-grabwp-tenancy-setup-wizard.php:1038
 msgid "Unknown setup step."
 msgstr "Bước thiết lập không xác định."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:671
+#: includes/class-grabwp-tenancy-setup-wizard.php:1256
 msgid "Create your first site"
 msgstr "Tạo trang web đầu tiên của bạn"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:672
-msgid "A new site that opens on a path URL right away. No DNS needed."
-msgstr "Một trang web mới mở ngay trên URL đường dẫn. Không cần DNS."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:673
+#: includes/class-grabwp-tenancy-setup-wizard.php:1258
 msgid "My First Site"
 msgstr "Trang web đầu tiên của tôi"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:732
+#: includes/class-grabwp-tenancy-setup-wizard.php:1304
 msgid "Pick a site from the list."
 msgstr "Chọn một trang web trong danh sách."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:741
+#: includes/class-grabwp-tenancy-setup-wizard.php:1313
 msgid "Enter a site title (up to 100 characters)."
 msgstr "Nhập tiêu đề trang web (tối đa 100 ký tự)."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:745
+#: includes/class-grabwp-tenancy-setup-wizard.php:1317
 msgid "Enter a valid admin email."
 msgstr "Nhập email quản trị hợp lệ."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:752
+#: includes/class-grabwp-tenancy-setup-wizard.php:1335
 msgid "Enter the custom domain, or choose Path URL."
 msgstr "Nhập tên miền riêng, hoặc chọn URL đường dẫn."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:800
+#: includes/class-grabwp-tenancy-setup-wizard.php:1479
 msgid "Server checked"
 msgstr "Đã kiểm tra máy chủ"
 
 #. translators: %s: tenant ID.
-#: includes/class-grabwp-tenancy-setup-wizard.php:817
+#: includes/class-grabwp-tenancy-setup-wizard.php:1496
 #, php-format
 msgid "Site %s created and installed"
 msgstr "Đã tạo và cài đặt trang web %s"
 
 #. translators: %s: tenant ID.
-#: includes/class-grabwp-tenancy-setup-wizard.php:819
+#: includes/class-grabwp-tenancy-setup-wizard.php:1498
 #, php-format
 msgid "Site %s created; WordPress is not installed yet"
 msgstr "Đã tạo trang web %s; WordPress chưa được cài đặt"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:825
+#: includes/class-grabwp-tenancy-setup-wizard.php:1504
 msgid "First site: Skipped"
 msgstr "Trang web đầu tiên: Đã bỏ qua"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:843
+#: includes/class-grabwp-tenancy-setup-wizard.php:1522
 msgid "Map a custom domain"
 msgstr "Gắn tên miền riêng"
 
 #. translators: %s: name of a setup item.
-#: includes/class-grabwp-tenancy-setup-wizard.php:879
+#: includes/class-grabwp-tenancy-setup-wizard.php:1565
 #, php-format
 msgid "%s: Skipped"
 msgstr "%s: Đã bỏ qua"
 
 #. translators: %d: HTTP status code.
-#: includes/class-grabwp-tenancy-tenant-installer.php:183
+#: includes/class-grabwp-tenancy-tenant-installer.php:215
 #, php-format
 msgid "The site answered with HTTP %d."
 msgstr "Trang web phản hồi với mã HTTP %d."
+
+#. translators: %d: number of domains stored for the site.
+#: admin/class-grabwp-tenancy-list-table.php:303
+#, php-format
+msgid "%d stored domain, not used in Path mode"
+msgid_plural "%d stored domains, not used in Path mode"
+msgstr[0] "%d tên miền đã lưu, không dùng ở chế độ Đường dẫn"
+
+#. translators: %s: example path URL of a site.
+#: admin/views/partials/routing-mode-options.php:20
+#, php-format
+msgid "Every site opens at %s. Works right away, no DNS needed. Domains you add are kept but not used for links."
+msgstr "Mỗi trang web mở tại %s. Dùng được ngay, không cần DNS. Tên miền bạn thêm vẫn được lưu nhưng không dùng cho liên kết."
+
+#: admin/views/partials/routing-mode-options.php:23
+msgid "Every site opens on its own domain. Visitors who open a path URL of a site are redirected (301) to its domain. Every site needs a domain."
+msgstr "Mỗi trang web mở trên tên miền riêng. Khách truy cập mở URL đường dẫn của trang web sẽ được chuyển hướng (301) đến tên miền của trang đó. Mỗi trang web cần có một tên miền."
+
+#: admin/views/partials/routing-mode-options.php:24
+msgid "Sites with a domain open on it; sites without one open on the path URL. Both addresses keep working. This is how GrabWP worked before routing modes."
+msgstr "Trang web có tên miền sẽ mở trên tên miền đó; trang web chưa có sẽ mở trên URL đường dẫn. Cả hai địa chỉ đều tiếp tục hoạt động. Đây là cách GrabWP hoạt động trước khi có các chế độ định tuyến."
+
+#: admin/views/partials/routing-mode-options.php:28
+#: admin/views/partials/settings-routing.php:43
+#: admin/views/setup-steps/routing.php:66
+msgid "Routing mode"
+msgstr "Chế độ định tuyến"
+
+#: admin/views/partials/settings-field-rows.php:43
+msgid "Yes"
+msgstr "Có"
+
+#. translators: %s: technical constant or setting name, e.g. DISALLOW_FILE_MODS=true
+#: admin/views/partials/settings-field-rows.php:47
+#, php-format
+msgid "Yes, %s"
+msgstr "Có, %s"
+
+#. translators: %s: constant name.
+#: admin/views/partials/settings-routing.php:21
+#: admin/views/setup-steps/routing.php:50
+#, php-format
+msgid "The routing mode is set by %s in wp-config.php. Remove the constant to change it here."
+msgstr "Chế độ định tuyến được đặt bởi %s trong wp-config.php. Hãy xóa hằng số đó để thay đổi tại đây."
+
+#. translators: %s: constant name.
+#: admin/views/partials/settings-routing.php:33
+#, php-format
+msgid "%s in wp-config.php is not a valid mode (path, domain or both), so it is ignored."
+msgstr "%s trong wp-config.php không phải là chế độ hợp lệ (path, domain hoặc both), nên đã bị bỏ qua."
+
+#: admin/views/partials/settings-routing.php:46
+msgid "Not saved yet. Your sites use Path and domain, the behaviour from before routing modes."
+msgstr "Chưa được lưu. Các trang web của bạn đang dùng chế độ Đường dẫn và tên miền, theo cách hoạt động trước khi có chế độ định tuyến."
+
+#: admin/views/partials/settings-routing.php:63
+msgid "Path prefix"
+msgstr "Tiền tố đường dẫn"
+
+#: admin/views/partials/settings-routing.php:66
+msgid "GrabWP Tenancy Pro can change the prefix and give each site a readable alias."
+msgstr "GrabWP Tenancy Pro có thể thay đổi tiền tố và đặt đường dẫn bí danh dễ đọc cho mỗi trang web."
+
+#: admin/views/partials/status-env-cards.php:33
+msgid "In wp-config.php, reload to confirm"
+msgstr "Đã có trong wp-config.php, tải lại trang để xác nhận"
+
+#: admin/views/partials/status-env-cards.php:330
+msgid "Watched for changes. Not read-only, because the web server does not own these files (optional):"
+msgstr "Đang theo dõi thay đổi. Không ở chế độ chỉ đọc vì máy chủ web không sở hữu các tệp này (tùy chọn):"
+
+#: admin/views/settings-routing-confirm.php:17
+msgid "Change routing mode"
+msgstr "Đổi chế độ định tuyến"
+
+#. translators: 1: current routing mode, 2: new routing mode.
+#: admin/views/settings-routing-confirm.php:22
+#, php-format
+msgid "From %1$s to %2$s."
+msgstr "Từ %1$s sang %2$s."
+
+#: admin/views/settings-routing-confirm.php:31
+#: includes/class-grabwp-tenancy-admin-form-handler.php:234
+msgid "Domain mode needs a domain for every site. These sites have none yet:"
+msgstr "Chế độ Tên miền yêu cầu mỗi trang web phải có một tên miền. Các trang web sau chưa có tên miền:"
+
+#: admin/views/settings-routing-confirm.php:37
+msgid "Action"
+msgstr "Thao tác"
+
+#: admin/views/settings-routing-confirm.php:45
+msgid "Add a domain"
+msgstr "Thêm tên miền"
+
+#: admin/views/settings-routing-confirm.php:52
+msgid "Back to Routing settings"
+msgstr "Quay lại cài đặt Định tuyến"
+
+#: admin/views/settings-routing-confirm.php:55
+msgid "Sites whose address changes"
+msgstr "Các trang web thay đổi địa chỉ"
+
+#: admin/views/settings-routing-confirm.php:57
+msgid "No site address changes."
+msgstr "Không có địa chỉ trang web nào thay đổi."
+
+#: admin/views/settings-routing-confirm.php:63
+msgid "Current address"
+msgstr "Địa chỉ hiện tại"
+
+#: admin/views/settings-routing-confirm.php:64
+msgid "New address"
+msgstr "Địa chỉ mới"
+
+#: admin/views/settings-routing-confirm.php:79
+msgid "What else happens"
+msgstr "Những thay đổi khác"
+
+#: admin/views/settings-routing-confirm.php:82
+msgid "Visitors who open a path URL of a site are redirected (301) to its domain. Form posts and server calls to path URLs keep working."
+msgstr "Khách truy cập mở URL đường dẫn của trang web sẽ được chuyển hướng (301) đến tên miền của trang đó. Gửi biểu mẫu và các lệnh gọi máy chủ đến URL đường dẫn vẫn tiếp tục hoạt động."
+
+#: admin/views/settings-routing-confirm.php:85
+msgid "Path URLs stop redirecting and open the site again. Browsers and CDNs may keep a cached redirect until you purge them."
+msgstr "URL đường dẫn sẽ ngừng chuyển hướng và mở lại trang web trực tiếp. Trình duyệt và CDN có thể vẫn lưu bộ nhớ đệm chuyển hướng cho đến khi bạn xóa chúng."
+
+#: admin/views/settings-routing-confirm.php:87
+msgid "Links stored inside site content are not changed. Old addresses keep working."
+msgstr "Các liên kết lưu trong nội dung trang web không bị thay đổi. Các địa chỉ cũ vẫn tiếp tục hoạt động."
+
+#: admin/views/settings-routing-confirm.php:89
+msgid "People logged in to a site whose address changes are signed out once."
+msgstr "Người dùng đang đăng nhập vào trang web có địa chỉ thay đổi sẽ bị đăng xuất một lần."
+
+#: admin/views/settings-routing-confirm.php:91
+msgid "Purge page and CDN caches after the switch."
+msgstr "Hãy xóa bộ nhớ đệm trang và CDN sau khi chuyển đổi."
+
+#. translators: %s: new routing mode.
+#: admin/views/settings-routing-confirm.php:103
+#, php-format
+msgid "Switch to %s"
+msgstr "Chuyển sang %s"
+
+#: admin/views/settings.php:27
+#: includes/class-grabwp-tenancy-setup-wizard.php:147
+msgid "Routing"
+msgstr "Định tuyến"
+
+#: admin/views/setup-steps/check.php:39
+msgid "Welcome to GrabWP"
+msgstr "Chào mừng đến với GrabWP"
+
+#: admin/views/setup-steps/check.php:40
+msgid "A few short steps get your first site running. Every step has a working default, and you can skip any of them."
+msgstr "Chỉ vài bước ngắn để khởi chạy trang web đầu tiên của bạn. Mỗi bước đều có sẵn mặc định hoạt động tốt và bạn có thể bỏ qua bất kỳ bước nào."
+
+#: admin/views/setup-steps/check.php:44
+msgid "One WordPress, many websites"
+msgstr "Một WordPress, nhiều trang web"
+
+#: admin/views/setup-steps/check.php:45
+msgid "GrabWP runs many separate websites from this one WordPress install. Each one is called a site (a \"tenant\" in some GrabWP screens)."
+msgstr "GrabWP vận hành nhiều trang web độc lập từ một bản cài đặt WordPress này. Mỗi trang được gọi là một trang web (hoặc \"tenant\" trên một số màn hình GrabWP)."
+
+#: admin/views/setup-steps/check.php:48
+msgid "Each site stands on its own"
+msgstr "Mỗi trang web hoạt động độc lập"
+
+#: admin/views/setup-steps/check.php:49
+msgid "A site has its own posts, pages, media, users and admin area. Sites share the plugins and themes installed here, so you update them once."
+msgstr "Mỗi trang web có bài viết, trang, thư viện, người dùng và khu vực quản trị riêng. Các trang web dùng chung plugin và giao diện được cài đặt tại đây, nên bạn chỉ cần cập nhật một lần."
+
+#: admin/views/setup-steps/check.php:52
+msgid "Not WordPress Multisite"
+msgstr "Không phải WordPress Multisite"
+
+#: admin/views/setup-steps/check.php:53
+msgid "You do not need to know or turn on Multisite. You manage every site from the Tenancy menu of this admin."
+msgstr "Bạn không cần biết hoặc bật Multisite. Bạn quản lý mọi trang web từ menu Quản lý tenant trong trang quản trị này."
+
+#: admin/views/setup-steps/check.php:67
+msgid "Server check"
+msgstr "Kiểm tra máy chủ"
+
+#: admin/views/setup-steps/check.php:79
+#: admin/views/setup-steps/check.php:89
+msgid "Check again"
+msgstr "Kiểm tra lại"
+
+#: admin/views/setup-steps/check.php:82
+msgid "The loader is in wp-config.php, but this page loaded before it was read. Check again to confirm."
+msgstr "Trình tải đã có trong wp-config.php, nhưng trang này được tải trước khi trình tải được đọc. Hãy kiểm tra lại để xác nhận."
+
+#: admin/views/setup-steps/check.php:88
+msgid "Everything is ready. Nothing to do here."
+msgstr "Mọi thứ đã sẵn sàng. Bạn không cần làm gì thêm ở đây."
+
+#: admin/views/setup-steps/check.php:95
+msgid "Show the server checks"
+msgstr "Hiện các mục kiểm tra máy chủ"
+
+#. translators: %s: example site address such as /site/{id}
+#: admin/views/setup-steps/check.php:100
+#, php-format
+msgid "GrabWP set these up when you activated it. Site addresses like %s need every item."
+msgstr "GrabWP đã thiết lập các mục này khi bạn kích hoạt plugin. Địa chỉ trang web như %s cần đầy đủ mọi mục."
+
+#: admin/views/setup-steps/done.php:22
+msgid "Your setup is saved. Open your site, then grow it whenever you like."
+msgstr "Thiết lập của bạn đã được lưu. Hãy mở trang web và phát triển thêm bất cứ khi nào bạn muốn."
+
+#. translators: %s: tenant ID.
+#: admin/views/setup-steps/done.php:38
+#, php-format
+msgid "Your site: %s"
+msgstr "Trang web của bạn: %s"
+
+#: admin/views/setup-steps/done.php:67
+msgid "I saved it, hide this"
+msgstr "Tôi đã lưu, ẩn thông tin này"
+
+#: admin/views/setup-steps/done.php:69
+msgid "Keep this password somewhere safe. It stays on this screen until you hide it. You do not need it to log in: the 1-click Admin button does that."
+msgstr "Hãy cất giữ mật khẩu này ở nơi an toàn. Mật khẩu sẽ hiển thị trên màn hình này cho đến khi bạn ẩn đi. Bạn không cần mật khẩu để đăng nhập: nút Quản trị 1 nhấp sẽ làm việc đó."
+
+#: admin/views/setup-steps/done.php:74
+msgid "What you set up"
+msgstr "Những gì bạn đã thiết lập"
+
+#: admin/views/setup-steps/done.php:89
+msgid "Try it now"
+msgstr "Dùng thử ngay"
+
+#: admin/views/setup-steps/done.php:95
+msgid "All sites"
+msgstr "Tất cả trang web"
+
+#: admin/views/setup-steps/done.php:103
+msgid "Grow later"
+msgstr "Mở rộng sau"
+
+#. translators: %s: example path URL of a site.
+#: admin/views/setup-steps/routing.php:25
+#, php-format
+msgid "Every site lives under this WordPress address. Works right away, no DNS needed. For example: %s"
+msgstr "Mỗi trang web nằm dưới địa chỉ WordPress này. Dùng được ngay, không cần DNS. Ví dụ: %s"
+
+#. translators: %s: example domain of a site.
+#: admin/views/setup-steps/routing.php:31
+#, php-format
+msgid "Every site has its own domain. Each domain must point to this server (DNS) before its site opens. For example: %s"
+msgstr "Mỗi trang web có tên miền riêng. Mỗi tên miền phải được trỏ về máy chủ này (DNS) trước khi trang web có thể mở. Ví dụ: %s"
+
+#: admin/views/setup-steps/routing.php:36
+msgid "A site opens on the path address until you give it a domain; then it opens on the domain and the path keeps working. Works now; add domains whenever you like."
+msgstr "Trang web sẽ mở qua địa chỉ đường dẫn cho đến khi bạn gán tên miền; sau đó trang sẽ mở trên tên miền và đường dẫn vẫn tiếp tục hoạt động. Dùng được ngay; thêm tên miền bất cứ lúc nào bạn muốn."
+
+#: admin/views/setup-steps/routing.php:41
+msgid "Choose the web address of your sites"
+msgstr "Chọn địa chỉ web cho các trang web của bạn"
+
+#: admin/views/setup-steps/routing.php:42
+msgid "This decides how visitors reach each site. Start simple. You can change this later in Tenancy > Settings > Routing."
+msgstr "Thiết lập này quyết định cách khách truy cập vào mỗi trang web. Hãy bắt đầu đơn giản. Bạn có thể thay đổi sau tại Quản lý tenant > Cài đặt > Định tuyến."
+
+#: admin/views/setup-steps/routing.php:59
+msgid "Sites already exist. A new mode changes their addresses, so switch it in Settings, which lists every site that changes."
+msgstr "Đã có các trang web tồn tại. Chế độ mới sẽ làm thay đổi địa chỉ của chúng, vì vậy hãy chuyển đổi trong phần Cài đặt để xem danh sách các trang web bị ảnh hưởng."
+
+#: admin/views/setup-steps/routing.php:60
+msgid "Open Settings > Routing"
+msgstr "Mở Cài đặt > Định tuyến"
+
+#: admin/views/setup-steps/site.php:45
+msgid "Start from an empty WordPress site."
+msgstr "Bắt đầu từ một trang web WordPress trống."
+
+#: admin/views/setup-steps/site.php:50
+msgid "Pick one of your sites from the list below."
+msgstr "Chọn một trang web của bạn từ danh sách bên dưới."
+
+#: admin/views/setup-steps/site.php:91
+msgid "Path address"
+msgstr "Địa chỉ đường dẫn"
+
+#. translators: %s: path URL of the new site, {id} stands for its ID.
+#: admin/views/setup-steps/site.php:93
+#, php-format
+msgid "Works now, no DNS needed. The site ID is created when you save: %s"
+msgstr "Dùng được ngay, không cần DNS. ID trang web sẽ được tạo khi bạn lưu: %s"
+
+#: admin/views/setup-steps/site.php:98
+msgid "Type the domain below. Point its DNS to this server first."
+msgstr "Nhập tên miền vào bên dưới. Hãy trỏ DNS của tên miền về máy chủ này trước."
+
+#: admin/views/setup-steps/site.php:112
+msgid "Site admin email"
+msgstr "Email quản trị trang web"
+
+#: admin/views/setup-steps/site.php:115
+msgid "The new site's administrator account uses this email."
+msgstr "Tài khoản quản trị viên của trang web mới sẽ sử dụng email này."
+
+#: admin/views/setup-steps/site.php:124
+msgid "Set up WordPress in the new site now"
+msgstr "Thiết lập WordPress cho trang web mới ngay"
+
+#: admin/views/setup-steps/site.php:126
+msgid "The site is ready to use right away, with an administrator account named after the site ID. You log in with the 1-click button and never need its password."
+msgstr "Trang web sẵn sàng sử dụng ngay với tài khoản quản trị viên được đặt tên theo ID trang web. Bạn đăng nhập bằng nút 1 nhấp và không bao giờ cần đến mật khẩu."
+
+#: admin/views/setup-wizard.php:57
+msgid "(done)"
+msgstr "(hoàn tất)"
+
+#. translators: 1: step title, 2: current part of the step, 3: number of parts.
+#: admin/views/setup-wizard.php:69
+#, php-format
+msgid "%1$s (%2$d of %3$d)"
+msgstr "%1$s (%2$d/%3$d)"
+
+#. translators: 1: current step number, 2: number of steps, 3: step title.
+#: admin/views/setup-wizard.php:77
+#, php-format
+msgid "Step %1$d of %2$d: %3$s"
+msgstr "Bước %1$d/%2$d: %3$s"
+
+#: admin/views/status-base.php:112
+msgid "empty"
+msgstr "trống"
+
+#: admin/views/tenant-clone.php:227
+msgid "Path URL only"
+msgstr "Chỉ dùng URL đường dẫn"
+
+#: admin/views/tenant-create.php:21
+msgid "Create a new tenant. It opens on the domain you enter."
+msgstr "Tạo tenant mới. Trang web sẽ mở trên tên miền bạn nhập."
+
+#: admin/views/tenant-create.php:94
+#: admin/views/tenant-edit.php:126
+msgid "Domain mode needs at least one domain."
+msgstr "Chế độ Tên miền cần ít nhất một tên miền."
+
+#. translators: %d: number of domains stored for the site.
+#: admin/views/tenant-edit.php:93
+#, php-format
+msgid "Stored domains (%d): kept, not used for links in Path mode"
+msgid_plural "Stored domains (%d): kept, not used for links in Path mode"
+msgstr[0] "Tên miền đã lưu (%d): được giữ lại, không dùng cho liên kết ở chế độ Đường dẫn"
+
+#: includes/class-grabwp-tenancy-admin-form-handler.php:197
+#: includes/class-grabwp-tenancy-admin-form-handler.php:247
+#: includes/class-grabwp-tenancy-setup-wizard.php:1224
+msgid "Could not write tenants.php. Check file permissions."
+msgstr "Không thể ghi tệp tenants.php. Vui lòng kiểm tra quyền tệp."
+
+#: includes/class-grabwp-tenancy-admin-form-handler.php:226
+msgid "The routing mode is set in wp-config.php and cannot be changed here."
+msgstr "Chế độ định tuyến được đặt trong wp-config.php và không thể thay đổi tại đây."
+
+#: includes/class-grabwp-tenancy-admin-form-handler.php:229
+msgid "Invalid routing mode."
+msgstr "Chế độ định tuyến không hợp lệ."
+
+#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false
+#: includes/class-grabwp-tenancy-admin.php:146
+#, php-format
+msgid "Your wp-config.php already sets %1$s to %2$s, so this setting has no effect. Remove that line to let GrabWP control it."
+msgstr "Tệp wp-config.php của bạn đã đặt %1$s thành %2$s, nên cài đặt này không có tác dụng. Hãy xóa dòng đó để GrabWP kiểm soát."
+
+#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false
+#: includes/class-grabwp-tenancy-admin.php:153
+#, php-format
+msgid "Another plugin or file already sets %1$s to %2$s, so this setting has no effect."
+msgstr "Một plugin hoặc tệp khác đã đặt %1$s thành %2$s, nên cài đặt này không có tác dụng."
+
+#: includes/class-grabwp-tenancy-admin.php:548
+msgid "Routing mode saved."
+msgstr "Đã lưu chế độ định tuyến."
+
+#: includes/class-grabwp-tenancy-routing.php:80
+msgid "Path"
+msgstr "Đường dẫn"
+
+#: includes/class-grabwp-tenancy-routing.php:82
+msgid "Domain"
+msgstr "Tên miền"
+
+#: includes/class-grabwp-tenancy-routing.php:84
+msgid "Path and domain"
+msgstr "Đường dẫn và tên miền"
+
+#: includes/class-grabwp-tenancy-settings.php:122
+msgid "Disable Install Plugins & Themes"
+msgstr "Tắt cài đặt plugin & giao diện"
+
+#: includes/class-grabwp-tenancy-settings.php:125
+msgid "Tenant admins cannot install, update or delete plugins and themes."
+msgstr "Quản trị viên tenant không thể cài đặt, cập nhật hoặc xóa plugin và giao diện."
+
+#: includes/class-grabwp-tenancy-settings.php:130
+msgid "Disable Plugin & Theme File Editor"
+msgstr "Tắt trình sửa tệp plugin & giao diện"
+
+#: includes/class-grabwp-tenancy-settings.php:133
+msgid "Tenant admins cannot use the built-in code editor for plugin and theme files."
+msgstr "Quản trị viên tenant không thể dùng trình sửa mã tích hợp sẵn cho các tệp plugin và giao diện."
+
+#: includes/class-grabwp-tenancy-settings.php:138
+msgid "Hide Plugins Menu"
+msgstr "Ẩn menu Plugin"
+
+#: includes/class-grabwp-tenancy-settings.php:141
+msgid "Removes the Plugins menu from tenant dashboards."
+msgstr "Ẩn menu Plugin khỏi bảng điều khiển của tenant."
+
+#: includes/class-grabwp-tenancy-settings.php:144
+msgid "Hide Appearance Menu"
+msgstr "Ẩn menu Giao diện"
+
+#: includes/class-grabwp-tenancy-settings.php:147
+msgid "Removes the Appearance menu (themes) from tenant dashboards."
+msgstr "Ẩn menu Giao diện (theme) khỏi bảng điều khiển của tenant."
+
+#: includes/class-grabwp-tenancy-settings.php:153
+msgid "Hides every GrabWP plugin and the SQLite plugin from the tenant Plugins list, so tenants cannot turn them off by mistake."
+msgstr "Ẩn mọi plugin GrabWP và plugin SQLite khỏi danh sách Plugin của tenant để tránh việc tenant vô tình tắt chúng."
+
+#: includes/class-grabwp-tenancy-settings.php:159
+msgid "Turns off the built-in task scheduler on tenant sites. Run a server cron job instead."
+msgstr "Tắt bộ lập lịch tác vụ tích hợp sẵn trên các trang tenant. Hãy chạy cron job trên máy chủ để thay thế."
+
+#: includes/class-grabwp-tenancy-settings.php:167
+msgid "Turns off the old remote publishing API, a common target of password-guessing attacks."
+msgstr "Tắt API đăng bài từ xa kiểu cũ, vốn là mục tiêu phổ biến của các cuộc tấn công dò mật khẩu."
+
+#: includes/class-grabwp-tenancy-settings.php:170
+msgid "Post Revisions to Keep"
+msgstr "Số bản thảo bài viết lưu giữ"
+
+#: includes/class-grabwp-tenancy-settings.php:173
+msgid "How many older versions of each post to keep. 0 turns revisions off."
+msgstr "Số phiên bản cũ của mỗi bài viết được giữ lại. Nhập 0 để tắt lưu bản sửa đổi."
+
+#: includes/class-grabwp-tenancy-settings.php:180
+msgid "Days Before Trash Is Emptied"
+msgstr "Số ngày trước khi dọn sạch Thùng rác"
+
+#: includes/class-grabwp-tenancy-settings.php:183
+msgid "Deleted items stay in the Trash this many days. 0 deletes them right away."
+msgstr "Các mục đã xóa sẽ nằm trong Thùng rác theo số ngày này. Nhập 0 để xóa vĩnh viễn ngay lập tức."
+
+#: includes/class-grabwp-tenancy-settings.php:190
+msgid "Block External Requests"
+msgstr "Chặn kết nối ra bên ngoài"
+
+#: includes/class-grabwp-tenancy-settings.php:193
+msgid "Tenant sites cannot connect to other websites, except the allowed hosts below."
+msgstr "Các trang tenant không thể kết nối tới trang web khác, ngoại trừ các máy chủ được cho phép bên dưới."
+
+#: includes/class-grabwp-tenancy-settings.php:198
+msgid "Allowed Hosts When Blocked"
+msgstr "Máy chủ được phép khi chặn"
+
+#: includes/class-grabwp-tenancy-settings.php:201
+msgid "Comma-separated host names tenant sites can still reach when external requests are blocked. Wildcards like *.wordpress.org work."
+msgstr "Danh sách tên máy chủ (ngăn cách bởi dấu phẩy) mà các trang tenant vẫn có thể kết nối khi bật chặn kết nối bên ngoài. Có hỗ trợ ký tự đại diện như *.wordpress.org."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:139
+msgid "Welcome"
+msgstr "Chào mừng"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:154
+msgid "Custom domains"
+msgstr "Tên miền riêng"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:155
+msgid "Give any site its own domain from Tenancy > All Tenants > Edit."
+msgstr "Gán tên miền riêng cho bất kỳ trang web nào tại Quản lý tenant > Tất cả tenant > Chỉnh sửa."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:173
+msgid "More sites"
+msgstr "Thêm trang web"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:174
+msgid "Add as many as you need from Tenancy > Add New."
+msgstr "Thêm bao nhiêu trang tùy ý từ Quản lý tenant > Thêm mới."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:178
+msgid "Copies of a site"
+msgstr "Bản sao trang web"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:179
+msgid "Clone a finished site from its row in Tenancy > All Tenants to start the next one faster."
+msgstr "Sao chép một trang web đã hoàn chỉnh ngay tại dòng của trang đó trong Quản lý tenant > Tất cả tenant để tạo trang tiếp theo nhanh hơn."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:355
+#: includes/class-grabwp-tenancy-setup-wizard.php:646
+msgid "Resume setup wizard"
+msgstr "Tiếp tục trình hướng dẫn thiết lập"
+
+#. translators: %s: name of the button on the Status page, "Resume setup wizard".
+#: includes/class-grabwp-tenancy-setup-wizard.php:645
+#, php-format
+msgid "Setup paused. The steps you saved are kept. You can resume any time with \"%s\" on this Status page."
+msgstr "Đã tạm dừng thiết lập. Các bước bạn đã lưu vẫn được giữ nguyên. Bạn có thể tiếp tục bất cứ lúc nào bằng nút \"%s\" trên trang Trạng thái này."
+
+#. translators: %s: plugin names, e.g. "GrabWP Tenancy Pro and GrabWP Tenancy WaaS".
+#: includes/class-grabwp-tenancy-setup-wizard.php:718
+#, php-format
+msgid "Finish activating %s, then run the setup wizard."
+msgstr "Hoàn tất kích hoạt %s, sau đó chạy trình hướng dẫn thiết lập."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:724
+msgid "Run the setup wizard"
+msgstr "Chạy trình hướng dẫn thiết lập"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1105
+msgid "Simple"
+msgstr "Đơn giản"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1106
+msgid "Advanced"
+msgstr "Nâng cao"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1162
+msgid "Later, you can add:"
+msgstr "Sau này, bạn có thể thêm:"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1220
+msgid "Choose how visitors reach your sites."
+msgstr "Chọn cách khách truy cập vào các trang web của bạn."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1222
+msgid "Sites already exist, so their addresses would change. Change the mode in Tenancy > Settings > Routing, which lists the affected sites."
+msgstr "Đã có các trang web tồn tại nên địa chỉ của chúng sẽ thay đổi. Hãy đổi chế độ tại Quản lý tenant > Cài đặt > Định tuyến để xem danh sách các trang web bị ảnh hưởng."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1241
+msgid "Your first site opens on a path address right away. No DNS needed."
+msgstr "Trang web đầu tiên của bạn sẽ mở ngay qua địa chỉ đường dẫn. Không cần DNS."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1242
+msgid "Your first site opens on its own domain. Point that domain to this server (DNS) first."
+msgstr "Trang web đầu tiên của bạn sẽ mở trên tên miền riêng. Hãy trỏ tên miền đó về máy chủ này (DNS) trước."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1243
+msgid "Your first site opens on a path address right away. You can give it its own domain now or later."
+msgstr "Trang web đầu tiên của bạn sẽ mở ngay qua địa chỉ đường dẫn. Bạn có thể gán tên miền riêng cho trang ngay bây giờ hoặc sau này."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1334
+msgid "Enter the domain of the site. Domain routing needs a domain for every site."
+msgstr "Nhập tên miền của trang web. Định tuyến theo tên miền yêu cầu mỗi trang web phải có một tên miền."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1523
+msgid "Give this site its own domain, like my-shop.com."
+msgstr "Gán tên miền riêng cho trang web này, ví dụ my-shop.com."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1528
+msgid "Add more sites"
+msgstr "Thêm nhiều trang web hơn"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1529
+msgid "Each one separate, all from this WordPress."
+msgstr "Mỗi trang hoạt động riêng biệt, tất cả từ chính WordPress này."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:247
+msgid "Domain mode needs at least one domain for each site."
+msgstr "Chế độ Tên miền cần ít nhất một tên miền cho mỗi trang web."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:257
+msgid "Could not read tenants.php, so nothing was changed. Check the file and its permissions."
+msgstr "Không thể đọc tệp tenants.php nên chưa có thay đổi nào được thực hiện. Vui lòng kiểm tra tệp và quyền truy cập tệp."

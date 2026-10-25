@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.13
+Stable tag: 1.1.14
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,16 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.14 =
+* New: A warning under a setting when wp-config.php or another plugin already sets its WordPress constant to a different value, so the setting has no effect. It shows on Settings and on Status > Base.
+* Enhance: Clearer setting labels and help text for non-technical admins. Each label says what Yes does (for example Disable Install Plugins & Themes), and the WordPress constant a setting controls is shown next to its choice.
+* Enhance: Status > Base lists every GrabWP setting, Performance & Security included, with the same labels and order as the Settings screen.
+* Enhance: Help tips use the WordPress 7.1 toggle tip. Older WordPress keeps the help icon with its hover text.
+* Fix: Hide GrabWP Plugins now hides every GrabWP plugin from the tenant Plugins list, including WaaS, Partner and the add-ons, not only GrabWP Tenancy and Pro.
+* Enhance: Reviewed and improved Arabic translation, contributed by hanidarrag. Thank you!
+* Enhance: Updated translations for the new and reworded strings in all six bundled languages.
+* Dev: `GrabWP_Tenancy_Admin::help_tip()` and `get_help_tip()` for add-ons, the `grabwp_tenancy_use_core_help_tip` filter, and an optional `tip` on setup wizard option cards.
 
 = 1.1.13 =
 * New: Setup wizard. After activation on a new site, GrabWP opens a short guided setup: server check, routing mode, first site, done. Exit keeps your place, and Tenancy > Status > Run (or Resume) setup wizard opens it again at any time.
