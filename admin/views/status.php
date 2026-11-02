@@ -21,27 +21,6 @@ $grabwp_status_base_path      = GrabWP_Tenancy_Path_Manager::get_tenants_base_di
 $grabwp_status_settings_inst  = GrabWP_Tenancy_Settings::get_instance();
 $grabwp_status_settings_file  = $grabwp_status_settings_inst->get_settings_file_path();
 
-// Count tenants.
-$grabwp_status_tenant_count = 0;
-if ( file_exists( $grabwp_status_mappings_file ) && is_readable( $grabwp_status_mappings_file ) ) {
-	$tenant_mappings = array();
-	ob_start();
-	include $grabwp_status_mappings_file;
-	ob_end_clean();
-	if ( is_array( $tenant_mappings ) ) {
-		$grabwp_status_tenant_count = count( $tenant_mappings );
-	}
-}
-
-// Database engine.
-if ( defined( 'DB_ENGINE' ) ) {
-	$grabwp_status_db_engine_label = ucfirst( DB_ENGINE );
-} elseif ( defined( 'DATABASE_TYPE' ) ) {
-	$grabwp_status_db_engine_label = ucfirst( DATABASE_TYPE );
-} else {
-	$grabwp_status_db_engine_label = 'Mysql';
-}
-
 // Pro status.
 $grabwp_status_is_pro      = defined( 'GRABWP_TENANCY_PRO_ACTIVE' ) && GRABWP_TENANCY_PRO_ACTIVE;
 $grabwp_status_pro_version = defined( 'GRABWP_TENANCY_PRO_VERSION' ) ? GRABWP_TENANCY_PRO_VERSION : '';
@@ -54,7 +33,6 @@ if ( $grabwp_status_is_pro && class_exists( 'GrabWP_Tenancy_Pro_Config' ) ) {
 
 // Environment checks (used by general tab).
 extract( GrabWP_Tenancy_Status_Checker::get_env_card_data() ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
-$grabwp_status_plugin_version    = $this->plugin->version;
 
 // Active tab.
 // phpcs:ignore WordPress.Security.NonceVerification.Recommended

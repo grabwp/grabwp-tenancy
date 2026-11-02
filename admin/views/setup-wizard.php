@@ -92,7 +92,7 @@ $grabwp_setup_position = array_search( $grabwp_setup['step_id'], array_keys( $gr
 	?>
 
 	<?php if ( ! empty( $grabwp_setup['flash']['message'] ) ) : ?>
-		<div class="notice notice-<?php echo esc_attr( 'error' === $grabwp_setup['flash']['type'] ? 'error' : 'success' ); ?> grabwp-setup-flash">
+		<div class="notice notice-<?php echo esc_attr( in_array( $grabwp_setup['flash']['type'], array( 'error', 'warning' ), true ) ? $grabwp_setup['flash']['type'] : 'success' ); ?> grabwp-setup-flash">
 			<p><?php echo esc_html( $grabwp_setup['flash']['message'] ); ?></p>
 		</div>
 	<?php endif; ?>

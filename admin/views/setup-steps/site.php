@@ -6,6 +6,7 @@
  * @var array  $grabwp_site_args    heading, description, default_title, default_mode, choices.
  * @var bool   $grabwp_can_loop     Whether the site can reach itself.
  * @var string $grabwp_routing_mode Routing mode: path, domain or both.
+ * @var string $grabwp_domain_base  Main domain new site domains are suggested under ('' for none).
  *
  * @package GrabWP_Tenancy
  * @since 1.1.12
@@ -21,7 +22,7 @@ $grabwp_site_state  = GrabWP_Tenancy_Setup_Wizard::get_state();
 $grabwp_existing    = GrabWP_Tenancy_Setup_Wizard::field_value( 'existing_tenant', $grabwp_site_state['starter_tenant'] );
 $grabwp_site_title  = GrabWP_Tenancy_Setup_Wizard::field_value( 'site_title', $grabwp_site_args['default_title'] );
 $grabwp_address     = GrabWP_Tenancy_Setup_Wizard::field_value( 'address', 'path' );
-$grabwp_domain      = GrabWP_Tenancy_Setup_Wizard::field_value( 'domain', '' );
+$grabwp_domain      = GrabWP_Tenancy_Setup_Wizard::field_value( 'domain', GrabWP_Tenancy_Setup_Wizard::suggest_domain( $grabwp_site_title, $grabwp_domain_base ) );
 $grabwp_email       = GrabWP_Tenancy_Setup_Wizard::field_value( 'admin_email', wp_get_current_user()->user_email );
 $grabwp_install     = GrabWP_Tenancy_Setup_Wizard::has_posted_values()
 	? (bool) GrabWP_Tenancy_Setup_Wizard::field_value( 'install_wp', false )
@@ -48,14 +49,14 @@ $grabwp_path_url    = site_url( '/' . grabwp_tenancy_get_path_prefix() . '/{id}/
 						'existing' => array(
 							'title' => __( 'Use an existing site', 'grabwp-tenancy' ),
 							'desc'  => __( 'Pick one of your sites from the list below.', 'grabwp-tenancy' ),
-							'level' => 'simple',
+							'level' => '',
 						),
 					),
 					$grabwp_site_mode,
 					__( 'Site', 'grabwp-tenancy' )
 				);
 				?>
-				<select name="existing_tenant" class="grabwp-setup-existing" aria-label="<?php esc_attr_e( 'Existing site', 'grabwp-tenancy' ); ?>">
+				<select name="existing_tenant" class="grabwp-setup-existing<?php echo 'existing' === $grabwp_site_mode ? '' : ' hidden'; ?>" aria-label="<?php esc_attr_e( 'Existing site', 'grabwp-tenancy' ); ?>">
 					<?php foreach ( $grabwp_site_args['choices'] as $grabwp_tid => $grabwp_label ) : ?>
 						<option value="<?php echo esc_attr( $grabwp_tid ); ?>" <?php selected( $grabwp_existing, $grabwp_tid ); ?> dir="ltr"><?php echo esc_html( $grabwp_label ); ?></option>
 					<?php endforeach; ?>
@@ -80,7 +81,7 @@ $grabwp_path_url    = site_url( '/' . grabwp_tenancy_get_path_prefix() . '/{id}/
 				<p class="description"><?php esc_html_e( 'Works now. No DNS needed. The ID is created on save.', 'grabwp-tenancy' ); ?></p>
 			<?php elseif ( 'domain' === $grabwp_routing_mode ) : ?>
 				<input type="hidden" name="address" value="domain" />
-				<input type="text" name="domain" class="large-text" dir="ltr" autocapitalize="none" spellcheck="false" placeholder="shop.example.com" value="<?php echo esc_attr( $grabwp_domain ); ?>" aria-label="<?php esc_attr_e( 'Custom domain', 'grabwp-tenancy' ); ?>" />
+				<input type="text" name="domain" class="large-text" dir="ltr" autocapitalize="none" spellcheck="false" placeholder="shop.example.com" value="<?php echo esc_attr( $grabwp_domain ); ?>" data-domain-base="<?php echo esc_attr( $grabwp_domain_base ); ?>" aria-label="<?php esc_attr_e( 'Custom domain', 'grabwp-tenancy' ); ?>" />
 				<p class="description"><?php esc_html_e( "Point the domain's DNS to this server first.", 'grabwp-tenancy' ); ?></p>
 			<?php else : ?>
 				<?php
@@ -103,7 +104,7 @@ $grabwp_path_url    = site_url( '/' . grabwp_tenancy_get_path_prefix() . '/{id}/
 					__( 'Address', 'grabwp-tenancy' )
 				);
 				?>
-				<input type="text" name="domain" class="large-text grabwp-mt-sm" dir="ltr" autocapitalize="none" spellcheck="false" placeholder="shop.example.com" value="<?php echo esc_attr( $grabwp_domain ); ?>" aria-label="<?php esc_attr_e( 'Custom domain', 'grabwp-tenancy' ); ?>" />
+				<input type="text" name="domain" class="large-text grabwp-mt-sm" dir="ltr" autocapitalize="none" spellcheck="false" placeholder="shop.example.com" value="<?php echo esc_attr( $grabwp_domain ); ?>" data-domain-base="<?php echo esc_attr( $grabwp_domain_base ); ?>" aria-label="<?php esc_attr_e( 'Custom domain', 'grabwp-tenancy' ); ?>" />
 			<?php endif; ?>
 		</td>
 	</tr>

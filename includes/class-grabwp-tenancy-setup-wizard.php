@@ -951,6 +951,22 @@ class GrabWP_Tenancy_Setup_Wizard {
 	private static $result = array();
 
 	/**
+	 * Warning from the step being saved, shown on the next screen.
+	 *
+	 * @var string
+	 */
+	private static $save_warning = '';
+
+	/**
+	 * Show a warning on the next screen after a successful save (save callbacks).
+	 *
+	 * @param string $message Plain text.
+	 */
+	public static function set_save_warning( $message ) {
+		self::$save_warning = (string) $message;
+	}
+
+	/**
 	 * Posted value from a failed save, else the default.
 	 *
 	 * @param string $key     Field name.
@@ -1067,6 +1083,9 @@ class GrabWP_Tenancy_Setup_Wizard {
 				// A labelled screen saved its part; a chooser ('' label) saves nothing.
 				$labelled = '' !== (string) $steps[ $step_id ]['substeps'][ self::$sub ];
 				self::remember( $step_id, $next_sub, $labelled ? $step_id : '' );
+				if ( '' !== self::$save_warning ) {
+					self::set_flash( $step_id, self::$save_warning, array(), 'warning' );
+				}
 				wp_safe_redirect( self::get_step_url( $step_id, $flow, $next_sub ) );
 				exit;
 			}
@@ -1076,6 +1095,9 @@ class GrabWP_Tenancy_Setup_Wizard {
 		$next = self::get_adjacent_step( $step_id, $flow, 1 );
 		$next = '' !== $next ? $next : 'done';
 		self::remember( $next, '' );
+		if ( '' !== self::$save_warning ) {
+			self::set_flash( $next, self::$save_warning, array(), 'warning' );
+		}
 		wp_safe_redirect( self::get_step_url( $next, $flow ) );
 		exit;
 	}
@@ -1090,11 +1112,13 @@ class GrabWP_Tenancy_Setup_Wizard {
 	 *
 	 * Level 'simple' works with nothing extra to prepare; 'advanced' needs
 	 * extra setup, an outside account, DNS, another database or technical
-	 * know-how. It tells the effort, never which choice is best.
+	 * know-how. It tells the effort, never which choice is best; level '' shows
+	 * no label. 'recommended' adds a "Recommended" label for the choice that
+	 * avoids the most issues.
 	 *
 	 * @param string $name     Input name.
 	 * @param array  $options  Value => array( title, desc (HTML, see KSES), level, disabled,
-	 *                          tip (plain text help tip after the level label) ).
+	 *                          tip (plain text help tip after the level label), recommended ).
 	 * @param string $current  Checked value.
 	 * @param string $legend   Screen reader legend.
 	 * @param string $class    Extra fieldset class.
@@ -1107,8 +1131,12 @@ class GrabWP_Tenancy_Setup_Wizard {
 		);
 		echo '<fieldset class="grabwp-setup-choices ' . esc_attr( $class ) . '"><legend class="screen-reader-text">' . esc_html( $legend ) . '</legend>';
 		foreach ( $options as $value => $option ) {
-			$option = wp_parse_args( $option, array( 'title' => '', 'desc' => '', 'level' => 'simple', 'disabled' => $disabled, 'tip' => '' ) );
+			$option = wp_parse_args( $option, array( 'title' => '', 'desc' => '', 'level' => 'simple', 'disabled' => $disabled, 'tip' => '', 'recommended' => false ) );
 			$level  = isset( $levels[ $option['level'] ] ) ? $option['level'] : 'simple';
+			$labels = '' === $option['level'] ? '' : ' <span class="grabwp-setup-level is-' . esc_attr( $level ) . '">' . esc_html( $levels[ $level ] ) . '</span>';
+			if ( $option['recommended'] ) {
+				$labels .= ' <span class="grabwp-setup-level is-recommended">' . esc_html__( 'Recommended', 'grabwp-tenancy' ) . '</span>';
+			}
 			printf(
 				'<label class="grabwp-setup-choice%1$s"><input type="radio" name="%2$s" value="%3$s"%4$s%5$s /><span><span class="grabwp-setup-choice-title">%6$s%7$s%9$s</span><span class="grabwp-setup-choice-desc description">%8$s</span></span></label>',
 				$option['disabled'] ? ' is-disabled' : '',
@@ -1117,7 +1145,7 @@ class GrabWP_Tenancy_Setup_Wizard {
 				checked( (string) $current, (string) $value, false ),
 				disabled( $option['disabled'], true, false ),
 				esc_html( $option['title'] ),
-				' <span class="grabwp-setup-level is-' . esc_attr( $level ) . '">' . esc_html( $levels[ $level ] ) . '</span>',
+				$labels, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built from escaped parts.
 				wp_kses( $option['desc'], self::KSES ),
 				GrabWP_Tenancy_Admin::get_help_tip( $option['tip'] )
 			);
@@ -1126,17 +1154,18 @@ class GrabWP_Tenancy_Setup_Wizard {
 	}
 
 	/**
-	 * Link list: each item array( 'label', 'desc' (HTML, see KSES), 'url', 'target' ).
+	 * Link list: each item array( 'label', 'desc' (HTML, see KSES), 'url', 'target', 'class' ).
 	 *
 	 * @param array $items Items.
 	 */
 	public static function render_link_list( $items ) {
 		echo '<ul>';
 		foreach ( $items as $item ) {
-			$item = wp_parse_args( $item, array( 'label' => '', 'desc' => '', 'url' => '', 'target' => '' ) );
-			$link = '' !== $item['url']
-				? '<a href="' . esc_url( $item['url'] ) . '"' . ( '' !== $item['target'] ? ' target="' . esc_attr( $item['target'] ) . '" rel="noopener noreferrer"' : '' ) . '>' . esc_html( $item['label'] ) . '</a>'
-				: '<strong>' . esc_html( $item['label'] ) . '</strong>';
+			$item  = wp_parse_args( $item, array( 'label' => '', 'desc' => '', 'url' => '', 'target' => '', 'class' => '' ) );
+			$class = '' !== $item['class'] ? ' class="' . esc_attr( $item['class'] ) . '"' : '';
+			$link  = '' !== $item['url']
+				? '<a href="' . esc_url( $item['url'] ) . '"' . $class . ( '' !== $item['target'] ? ' target="' . esc_attr( $item['target'] ) . '" rel="noopener noreferrer"' : '' ) . '>' . esc_html( $item['label'] ) . '</a>'
+				: '<strong' . $class . '>' . esc_html( $item['label'] ) . '</strong>';
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $link is built from escaped parts.
 			echo '<li>' . $link . ( '' !== $item['desc'] ? ' <span class="description">' . wp_kses( $item['desc'], self::KSES ) . '</span>' : '' ) . '</li>';
 		}
@@ -1195,12 +1224,56 @@ class GrabWP_Tenancy_Setup_Wizard {
 	}
 
 	/**
-	 * Routing screen: path, domain or both, with the shared Settings radios.
+	 * Modes the Routing screen offers: path or domain. "Both" is set in
+	 * Settings > Routing; it shows here only while it is the mode and this
+	 * screen cannot change it (set in wp-config.php, or sites exist).
+	 *
+	 * @param string $current Effective mode.
+	 * @param bool   $fixed   The mode cannot be changed on this screen.
+	 * @return string[]
+	 */
+	public static function wizard_routing_modes( $current, $fixed ) {
+		return ( $fixed && 'both' === $current ) ? array( 'path', 'domain', 'both' ) : array( 'path', 'domain' );
+	}
+
+	/**
+	 * Preselected mode: a stored path or domain mode stays; otherwise domain
+	 * when subdomains work (wildcard check passed), else path.
+	 *
+	 * @param string $current       Effective mode.
+	 * @param bool   $subdomains_ok The wildcard check passed.
+	 * @return string
+	 */
+	public static function preselect_routing_mode( $current, $subdomains_ok ) {
+		if ( in_array( $current, array( 'path', 'domain' ), true ) ) {
+			return $current;
+		}
+		return $subdomains_ok ? 'domain' : 'path';
+	}
+
+	/**
+	 * Whether the routing mode cannot be changed on the Routing screen.
+	 *
+	 * @return bool
+	 */
+	private static function routing_is_fixed() {
+		return GrabWP_Tenancy_Routing::is_locked() || ! empty( GrabWP_Tenancy_Tenant_Installer::get_tenant_mappings() );
+	}
+
+	/**
+	 * Routing screen: path or domain, preselected from the Check screen.
 	 */
 	public static function render_routing_step() {
-		$grabwp_routing_current  = (string) self::field_value( 'routing_mode', GrabWP_Tenancy_Routing::get_mode() );
-		$grabwp_routing_disabled = GrabWP_Tenancy_Routing::is_locked();
-		$grabwp_routing_has_site = ! empty( GrabWP_Tenancy_Tenant_Installer::get_tenant_mappings() );
+		require_once GRABWP_TENANCY_PLUGIN_DIR . 'includes/class-grabwp-tenancy-status-checker.php';
+		$grabwp_routing_mode      = GrabWP_Tenancy_Routing::get_mode();
+		$grabwp_routing_disabled  = GrabWP_Tenancy_Routing::is_locked();
+		$grabwp_routing_has_site  = ! empty( GrabWP_Tenancy_Tenant_Installer::get_tenant_mappings() );
+		$grabwp_routing_fixed     = self::routing_is_fixed();
+		$grabwp_routing_hosting   = GrabWP_Tenancy_Status_Checker::get_hosting_card_data();
+		$grabwp_routing_subdomain = 'ok' === $grabwp_routing_hosting['rows']['wildcard']['state'];
+		$grabwp_routing_modes     = self::wizard_routing_modes( $grabwp_routing_mode, $grabwp_routing_fixed );
+		$grabwp_routing_current   = (string) self::field_value( 'routing_mode', $grabwp_routing_fixed ? $grabwp_routing_mode : self::preselect_routing_mode( $grabwp_routing_mode, $grabwp_routing_subdomain ) );
+		$grabwp_routing_file      = GrabWP_Tenancy_Routing::file_status();
 		include GRABWP_TENANCY_PLUGIN_DIR . 'admin/views/setup-steps/routing.php';
 	}
 
@@ -1215,13 +1288,18 @@ class GrabWP_Tenancy_Setup_Wizard {
 	 */
 	public static function save_routing_step( $post ) {
 		$mode = isset( $post['routing_mode'] ) ? sanitize_key( $post['routing_mode'] ) : '';
+		// "Both" is not offered here; it is set in Settings > Routing. A locked
+		// mode posts nothing and is kept as it is.
+		if ( ! GrabWP_Tenancy_Routing::is_locked() && ! in_array( $mode, self::wizard_routing_modes( GrabWP_Tenancy_Routing::get_mode(), self::routing_is_fixed() ), true ) ) {
+			return new WP_Error( 'routing', __( 'Choose how visitors reach your sites.', 'grabwp-tenancy' ) );
+		}
 		switch ( GrabWP_Tenancy_Routing::apply_posted_mode( $mode ) ) {
 			case 'invalid':
 				return new WP_Error( 'routing', __( 'Choose how visitors reach your sites.', 'grabwp-tenancy' ) );
 			case 'confirm':
 				return new WP_Error( 'routing', __( 'Sites already exist, so their addresses would change. Change the mode in Tenancy > Settings > Routing, which lists the affected sites.', 'grabwp-tenancy' ) );
 			case 'failed':
-				return new WP_Error( 'routing', __( 'Could not write tenants.php. Check file permissions.', 'grabwp-tenancy' ) );
+				return new WP_Error( 'routing', GrabWP_Tenancy_Routing::write_error_message() );
 		}
 		return true;
 	}
@@ -1284,7 +1362,30 @@ class GrabWP_Tenancy_Setup_Wizard {
 		$grabwp_site_args    = self::get_site_args();
 		$grabwp_can_loop     = self::can_loopback();
 		$grabwp_routing_mode = grabwp_tenancy_get_routing_mode();
+		$grabwp_domain_base  = strtolower( (string) wp_parse_url( home_url(), PHP_URL_HOST ) );
+		/** This filter is documented in includes/class-grabwp-tenancy-status-checker.php */
+		$grabwp_domain_base = (string) apply_filters( 'grabwp_tenancy_wildcard_domain', $grabwp_domain_base );
+		if ( false === strpos( $grabwp_domain_base, '.' ) || filter_var( $grabwp_domain_base, FILTER_VALIDATE_IP ) ) {
+			$grabwp_domain_base = '';
+		}
 		include GRABWP_TENANCY_PLUGIN_DIR . 'admin/views/setup-steps/site.php';
+	}
+
+	/**
+	 * Suggested domain of a new site: the title as a subdomain of the main
+	 * domain (e.g. my-first-site.example.com). The screen keeps it in step
+	 * with the title until the admin types another domain.
+	 *
+	 * @param string $title Site title.
+	 * @param string $base  Main domain; '' gives no suggestion.
+	 * @return string
+	 */
+	public static function suggest_domain( $title, $base ) {
+		if ( '' === $base ) {
+			return '';
+		}
+		$slug = trim( substr( trim( preg_replace( '/[^a-z0-9]+/', '-', strtolower( remove_accents( (string) $title ) ) ), '-' ), 0, 63 ), '-' );
+		return ( '' !== $slug ? $slug : 'site' ) . '.' . $base;
 	}
 
 	/**
@@ -1488,14 +1589,21 @@ class GrabWP_Tenancy_Setup_Wizard {
 		$grabwp_done_items = apply_filters( 'grabwp_tenancy_setup_done_items', $grabwp_done_items, $state );
 
 		if ( $grabwp_done_tenant ) {
-			$installed           = GrabWP_Tenancy_Tenant_Installer::is_installed( $grabwp_done_tenant->get_id() );
+			$install_state = GrabWP_Tenancy_Tenant_Installer::install_state( $grabwp_done_tenant->get_id() );
+			$installed     = GrabWP_Tenancy_Tenant_Installer::INSTALLED === $install_state;
+			if ( $installed ) {
+				/* translators: %s: tenant ID. */
+				$label = sprintf( __( 'Site %s created and installed', 'grabwp-tenancy' ), $grabwp_done_tenant->get_id() );
+			} elseif ( GrabWP_Tenancy_Tenant_Installer::NOT_INSTALLED === $install_state ) {
+				/* translators: %s: tenant ID. */
+				$label = sprintf( __( 'Site %s created; WordPress is not installed yet', 'grabwp-tenancy' ), $grabwp_done_tenant->get_id() );
+			} else {
+				/* translators: %s: tenant ID. */
+				$label = sprintf( __( 'Site %s created; GrabWP could not confirm that WordPress is installed', 'grabwp-tenancy' ), $grabwp_done_tenant->get_id() );
+			}
 			$grabwp_done_items[] = array(
 				'ok'    => $installed,
-				'label' => $installed
-					/* translators: %s: tenant ID. */
-					? sprintf( __( 'Site %s created and installed', 'grabwp-tenancy' ), $grabwp_done_tenant->get_id() )
-					/* translators: %s: tenant ID. */
-					: sprintf( __( 'Site %s created; WordPress is not installed yet', 'grabwp-tenancy' ), $grabwp_done_tenant->get_id() ),
+				'label' => $label,
 				'step'  => ( $installed || self::is_step_passed( 'site' ) ) ? '' : 'site',
 			);
 		} else {
@@ -1507,7 +1615,7 @@ class GrabWP_Tenancy_Setup_Wizard {
 		}
 
 		/**
-		 * Extra buttons on the Done screen (e.g. WaaS signup test).
+		 * Extra links on the Done screen, shown under Manage WaaS (e.g. signup test).
 		 *
 		 * @since 1.1.12
 		 * @param array $links Each: array( 'url', 'label', 'target' ).

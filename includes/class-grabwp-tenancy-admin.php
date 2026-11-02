@@ -358,18 +358,19 @@ class GrabWP_Tenancy_Admin {
 			true
 		);
 
+		// The file time joins the version, so a CDN never serves an older copy after an update.
 		wp_enqueue_style(
 			'grabwp-tenancy-admin',
 			$this->plugin->plugin_url . 'admin/css/grabwp-admin.css',
 			array( 'grabwp-admin-shared' ),
-			$this->plugin->version
+			$this->asset_version( 'admin/css/grabwp-admin.css' )
 		);
 
 		wp_enqueue_script(
 			'grabwp-tenancy-admin',
 			$this->plugin->plugin_url . 'admin/js/grabwp-admin.js',
 			array( 'grabwp-admin-shared' ),
-			$this->plugin->version,
+			$this->asset_version( 'admin/js/grabwp-admin.js' ),
 			true
 		);
 
@@ -379,6 +380,7 @@ class GrabWP_Tenancy_Admin {
 			array(
 				'enterDomainPlaceholder' => __( 'Enter domain (e.g., tenant1.grabwp.local)', 'grabwp-tenancy' ),
 				'removeText'             => __( 'Remove', 'grabwp-tenancy' ),
+				'copiedText'             => __( 'Copied!', 'grabwp-tenancy' ),
 				'confirmMessage'         => __( 'To confirm deletion, type the tenant ID:', 'grabwp-tenancy' ),
 				'incorrectIdMessage'     => __( 'Incorrect tenant ID. Deletion cancelled.', 'grabwp-tenancy' ),
 				'muPluginNonce'          => wp_create_nonce( 'grabwp_install_mu_plugin' ),
@@ -386,6 +388,18 @@ class GrabWP_Tenancy_Admin {
 				'fixComponentNonce'      => wp_create_nonce( 'grabwp_fix_component' ),
 			)
 		);
+	}
+
+	/**
+	 * Asset version: plugin version plus the file time.
+	 *
+	 * @since 1.1.14
+	 * @param string $file Path below the plugin folder.
+	 * @return string
+	 */
+	private function asset_version( $file ) {
+		$mtime = @filemtime( GRABWP_TENANCY_PLUGIN_DIR . $file ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		return $this->plugin->version . ( $mtime ? '.' . $mtime : '' );
 	}
 
 	public function admin_page() {

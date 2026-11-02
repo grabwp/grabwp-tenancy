@@ -37,6 +37,7 @@
 		initSetupWizard();
 		initDomainOptionRadio();
 		initStatusPageFix();
+		initHostingCard();
 		initCodeBlockCopy();
 	} );
 
@@ -74,7 +75,7 @@
 	 */
 	function flashCopyFeedback( btn ) {
 		var original     = btn.textContent;
-		btn.textContent  = 'Copied!';
+		btn.textContent  = ( window.grabwpTenancyAdmin && grabwpTenancyAdmin.copiedText ) || 'Copied!';
 		setTimeout( function () {
 			btn.textContent = original;
 		}, COPY_FEEDBACK_MS );
@@ -264,6 +265,7 @@
 	function initCopyToClipboard() {
 		bindCopyButton( 'grabwp-copy-btn', 'grabwp-load-textarea' );
 		bindCopyButton( 'grabwp-copy-mu-btn', 'grabwp-mu-textarea' );
+		bindCopyButton( 'grabwp-copy-diagnostics-btn', 'grabwp-diagnostics-textarea' );
 	}
 
 	/**
@@ -451,12 +453,16 @@
 			var primaryBtn   = form.querySelector( '.grabwp-setup-primary' );
 			var createLabel  = primaryBtn ? primaryBtn.textContent : '';
 			var existingText = site.getAttribute( 'data-existing-label' );
+			var existingSelect = site.querySelector( '.grabwp-setup-existing' );
 			var syncMode = function () {
 				var picked   = form.querySelector( 'input[name="site_mode"]:checked' );
 				var existing = picked && 'existing' === picked.value;
 				var rows     = site.querySelectorAll( '.grabwp-setup-new-only' );
 				for ( var i = 0; i < rows.length; i++ ) {
 					rows[ i ].classList.toggle( 'hidden', existing );
+				}
+				if ( existingSelect ) {
+					existingSelect.classList.toggle( 'hidden', ! existing );
 				}
 				if ( primaryBtn ) {
 					primaryBtn.textContent = existing ? existingText : createLabel;
@@ -467,6 +473,25 @@
 				modes[ m ].addEventListener( 'change', syncMode );
 			}
 			syncMode();
+
+			// The suggested domain follows the title until the admin types another one.
+			var titleInput  = site.querySelector( 'input[name="site_title"]' );
+			var domainInput = site.querySelector( 'input[name="domain"][data-domain-base]' );
+			var suggest     = function () {
+				var base = domainInput.getAttribute( 'data-domain-base' );
+				var slug = titleInput.value.normalize( 'NFD' ).replace( /[\u0300-\u036f]/g, '' ).toLowerCase().replace( /[^a-z0-9]+/g, '-' ).replace( /^-+|-+$/g, '' ).slice( 0, 63 ).replace( /-+$/, '' );
+				return base ? ( slug || 'site' ) + '.' + base : '';
+			};
+			if ( titleInput && domainInput && domainInput.getAttribute( 'data-domain-base' ) ) {
+				// Start from the server value: its slug rule maps letters such as đ that NFD keeps.
+				var suggested = domainInput.value;
+				titleInput.addEventListener( 'input', function () {
+					if ( domainInput.value === suggested ) {
+						suggested         = suggest();
+						domainInput.value = suggested;
+					}
+				} );
+			}
 		}
 
 		var fixAll = form.querySelector( '.grabwp-setup-fix-all' );
@@ -584,6 +609,63 @@
 					btn.disabled    = false;
 					btn.textContent = originalText;
 					showInlineMessage( btn, '✗ Network error.', '#dc3232' );
+				} );
+		} );
+	}
+
+	/* ---------------------------------------------------------------
+	 * Hosting setup card (wizard Check screen and Status page)
+	 * ------------------------------------------------------------- */
+
+	/**
+	 * Fix and Undo buttons of the Hosting setup card. Each one asks first and is
+	 * never part of "Fix automatically". After a change the checks run again;
+	 * after the switch to https the browser moves to the https address.
+	 *
+	 * @since 1.1.14
+	 */
+	function initHostingCard() {
+		document.addEventListener( 'click', function ( e ) {
+			var btn = e.target.closest ? e.target.closest( '.grabwp-hosting-btn' ) : null;
+			if ( ! btn || btn.disabled ) {
+				return;
+			}
+			var card = btn.closest( '.grabwp-hosting-card' );
+			if ( ! card || ! window.confirm( btn.getAttribute( 'data-confirm' ) ) ) {
+				return;
+			}
+
+			var originalText = btn.textContent;
+			btn.disabled     = true;
+			btn.textContent  = card.getAttribute( 'data-busy' );
+
+			var data = new FormData();
+			data.append( 'action', btn.getAttribute( 'data-hosting-action' ) );
+			data.append( '_ajax_nonce', btn.getAttribute( 'data-nonce' ) );
+
+			var fail = function ( text ) {
+				btn.disabled    = false;
+				btn.textContent = originalText;
+				showInlineMessage( btn, '✗ ' + text, '#dc3232' );
+			};
+
+			fetch( ajaxurl, { method: 'POST', body: data, credentials: 'same-origin' } )
+				.then( function ( r ) { return r.json(); } )
+				.then( function ( res ) {
+					if ( ! res || ! res.success ) {
+						fail( res && typeof res.data === 'string' ? res.data : card.getAttribute( 'data-network-error' ) );
+						return;
+					}
+					showInlineMessage( btn, '✓ ' + res.data, '#46b450' );
+					var recheck = card.querySelector( '.grabwp-hosting-recheck' );
+					var next    = recheck ? recheck.href.replace( /recheck=\d+/, 'recheck=' + Date.now() ) : window.location.href;
+					if ( btn.hasAttribute( 'data-to-https' ) ) {
+						next = next.replace( /^http:/i, 'https:' );
+					}
+					setTimeout( function () { window.location.href = next; }, COPY_FEEDBACK_MS );
+				} )
+				.catch( function () {
+					fail( card.getAttribute( 'data-network-error' ) );
 				} );
 		} );
 	}

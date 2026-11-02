@@ -177,6 +177,7 @@
     font-size: 12px;
     border-radius: 3px;
     margin: 0;
+    white-space: break-spaces;
 }
 
 .grabwp-env-actions {
@@ -188,15 +189,6 @@
 }
 
 /* Compact status info tables + collapsible system info */
-.grabwp-status-info-grid {
-    gap: 10px;
-}
-
-.grabwp-status-info-grid .grabwp-tenancy-form {
-    padding: 10px 12px;
-    margin-bottom: 0;
-}
-
 .grabwp-tenancy-form .form-table-compact,
 .grabwp-tenancy-form .form-table-compact td,
 .grabwp-tenancy-form .form-table-compact th {
@@ -204,15 +196,22 @@
     padding-bottom: 4px;
 }
 
-.grabwp-status-sysinfo > summary {
+.grabwp-status-sysinfo,
+.grabwp-status-diagnostics {
+    margin: 12px;
+}
+
+/* list-item keeps the native disclosure marker (flex would remove it). */
+.grabwp-status-sysinfo > summary,
+.grabwp-status-diagnostics > summary {
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    display: list-item;
     color: #1d2327;
 }
 
 .grabwp-status-sysinfo-peek {
+    display: block;
+    margin-top: 2px;
     color: #787c82;
     font-size: 12px;
     font-weight: 400;
@@ -221,6 +220,12 @@
 
 .grabwp-status-sysinfo .form-table {
     margin-top: 8px;
+}
+
+.grabwp-status-sysinfo .grabwp-sysinfo-group th {
+    padding-top: 12px;
+    border-bottom: 1px solid #f0f0f1;
+    font-weight: 600;
 }
 
 .grabwp-tenancy-list-wrap {
@@ -349,4 +354,72 @@
 body.grabwp-tenancy_page_grabwp-tenancy-create .grabwp-tenancy-form p.description,
 body.grabwp-tenancy_page_grabwp-tenancy-create .wrap .form-table p.description {
     display: none;
+}
+
+/* Support diagnostics (Status page and setup wizard Check screen) */
+.grabwp-status-diagnostics .description {
+    margin: 8px 0;
+}
+
+/* Hosting setup card (wizard Check screen and Status page) */
+.grabwp-hosting-card {
+    margin: 10px 0;
+}
+
+.grabwp-hosting-rows {
+    margin: 6px 0 0;
+}
+
+.grabwp-hosting-row {
+    margin: 0;
+    padding: 6px 0;
+    border-top: 1px solid #f0f0f1;
+}
+
+.grabwp-hosting-row .button {
+    margin-inline-start: 6px;
+}
+
+.grabwp-hosting-mark {
+    display: inline-block;
+    width: 1.2em;
+    font-weight: 600;
+}
+
+.grabwp-hosting-mark.is-ok {
+    color: #46b450;
+}
+
+.grabwp-hosting-mark.is-fail {
+    color: #dc3232;
+}
+
+.grabwp-hosting-mark.is-skip {
+    color: #8c8f94;
+}
+
+.grabwp-hosting-steps {
+    display: block;
+    margin-inline-start: 1.2em;
+    color: #50575e;
+    font-size: 12px;
+}
+
+.grabwp-hosting-row details,
+.grabwp-hosting-note,
+.grabwp-hosting-xcloud {
+    margin-inline-start: 1.2em;
+}
+
+.grabwp-hosting-note {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.grabwp-hosting-footer {
+    margin: 4px 0;
+}
+
+.grabwp-hosting-xcloud-steps {
+    margin: 6px 0 6px 1.5em;
 }

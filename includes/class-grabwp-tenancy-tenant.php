@@ -316,11 +316,13 @@ class GrabWP_Tenancy_Tenant {
 	/**
 	 * Validate HMAC-based admin token and domain hash.
 	 *
-	 * @param string $token Token in format: base64url(timestamp).base64url(hmac_signature).
-	 * @param string $hash  Domain hash (mandatory).
+	 * @param string $token  Token in format: base64url(timestamp).base64url(hmac_signature).
+	 * @param string $hash   Domain hash (mandatory).
+	 * @param string $reason Set to why the token was rejected: invalid, expired, tenant or address.
 	 * @return bool True if valid, false otherwise.
 	 */
-	public static function validate_admin_token( $token, $hash = '' ) {
+	public static function validate_admin_token( $token, $hash = '', &$reason = null ) {
+		$reason = 'invalid';
 		if ( empty( $token ) || empty( $hash ) ) {
 			return false;
 		}
@@ -342,11 +344,13 @@ class GrabWP_Tenancy_Tenant {
 		$ttl       = defined( 'GRABWP_TENANCY_TOKEN_TTL' ) ? GRABWP_TENANCY_TOKEN_TTL : 1800;
 
 		if ( abs( time() - $timestamp ) > $ttl ) {
+			$reason = 'expired';
 			return false;
 		}
 
 		$tenant_id = defined( 'GRABWP_TENANCY_TENANT_ID' ) ? GRABWP_TENANCY_TENANT_ID : '';
 		if ( empty( $tenant_id ) ) {
+			$reason = 'tenant';
 			return false;
 		}
 
@@ -366,11 +370,18 @@ class GrabWP_Tenancy_Tenant {
 		}
 
 		if ( empty( $current_domain ) ) {
+			$reason = 'address';
 			return false;
 		}
 
 		$expected_hash = self::generate_domain_hash( $current_domain, $tenant_id );
-		return hash_equals( $expected_hash, $hash );
+		if ( ! hash_equals( $expected_hash, $hash ) ) {
+			$reason = 'address';
+			return false;
+		}
+
+		$reason = '';
+		return true;
 	}
 
 	/**

@@ -84,6 +84,7 @@ class GrabWP_Tenancy_Settings {
 			'disallow_file_edit'       => true,
 			'hide_plugin_management'   => false,
 			'hide_theme_management'    => false,
+			'hide_theme_switching'     => false,
 			'hide_grabwp_plugins'      => true,
 			'disable_wp_cron'          => true,
 			'disable_xmlrpc'           => true,
@@ -145,6 +146,12 @@ class GrabWP_Tenancy_Settings {
 				'type'        => 'bool',
 				'group'       => 'capabilities',
 				'description' => __( 'Removes the Appearance menu (themes) from tenant dashboards.', 'grabwp-tenancy' ),
+			),
+			'hide_theme_switching'   => array(
+				'label'       => __( 'Hide Themes Screen', 'grabwp-tenancy' ),
+				'type'        => 'bool',
+				'group'       => 'capabilities',
+				'description' => __( 'Tenant admins keep Customize, Menus and Widgets under Appearance but cannot browse, install or switch themes. Has no effect when Hide Appearance Menu is on.', 'grabwp-tenancy' ),
 			),
 			'hide_grabwp_plugins'    => array(
 				'label'       => __( 'Hide GrabWP Plugins', 'grabwp-tenancy' ),
@@ -250,6 +257,17 @@ class GrabWP_Tenancy_Settings {
 				self::$preset_constants[ $key ] = constant( $constant );
 			}
 		}
+	}
+
+	/**
+	 * Values of the controlled constants defined before GrabWP, keyed by setting.
+	 *
+	 * @since  1.1.14
+	 * @return array
+	 */
+	public static function get_preset_constants() {
+		self::capture_preset_constants();
+		return self::$preset_constants;
 	}
 
 	/**

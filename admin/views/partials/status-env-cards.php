@@ -156,13 +156,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</p>
 			<div class="grabwp-manual-code">
 				<pre class="grabwp-env-pre"># BEGIN GrabWP Tenancy
-&lt;IfModule mod_rewrite.c&gt;
-RewriteEngine On
-# Tenant homepage: /<?php echo esc_html( $grabwp_status_prefix ); ?>/{tenant-id-or-alias}[/] → WordPress front-end with site param
-RewriteRule ^<?php echo esc_html( $grabwp_status_prefix ); ?>/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)/?$ /index.php?site=$1 [QSA,L]
-# Tenant sub-paths (wp-admin, wp-login, pages, etc.): strip prefix, pass site param
-RewriteRule ^<?php echo esc_html( $grabwp_status_prefix ); ?>/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)/(.+)$ /$2?site=$1 [QSA,L,NE]
-&lt;/IfModule&gt;
+<?php echo esc_html( implode( "\n", GrabWP_Tenancy_Installer::get_site_path_rewrite_rules( $grabwp_status_prefix ) ) ); ?>
+
 # END GrabWP Tenancy</pre>
 				<div class="grabwp-env-actions">
 					<button type="button" class="button button-small grabwp-copy-code-btn">

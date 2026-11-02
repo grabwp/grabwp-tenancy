@@ -14,27 +14,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-extract( GrabWP_Tenancy_Status_Checker::get_env_card_data() ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
+$grabwp_check_env = GrabWP_Tenancy_Status_Checker::get_env_card_data();
+extract( $grabwp_check_env ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 
-$grabwp_check_issues = 0;
-if ( ! $grabwp_status_wp_config['loader_active'] ) {
-	++$grabwp_check_issues;
-}
-if ( ! ( $grabwp_status_mu_plugin['exists'] && $grabwp_status_mu_plugin['valid'] ) ) {
-	++$grabwp_check_issues;
-}
-if ( $grabwp_status_server['is_apache'] && ! ( $grabwp_status_htaccess['has_block'] && $grabwp_status_htaccess['block_positioned'] && $grabwp_status_htaccess['content_valid'] ) ) {
-	++$grabwp_check_issues;
-}
-if ( ! ( $grabwp_status_data_htaccess['exists'] && $grabwp_status_data_htaccess['has_deny'] ) ) {
-	++$grabwp_check_issues;
-}
-if ( ! $grabwp_status_index_exists ) {
-	++$grabwp_check_issues;
-}
-if ( ! $grabwp_check_loopback ) {
-	++$grabwp_check_issues;
-}
+$grabwp_check_unsafe_files   = GrabWP_Tenancy_Status_Checker::get_unsafe_file_settings();
+$grabwp_check_unsafe_tenants = GrabWP_Tenancy_Status_Checker::get_unsafe_tenant_file_overrides();
+$grabwp_check_proxy_https    = GrabWP_Tenancy_Status_Checker::is_proxy_https_undetected();
+// Check again (?recheck=) runs the outbound hosting probes again.
+$grabwp_hosting              = GrabWP_Tenancy_Status_Checker::get_hosting_card_data( isset( $_GET['recheck'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+$grabwp_check_counts         = GrabWP_Tenancy_Status_Checker::count_setup_check_issues( $grabwp_check_env, $grabwp_check_loopback, $grabwp_check_unsafe_files, $grabwp_check_unsafe_tenants, $grabwp_check_proxy_https, $grabwp_hosting );
+$grabwp_check_issues         = $grabwp_check_counts['issues'];
 ?>
 <h2><?php esc_html_e( 'Welcome to GrabWP', 'grabwp-tenancy' ); ?></h2>
 <p class="description"><?php esc_html_e( 'A few short steps get your first site running. Every step has a working default, and you can skip any of them.', 'grabwp-tenancy' ); ?></p>
@@ -75,7 +64,9 @@ do_action( 'grabwp_tenancy_setup_welcome' );
 					(int) $grabwp_check_issues
 				);
 				?>
-				<button type="button" class="button grabwp-setup-fix-all"><?php esc_html_e( 'Fix automatically', 'grabwp-tenancy' ); ?></button>
+				<?php if ( $grabwp_check_counts['fixable'] > 0 ) : ?>
+					<button type="button" class="button grabwp-setup-fix-all"><?php esc_html_e( 'Fix automatically', 'grabwp-tenancy' ); ?></button>
+				<?php endif; ?>
 				<a class="button-link grabwp-setup-recheck" href="<?php echo esc_url( $grabwp_check_again ); ?>"><?php esc_html_e( 'Check again', 'grabwp-tenancy' ); ?></a>
 			</p>
 			<?php if ( $grabwp_status_wp_config['loader_pending'] ) : ?>
@@ -102,30 +93,9 @@ do_action( 'grabwp_tenancy_setup_welcome' );
 			);
 			?>
 		</p>
-		<?php include GRABWP_TENANCY_PLUGIN_DIR . 'admin/views/partials/status-env-cards.php'; ?>
-
-		<div class="grabwp-env-cards-grid">
-			<div class="grabwp-env-card grabwp-setup-loopback" data-ok="<?php echo $grabwp_check_loopback ? '1' : '0'; ?>">
-				<div class="grabwp-env-card-header">
-					<strong><?php esc_html_e( 'Site can reach itself (loopback)', 'grabwp-tenancy' ); ?></strong>
-					<?php if ( $grabwp_check_loopback ) : ?>
-						<span style="color: #46b450; font-size: 13px;"><?php esc_html_e( 'OK', 'grabwp-tenancy' ); ?></span>
-					<?php else : ?>
-						<span class="grabwp-fix-error" style="color: #dc3232; font-size: 13px;"><?php esc_html_e( 'Failed', 'grabwp-tenancy' ); ?></span>
-					<?php endif; ?>
-				</div>
-				<p class="grabwp-env-note">
-					<?php
-					echo $grabwp_check_loopback
-						? esc_html__( 'GrabWP can install WordPress in new sites for you.', 'grabwp-tenancy' )
-						: esc_html__( 'This server cannot open its own address, so new sites must be installed in the browser. Check firewall, basic auth, or the server routing rules.', 'grabwp-tenancy' );
-					?>
-				</p>
-			</div>
-		</div>
-
-		<?php if ( $grabwp_status_server['is_nginx'] ) : ?>
-			<p class="description"><?php esc_html_e( '.htaccess files are not used by Nginx. Configure tenant routing in your server block instead.', 'grabwp-tenancy' ); ?></p>
-		<?php endif; ?>
+		<?php
+		$grabwp_diagnostics_source = 'setup-check';
+		include GRABWP_TENANCY_PLUGIN_DIR . 'admin/views/partials/system-check.php';
+		?>
 	</details>
 </div>

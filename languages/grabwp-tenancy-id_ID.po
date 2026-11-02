@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-11T19:14:49+00:00\n"
-"PO-Revision-Date: 2026-10-23 19:49+0000\n"
+"POT-Creation-Date: 2026-11-01T09:49:28+00:00\n"
+"PO-Revision-Date: 2026-11-02 19:06+0000\n"
 "Language: id_ID\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: grabwp-tenancy\n"
@@ -19,7 +19,8 @@ msgstr ""
 #: admin/views/tenant-edit.php:155
 #: admin/views/tenants.php:16
 #: includes/class-grabwp-tenancy-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:489
+#: includes/class-grabwp-tenancy-admin.php:503
+#: includes/class-grabwp-tenancy-diagnostics.php:291
 msgid "GrabWP Tenancy"
 msgstr "GrabWP Tenancy"
 
@@ -68,6 +69,13 @@ msgstr "Tindakan"
 msgid "Main Site"
 msgstr "Situs Utama"
 
+#. translators: %d: number of domains stored for the site.
+#: admin/class-grabwp-tenancy-list-table.php:303
+#, php-format
+msgid "%d stored domain, not used in Path mode"
+msgid_plural "%d stored domains, not used in Path mode"
+msgstr[0] "%d domain tersimpan, tidak digunakan dalam mode Path"
+
 #: admin/class-grabwp-tenancy-list-table.php:325
 msgid "Path access only"
 msgstr "Hanya akses jalur"
@@ -114,6 +122,700 @@ msgstr "Cari berdasarkan ID atau domain..."
 msgid "Search"
 msgstr "Cari"
 
+#. translators: %s: example path URL of a site.
+#: admin/views/partials/routing-mode-options.php:20
+#, php-format
+msgid "Every site opens at %s. Works right away, no DNS needed. Domains you add are kept but not used for links."
+msgstr "Setiap situs dibuka di %s. Langsung berfungsi, tanpa perlu DNS. Domain yang Anda tambahkan tetap disimpan tetapi tidak digunakan untuk tautan."
+
+#: admin/views/partials/routing-mode-options.php:23
+msgid "Every site opens on its own domain. Visitors who open a path URL of a site are redirected (301) to its domain. Every site needs a domain."
+msgstr "Setiap situs dibuka pada domainnya sendiri. Pengunjung yang membuka URL path situs akan dialihkan (301) ke domainnya. Setiap situs memerlukan domain."
+
+#: admin/views/partials/routing-mode-options.php:24
+msgid "Sites with a domain open on it; sites without one open on the path URL. Both addresses keep working. This is how GrabWP worked before routing modes."
+msgstr "Situs dengan domain dibuka pada domain tersebut; situs tanpa domain dibuka pada URL path. Kedua alamat tetap berfungsi. Beginilah cara kerja GrabWP sebelum adanya mode routing."
+
+#: admin/views/partials/routing-mode-options.php:28
+#: admin/views/partials/settings-routing.php:43
+#: admin/views/setup-steps/routing.php:78
+#: includes/class-grabwp-tenancy-diagnostics.php:215
+msgid "Routing mode"
+msgstr "Mode routing"
+
+#: admin/views/partials/settings-field-rows.php:43
+#: admin/views/partials/system-check.php:100
+msgid "Yes"
+msgstr "Ya"
+
+#. translators: %s: technical constant or setting name, e.g. DISALLOW_FILE_MODS=true
+#: admin/views/partials/settings-field-rows.php:47
+#, php-format
+msgid "Yes, %s"
+msgstr "Ya, %s"
+
+#. translators: %s: constant name.
+#: admin/views/partials/settings-routing.php:21
+#: admin/views/setup-steps/routing.php:62
+#, php-format
+msgid "The routing mode is set by %s in wp-config.php. Remove the constant to change it here."
+msgstr "Mode routing diatur oleh %s di wp-config.php. Hapus konstanta tersebut untuk mengubahnya di sini."
+
+#. translators: %s: constant name.
+#: admin/views/partials/settings-routing.php:33
+#, php-format
+msgid "%s in wp-config.php is not a valid mode (path, domain or both), so it is ignored."
+msgstr "%s di wp-config.php bukan mode yang valid (path, domain, atau both), sehingga diabaikan."
+
+#: admin/views/partials/settings-routing.php:46
+msgid "Not saved yet. Your sites use Path and domain, the behaviour from before routing modes."
+msgstr "Belum disimpan. Situs Anda menggunakan Path dan domain, perilaku sebelum adanya mode routing."
+
+#: admin/views/partials/settings-routing.php:63
+#: includes/class-grabwp-tenancy-diagnostics.php:216
+msgid "Path prefix"
+msgstr "Prefiks path"
+
+#: admin/views/partials/settings-routing.php:66
+msgid "GrabWP Tenancy Pro can change the prefix and give each site a readable alias."
+msgstr "GrabWP Tenancy Pro dapat mengubah prefiks dan memberikan alias yang mudah dibaca untuk setiap situs."
+
+#: admin/views/partials/setup-file-safety-card.php:25
+#: admin/views/partials/setup-file-safety-card.php:38
+msgid "Tenant file safety"
+msgstr "Keamanan berkas tenant"
+
+#: admin/views/partials/setup-file-safety-card.php:26
+#: admin/views/partials/system-check.php:51
+msgid "OK"
+msgstr "OK"
+
+#: admin/views/partials/setup-file-safety-card.php:28
+msgid "Tenant admins cannot install or edit plugin and theme code."
+msgstr "Admin tenant tidak dapat memasang atau mengedit kode plugin dan tema."
+
+#: admin/views/partials/setup-file-safety-card.php:39
+msgctxt "file safety status"
+msgid "Unsafe"
+msgstr "Tidak aman"
+
+#: admin/views/partials/setup-file-safety-card.php:41
+msgid "Tenant admins can install or edit plugin and theme code. That code runs on this server and can read the secret keys every site shares."
+msgstr "Admin tenant dapat memasang atau mengedit kode plugin dan tema. Kode itu berjalan di server ini dan dapat membaca kunci rahasia yang dipakai bersama oleh semua situs."
+
+#. translators: %s: setting name, e.g. Disable Plugin & Theme File Editor
+#: admin/views/partials/setup-file-safety-card.php:50
+#, php-format
+msgid "Turn on %s in Settings."
+msgstr "Aktifkan %s di Pengaturan."
+
+#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: the value false, 3: the value true
+#: admin/views/partials/setup-file-safety-card.php:56
+#, php-format
+msgid "Code that loads before GrabWP, usually wp-config.php, sets %1$s to %2$s. Change it to %3$s or remove that line."
+msgstr "Kode yang dimuat sebelum GrabWP, biasanya wp-config.php, mengatur %1$s ke %2$s. Ubah menjadi %3$s atau hapus baris itu."
+
+#. translators: 1: site ID, followed by its domain when known, 2: constant names, e.g. DISALLOW_FILE_EDIT, 3: the value false
+#: admin/views/partials/setup-file-safety-card.php:84
+#, php-format
+msgid "A per-site override sets %2$s to %3$s for site %1$s. In that site's Overrides screen (GrabWP Pro), choose Yes or Use global setting."
+msgstr "Penimpaan per situs menyetel %2$s ke %3$s untuk situs %1$s. Di layar Penimpaan situs tersebut (GrabWP Pro), pilih Ya atau Gunakan pengaturan global."
+
+#: admin/views/partials/setup-file-safety-card.php:95
+msgid "Open Settings"
+msgstr "Buka Pengaturan"
+
+#: admin/views/partials/setup-hosting-card.php:27
+msgid "Multisite and wp-config.php"
+msgstr "Multisite dan wp-config.php"
+
+#: admin/views/partials/setup-hosting-card.php:28
+msgid "Secure address"
+msgstr "Alamat aman"
+
+#: admin/views/partials/setup-hosting-card.php:29
+msgid "HTTPS behind a proxy"
+msgstr "HTTPS di balik proxy"
+
+#: admin/views/partials/setup-hosting-card.php:30
+msgid "Subdomains (wildcard)"
+msgstr "Subdomain (wildcard)"
+
+#: admin/views/partials/setup-hosting-card.php:69
+msgid "Working..."
+msgstr "Memproses..."
+
+#: admin/views/partials/setup-hosting-card.php:70
+msgid "Network error. Check again."
+msgstr "Kesalahan jaringan. Periksa lagi."
+
+#: admin/views/partials/setup-hosting-card.php:72
+msgid "Hosting setup"
+msgstr "Penyiapan hosting"
+
+#: admin/views/partials/setup-hosting-card.php:74
+msgid "✓ Ready"
+msgstr "✓ Siap"
+
+#. translators: 1: rows that need attention, 2: number of rows.
+#: admin/views/partials/setup-hosting-card.php:80
+#, php-format
+msgid "%1$d of %2$d needs attention"
+msgid_plural "%1$d of %2$d need attention"
+msgstr[0] "%1$d dari %2$d perlu perhatian"
+
+#. translators: %d: number of sites in the Multisite network.
+#: admin/views/partials/setup-hosting-card.php:100
+#, php-format
+msgid "This is a Multisite network with %d sites. Do not convert it: back up or move those sites first."
+msgstr "Ini adalah jaringan Multisite dengan %d situs. Jangan dikonversi: cadangkan atau pindahkan situs-situs tersebut terlebih dahulu."
+
+#: admin/views/partials/setup-hosting-card.php:105
+msgid "This site still runs as WordPress Multisite. GrabWP needs regular WordPress. Remove every line below."
+msgstr "Situs ini masih berjalan sebagai WordPress Multisite. GrabWP memerlukan WordPress reguler. Hapus setiap baris di bawah ini."
+
+#: admin/views/partials/setup-hosting-card.php:108
+msgid "wp-config.php has settings that stop GrabWP. Remove every line below."
+msgstr "wp-config.php memiliki pengaturan yang menghentikan GrabWP. Hapus setiap baris di bawah."
+
+#: admin/views/partials/setup-hosting-card.php:111
+msgid "Regular WordPress. WP_ALLOW_MULTISITE is optional cleanup."
+msgstr "WordPress reguler. Pembersihan WP_ALLOW_MULTISITE bersifat opsional."
+
+#: admin/views/partials/setup-hosting-card.php:114
+msgid "This site runs as regular WordPress."
+msgstr "Situs ini berjalan sebagai WordPress reguler."
+
+#: admin/views/partials/setup-hosting-card.php:120
+msgid "Lines to remove by hand"
+msgstr "Baris yang harus dihapus secara manual"
+
+#. translators: %s: path of wp-config.php.
+#: admin/views/partials/setup-hosting-card.php:126
+#, php-format
+msgid "In %s:"
+msgstr "Di %s:"
+
+#. translators: 1: line number, 2: PHP code on that line.
+#: admin/views/partials/setup-hosting-card.php:143
+#, php-format
+msgid "Line %1$d: %2$s"
+msgstr "Baris %1$d: %2$s"
+
+#. translators: %s: list of constant names.
+#: admin/views/partials/setup-hosting-card.php:157
+#, php-format
+msgid "Set outside wp-config.php (for example by a host must-use plugin): %s. Ask your host to remove them."
+msgstr "Diatur di luar wp-config.php (misalnya oleh plugin must-use dari penyedia hosting): %s. Minta penyedia hosting Anda untuk menghapusnya."
+
+#: admin/views/partials/setup-hosting-card.php:164
+msgid "Some of these lines are inside a condition or still used by other code, so GrabWP cannot remove them for you."
+msgstr "Beberapa baris ini berada di dalam kondisi atau masih digunakan oleh kode lain, sehingga GrabWP tidak dapat menghapusnya secara otomatis."
+
+#: admin/views/partials/setup-hosting-card.php:167
+msgid "GrabWP never removes these lines for you. After removing them, log in again and activate plugins that were network activated, then Check again."
+msgstr "GrabWP tidak pernah menghapus baris-baris ini secara otomatis. Setelah menghapusnya, masuk kembali dan aktifkan plugin yang sebelumnya diaktifkan di jaringan, lalu Periksa lagi."
+
+#: admin/views/partials/setup-hosting-card.php:175
+msgid "Remove these settings"
+msgstr "Hapus pengaturan ini"
+
+#: admin/views/partials/setup-hosting-card.php:176
+msgid "Remove the settings listed here from wp-config.php? A backup is kept in the GrabWP data folder, and you can undo this here. You may need to log in again."
+msgstr "Hapus pengaturan yang tercantum di sini dari wp-config.php? Cadangan disimpan di folder data GrabWP, dan Anda dapat membatalkannya di sini. Anda mungkin perlu masuk lagi."
+
+#: admin/views/partials/setup-hosting-card.php:182
+msgid "Undo settings removal"
+msgstr "Batalkan penghapusan pengaturan"
+
+#: admin/views/partials/setup-hosting-card.php:183
+msgid "Put the removed settings back into wp-config.php? They may stop GrabWP again."
+msgstr "Kembalikan pengaturan yang dihapus ke wp-config.php? Pengaturan itu dapat menghentikan GrabWP lagi."
+
+#: admin/views/partials/setup-hosting-card.php:198
+msgid "Your site works on https, but WordPress still uses http."
+msgstr "Situs Anda berfungsi di https, tetapi WordPress masih menggunakan http."
+
+#: admin/views/partials/setup-hosting-card.php:201
+msgid "Your site works on https, but WordPress still uses http. Fix HTTPS behind a proxy first, then open this page over https."
+msgstr "Situs Anda berfungsi di https, tetapi WordPress masih menggunakan http. Perbaiki HTTPS di balik proxy terlebih dahulu, lalu buka halaman ini melalui https."
+
+#: admin/views/partials/setup-hosting-card.php:204
+msgid "WP_HOME or WP_SITEURL sets the address. Remove it from wp-config.php above, then Check again."
+msgstr "WP_HOME atau WP_SITEURL menetapkan alamat. Hapus dari wp-config.php di atas, lalu periksa lagi."
+
+#. translators: %s: host name.
+#: admin/views/partials/setup-hosting-card.php:209
+#, php-format
+msgid "The https certificate of %s is not valid. Ask your host or CDN for one."
+msgstr "Sertifikat https untuk %s tidak valid. Minta sertifikat dari penyedia hosting atau CDN Anda."
+
+#. translators: %s: host name.
+#: admin/views/partials/setup-hosting-card.php:216
+#, php-format
+msgid "%s does not answer on https yet. Turn on SSL at your host or CDN."
+msgstr "%s belum merespons melalui https. Aktifkan SSL di penyedia hosting atau CDN Anda."
+
+#: admin/views/partials/setup-hosting-card.php:221
+msgid "WordPress uses https."
+msgstr "WordPress menggunakan https."
+
+#: admin/views/partials/setup-hosting-card.php:229
+msgid "Switch to https"
+msgstr "Beralih ke https"
+
+#: admin/views/partials/setup-hosting-card.php:230
+msgid "Switch the WordPress Address and Site Address to https? Links inside posts are not changed. You can undo this here."
+msgstr "Ubah Alamat WordPress dan Alamat Situs ke https? Tautan di dalam pos tidak diubah. Anda dapat membatalkannya di sini."
+
+#: admin/views/partials/setup-hosting-card.php:237
+msgid "Undo"
+msgstr "Urungkan"
+
+#: admin/views/partials/setup-hosting-card.php:238
+msgid "Put the WordPress Address and Site Address back to http?"
+msgstr "Kembalikan Alamat WordPress dan Alamat Situs ke http?"
+
+#: admin/views/partials/setup-hosting-card.php:253
+msgid "Your proxy or CDN serves https, but WordPress is not told."
+msgstr "Proxy atau CDN Anda menyajikan https, tetapi WordPress tidak diberi tahu."
+
+#. translators: %d: line number in wp-config.php.
+#: admin/views/partials/setup-hosting-card.php:258
+#, php-format
+msgid "wp-config.php has HTTPS code at line %d, but WordPress still sees http."
+msgstr "wp-config.php memiliki kode HTTPS di baris %d, tetapi WordPress masih mendeteksi http."
+
+#. translators: %d: line number in wp-config.php.
+#: admin/views/partials/setup-hosting-card.php:265
+#, php-format
+msgid "The HTTPS code at line %d of wp-config.php runs after the GrabWP loader, so new sites can miss https."
+msgstr "Kode HTTPS di baris %d pada wp-config.php dijalankan setelah pemuat GrabWP, sehingga situs baru dapat melewatkan https."
+
+#: admin/views/partials/setup-hosting-card.php:270
+msgid "No proxy or CDN reports https for this visit."
+msgstr "Tidak ada proxy atau CDN yang melaporkan https untuk kunjungan ini."
+
+#: admin/views/partials/setup-hosting-card.php:273
+msgid "WordPress sees https from your proxy or CDN."
+msgstr "WordPress mendeteksi https dari proxy atau CDN Anda."
+
+#: admin/views/partials/setup-hosting-card.php:281
+msgid "Add HTTPS detection"
+msgstr "Tambahkan deteksi HTTPS"
+
+#: admin/views/partials/setup-hosting-card.php:282
+msgid "Add HTTPS detection to wp-config.php? A backup is kept in the GrabWP data folder, and you can undo this here."
+msgstr "Tambahkan deteksi HTTPS ke wp-config.php? Cadangan disimpan di folder data GrabWP, dan Anda dapat membatalkannya di sini."
+
+#: admin/views/partials/setup-hosting-card.php:288
+msgid "Remove HTTPS detection"
+msgstr "Hapus deteksi HTTPS"
+
+#: admin/views/partials/setup-hosting-card.php:289
+msgid "Remove the HTTPS detection that GrabWP added to wp-config.php? Behind a proxy, WordPress then sees http again."
+msgstr "Hapus deteksi HTTPS yang ditambahkan GrabWP ke wp-config.php? Di balik proxy, WordPress akan kembali mendeteksi http."
+
+#: admin/views/partials/setup-hosting-card.php:296
+msgid "Code to add by hand"
+msgstr "Kode yang harus ditambahkan secara manual"
+
+#. translators: %s: the GrabWP loader marker line.
+#: admin/views/partials/setup-hosting-card.php:301
+#, php-format
+msgid "Add to wp-config.php, before %s:"
+msgstr "Tambahkan ke wp-config.php, sebelum %s:"
+
+#: admin/views/partials/setup-hosting-card.php:309
+msgid "Copy code"
+msgstr "Salin kode"
+
+#: admin/views/partials/setup-hosting-card.php:325
+msgid "Not needed: sites use path addresses."
+msgstr "Tidak diperlukan: situs menggunakan alamat path."
+
+#: admin/views/partials/setup-hosting-card.php:328
+msgid "This site has no domain name, so sites cannot get subdomains."
+msgstr "Situs ini tidak memiliki nama domain, sehingga situs tidak dapat menggunakan subdomain."
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:332
+#, php-format
+msgid "No DNS record for %s yet. Add a wildcard record at your DNS host."
+msgstr "Belum ada data DNS untuk %s. Tambahkan data wildcard di penyedia DNS Anda."
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:336
+#, php-format
+msgid "%s has DNS, but nothing answers on https."
+msgstr "%s memiliki DNS, tetapi tidak ada yang merespons melalui https."
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:340
+#, php-format
+msgid "%s reaches a different website. Point it at this site at your host."
+msgstr "%s mengarah ke situs web lain. Arahkan ke situs ini di penyedia hosting Anda."
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:344
+#, php-format
+msgid "%s reaches this site, but the certificate does not cover it."
+msgstr "%s mengarah ke situs ini, tetapi sertifikatnya tidak mencakup alamat tersebut."
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:348
+#, php-format
+msgid "New sites at %s work."
+msgstr "Situs baru di %s berfungsi."
+
+#: admin/views/partials/setup-hosting-card.php:355
+msgid "DNS"
+msgstr "DNS"
+
+#: admin/views/partials/setup-hosting-card.php:356
+msgid "address"
+msgstr "alamat"
+
+#: admin/views/partials/setup-hosting-card.php:357
+msgid "certificate"
+msgstr "sertifikat"
+
+#: admin/views/partials/setup-hosting-card.php:365
+#: admin/views/partials/system-check.php:70
+#: admin/views/setup-steps/check.php:70
+#: admin/views/setup-steps/check.php:80
+msgid "Check again"
+msgstr "Periksa lagi"
+
+#: admin/views/partials/setup-hosting-card.php:370
+msgid "Using xCloud?"
+msgstr "Menggunakan xCloud?"
+
+#: admin/views/partials/setup-hosting-card.php:372
+msgid "In xCloud, create the WordPress site as Multisite with subdomains. xCloud sets up wildcard subdomain hosting only for such sites."
+msgstr "Di xCloud, buat situs WordPress sebagai Multisite dengan subdomain. xCloud menyiapkan hosting subdomain wildcard hanya untuk situs seperti itu."
+
+#: admin/views/partials/setup-hosting-card.php:373
+msgid "Wait until the Subdomains row here passes: DNS, address and certificate."
+msgstr "Tunggu hingga baris Subdomain di sini lolos pemeriksaan: DNS, alamat, dan sertifikat."
+
+#: admin/views/partials/setup-hosting-card.php:374
+msgid "Then remove every native Multisite line from wp-config.php. GrabWP runs only on regular WordPress (single site). Old Multisite rules in .htaccess can stay."
+msgstr "Kemudian hapus setiap baris Multisite bawaan dari wp-config.php. GrabWP hanya berjalan di WordPress reguler (situs tunggal). Aturan Multisite lama di .htaccess dapat dibiarkan."
+
+#: admin/views/partials/setup-hosting-card.php:375
+msgid "If the network already has more than one site, do not convert it. Back up or move those sites first."
+msgstr "Jika jaringan sudah memiliki lebih dari satu situs, jangan dikonversi. Cadangkan atau pindahkan situs-situs tersebut terlebih dahulu."
+
+#. translators: %s: reason the install failed.
+#: admin/views/partials/site-result.php:39
+#: admin/views/setup-steps/done.php:56
+#, php-format
+msgid "The site was created but WordPress could not be installed automatically: %s"
+msgstr "Situs sudah dibuat, tetapi WordPress tidak dapat dipasang secara otomatis: %s"
+
+#: admin/views/partials/site-result.php:46
+#: admin/views/setup-steps/done.php:63
+msgid "Finish install in browser"
+msgstr "Selesaikan pemasangan di browser"
+
+#. translators: %s: tenant ID.
+#: admin/views/partials/site-result.php:54
+#: admin/views/setup-steps/done.php:41
+#, php-format
+msgid "Site created: %s"
+msgstr "Situs dibuat: %s"
+
+#: admin/views/partials/site-result.php:64
+#: admin/views/setup-steps/done.php:68
+msgid "Username"
+msgstr "Nama Pengguna"
+
+#: admin/views/partials/site-result.php:66
+#: admin/views/setup-steps/done.php:70
+msgid "Password"
+msgstr "Kata Sandi"
+
+#: admin/views/partials/site-result.php:68
+#: admin/views/setup-steps/done.php:72
+msgid "Show"
+msgstr "Tampilkan"
+
+#: admin/views/partials/site-result.php:68
+#: admin/views/setup-steps/done.php:72
+msgid "Hide"
+msgstr "Sembunyikan"
+
+#: admin/views/partials/site-result.php:69
+#: admin/views/setup-steps/done.php:73
+#: admin/views/tenant-edit.php:77
+msgid "Copy"
+msgstr "Salin"
+
+#: admin/views/partials/site-result.php:71
+msgid "This password is shown once. You do not need it: the 1-click Admin button logs you in."
+msgstr "Kata sandi ini hanya ditampilkan sekali. Anda tidak memerlukannya: tombol Admin 1 klik akan memasukkan Anda."
+
+#: admin/views/partials/site-result.php:75
+#: admin/views/setup-steps/done.php:100
+msgid "Open site admin (1-click)"
+msgstr "Buka admin situs (1 klik)"
+
+#: admin/views/partials/status-env-cards.php:29
+msgid "1. wp-config.php Loader"
+msgstr "1. Pemuat wp-config.php"
+
+#: admin/views/partials/status-env-cards.php:31
+#: admin/views/status-pro.php:46
+msgid "✓ Active"
+msgstr "✓ Aktif"
+
+#: admin/views/partials/status-env-cards.php:33
+msgid "In wp-config.php, reload to confirm"
+msgstr "Ada di wp-config.php, muat ulang untuk mengonfirmasi"
+
+#: admin/views/partials/status-env-cards.php:35
+msgid "✗ Not loaded"
+msgstr "✗ Tidak dimuat"
+
+#: admin/views/partials/status-env-cards.php:41
+#: admin/views/partials/status-env-cards.php:94
+#: admin/views/partials/status-env-cards.php:144
+#: admin/views/partials/status-env-cards.php:200
+#: admin/views/partials/status-env-cards.php:257
+msgid "Fix steps and install code"
+msgstr "Langkah perbaikan dan kode instalasi"
+
+#: admin/views/partials/status-env-cards.php:43
+msgid "Loads tenant detection before WordPress boots so domain/path routing can identify the tenant."
+msgstr "Memuat deteksi tenant sebelum WordPress melakukan booting sehingga perutean domain/jalur dapat mengenali tenant."
+
+#: admin/views/partials/status-env-cards.php:48
+#, php-format
+msgid "File: %1$s, place before %2$s"
+msgstr "File: %1$s, letakkan sebelum %2$s"
+
+#: admin/views/partials/status-env-cards.php:58
+#: admin/views/partials/status-env-cards.php:105
+#: admin/views/partials/status-env-cards.php:164
+#: admin/views/partials/status-env-cards.php:224
+#: admin/views/partials/status-env-cards.php:275
+msgid "📋 Copy Code"
+msgstr "📋 Salin Kode"
+
+#: admin/views/partials/status-env-cards.php:64
+#: admin/views/partials/status-env-cards.php:111
+#: admin/views/partials/status-env-cards.php:170
+#: admin/views/partials/status-env-cards.php:230
+#: admin/views/partials/status-env-cards.php:281
+msgid "⚡ Auto Fix"
+msgstr "⚡ Perbaiki Otomatis"
+
+#: admin/views/partials/status-env-cards.php:67
+msgid "wp-config.php is not writable, manual install required"
+msgstr "wp-config.php tidak dapat ditulis, instalasi manual diperlukan"
+
+#: admin/views/partials/status-env-cards.php:69
+msgid "Stop-editing marker not found, manual install required"
+msgstr "Penanda stop-editing tidak ditemukan, instalasi manual diperlukan"
+
+#: admin/views/partials/status-env-cards.php:82
+msgid "2. MU-Plugin"
+msgstr "2. MU-Plugin"
+
+#: admin/views/partials/status-env-cards.php:84
+#: admin/views/partials/status-env-cards.php:130
+msgid "✓ Installed"
+msgstr "✓ Terinstal"
+
+#: admin/views/partials/status-env-cards.php:86
+msgid "⚠ Outdated"
+msgstr "⚠ Usang"
+
+#: admin/views/partials/status-env-cards.php:88
+#: admin/views/partials/status-env-cards.php:194
+msgid "✗ Missing"
+msgstr "✗ Hilang"
+
+#: admin/views/partials/status-env-cards.php:96
+msgid "MU-plugins load on every request, including tenant admin, for settings sync and management features."
+msgstr "MU-plugin dimuat di tiap permintaan, termasuk admin tenant, untuk sinkronisasi pengaturan dan fitur manajemen."
+
+#: admin/views/partials/status-env-cards.php:99
+#: admin/views/partials/status-env-cards.php:205
+#: admin/views/partials/status-env-cards.php:262
+#, php-format
+msgid "File: %s"
+msgstr "File: %s"
+
+#: admin/views/partials/status-env-cards.php:114
+msgid "mu-plugins directory is not writable, manual install required"
+msgstr "Direktori mu-plugins tidak dapat ditulis, instalasi manual diperlukan"
+
+#: admin/views/partials/status-env-cards.php:128
+msgid "3. Root .htaccess Rewrite Rules"
+msgstr "3. Aturan Penulisan Ulang .htaccess Root"
+
+#: admin/views/partials/status-env-cards.php:132
+msgid "⚠ Wrong position"
+msgstr "⚠ Posisi salah"
+
+#: admin/views/partials/status-env-cards.php:134
+msgid "⚠ Invalid content"
+msgstr "⚠ Konten tidak valid"
+
+#: admin/views/partials/status-env-cards.php:136
+msgid "⚠ Missing block"
+msgstr "⚠ Blok hilang"
+
+#: admin/views/partials/status-env-cards.php:138
+msgid "✗ No .htaccess"
+msgstr "✗ Tidak ada .htaccess"
+
+#: admin/views/partials/status-env-cards.php:149
+#, php-format
+msgid "Apache rewrite rules for path-based tenant URLs like /%s/{id}/wp-admin."
+msgstr "Aturan penulisan ulang Apache untuk URL tenant berbasis jalur seperti /%s/{id}/wp-admin."
+
+#: admin/views/partials/status-env-cards.php:155
+#, php-format
+msgid "File: %s, must appear BEFORE \"# BEGIN WordPress\""
+msgstr "File: %s, harus muncul SEBELUM \"# BEGIN WordPress\""
+
+#: admin/views/partials/status-env-cards.php:173
+msgid "Root directory or .htaccess is not writable, manual install required"
+msgstr "Direktori root atau .htaccess tidak dapat ditulis, instalasi manual diperlukan"
+
+#: admin/views/partials/status-env-cards.php:188
+msgid "Data Directory .htaccess"
+msgstr ".htaccess Direktori Data"
+
+#: admin/views/partials/status-env-cards.php:190
+msgid "✓ Protected"
+msgstr "✓ Dilindungi"
+
+#: admin/views/partials/status-env-cards.php:192
+msgid "⚠ Incomplete"
+msgstr "⚠ Tidak lengkap"
+
+#: admin/views/partials/status-env-cards.php:202
+msgid "Blocks direct HTTP access to PHP files and directory listing in the tenant data directory."
+msgstr "Memblokir akses HTTP langsung ke file PHP dan daftar direktori di dalam direktori data tenant."
+
+#: admin/views/partials/status-env-cards.php:233
+#: admin/views/partials/status-env-cards.php:284
+msgid "Data directory is not writable, manual install required"
+msgstr "Direktori data tidak dapat ditulis, instalasi manual diperlukan"
+
+#: admin/views/partials/status-env-cards.php:247
+msgid "index.php Protection"
+msgstr "Perlindungan index.php"
+
+#: admin/views/partials/status-env-cards.php:249
+msgid "✓ Present"
+msgstr "✓ Ada"
+
+#: admin/views/partials/status-env-cards.php:251
+msgid "⚠ Missing"
+msgstr "⚠ Hilang"
+
+#: admin/views/partials/status-env-cards.php:259
+msgid "Blank index.php prevents directory listing when .htaccess is unavailable."
+msgstr "index.php yang kosong mencegah pendaftaran direktori ketika .htaccess tidak tersedia."
+
+#: admin/views/partials/status-env-cards.php:300
+msgid "Shared Files Lock"
+msgstr "Kunci File Bersama"
+
+#: admin/views/partials/status-env-cards.php:302
+msgid "Locked"
+msgstr "Terkunci"
+
+#: admin/views/partials/status-env-cards.php:304
+msgid "Unlocked"
+msgstr "Tidak Terkunci"
+
+#: admin/views/partials/status-env-cards.php:308
+msgid "Makes the shared root files read-only (0444) so tenant plugins cannot rewrite them. GrabWP and main-site permalink saves unlock and re-lock automatically."
+msgstr "Membuat file root bersama hanya-baca (0444) sehingga plugin tenant tidak bisa menulis ulangnya. GrabWP dan penyimpanan tautan permanen situs utama akan membuka dan mengunci kembali secara otomatis."
+
+#: admin/views/partials/status-env-cards.php:309
+msgid "If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again."
+msgstr "Jika plugin situs utama (misalnya plugin cache) perlu menulis file ini, Buka Kunci sementara, lalu Kunci lagi."
+
+#. translators: %d: number of snapshot files.
+#: admin/views/partials/status-env-cards.php:322
+#, php-format
+msgid "Integrity snapshots: %d"
+msgstr "Cuplikan integritas: %d"
+
+#: admin/views/partials/status-env-cards.php:325
+msgid "Watched for changes. Not read-only, because the web server does not own these files (optional):"
+msgstr "Dipantau untuk perubahan. Bukan baca-saja, karena server web tidak memiliki berkas ini (opsional):"
+
+#: admin/views/partials/status-env-cards.php:333
+msgid "Unlock shared files"
+msgstr "Buka kunci file bersama"
+
+#: admin/views/partials/status-env-cards.php:333
+msgid "Lock shared files"
+msgstr "Kunci file bersama"
+
+#: admin/views/partials/system-check.php:49
+msgid "Site can reach itself (loopback)"
+msgstr "Situs dapat menjangkau dirinya sendiri (loopback)"
+
+#: admin/views/partials/system-check.php:53
+msgid "Not checked"
+msgstr "Belum diperiksa"
+
+#: admin/views/partials/system-check.php:55
+msgid "Failed"
+msgstr "Gagal"
+
+#: admin/views/partials/system-check.php:61
+msgid "GrabWP can install WordPress in new sites for you."
+msgstr "GrabWP dapat memasang WordPress di situs baru untuk Anda."
+
+#: admin/views/partials/system-check.php:63
+msgid "No recent result. Use Check again to test whether this server can open its own address."
+msgstr "Belum ada hasil terbaru. Gunakan Periksa lagi untuk menguji apakah server ini dapat membuka alamatnya sendiri."
+
+#: admin/views/partials/system-check.php:65
+msgid "This server cannot open its own address, so new sites must be installed in the browser. Check firewall, basic auth, or the server routing rules."
+msgstr "Server ini tidak dapat membuka alamatnya sendiri, jadi situs baru harus dipasang di browser. Periksa firewall, basic auth, atau aturan routing server."
+
+#: admin/views/partials/system-check.php:79
+msgid "System Information"
+msgstr "Informasi Sistem"
+
+#. translators: 1: WordPress version, 2: PHP version, 3: server software label
+#: admin/views/partials/system-check.php:84
+#, php-format
+msgid "WP %1$s · PHP %2$s · %3$s"
+msgstr "WP %1$s · PHP %2$s · %3$s"
+
+#: admin/views/partials/system-check.php:100
+#: admin/views/status-base.php:119
+msgid "No"
+msgstr "Tidak"
+
+#: admin/views/partials/system-check.php:102
+msgid "Not set"
+msgstr "Tidak diatur"
+
+#: admin/views/partials/system-check.php:127
+msgid "Support diagnostics"
+msgstr "Diagnostik dukungan"
+
+#: admin/views/partials/system-check.php:128
+msgid "Copies a summary of these checks, the System Information and the last lines of the GrabWP and WordPress debug logs to your clipboard. Passwords, keys, salts, emails and file paths are left out. Nothing is sent anywhere: paste it into your support request."
+msgstr "Menyalin ringkasan pemeriksaan ini, Informasi Sistem, dan baris terakhir log debug GrabWP dan WordPress ke clipboard. Kata sandi, kunci, salt, email, dan path file tidak disertakan. Tidak ada yang dikirim: tempelkan ke permintaan dukungan Anda."
+
+#: admin/views/partials/system-check.php:130
+msgid "Copy diagnostics"
+msgstr "Salin diagnostik"
+
 #: admin/views/partials/upsell-card.php:20
 #: admin/views/tenant-create.php:170
 #: admin/views/tenant-edit.php:156
@@ -127,6 +829,93 @@ msgstr "Pelajari tentang Pro"
 #: admin/views/upgrade.php:27
 msgid "Pro"
 msgstr "Pro"
+
+#: admin/views/settings-routing-confirm.php:17
+msgid "Change routing mode"
+msgstr "Ubah mode routing"
+
+#. translators: 1: current routing mode, 2: new routing mode.
+#: admin/views/settings-routing-confirm.php:22
+#, php-format
+msgid "From %1$s to %2$s."
+msgstr "Dari %1$s ke %2$s."
+
+#: admin/views/settings-routing-confirm.php:31
+#: includes/class-grabwp-tenancy-admin-form-handler.php:234
+msgid "Domain mode needs a domain for every site. These sites have none yet:"
+msgstr "Mode domain memerlukan domain untuk setiap situs. Situs-situs ini belum memilikinya:"
+
+#: admin/views/settings-routing-confirm.php:36
+#: admin/views/settings-routing-confirm.php:62
+#: admin/views/setup-steps/site.php:38
+#: admin/views/setup-steps/site.php:56
+msgid "Site"
+msgstr "Situs"
+
+#: admin/views/settings-routing-confirm.php:37
+msgid "Action"
+msgstr "Tindakan"
+
+#: admin/views/settings-routing-confirm.php:45
+msgid "Add a domain"
+msgstr "Tambah domain"
+
+#: admin/views/settings-routing-confirm.php:52
+msgid "Back to Routing settings"
+msgstr "Kembali ke pengaturan Routing"
+
+#: admin/views/settings-routing-confirm.php:55
+msgid "Sites whose address changes"
+msgstr "Situs yang alamatnya berubah"
+
+#: admin/views/settings-routing-confirm.php:57
+msgid "No site address changes."
+msgstr "Tidak ada perubahan alamat situs."
+
+#: admin/views/settings-routing-confirm.php:63
+msgid "Current address"
+msgstr "Alamat saat ini"
+
+#: admin/views/settings-routing-confirm.php:64
+msgid "New address"
+msgstr "Alamat baru"
+
+#: admin/views/settings-routing-confirm.php:79
+msgid "What else happens"
+msgstr "Apa lagi yang terjadi"
+
+#: admin/views/settings-routing-confirm.php:82
+msgid "Visitors who open a path URL of a site are redirected (301) to its domain. Form posts and server calls to path URLs keep working."
+msgstr "Pengunjung yang membuka URL path situs akan dialihkan (301) ke domainnya. Pengiriman formulir dan panggilan server ke URL path tetap berfungsi."
+
+#: admin/views/settings-routing-confirm.php:85
+msgid "Path URLs stop redirecting and open the site again. Browsers and CDNs may keep a cached redirect until you purge them."
+msgstr "URL path berhenti mengalihkan dan membuka situs kembali. Browser dan CDN mungkin menyimpan cache pengalihan hingga Anda membersihkannya."
+
+#: admin/views/settings-routing-confirm.php:87
+msgid "Links stored inside site content are not changed. Old addresses keep working."
+msgstr "Tautan yang tersimpan di dalam konten situs tidak diubah. Alamat lama tetap berfungsi."
+
+#: admin/views/settings-routing-confirm.php:89
+msgid "People logged in to a site whose address changes are signed out once."
+msgstr "Pengguna yang masuk ke situs yang alamatnya berubah akan dikeluarkan satu kali."
+
+#: admin/views/settings-routing-confirm.php:91
+msgid "Purge page and CDN caches after the switch."
+msgstr "Bersihkan cache halaman dan CDN setelah beralih."
+
+#. translators: %s: new routing mode.
+#: admin/views/settings-routing-confirm.php:103
+#, php-format
+msgid "Switch to %s"
+msgstr "Beralih ke %s"
+
+#: admin/views/settings-routing-confirm.php:108
+#: admin/views/tenant-clone.php:110
+#: admin/views/tenant-create.php:159
+#: admin/views/tenant-edit.php:145
+msgid "Cancel"
+msgstr "Batal"
 
 #: admin/views/settings.php:16
 msgid "GrabWP Tenancy Settings"
@@ -142,17 +931,10 @@ msgstr "Kemampuan Tenant"
 msgid "Performance & Security"
 msgstr "Kinerja & Keamanan"
 
-#: includes/class-grabwp-tenancy-settings.php:150
-msgid "Hide GrabWP Plugins"
-msgstr "Sembunyikan Plugin GrabWP"
-
-#: includes/class-grabwp-tenancy-settings.php:156
-msgid "Disable WP-Cron"
-msgstr "Nonaktifkan WP-Cron"
-
-#: includes/class-grabwp-tenancy-settings.php:164
-msgid "Disable XML-RPC"
-msgstr "Nonaktifkan XML-RPC"
+#: admin/views/settings.php:27
+#: includes/class-grabwp-tenancy-setup-wizard.php:147
+msgid "Routing"
+msgstr "Routing"
 
 #: admin/views/settings.php:61
 msgid "Save Settings"
@@ -169,6 +951,287 @@ msgstr "Jadwalkan cadangan otomatis untuk tiap situs tenant pada interval yang A
 #: admin/views/settings.php:70
 msgid "Learn about GrabWP Tenancy Pro"
 msgstr "Pelajari GrabWP Tenancy Pro"
+
+#: admin/views/setup-steps/check.php:28
+msgid "Welcome to GrabWP"
+msgstr "Selamat datang di GrabWP"
+
+#: admin/views/setup-steps/check.php:29
+msgid "A few short steps get your first site running. Every step has a working default, and you can skip any of them."
+msgstr "Beberapa langkah singkat untuk menjalankan situs pertama Anda. Setiap langkah memiliki pengaturan bawaan yang siap pakai, dan Anda dapat melewati langkah mana pun."
+
+#: admin/views/setup-steps/check.php:33
+msgid "One WordPress, many websites"
+msgstr "Satu WordPress, banyak situs web"
+
+#: admin/views/setup-steps/check.php:34
+msgid "GrabWP runs many separate websites from this one WordPress install. Each one is called a site (a \"tenant\" in some GrabWP screens)."
+msgstr "GrabWP menjalankan banyak situs web terpisah dari satu instalasi WordPress ini. Masing-masing disebut situs (\"tenant\" di beberapa layar GrabWP)."
+
+#: admin/views/setup-steps/check.php:37
+msgid "Each site stands on its own"
+msgstr "Setiap situs berdiri sendiri"
+
+#: admin/views/setup-steps/check.php:38
+msgid "A site has its own posts, pages, media, users and admin area. Sites share the plugins and themes installed here, so you update them once."
+msgstr "Setiap situs memiliki pos, halaman, media, pengguna, dan area admin sendiri. Situs-situs berbagi plugin dan tema yang terinstal di sini, sehingga Anda cukup memperbaruinya satu kali."
+
+#: admin/views/setup-steps/check.php:41
+msgid "Not WordPress Multisite"
+msgstr "Bukan WordPress Multisite"
+
+#: admin/views/setup-steps/check.php:42
+msgid "You do not need to know or turn on Multisite. You manage every site from the Tenancy menu of this admin."
+msgstr "Anda tidak perlu memahami atau mengaktifkan Multisite. Anda mengelola setiap situs dari menu Tenancy di admin ini."
+
+#: admin/views/setup-steps/check.php:56
+msgid "Server check"
+msgstr "Pemeriksaan server"
+
+#. translators: %d: number of items that need attention.
+#: admin/views/setup-steps/check.php:63
+#, php-format
+msgid "%d item needs attention."
+msgid_plural "%d items need attention."
+msgstr[0] "%d item perlu perhatian."
+
+#: admin/views/setup-steps/check.php:68
+msgid "Fix automatically"
+msgstr "Perbaiki otomatis"
+
+#: admin/views/setup-steps/check.php:73
+msgid "The loader is in wp-config.php, but this page loaded before it was read. Check again to confirm."
+msgstr "Loader sudah ada di wp-config.php, tetapi halaman ini dimuat sebelum loader terbaca. Periksa lagi untuk mengonfirmasi."
+
+#: admin/views/setup-steps/check.php:79
+msgid "Everything is ready. Nothing to do here."
+msgstr "Semuanya sudah siap. Tidak ada yang perlu dilakukan di sini."
+
+#: admin/views/setup-steps/check.php:86
+msgid "Show the server checks"
+msgstr "Tampilkan pemeriksaan server"
+
+#. translators: %s: example site address such as /site/{id}
+#: admin/views/setup-steps/check.php:91
+#, php-format
+msgid "GrabWP set these up when you activated it. Site addresses like %s need every item."
+msgstr "GrabWP telah mengaturnya saat Anda mengaktifkannya. Alamat situs seperti %s memerlukan setiap item."
+
+#: admin/views/setup-steps/done.php:21
+msgid "You're ready"
+msgstr "Anda sudah siap"
+
+#: admin/views/setup-steps/done.php:22
+msgid "Your setup is saved. Open your site, then grow it whenever you like."
+msgstr "Penyiapan Anda telah disimpan. Buka situs Anda, lalu kembangkan kapan pun Anda mau."
+
+#. translators: %s: tenant ID.
+#: admin/views/setup-steps/done.php:41
+#, php-format
+msgid "Your site: %s"
+msgstr "Situs Anda: %s"
+
+#: admin/views/setup-steps/done.php:74
+msgid "I saved it, hide this"
+msgstr "Sudah saya simpan, sembunyikan ini"
+
+#: admin/views/setup-steps/done.php:76
+msgid "Keep this password somewhere safe. It stays on this screen until you hide it. You do not need it to log in: the 1-click Admin button does that."
+msgstr "Simpan kata sandi ini di tempat yang aman. Kata sandi akan tetap tampil di layar ini sampai Anda menyembunyikannya. Anda tidak memerlukannya untuk masuk: tombol Admin 1-klik yang akan melakukannya."
+
+#: admin/views/setup-steps/done.php:81
+msgid "What you set up"
+msgstr "Yang telah Anda siapkan"
+
+#: admin/views/setup-steps/done.php:88
+msgid "Open this step"
+msgstr "Buka langkah ini"
+
+#: admin/views/setup-steps/done.php:101
+msgid "Log in to this site without the password."
+msgstr "Masuk ke situs ini tanpa kata sandi."
+
+#: admin/views/setup-steps/done.php:107
+msgid "Visit site"
+msgstr "Kunjungi situs"
+
+#: admin/views/setup-steps/done.php:108
+msgid "Open the site as a visitor."
+msgstr "Buka situs sebagai pengunjung."
+
+#: admin/views/setup-steps/done.php:114
+msgid "All sites"
+msgstr "Semua situs"
+
+#: admin/views/setup-steps/done.php:115
+msgid "See and manage every site."
+msgstr "Lihat dan kelola setiap situs."
+
+#: admin/views/setup-steps/done.php:119
+msgid "Manage sites"
+msgstr "Kelola situs"
+
+#: admin/views/setup-steps/done.php:124
+msgid "Manage WaaS"
+msgstr "Kelola WaaS"
+
+#: admin/views/setup-steps/done.php:130
+msgid "Grow later"
+msgstr "Kembangkan nanti"
+
+#. translators: %s: example path URL of a site.
+#: admin/views/setup-steps/routing.php:28
+#, php-format
+msgid "Every site lives under this WordPress address. Works right away, no DNS needed. For example: %s"
+msgstr "Setiap situs berada di bawah alamat WordPress ini. Langsung berfungsi, tanpa perlu DNS. Misalnya: %s"
+
+#. translators: %s: example address of a site.
+#: admin/views/setup-steps/routing.php:34
+#, php-format
+msgid "Every site has its own subdomain or its own domain. Point that address at this server (DNS) before the site opens. For example: %s"
+msgstr "Setiap situs memiliki subdomain atau domainnya sendiri. Arahkan alamat tersebut ke server ini (DNS) sebelum situs dibuka. Misalnya: %s"
+
+#: admin/views/setup-steps/routing.php:40
+msgid "A site opens on the path address until you give it a domain; then it opens on the domain and the path keeps working. Works now; add domains whenever you like."
+msgstr "Situs dibuka pada alamat path sampai Anda memberinya domain; setelah itu situs dibuka pada domain dan alamat path tetap berfungsi. Berfungsi sekarang; tambahkan domain kapan pun Anda mau."
+
+#: admin/views/setup-steps/routing.php:47
+msgid "Choose the web address of your sites"
+msgstr "Pilih alamat web situs Anda"
+
+#: admin/views/setup-steps/routing.php:48
+msgid "This decides how visitors reach each site. Pick one. You can change this later in Tenancy > Settings > Routing, which also lets sites use both a path and a domain."
+msgstr "Pengaturan ini menentukan cara pengunjung mengakses setiap situs. Pilih salah satu. Anda dapat mengubahnya nanti di Tenancy > Pengaturan > Routing, yang juga memungkinkan situs menggunakan path sekaligus domain."
+
+#: admin/views/setup-steps/routing.php:71
+msgid "Sites already exist. A new mode changes their addresses, so switch it in Settings, which lists every site that changes."
+msgstr "Situs sudah ada. Mode baru akan mengubah alamatnya, jadi ubah melalui Pengaturan yang menampilkan daftar setiap situs yang berubah."
+
+#: admin/views/setup-steps/routing.php:72
+msgid "Open Settings > Routing"
+msgstr "Buka Pengaturan > Routing"
+
+#: admin/views/setup-steps/site.php:35
+#: admin/views/setup-wizard.php:18
+msgid "Save and continue"
+msgstr "Simpan dan lanjutkan"
+
+#: admin/views/setup-steps/site.php:45
+msgid "Create a new site"
+msgstr "Buat situs baru"
+
+#: admin/views/setup-steps/site.php:46
+msgid "Start from an empty WordPress site."
+msgstr "Mulai dari situs WordPress kosong."
+
+#: admin/views/setup-steps/site.php:50
+msgid "Use an existing site"
+msgstr "Gunakan situs yang ada"
+
+#: admin/views/setup-steps/site.php:51
+msgid "Pick one of your sites from the list below."
+msgstr "Pilih salah satu situs Anda dari daftar di bawah."
+
+#: admin/views/setup-steps/site.php:59
+msgid "Existing site"
+msgstr "Situs yang ada"
+
+#: admin/views/setup-steps/site.php:71
+msgid "Site title"
+msgstr "Judul situs"
+
+#: admin/views/setup-steps/site.php:76
+#: admin/views/setup-steps/site.php:104
+msgid "Address"
+msgstr "Alamat"
+
+#: admin/views/setup-steps/site.php:81
+msgid "Works now. No DNS needed. The ID is created on save."
+msgstr "Langsung berfungsi. Tidak perlu DNS. ID dibuat saat disimpan."
+
+#: admin/views/setup-steps/site.php:84
+#: admin/views/setup-steps/site.php:98
+#: admin/views/setup-steps/site.php:107
+msgid "Custom domain"
+msgstr "Domain kustom"
+
+#: admin/views/setup-steps/site.php:85
+msgid "Point the domain's DNS to this server first."
+msgstr "Arahkan DNS domain ke server ini terlebih dahulu."
+
+#: admin/views/setup-steps/site.php:92
+msgid "Path address"
+msgstr "Alamat path"
+
+#. translators: %s: path URL of the new site, {id} stands for its ID.
+#: admin/views/setup-steps/site.php:94
+#, php-format
+msgid "Works now, no DNS needed. The site ID is created when you save: %s"
+msgstr "Langsung berfungsi, tanpa perlu DNS. ID situs dibuat saat Anda menyimpan: %s"
+
+#: admin/views/setup-steps/site.php:99
+msgid "Type the domain below. Point its DNS to this server first."
+msgstr "Ketik domain di bawah. Arahkan DNS-nya ke server ini terlebih dahulu."
+
+#: admin/views/setup-steps/site.php:113
+msgid "Site admin email"
+msgstr "Email admin situs"
+
+#: admin/views/setup-steps/site.php:116
+msgid "The new site's administrator account uses this email."
+msgstr "Akun administrator situs baru menggunakan email ini."
+
+#: admin/views/setup-steps/site.php:121
+#: admin/views/tenant-create.php:131
+#: includes/class-grabwp-tenancy-diagnostics.php:296
+msgid "WordPress"
+msgstr "WordPress"
+
+#: admin/views/setup-steps/site.php:125
+msgid "Set up WordPress in the new site now"
+msgstr "Siapkan WordPress di situs baru sekarang"
+
+#: admin/views/setup-steps/site.php:127
+msgid "The site is ready to use right away, with an administrator account named after the site ID. You log in with the 1-click button and never need its password."
+msgstr "Situs langsung siap digunakan, dengan akun administrator yang dinamai sesuai ID situs. Anda masuk dengan tombol 1-klik dan tidak pernah memerlukan kata sandinya."
+
+#: admin/views/setup-steps/site.php:129
+msgid "Turned off because this server cannot reach itself (see the Check step). You can finish the install in the browser after the site is created."
+msgstr "Dinonaktifkan karena server ini tidak dapat menjangkau dirinya sendiri (lihat langkah Pemeriksaan). Anda dapat menyelesaikan pemasangan di browser setelah situs dibuat."
+
+#: admin/views/setup-wizard.php:25
+#: includes/class-grabwp-tenancy-setup-wizard.php:67
+#: includes/class-grabwp-tenancy-setup-wizard.php:68
+msgid "GrabWP setup"
+msgstr "Penyiapan GrabWP"
+
+#: admin/views/setup-wizard.php:26
+msgid "Exit setup"
+msgstr "Keluar dari penyiapan"
+
+#: admin/views/setup-wizard.php:57
+msgid "(done)"
+msgstr "(selesai)"
+
+#. translators: 1: step title, 2: current part of the step, 3: number of parts.
+#: admin/views/setup-wizard.php:69
+#, php-format
+msgid "%1$s (%2$d of %3$d)"
+msgstr "%1$s (%2$d dari %3$d)"
+
+#. translators: 1: current step number, 2: number of steps, 3: step title.
+#: admin/views/setup-wizard.php:77
+#, php-format
+msgid "Step %1$d of %2$d: %3$s"
+msgstr "Langkah %1$d dari %2$d: %3$s"
+
+#: admin/views/setup-wizard.php:125
+msgid "Back"
+msgstr "Kembali"
+
+#: admin/views/setup-wizard.php:129
+msgid "Skip this step"
+msgstr "Lewati langkah ini"
 
 #: admin/views/status-base.php:25
 msgid "File Structure"
@@ -226,332 +1289,17 @@ msgstr "Pola Unggahan Tenant"
 msgid "Configured on the Settings page."
 msgstr "Dikonfigurasi di halaman Pengaturan."
 
-#: admin/views/status-general.php:137
-msgid "Disabled"
-msgstr "Dinonaktifkan"
-
-#: admin/views/status-general.php:30
-msgid "Environment Checks"
-msgstr "Pemeriksaan Lingkungan"
-
-#: admin/views/partials/status-env-cards.php:29
-msgid "1. wp-config.php Loader"
-msgstr "1. Pemuat wp-config.php"
-
-#: admin/views/partials/status-env-cards.php:31
-#: admin/views/status-pro.php:46
-msgid "✓ Active"
-msgstr "✓ Aktif"
-
-#: admin/views/partials/status-env-cards.php:35
-#: admin/views/status-general.php:113
-msgid "✗ Not loaded"
-msgstr "✗ Tidak dimuat"
-
-#: admin/views/partials/status-env-cards.php:41
-#: admin/views/partials/status-env-cards.php:94
-#: admin/views/partials/status-env-cards.php:144
-#: admin/views/partials/status-env-cards.php:205
-#: admin/views/partials/status-env-cards.php:262
-msgid "Fix steps and install code"
-msgstr "Langkah perbaikan dan kode instalasi"
-
-#: admin/views/partials/status-env-cards.php:43
-msgid "Loads tenant detection before WordPress boots so domain/path routing can identify the tenant."
-msgstr "Memuat deteksi tenant sebelum WordPress melakukan booting sehingga perutean domain/jalur dapat mengenali tenant."
-
-#: admin/views/partials/status-env-cards.php:48
-#, php-format
-msgid "File: %1$s, place before %2$s"
-msgstr "File: %1$s, letakkan sebelum %2$s"
-
-#: admin/views/partials/status-env-cards.php:58
-#: admin/views/partials/status-env-cards.php:105
-#: admin/views/partials/status-env-cards.php:169
-#: admin/views/partials/status-env-cards.php:229
-#: admin/views/partials/status-env-cards.php:280
-msgid "📋 Copy Code"
-msgstr "📋 Salin Kode"
-
-#: admin/views/partials/status-env-cards.php:64
-#: admin/views/partials/status-env-cards.php:111
-#: admin/views/partials/status-env-cards.php:175
-#: admin/views/partials/status-env-cards.php:235
-#: admin/views/partials/status-env-cards.php:286
-msgid "⚡ Auto Fix"
-msgstr "⚡ Perbaiki Otomatis"
-
-#: admin/views/partials/status-env-cards.php:67
-msgid "wp-config.php is not writable, manual install required"
-msgstr "wp-config.php tidak dapat ditulis, instalasi manual diperlukan"
-
-#: admin/views/partials/status-env-cards.php:69
-msgid "Stop-editing marker not found, manual install required"
-msgstr "Penanda stop-editing tidak ditemukan, instalasi manual diperlukan"
-
-#: admin/views/partials/status-env-cards.php:82
-msgid "2. MU-Plugin"
-msgstr "2. MU-Plugin"
-
-#: admin/views/partials/status-env-cards.php:84
-#: admin/views/partials/status-env-cards.php:130
-msgid "✓ Installed"
-msgstr "✓ Terinstal"
-
-#: admin/views/partials/status-env-cards.php:86
-msgid "⚠ Outdated"
-msgstr "⚠ Usang"
-
-#: admin/views/partials/status-env-cards.php:88
-#: admin/views/partials/status-env-cards.php:199
-msgid "✗ Missing"
-msgstr "✗ Hilang"
-
-#: admin/views/partials/status-env-cards.php:96
-msgid "MU-plugins load on every request, including tenant admin, for settings sync and management features."
-msgstr "MU-plugin dimuat di tiap permintaan, termasuk admin tenant, untuk sinkronisasi pengaturan dan fitur manajemen."
-
-#: admin/views/partials/status-env-cards.php:99
-#: admin/views/partials/status-env-cards.php:210
-#: admin/views/partials/status-env-cards.php:267
-#, php-format
-msgid "File: %s"
-msgstr "File: %s"
-
-#: admin/views/partials/status-env-cards.php:114
-msgid "mu-plugins directory is not writable, manual install required"
-msgstr "Direktori mu-plugins tidak dapat ditulis, instalasi manual diperlukan"
-
-#: admin/views/partials/status-env-cards.php:128
-msgid "3. Root .htaccess Rewrite Rules"
-msgstr "3. Aturan Penulisan Ulang .htaccess Root"
-
-#: admin/views/partials/status-env-cards.php:132
-msgid "⚠ Wrong position"
-msgstr "⚠ Posisi salah"
-
-#: admin/views/partials/status-env-cards.php:134
-msgid "⚠ Invalid content"
-msgstr "⚠ Konten tidak valid"
-
-#: admin/views/partials/status-env-cards.php:136
-msgid "⚠ Missing block"
-msgstr "⚠ Blok hilang"
-
-#: admin/views/partials/status-env-cards.php:138
-msgid "✗ No .htaccess"
-msgstr "✗ Tidak ada .htaccess"
-
-#: admin/views/partials/status-env-cards.php:149
-#, php-format
-msgid "Apache rewrite rules for path-based tenant URLs like /%s/{id}/wp-admin."
-msgstr "Aturan penulisan ulang Apache untuk URL tenant berbasis jalur seperti /%s/{id}/wp-admin."
-
-#: admin/views/partials/status-env-cards.php:155
-#, php-format
-msgid "File: %s, must appear BEFORE \"# BEGIN WordPress\""
-msgstr "File: %s, harus muncul SEBELUM \"# BEGIN WordPress\""
-
-#: admin/views/partials/status-env-cards.php:178
-msgid "Root directory or .htaccess is not writable, manual install required"
-msgstr "Direktori root atau .htaccess tidak dapat ditulis, instalasi manual diperlukan"
-
-#: admin/views/partials/status-env-cards.php:193
-msgid "Data Directory .htaccess"
-msgstr ".htaccess Direktori Data"
-
-#: admin/views/partials/status-env-cards.php:195
-msgid "✓ Protected"
-msgstr "✓ Dilindungi"
-
-#: admin/views/partials/status-env-cards.php:197
-msgid "⚠ Incomplete"
-msgstr "⚠ Tidak lengkap"
-
-#: admin/views/partials/status-env-cards.php:207
-msgid "Blocks direct HTTP access to PHP files and directory listing in the tenant data directory."
-msgstr "Memblokir akses HTTP langsung ke file PHP dan daftar direktori di dalam direktori data tenant."
-
-#: admin/views/partials/status-env-cards.php:238
-#: admin/views/partials/status-env-cards.php:289
-msgid "Data directory is not writable, manual install required"
-msgstr "Direktori data tidak dapat ditulis, instalasi manual diperlukan"
-
-#: admin/views/partials/status-env-cards.php:252
-msgid "index.php Protection"
-msgstr "Perlindungan index.php"
-
-#: admin/views/partials/status-env-cards.php:254
-msgid "✓ Present"
-msgstr "✓ Ada"
-
-#: admin/views/partials/status-env-cards.php:256
-msgid "⚠ Missing"
-msgstr "⚠ Hilang"
-
-#: admin/views/partials/status-env-cards.php:264
-msgid "Blank index.php prevents directory listing when .htaccess is unavailable."
-msgstr "index.php yang kosong mencegah pendaftaran direktori ketika .htaccess tidak tersedia."
-
-#: admin/views/partials/status-env-cards.php:305
-msgid "Shared Files Lock"
-msgstr "Kunci File Bersama"
-
-#: admin/views/partials/status-env-cards.php:307
-msgid "Locked"
-msgstr "Terkunci"
-
-#: admin/views/partials/status-env-cards.php:309
-msgid "Unlocked"
-msgstr "Tidak Terkunci"
-
-#: admin/views/partials/status-env-cards.php:313
-msgid "Makes the shared root files read-only (0444) so tenant plugins cannot rewrite them. GrabWP and main-site permalink saves unlock and re-lock automatically."
-msgstr "Membuat file root bersama hanya-baca (0444) sehingga plugin tenant tidak bisa menulis ulangnya. GrabWP dan penyimpanan tautan permanen situs utama akan membuka dan mengunci kembali secara otomatis."
-
-#: admin/views/partials/status-env-cards.php:314
-msgid "If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again."
-msgstr "Jika plugin situs utama (misalnya plugin cache) perlu menulis file ini, Buka Kunci sementara, lalu Kunci lagi."
-
-#. translators: %d: number of snapshot files.
-#: admin/views/partials/status-env-cards.php:327
-#, php-format
-msgid "Integrity snapshots: %d"
-msgstr "Cuplikan integritas: %d"
-
-#: admin/views/partials/status-env-cards.php:338
-msgid "Unlock shared files"
-msgstr "Buka kunci file bersama"
-
-#: admin/views/partials/status-env-cards.php:338
-msgid "Lock shared files"
-msgstr "Kunci file bersama"
-
-#: admin/views/status-general.php:37
-msgid "GrabWP Tenancy Information"
-msgstr "Informasi GrabWP Tenancy"
-
-#: admin/views/status-general.php:40
-msgid "Base Plugin Version"
-msgstr "Versi Plugin Dasar"
-
-#: admin/views/status-general.php:44
-#: admin/views/status.php:81
-msgid "Pro Plugin"
-msgstr "Plugin Pro"
-
-#: admin/views/status-general.php:47
-msgid "Active"
-msgstr "Aktif"
-
-#: admin/views/status-general.php:52
-msgid "Inactive"
-msgstr "Tidak Aktif"
-
-#: admin/views/status-general.php:57
-msgid "Registered Tenants"
-msgstr "Tenant Terdaftar"
-
-#: admin/views/status-general.php:61
-msgid "View all"
-msgstr "Lihat semua"
-
-#: admin/views/status-general.php:71
-msgid "System Information"
-msgstr "Informasi Sistem"
-
-#. translators: 1: WordPress version, 2: PHP version, 3: server software label
-#: admin/views/status-general.php:76
-#, php-format
-msgid "WP %1$s · PHP %2$s · %3$s"
-msgstr "WP %1$s · PHP %2$s · %3$s"
-
-#: admin/views/status-general.php:86
-msgid "WordPress Version"
-msgstr "Versi WordPress"
-
-#: admin/views/status-general.php:90
-msgid "PHP Version"
-msgstr "Versi PHP"
-
-#: admin/views/status-general.php:94
-msgid "Database Engine"
-msgstr "Mesin Database"
-
-#: admin/views/status-general.php:98
-msgid "Web Server"
-msgstr "Server Web"
-
-#: admin/views/status-general.php:102
-msgid "ℹ .htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
-msgstr "ℹ File .htaccess tidak digunakan oleh Nginx. Konfigurasikan perutean tenant di blok server Anda sebagai gantinya."
-
-#: admin/views/status-general.php:108
-msgid "mod_rewrite"
-msgstr "mod_rewrite"
-
-#: admin/views/status-general.php:111
-msgid "✓ Loaded"
-msgstr "✓ Dimuat"
-
-#: admin/views/status-general.php:114
-msgid "Path routing requires mod_rewrite. Query string routing (?site=id) will be used as fallback."
-msgstr "Perutean jalur membutuhkan mod_rewrite. Perutean string kueri (?site=id) akan digunakan sebagai cadangan."
-
-#: admin/views/status-general.php:116
-msgid "Cannot detect (apache_get_modules unavailable)"
-msgstr "Tidak dapat mendeteksi (apache_get_modules tidak tersedia)"
-
-#: admin/views/status-general.php:122
-msgid "WordPress Multisite"
-msgstr "Multisite WordPress"
-
-#: admin/views/status-general.php:125
-msgid "⚠ Yes. GrabWP Tenancy is not designed for Multisite"
-msgstr "⚠ Ya. GrabWP Tenancy tidak dirancang untuk Multisite"
-
-#: admin/views/status-base.php:119
-#: admin/views/status-general.php:127
-msgid "No"
-msgstr "Tidak"
-
-#: admin/views/status-general.php:132
-msgid "WP Debug Mode"
-msgstr "Mode Debug WP"
-
-#: admin/views/status-general.php:135
-msgid "Enabled"
-msgstr "Diaktifkan"
-
-#: admin/views/status-general.php:142
-msgid "Data Dir Writable"
-msgstr "Dir Data Dapat Ditulis"
+#: admin/views/status-base.php:112
+msgid "empty"
+msgstr "kosong"
 
 #: admin/views/status-base.php:117
-#: admin/views/status-general.php:145
-#: admin/views/status-general.php:156
 msgid "✓ Yes"
 msgstr "✓ Ya"
 
-#: admin/views/status-general.php:147
-msgid "✗ No"
-msgstr "✗ Tidak"
-
-#: admin/views/status-general.php:148
-msgid "Plugin needs write access to create tenant directories and manage configuration files."
-msgstr "Plugin butuh akses tulis untuk membuat direktori tenant dan mengelola file konfigurasi."
-
-#: admin/views/status-general.php:153
-msgid "MU-Plugins Dir Writable"
-msgstr "Dir MU-Plugins Dapat Ditulis"
-
-#: admin/views/status-general.php:158
-msgid "⚠ No"
-msgstr "⚠ Tidak"
-
-#: admin/views/status-general.php:159
-msgid "Auto-install of MU-plugin will not work. Manual installation required."
-msgstr "Instalasi otomatis MU-plugin tidak akan berfungsi. Instalasi manual diperlukan."
+#: admin/views/status-general.php:32
+msgid "Environment Checks"
+msgstr "Pemeriksaan Lingkungan"
 
 #: admin/views/status-pro.php:27
 msgid "GrabWP Tenancy Pro"
@@ -564,7 +1312,7 @@ msgstr "Tingkatkan ke GrabWP Tenancy Pro untuk fitur lanjutan termasuk isolasi k
 #: admin/views/status-pro.php:29
 #: includes/class-grabwp-tenancy-admin.php:328
 #: includes/class-grabwp-tenancy-admin.php:329
-#: includes/class-grabwp-tenancy-admin.php:452
+#: includes/class-grabwp-tenancy-admin.php:466
 msgid "Upgrade to Pro"
 msgstr "Tingkatkan ke Pro"
 
@@ -651,40 +1399,45 @@ msgstr "Basis Data MySQL"
 msgid "MySQL Username"
 msgstr "Nama Pengguna MySQL"
 
-#: admin/views/status.php:65
+#: admin/views/status.php:43
 msgid "GrabWP Tenancy Status"
 msgstr "Status GrabWP Tenancy"
 
-#: admin/views/status.php:73
+#: admin/views/status.php:51
 msgid "Plugin General"
 msgstr "Umum Plugin"
 
-#: admin/views/status.php:77
+#: admin/views/status.php:55
 msgid "Base Plugin"
 msgstr "Plugin Dasar"
 
-#: admin/views/status.php:94
+#: admin/views/status.php:59
+#: includes/class-grabwp-tenancy-diagnostics.php:213
+msgid "Pro Plugin"
+msgstr "Plugin Pro"
+
+#: admin/views/status.php:72
 msgid "GrabWP Tenancy:"
 msgstr "GrabWP Tenancy:"
 
-#: admin/views/status.php:95
+#: admin/views/status.php:73
 msgid "You're using a legacy path structure. To comply with WordPress standards:"
 msgstr "Anda menggunakan struktur jalur warisan. Untuk mematuhi standar WordPress:"
 
-#: admin/views/status.php:96
+#: admin/views/status.php:74
 msgid "1. Deactivate the plugin"
 msgstr "1. Nonaktifkan plugin"
 
-#: admin/views/status.php:99
+#: admin/views/status.php:77
 #, php-format
 msgid "2. Rename and move the entire %1$s folder to %2$s"
 msgstr "2. Ubah nama dan pindahkan seluruh folder %1$s ke %2$s"
 
-#: admin/views/status.php:105
+#: admin/views/status.php:83
 msgid "3. Reactivate the plugin"
 msgstr "3. Aktifkan kembali plugin"
 
-#: admin/views/status.php:126
+#: admin/views/status.php:104
 msgid "← active"
 msgstr "← aktif"
 
@@ -770,13 +1523,6 @@ msgstr "Ini akan menimpa semua data di penyewa target (basis data, unggahan). Ti
 msgid "Clone Tenant"
 msgstr "Klon Penyewa"
 
-#: admin/views/settings-routing-confirm.php:108
-#: admin/views/tenant-clone.php:110
-#: admin/views/tenant-create.php:159
-#: admin/views/tenant-edit.php:145
-msgid "Cancel"
-msgstr "Batal"
-
 #: admin/views/tenant-clone.php:131
 msgid "Clone complete!"
 msgstr "Kloning selesai!"
@@ -826,6 +1572,10 @@ msgstr "- Tidak ditemukan tenant yang memenuhi syarat -"
 msgid "— Select target tenant —"
 msgstr "- Pilih tenant target -"
 
+#: admin/views/tenant-clone.php:227
+msgid "Path URL only"
+msgstr "Hanya URL path"
+
 #: admin/views/tenant-clone.php:326
 msgid "Are you sure? All data in the target tenant will be overwritten."
 msgstr "Apakah Anda yakin? Semua data di penyewa target akan ditimpa."
@@ -834,6 +1584,10 @@ msgstr "Apakah Anda yakin? Semua data di penyewa target akan ditimpa."
 #: includes/class-grabwp-tenancy-admin.php:291
 msgid "Add New Tenant"
 msgstr "Tambah Penyewa Baru"
+
+#: admin/views/tenant-create.php:21
+msgid "Create a new tenant. It opens on the domain you enter."
+msgstr "Buat tenant baru. Tenant akan dibuka pada domain yang Anda masukkan."
 
 #: admin/views/tenant-create.php:23
 msgid "Create a new tenant. A path-based URL will be assigned automatically."
@@ -853,9 +1607,10 @@ msgstr "Pengaturan Domain"
 msgid "Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page."
 msgstr "Masukkan tanpa http:// atau www (misal: mysite.com, blog.mysite.com). Anda dapat menambahkan domain kapan saja dari halaman edit penyewa."
 
-#: admin/views/tenant-create.php:101
-msgid "I have a domain"
-msgstr "Saya punya domain"
+#: admin/views/tenant-create.php:82
+#: admin/views/tenant-create.php:120
+msgid "Your site will be accessible at:"
+msgstr "Situs Anda akan dapat diakses di:"
 
 #: admin/views/tenant-create.php:90
 #: admin/views/tenant-create.php:106
@@ -867,10 +1622,19 @@ msgstr "Masukkan domain (misal: mysite.com)"
 msgid "Clear"
 msgstr "Hapus"
 
+#: admin/views/tenant-create.php:94
+#: admin/views/tenant-edit.php:126
+msgid "Domain mode needs at least one domain."
+msgstr "Mode domain memerlukan setidaknya satu domain."
+
+#: admin/views/tenant-create.php:101
+msgid "I have a domain"
+msgstr "Saya punya domain"
+
 #: admin/views/tenant-create.php:108
 #: admin/views/tenant-edit.php:107
 #: admin/views/tenant-edit.php:115
-#: includes/class-grabwp-tenancy-admin.php:381
+#: includes/class-grabwp-tenancy-admin.php:382
 msgid "Remove"
 msgstr "Hapus"
 
@@ -878,10 +1642,13 @@ msgstr "Hapus"
 msgid "I'll set up a domain later"
 msgstr "Saya akan menyiapkan domain nanti"
 
-#: admin/views/tenant-create.php:82
-#: admin/views/tenant-create.php:120
-msgid "Your site will be accessible at:"
-msgstr "Situs Anda akan dapat diakses di:"
+#: admin/views/tenant-create.php:135
+msgid "Install WordPress now"
+msgstr "Pasang WordPress sekarang"
+
+#: admin/views/tenant-create.php:137
+msgid "Creates the site's database and an administrator named after the site ID with a random password. Use the 1-click Admin button to log in; you never need the password."
+msgstr "Membuat database situs dan administrator bernama sesuai ID situs dengan kata sandi acak. Gunakan tombol Admin 1 klik untuk masuk; Anda tidak pernah memerlukan kata sandinya."
 
 #: admin/views/tenant-create.php:154
 msgid "Create Tenant & Clone"
@@ -910,7 +1677,7 @@ msgid "Edit tenant settings and domain mappings."
 msgstr "Edit pengaturan penyewa dan pemetaan domain."
 
 #: admin/views/tenant-edit.php:40
-#: includes/class-grabwp-tenancy-admin.php:545
+#: includes/class-grabwp-tenancy-admin.php:559
 #: includes/class-grabwp-tenancy-tenant-crud.php:184
 msgid "Tenant updated successfully."
 msgstr "Penyewa berhasil diperbarui."
@@ -919,19 +1686,20 @@ msgstr "Penyewa berhasil diperbarui."
 msgid "Path URL"
 msgstr "URL Jalur"
 
-#: admin/views/partials/site-result.php:63
-#: admin/views/setup-steps/done.php:66
-#: admin/views/tenant-edit.php:77
-msgid "Copy"
-msgstr "Salin"
-
 #: admin/views/tenant-edit.php:79
 msgid "This URL is always available, no DNS configuration needed."
 msgstr "URL ini selalu tersedia, tidak perlu konfigurasi DNS."
 
+#. translators: %d: number of domains stored for the site.
+#: admin/views/tenant-edit.php:93
+#, php-format
+msgid "Stored domains (%d): kept, not used for links in Path mode"
+msgid_plural "Stored domains (%d): kept, not used for links in Path mode"
+msgstr[0] "Domain tersimpan (%d): disimpan, tidak digunakan untuk tautan dalam mode Path"
+
 #: admin/views/tenant-edit.php:106
 #: admin/views/tenant-edit.php:114
-#: includes/class-grabwp-tenancy-admin.php:380
+#: includes/class-grabwp-tenancy-admin.php:381
 msgid "Enter domain (e.g., tenant1.grabwp.local)"
 msgstr "Masukkan domain (misal, tenant1.grabwp.local)"
 
@@ -1039,7 +1807,7 @@ msgstr "Pemilihan driver penyimpanan (Lokal / S3)"
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:138
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:254
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:405
+#: includes/class-grabwp-tenancy-admin.php:419
 msgid "Security check failed."
 msgstr "Pemeriksaan keamanan gagal."
 
@@ -1060,13 +1828,13 @@ msgstr "Penyewa target tidak ditemukan."
 #: includes/class-grabwp-tenancy-setup-wizard.php:739
 #: includes/class-grabwp-tenancy-setup-wizard.php:757
 #: includes/class-grabwp-tenancy-setup-wizard.php:795
-#: includes/class-grabwp-tenancy-setup-wizard.php:978
-#: includes/class-grabwp-tenancy-setup-wizard.php:1032
-#: includes/class-grabwp-tenancy-setup-wizard.php:1435
+#: includes/class-grabwp-tenancy-setup-wizard.php:994
+#: includes/class-grabwp-tenancy-setup-wizard.php:1048
+#: includes/class-grabwp-tenancy-setup-wizard.php:1536
 #: includes/class-grabwp-tenancy-tenant-crud.php:38
 #: includes/class-grabwp-tenancy-tenant-crud.php:100
 #: includes/class-grabwp-tenancy-tenant-crud.php:148
-#: includes/class-grabwp-tenancy-tenant-installer.php:156
+#: includes/class-grabwp-tenancy-tenant-installer.php:536
 msgid "Insufficient permissions."
 msgstr "Izin tidak memadai."
 
@@ -1138,28 +1906,66 @@ msgstr "Kloning selesai."
 msgid "Failed to save settings. Please check file permissions."
 msgstr "Gagal menyimpan pengaturan. Silakan periksa izin file."
 
-#: includes/class-grabwp-tenancy-admin-notice.php:52
+#: includes/class-grabwp-tenancy-admin-form-handler.php:226
+msgid "The routing mode is set in wp-config.php and cannot be changed here."
+msgstr "Mode routing diatur di wp-config.php dan tidak dapat diubah di sini."
+
+#: includes/class-grabwp-tenancy-admin-form-handler.php:229
+msgid "Invalid routing mode."
+msgstr "Mode routing tidak valid."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:61
 msgid "load.php is not included in wp-config.php."
 msgstr "load.php tidak disertakan dalam wp-config.php."
 
-#: includes/class-grabwp-tenancy-admin-notice.php:54
-#: includes/class-grabwp-tenancy-admin-notice.php:64
-#: includes/class-grabwp-tenancy-admin-notice.php:74
-#: includes/class-grabwp-tenancy-admin-notice.php:110
+#: includes/class-grabwp-tenancy-admin-notice.php:63
+#: includes/class-grabwp-tenancy-admin-notice.php:73
+#: includes/class-grabwp-tenancy-admin-notice.php:83
+#: includes/class-grabwp-tenancy-admin-notice.php:119
 msgid "View Status →"
 msgstr "Lihat Status →"
 
-#: includes/class-grabwp-tenancy-admin-notice.php:62
+#: includes/class-grabwp-tenancy-admin-notice.php:71
 msgid "MU-plugin is not installed. Tenant features may not work."
 msgstr "MU-plugin tidak terinstal. Fitur penyewa mungkin tidak berfungsi."
 
-#: includes/class-grabwp-tenancy-admin-notice.php:72
+#: includes/class-grabwp-tenancy-admin-notice.php:81
 msgid "Data directory is missing."
 msgstr "Direktori data hilang."
 
-#: includes/class-grabwp-tenancy-admin-notice.php:108
+#: includes/class-grabwp-tenancy-admin-notice.php:117
 msgid "Root .htaccess needs to be updated for tenant routing."
 msgstr "Root .htaccess perlu diperbarui untuk perutean penyewa."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:174
+msgid "Permission denied."
+msgstr "Izin ditolak."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:175
+#: includes/class-grabwp-tenancy-installer.php:311
+#: includes/class-grabwp-tenancy-installer.php:349
+#: includes/class-grabwp-tenancy-installer.php:554
+#: includes/class-grabwp-tenancy-installer.php:600
+#: includes/class-grabwp-tenancy-installer.php:771
+#: includes/class-grabwp-tenancy-installer.php:855
+msgid "Run this from the main site."
+msgstr "Jalankan ini dari situs utama."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:200
+msgid "Unknown action."
+msgstr "Tindakan tidak dikenal."
+
+#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false
+#: includes/class-grabwp-tenancy-admin.php:146
+#, php-format
+msgid "Your wp-config.php already sets %1$s to %2$s, so this setting has no effect. Remove that line to let GrabWP control it."
+msgstr "Berkas wp-config.php Anda sudah mengatur %1$s ke %2$s, sehingga pengaturan ini tidak berpengaruh. Hapus baris tersebut agar GrabWP dapat mengontrolnya."
+
+#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false
+#: includes/class-grabwp-tenancy-admin.php:153
+#, php-format
+msgid "Another plugin or file already sets %1$s to %2$s, so this setting has no effect."
+msgstr "Plugin atau berkas lain sudah mengatur %1$s ke %2$s, sehingga pengaturan ini tidak berpengaruh."
 
 #: includes/class-grabwp-tenancy-admin.php:228
 msgid "GrabWP Tenancy Pro adds scheduled auto backups, offsite cloud storage, dedicated database isolation, and more for every client site."
@@ -1179,116 +1985,862 @@ msgstr "Semua Penyewa"
 msgid "Edit Tenant"
 msgstr "Edit Penyewa"
 
-#: includes/class-grabwp-tenancy-admin.php:382
+#: includes/class-grabwp-tenancy-admin.php:383
+msgid "Copied!"
+msgstr "Disalin!"
+
+#: includes/class-grabwp-tenancy-admin.php:384
 msgid "To confirm deletion, type the tenant ID:"
 msgstr "Untuk mengonfirmasi penghapusan, ketik ID penyewa:"
 
-#: includes/class-grabwp-tenancy-admin.php:383
+#: includes/class-grabwp-tenancy-admin.php:385
 msgid "Incorrect tenant ID. Deletion cancelled."
 msgstr "ID penyewa salah. Penghapusan dibatalkan."
 
-#: includes/class-grabwp-tenancy-admin.php:411
+#: includes/class-grabwp-tenancy-admin.php:425
 msgid "Tenant ID is required."
 msgstr "ID penyewa diperlukan."
 
-#: includes/class-grabwp-tenancy-admin.php:416
+#: includes/class-grabwp-tenancy-admin.php:430
 #: includes/class-grabwp-tenancy-tenant-crud.php:114
 #: includes/class-grabwp-tenancy-tenant-crud.php:177
 msgid "Tenant not found."
 msgstr "Penyewa tidak ditemukan."
 
-#: includes/class-grabwp-tenancy-admin.php:489
+#: includes/class-grabwp-tenancy-admin.php:503
 msgid "Template not found."
 msgstr "Templat tidak ditemukan."
 
-#: includes/class-grabwp-tenancy-admin.php:544
+#: includes/class-grabwp-tenancy-admin.php:558
 #: includes/class-grabwp-tenancy-tenant-crud.php:85
 msgid "Tenant created successfully."
 msgstr "Penyewa berhasil dibuat."
 
-#: includes/class-grabwp-tenancy-admin.php:546
+#: includes/class-grabwp-tenancy-admin.php:560
 msgid "Tenant deleted successfully."
 msgstr "Penyewa berhasil dihapus."
 
-#: includes/class-grabwp-tenancy-admin.php:547
+#: includes/class-grabwp-tenancy-admin.php:561
 msgid "Settings saved successfully."
 msgstr "Pengaturan berhasil disimpan."
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:258
-msgid "A tenant request changed protected files; they were restored from the snapshot:"
-msgstr "Permintaan tenant mengubah file yang dilindungi; file tersebut telah dipulihkan dari snapshot:"
+#: includes/class-grabwp-tenancy-admin.php:562
+msgid "Routing mode saved."
+msgstr "Mode routing disimpan."
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:260
-msgid "tenant"
-msgstr "tenant"
+#: includes/class-grabwp-tenancy-diagnostics.php:102
+msgid "Diagnostics are available on the main site only."
+msgstr "Diagnostik hanya tersedia di situs utama."
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:263
-msgid "See grabwp_debug.log for details. If you changed these files yourself, use Unlock then Lock on the Status page to refresh the snapshot."
-msgstr "Lihat grabwp_debug.log untuk detailnya. Jika Anda mengubah file ini sendiri, gunakan Buka Kunci kemudian Kunci pada halaman Status untuk menyegarkan snapshot."
+#: includes/class-grabwp-tenancy-diagnostics.php:109
+msgid "Sorry, you are not allowed to read diagnostics."
+msgstr "Maaf, Anda tidak diizinkan membaca diagnostik."
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:265
+#: includes/class-grabwp-tenancy-diagnostics.php:212
+msgid "Base Plugin Version"
+msgstr "Versi Plugin Dasar"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:214
+msgid "Registered Tenants"
+msgstr "Tenant Terdaftar"
+
+#. translators: 1: plugin version, 2: Active or Inactive
+#: includes/class-grabwp-tenancy-diagnostics.php:221
+#, php-format
+msgid "%1$s, %2$s"
+msgstr "%1$s, %2$s"
+
+#. translators: 1: plugin version, 2: Active or Inactive
+#: includes/class-grabwp-tenancy-diagnostics.php:221
+msgid "Active"
+msgstr "Aktif"
+
+#. translators: 1: plugin version, 2: Active or Inactive
+#: includes/class-grabwp-tenancy-diagnostics.php:221
+msgid "Inactive"
+msgstr "Tidak Aktif"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:225
+msgid "Web Server"
+msgstr "Server Web"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:227
+msgid ".htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
+msgstr "Nginx tidak menggunakan file .htaccess. Konfigurasikan routing tenant di blok server Anda."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:231
+msgid "mod_rewrite"
+msgstr "mod_rewrite"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:231
+msgid "Cannot detect (apache_get_modules unavailable)"
+msgstr "Tidak dapat mendeteksi (apache_get_modules tidak tersedia)"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:231
+msgid "Path routing requires mod_rewrite. Query string routing (?site=id) will be used as fallback."
+msgstr "Perutean jalur membutuhkan mod_rewrite. Perutean string kueri (?site=id) akan digunakan sebagai cadangan."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:236
+msgid "PHP Version"
+msgstr "Versi PHP"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:237
+msgid "PHP SAPI"
+msgstr "PHP SAPI"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:238
+msgid "PHP memory limit"
+msgstr "Batas memori PHP"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:239
+msgid "PHP time limit"
+msgstr "Batas waktu PHP"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:240
+msgid "Max upload size"
+msgstr "Ukuran unggah maksimum"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:241
+msgid "PHP post max size"
+msgstr "Ukuran POST maksimum PHP"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:254
+msgid "Sodium"
+msgstr "Sodium"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:254
+msgid "GrabWP Pro needs it to encrypt tenant database passwords."
+msgstr "GrabWP Pro memerlukannya untuk mengenkripsi kata sandi database tenant."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:255
+msgid "symlink()"
+msgstr "symlink()"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:255
+msgid "GrabWP Pro needs it for domain links."
+msgstr "GrabWP Pro memerlukannya untuk tautan domain."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:256
+msgid "ZipArchive"
+msgstr "ZipArchive"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:256
+msgid "Backups, restores and add-on installs need it."
+msgstr "Cadangan, pemulihan, dan pemasangan add-on memerlukannya."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:257
+msgid "PDO SQLite"
+msgstr "PDO SQLite"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:257
+msgid "Tenants with SQLite databases need it."
+msgstr "Tenant dengan database SQLite memerlukannya."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:258
+msgid "Tokenizer"
+msgstr "Tokenizer"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:258
+msgid "The wp-config.php checks need it."
+msgstr "Pemeriksaan wp-config.php memerlukannya."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:259
+msgid "SimpleXML"
+msgstr "SimpleXML"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:259
+msgid "Backups to S3 storage need it."
+msgstr "Cadangan ke penyimpanan S3 memerlukannya."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:260
+msgid "OPcache"
+msgstr "OPcache"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:261
+msgid "cURL"
+msgstr "cURL"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:262
+msgid "mbstring"
+msgstr "mbstring"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:267
+msgid "Custom file"
+msgstr "File khusus"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:276
+msgid "WordPress directory"
+msgstr "Direktori WordPress"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:277
+msgid "wp-content directory"
+msgstr "Direktori wp-content"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:278
+msgid "Plugins directory"
+msgstr "Direktori plugin"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:279
+msgid "Uploads directory"
+msgstr "Direktori unggahan"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:285
+msgid "MU-Plugins Dir Writable"
+msgstr "Dir MU-Plugins Dapat Ditulis"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:285
+msgid "Auto-install of MU-plugin will not work. Manual installation required."
+msgstr "Instalasi otomatis MU-plugin tidak akan berfungsi. Instalasi manual diperlukan."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:286
+msgid "Data Dir Writable"
+msgstr "Dir Data Dapat Ditulis"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:286
+msgid "Plugin needs write access to create tenant directories and manage configuration files."
+msgstr "Plugin butuh akses tulis untuk membuat direktori tenant dan mengelola file konfigurasi."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:298
+msgid "WordPress Version"
+msgstr "Versi WordPress"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:299
+msgid "Site language"
+msgstr "Bahasa situs"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:300
+msgid "Environment type"
+msgstr "Jenis lingkungan"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:301
+msgid "Permalink structure"
+msgstr "Struktur permalink"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:302
+msgid "HTTPS"
+msgstr "HTTPS"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:303
+msgid "WordPress Multisite"
+msgstr "Multisite WordPress"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:303
+msgid "GrabWP Tenancy is not designed for Multisite."
+msgstr "GrabWP Tenancy tidak dirancang untuk Multisite."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:304
+msgid "Object cache drop-in"
+msgstr "Drop-in cache objek"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:305
+msgid "Page cache drop-in"
+msgstr "Drop-in cache halaman"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:310
+msgid "Server"
+msgstr "Server"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:315
+msgid "PHP extensions"
+msgstr "Ekstensi PHP"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:320
+msgid "Database"
+msgstr "Database"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:322
+msgid "Database Engine"
+msgstr "Mesin Database"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:323
+msgid "Database server version"
+msgstr "Versi server database"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:324
+msgid "Table prefix"
+msgstr "Prefiks tabel"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:325
+msgid "Database charset"
+msgstr "Charset database"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:330
+msgid "WordPress constants"
+msgstr "Konstanta WordPress"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:335
+msgid "Writable directories"
+msgstr "Direktori yang dapat ditulis"
+
+#: includes/class-grabwp-tenancy-installer.php:317
+#: includes/class-grabwp-tenancy-installer.php:355
+#: includes/class-grabwp-tenancy-installer.php:777
+msgid "Could not read wp-config.php."
+msgstr "Tidak dapat membaca wp-config.php."
+
+#: includes/class-grabwp-tenancy-installer.php:322
+msgid "HTTPS detection is already in wp-config.php."
+msgstr "Deteksi HTTPS sudah ada di wp-config.php."
+
+#: includes/class-grabwp-tenancy-installer.php:328
+msgid "Could not find where to add the code in wp-config.php. Add it by hand."
+msgstr "Tidak dapat menemukan lokasi untuk menambahkan kode di wp-config.php. Tambahkan secara manual."
+
+#: includes/class-grabwp-tenancy-installer.php:333
+msgid "HTTPS detection added to wp-config.php."
+msgstr "Deteksi HTTPS ditambahkan ke wp-config.php."
+
+#: includes/class-grabwp-tenancy-installer.php:363
+msgid "HTTPS detection by GrabWP was not in wp-config.php."
+msgstr "Deteksi HTTPS oleh GrabWP tidak ditemukan di wp-config.php."
+
+#: includes/class-grabwp-tenancy-installer.php:380
+msgid "HTTPS detection removed from wp-config.php."
+msgstr "Deteksi HTTPS dihapus dari wp-config.php."
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:441
+#, php-format
+msgid "%s is not writable. Add the code by hand."
+msgstr "%s tidak dapat ditulis. Tambahkan kode secara manual."
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:445
+#, php-format
+msgid "%s would not be valid PHP after the change, so nothing was changed."
+msgstr "%s tidak akan menjadi PHP yang valid setelah perubahan, sehingga tidak ada yang diubah."
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:451
+#, php-format
+msgid "Could not save a backup of %s, so nothing was changed."
+msgstr "Tidak dapat menyimpan cadangan %s, sehingga tidak ada yang diubah."
+
+#. translators: %s: file name(s).
+#: includes/class-grabwp-tenancy-installer.php:469
+#, php-format
+msgid "Could not write %s. The folder must be writable. Add the code by hand."
+msgstr "Tidak dapat menulis %s. Folder harus dapat ditulis. Tambahkan kode secara manual."
+
+#. translators: %s: file name(s).
+#: includes/class-grabwp-tenancy-installer.php:498
+#, php-format
+msgid "The site did not load after the change, so %s was put back as it was."
+msgstr "Situs gagal dimuat setelah perubahan, sehingga %s dikembalikan seperti semula."
+
+#. translators: %s: file name(s).
+#: includes/class-grabwp-tenancy-installer.php:500
+#, php-format
+msgid "The site did not load after the change and %s could not be put back. Restore it from the backup in the GrabWP data folder."
+msgstr "Situs gagal dimuat setelah perubahan dan %s tidak dapat dikembalikan. Pulihkan dari cadangan di folder data GrabWP."
+
+#: includes/class-grabwp-tenancy-installer.php:560
+msgid "The site address already uses https."
+msgstr "Alamat situs sudah menggunakan https."
+
+#: includes/class-grabwp-tenancy-installer.php:564
+msgid "The site address cannot be switched here yet. Check again and follow the steps in the card."
+msgstr "Alamat situs belum dapat diubah di sini. Periksa lagi dan ikuti langkah-langkah pada kartu."
+
+#: includes/class-grabwp-tenancy-installer.php:580
+msgid "Could not save the https address. Nothing was changed."
+msgstr "Tidak dapat menyimpan alamat https. Tidak ada yang diubah."
+
+#: includes/class-grabwp-tenancy-installer.php:584
+msgid "The site address now uses https."
+msgstr "Alamat situs sekarang menggunakan https."
+
+#: includes/class-grabwp-tenancy-installer.php:604
+msgid "There is no address change to undo."
+msgstr "Tidak ada perubahan alamat untuk dibatalkan."
+
+#: includes/class-grabwp-tenancy-installer.php:608
+msgid "The site address was changed since, so it was not undone. Edit it in Settings, General."
+msgstr "Alamat situs telah diubah setelahnya, sehingga tidak dibatalkan. Sunting di Pengaturan, Umum."
+
+#: includes/class-grabwp-tenancy-installer.php:616
+msgid "The site address is back to what it was."
+msgstr "Alamat situs telah dikembalikan seperti semula."
+
+#. translators: %d: number of sites in the Multisite network.
+#: includes/class-grabwp-tenancy-installer.php:785
+#, php-format
+msgid "This is a Multisite network with %d sites, so nothing was changed. Back up or move those sites first."
+msgstr "Ini adalah jaringan Multisite dengan %d situs, sehingga tidak ada yang diubah. Cadangkan atau pindahkan situs-situs tersebut terlebih dahulu."
+
+#. translators: %s: list of file, line and code to edit by hand.
+#: includes/class-grabwp-tenancy-installer.php:796
+#, php-format
+msgid "Some wp-config.php settings must be removed by hand, so nothing was changed: %s"
+msgstr "Beberapa pengaturan wp-config.php harus dihapus secara manual, jadi tidak ada yang diubah: %s"
+
+#: includes/class-grabwp-tenancy-installer.php:804
+msgid "No settings that stop GrabWP were left in wp-config.php."
+msgstr "Tidak ada lagi pengaturan di wp-config.php yang menghentikan GrabWP."
+
+#: includes/class-grabwp-tenancy-installer.php:811
+msgid "Could not save the site address. Nothing was changed."
+msgstr "Tidak dapat menyimpan alamat situs. Tidak ada yang diubah."
+
+#: includes/class-grabwp-tenancy-installer.php:838
+msgid "Settings that stop GrabWP were removed from wp-config.php. Log in again if asked, then activate plugins that were network activated."
+msgstr "Pengaturan yang menghentikan GrabWP telah dihapus dari wp-config.php. Masuk lagi jika diminta, lalu aktifkan plugin yang sebelumnya diaktifkan untuk jaringan."
+
+#: includes/class-grabwp-tenancy-installer.php:859
+msgid "There is no Multisite cleanup to undo."
+msgstr "Tidak ada pembersihan Multisite untuk dibatalkan."
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:873
+#, php-format
+msgid "%s was changed since the Multisite cleanup, so nothing was undone. The old copy is kept in the GrabWP data folder."
+msgstr "%s telah diubah sejak pembersihan Multisite, sehingga tidak ada yang dibatalkan. Salinan lama disimpan di folder data GrabWP."
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:886
+#, php-format
+msgid "The backup of %s is missing or changed, so nothing was undone."
+msgstr "Cadangan %s hilang atau telah berubah, sehingga tidak ada yang dibatalkan."
+
+#: includes/class-grabwp-tenancy-installer.php:907
+msgid "The removed settings are back in wp-config.php."
+msgstr "Pengaturan yang dihapus sudah kembali di wp-config.php."
+
+#. translators: 1: file name, 2: line number, 3: code on that line.
+#: includes/class-grabwp-tenancy-installer.php:970
+#, php-format
+msgid "%1$s line %2$d: %3$s"
+msgstr "%1$s baris %2$d: %3$s"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:572
+msgid "GrabWP lost some of its own code in these files and put it back. Other edits were kept:"
+msgstr "GrabWP kehilangan sebagian kodenya sendiri di file ini dan telah memasangnya kembali. Perubahan lain tetap disimpan:"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:575
+msgid "GrabWP could not put back its own code in these files because they are empty, broken or not writable, so it left them as they are and kept the last good copy in the integrity snapshots folder. Check them now:"
+msgstr "GrabWP tidak dapat memasang kembali kodenya sendiri di file ini karena file kosong, rusak, atau tidak dapat ditulis, jadi file dibiarkan apa adanya dan salinan baik terakhir disimpan di folder cuplikan integritas. Periksa sekarang:"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:590
+msgid "See grabwp_debug.log for details. To remove a GrabWP block on purpose, turn protection off on the Status page first."
+msgstr "Lihat grabwp_debug.log untuk detailnya. Untuk menghapus blok GrabWP dengan sengaja, matikan dulu perlindungan di halaman Status."
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:592
 #: includes/class-grabwp-tenancy-setup-wizard.php:700
 #: includes/class-grabwp-tenancy-setup-wizard.php:727
 msgid "Dismiss"
 msgstr "Abaikan"
 
-#: includes/class-grabwp-tenancy-status-checker.php:182
+#: includes/class-grabwp-tenancy-loader.php:381
+msgid "This admin access link is not valid. Open the site admin again from the main site."
+msgstr "Tautan akses admin ini tidak valid. Buka kembali admin situs dari situs utama."
+
+#: includes/class-grabwp-tenancy-loader.php:382
+msgid "This admin access link has expired. Open the site admin again from the main site."
+msgstr "Tautan akses admin ini telah kedaluwarsa. Buka kembali admin situs dari situs utama."
+
+#: includes/class-grabwp-tenancy-loader.php:383
+msgid "This admin access link was made for a different site address."
+msgstr "Tautan akses admin ini dibuat untuk alamat situs yang berbeda."
+
+#: includes/class-grabwp-tenancy-loader.php:384
+msgid "This site could not be identified."
+msgstr "Situs ini tidak dapat diidentifikasi."
+
+#: includes/class-grabwp-tenancy-loader.php:385
+msgid "No administrator account was found in this site. The site may not be installed yet."
+msgstr "Tidak ditemukan akun administrator di situs ini. Situs mungkin belum terinstal."
+
+#: includes/class-grabwp-tenancy-routing.php:80
+msgid "Path"
+msgstr "Path"
+
+#: includes/class-grabwp-tenancy-routing.php:82
+msgid "Domain"
+msgstr "Domain"
+
+#: includes/class-grabwp-tenancy-routing.php:84
+msgid "Path and domain"
+msgstr "Path dan domain"
+
+#. translators: %s: path of tenants.php.
+#: includes/class-grabwp-tenancy-routing.php:168
+#, php-format
+msgid "%s does not exist yet. It is created when you save."
+msgstr "%s belum ada. Berkas akan dibuat saat Anda menyimpan."
+
+#. translators: %s: folder of tenants.php.
+#: includes/class-grabwp-tenancy-routing.php:171
+#, php-format
+msgid "The folder %s is not writable by the web server, so tenants.php cannot be saved. Make the folder writable."
+msgstr "Folder %s tidak dapat ditulis oleh server web, sehingga tenants.php tidak dapat disimpan. Buat folder tersebut dapat ditulis."
+
+#. translators: %s: path of tenants.php.
+#: includes/class-grabwp-tenancy-routing.php:174
+#, php-format
+msgid "%s cannot be read by the web server, so it cannot be updated safely. Make it readable and writable."
+msgstr "%s tidak dapat dibaca oleh server web, sehingga tidak dapat diperbarui dengan aman. Buat berkas tersebut dapat dibaca dan ditulis."
+
+#. translators: %s: path of tenants.php.
+#: includes/class-grabwp-tenancy-routing.php:177
+#, php-format
+msgid "%s is not writable by the web server. Make the file writable."
+msgstr "%s tidak dapat ditulis oleh server web. Buat berkas tersebut dapat ditulis."
+
+#: includes/class-grabwp-tenancy-routing.php:179
+msgid "Could not write tenants.php. Check file permissions."
+msgstr "Tidak dapat menulis ke tenants.php. Periksa izin berkas."
+
+#: includes/class-grabwp-tenancy-settings.php:123
+msgid "Disable Install Plugins & Themes"
+msgstr "Nonaktifkan Instalasi Plugin & Tema"
+
+#: includes/class-grabwp-tenancy-settings.php:126
+msgid "Tenant admins cannot install, update or delete plugins and themes."
+msgstr "Admin tenant tidak dapat menginstal, memperbarui, atau menghapus plugin dan tema."
+
+#: includes/class-grabwp-tenancy-settings.php:131
+msgid "Disable Plugin & Theme File Editor"
+msgstr "Nonaktifkan Editor Berkas Plugin & Tema"
+
+#: includes/class-grabwp-tenancy-settings.php:134
+msgid "Tenant admins cannot use the built-in code editor for plugin and theme files."
+msgstr "Admin tenant tidak dapat menggunakan editor kode bawaan untuk berkas plugin dan tema."
+
+#: includes/class-grabwp-tenancy-settings.php:139
+msgid "Hide Plugins Menu"
+msgstr "Sembunyikan Menu Plugin"
+
+#: includes/class-grabwp-tenancy-settings.php:142
+msgid "Removes the Plugins menu from tenant dashboards."
+msgstr "Menghapus menu Plugin dari dasbor tenant."
+
+#: includes/class-grabwp-tenancy-settings.php:145
+msgid "Hide Appearance Menu"
+msgstr "Sembunyikan Menu Tampilan"
+
+#: includes/class-grabwp-tenancy-settings.php:148
+msgid "Removes the Appearance menu (themes) from tenant dashboards."
+msgstr "Menghapus menu Tampilan (tema) dari dasbor tenant."
+
+#: includes/class-grabwp-tenancy-settings.php:151
+msgid "Hide Themes Screen"
+msgstr "Sembunyikan Layar Tema"
+
+#: includes/class-grabwp-tenancy-settings.php:154
+msgid "Tenant admins keep Customize, Menus and Widgets under Appearance but cannot browse, install or switch themes. Has no effect when Hide Appearance Menu is on."
+msgstr "Admin situs tetap bisa memakai Sesuaikan, Menu, dan Widget di Tampilan, tetapi tidak bisa menelusuri, memasang, atau mengganti tema. Tidak berpengaruh jika Sembunyikan Menu Tampilan aktif."
+
+#: includes/class-grabwp-tenancy-settings.php:157
+msgid "Hide GrabWP Plugins"
+msgstr "Sembunyikan Plugin GrabWP"
+
+#: includes/class-grabwp-tenancy-settings.php:160
+msgid "Hides every GrabWP plugin and the SQLite plugin from the tenant Plugins list, so tenants cannot turn them off by mistake."
+msgstr "Menyembunyikan semua plugin GrabWP dan plugin SQLite dari daftar Plugin tenant, sehingga tenant tidak dapat menonaktifkannya secara tidak sengaja."
+
+#: includes/class-grabwp-tenancy-settings.php:163
+msgid "Disable WP-Cron"
+msgstr "Nonaktifkan WP-Cron"
+
+#: includes/class-grabwp-tenancy-settings.php:166
+msgid "Turns off the built-in task scheduler on tenant sites. Run a server cron job instead."
+msgstr "Menonaktifkan penjadwal tugas bawaan di situs tenant. Jalankan cron job server sebagai gantinya."
+
+#: includes/class-grabwp-tenancy-settings.php:171
+msgid "Disable XML-RPC"
+msgstr "Nonaktifkan XML-RPC"
+
+#: includes/class-grabwp-tenancy-settings.php:174
+msgid "Turns off the old remote publishing API, a common target of password-guessing attacks."
+msgstr "Menonaktifkan API publikasi jarak jauh versi lama yang sering menjadi sasaran serangan tebak kata sandi."
+
+#: includes/class-grabwp-tenancy-settings.php:177
+msgid "Post Revisions to Keep"
+msgstr "Revisi Pos yang Disimpan"
+
+#: includes/class-grabwp-tenancy-settings.php:180
+msgid "How many older versions of each post to keep. 0 turns revisions off."
+msgstr "Berapa banyak versi lama dari setiap pos yang disimpan. 0 akan menonaktifkan revisi."
+
+#: includes/class-grabwp-tenancy-settings.php:187
+msgid "Days Before Trash Is Emptied"
+msgstr "Hari Sebelum Sampah Dikosongkan"
+
+#: includes/class-grabwp-tenancy-settings.php:190
+msgid "Deleted items stay in the Trash this many days. 0 deletes them right away."
+msgstr "Item yang dihapus akan tetap berada di Sampah selama jumlah hari ini. 0 akan langsung menghapusnya."
+
+#: includes/class-grabwp-tenancy-settings.php:197
+msgid "Block External Requests"
+msgstr "Blokir Permintaan Eksternal"
+
+#: includes/class-grabwp-tenancy-settings.php:200
+msgid "Tenant sites cannot connect to other websites, except the allowed hosts below."
+msgstr "Situs tenant tidak dapat terhubung ke situs web lain, kecuali host yang diizinkan di bawah."
+
+#: includes/class-grabwp-tenancy-settings.php:205
+msgid "Allowed Hosts When Blocked"
+msgstr "Host yang Diizinkan Saat Diblokir"
+
+#: includes/class-grabwp-tenancy-settings.php:208
+msgid "Comma-separated host names tenant sites can still reach when external requests are blocked. Wildcards like *.wordpress.org work."
+msgstr "Nama host yang dipisahkan koma yang masih dapat dijangkau situs tenant saat permintaan eksternal diblokir. Wildcard seperti *.wordpress.org dapat digunakan."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:139
+msgid "Welcome"
+msgstr "Selamat Datang"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:143
+#: includes/class-grabwp-tenancy-setup-wizard.php:151
+msgid "Continue"
+msgstr "Lanjutkan"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:154
+msgid "Custom domains"
+msgstr "Domain kustom"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:155
+msgid "Give any site its own domain from Tenancy > All Tenants > Edit."
+msgstr "Berikan domain sendiri untuk situs mana pun dari Tenancy > Semua Tenant > Edit."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:165
+msgid "First site"
+msgstr "Situs pertama"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:170
+msgid "Create site"
+msgstr "Buat situs"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:173
+msgid "More sites"
+msgstr "Lebih banyak situs"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:174
+msgid "Add as many as you need from Tenancy > Add New."
+msgstr "Tambahkan sebanyak yang Anda perlukan dari Tenancy > Tambah Baru."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:178
+msgid "Copies of a site"
+msgstr "Salinan situs"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:179
+msgid "Clone a finished site from its row in Tenancy > All Tenants to start the next one faster."
+msgstr "Kloning situs yang sudah jadi dari barisnya di Tenancy > Semua Tenant untuk memulai situs berikutnya lebih cepat."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:186
+msgid "Done"
+msgstr "Selesai"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:355
+#: includes/class-grabwp-tenancy-setup-wizard.php:646
+msgid "Resume setup wizard"
+msgstr "Lanjutkan panduan penyiapan"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:355
+msgid "Run setup wizard"
+msgstr "Jalankan wizard penyiapan"
+
+#. translators: %s: name of the button on the Status page, "Resume setup wizard".
+#: includes/class-grabwp-tenancy-setup-wizard.php:645
+#, php-format
+msgid "Setup paused. The steps you saved are kept. You can resume any time with \"%s\" on this Status page."
+msgstr "Penyiapan dijeda. Langkah yang telah Anda simpan tetap tersimpan. Anda dapat melanjutkan kapan saja dengan \"%s\" di halaman Status ini."
+
+#. translators: %d: number of setup steps left.
+#: includes/class-grabwp-tenancy-setup-wizard.php:691
+#, php-format
+msgid "GrabWP: finish setup to get your first site running (%d step left)."
+msgid_plural "GrabWP: finish setup to get your first site running (%d steps left)."
+msgstr[0] "GrabWP: selesaikan penyiapan agar situs pertama Anda berjalan (tersisa %d langkah)."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:697
+msgid "Continue setup"
+msgstr "Lanjutkan penyiapan"
+
+#. translators: %s: plugin names, e.g. "GrabWP Tenancy Pro and GrabWP Tenancy WaaS".
+#: includes/class-grabwp-tenancy-setup-wizard.php:718
+#, php-format
+msgid "Finish activating %s, then run the setup wizard."
+msgstr "Selesaikan pengaktifan %s, lalu jalankan panduan penyiapan."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:724
+msgid "Run the setup wizard"
+msgstr "Jalankan panduan penyiapan"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1054
+msgid "Unknown setup step."
+msgstr "Langkah penyiapan tidak dikenal."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1129
+msgid "Simple"
+msgstr "Sederhana"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1130
+msgid "Advanced"
+msgstr "Lanjutan"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1138
+msgid "Recommended"
+msgstr "Disarankan"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1191
+msgid "Later, you can add:"
+msgstr "Nanti, Anda dapat menambahkan:"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1294
+#: includes/class-grabwp-tenancy-setup-wizard.php:1298
+msgid "Choose how visitors reach your sites."
+msgstr "Pilih cara pengunjung mengakses situs Anda."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1300
+msgid "Sites already exist, so their addresses would change. Change the mode in Tenancy > Settings > Routing, which lists the affected sites."
+msgstr "Situs sudah ada, sehingga alamatnya akan berubah. Ubah mode di Tenancy > Pengaturan > Routing yang menampilkan daftar situs yang terdampak."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1319
+msgid "Your first site opens on a path address right away. No DNS needed."
+msgstr "Situs pertama Anda langsung dibuka pada alamat path. Tanpa perlu DNS."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1320
+msgid "Your first site opens on its own domain. Point that domain to this server (DNS) first."
+msgstr "Situs pertama Anda dibuka pada domainnya sendiri. Arahkan domain tersebut ke server ini (DNS) terlebih dahulu."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1321
+msgid "Your first site opens on a path address right away. You can give it its own domain now or later."
+msgstr "Situs pertama Anda langsung dibuka pada alamat path. Anda dapat memberinya domain sendiri sekarang atau nanti."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1334
+msgid "Create your first site"
+msgstr "Buat situs pertama Anda"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1336
+msgid "My First Site"
+msgstr "Situs Pertama Saya"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1405
+msgid "Pick a site from the list."
+msgstr "Pilih situs dari daftar."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1414
+msgid "Enter a site title (up to 100 characters)."
+msgstr "Masukkan judul situs (maksimal 100 karakter)."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1418
+msgid "Enter a valid admin email."
+msgstr "Masukkan email admin yang valid."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1435
+msgid "Enter the domain of the site. Domain routing needs a domain for every site."
+msgstr "Masukkan domain situs. Routing domain memerlukan domain untuk setiap situs."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1436
+msgid "Enter the custom domain, or choose Path URL."
+msgstr "Masukkan domain kustom, atau pilih URL Jalur."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1580
+msgid "Server checked"
+msgstr "Server sudah diperiksa"
+
+#. translators: %s: tenant ID.
+#: includes/class-grabwp-tenancy-setup-wizard.php:1596
+#, php-format
+msgid "Site %s created and installed"
+msgstr "Situs %s dibuat dan dipasang"
+
+#. translators: %s: tenant ID.
+#: includes/class-grabwp-tenancy-setup-wizard.php:1599
+#, php-format
+msgid "Site %s created; WordPress is not installed yet"
+msgstr "Situs %s dibuat; WordPress belum dipasang"
+
+#. translators: %s: tenant ID.
+#: includes/class-grabwp-tenancy-setup-wizard.php:1602
+#, php-format
+msgid "Site %s created; GrabWP could not confirm that WordPress is installed"
+msgstr "Situs %s dibuat; GrabWP tidak dapat memastikan bahwa WordPress telah terinstal"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1612
+msgid "First site: Skipped"
+msgstr "Situs pertama: Dilewati"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1630
+msgid "Map a custom domain"
+msgstr "Petakan domain kustom"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1631
+msgid "Give this site its own domain, like my-shop.com."
+msgstr "Berikan domain sendiri untuk situs ini, seperti my-shop.com."
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1636
+msgid "Add more sites"
+msgstr "Tambah situs lainnya"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1637
+msgid "Each one separate, all from this WordPress."
+msgstr "Masing-masing terpisah, semuanya dari WordPress ini."
+
+#. translators: %s: name of a setup item.
+#: includes/class-grabwp-tenancy-setup-wizard.php:1673
+#, php-format
+msgid "%s: Skipped"
+msgstr "%s: Dilewati"
+
+#: includes/class-grabwp-tenancy-status-checker.php:181
 msgid "Multiple tenants.php files detected"
 msgstr "Beberapa file tenants.php terdeteksi"
 
-#: includes/class-grabwp-tenancy-status-checker.php:183
+#: includes/class-grabwp-tenancy-status-checker.php:182
 msgid "Only one tenants.php is loaded at boot. Stale copies at other locations may cause confusion during debugging or migration. Remove unused copies."
 msgstr "Hanya satu tenants.php yang dimuat saat boot. Salinan usang di lokasi lain dapat menyebabkan kebingungan selama proses debug atau migrasi. Hapus salinan yang tidak digunakan."
 
-#: includes/class-grabwp-tenancy-status-checker.php:209
+#: includes/class-grabwp-tenancy-status-checker.php:208
 msgid "Multiple global config.php files detected"
 msgstr "Beberapa file global config.php terdeteksi"
 
-#: includes/class-grabwp-tenancy-status-checker.php:210
+#: includes/class-grabwp-tenancy-status-checker.php:209
 msgid "Pro global configuration exists at both new and legacy locations. Boot loads the new path first; changes saved to the other copy are silently ignored. Remove the unused copy."
 msgstr "Konfigurasi global Pro ada di lokasi baru dan lama. Boot memuat jalur baru terlebih dahulu; perubahan yang disimpan ke salinan lain diabaikan secara diam-diam. Hapus salinan yang tidak digunakan."
 
-#: includes/class-grabwp-tenancy-status-checker.php:220
+#: includes/class-grabwp-tenancy-status-checker.php:219
 msgid "Data directory inside uploads/"
 msgstr "Direktori data di dalam uploads/"
 
-#: includes/class-grabwp-tenancy-status-checker.php:221
+#: includes/class-grabwp-tenancy-status-checker.php:220
 msgid "Tenant data is inside wp-content/uploads/ — exposed to media upload scanners, backup tools, and CDN sync. Recommended: wp-content/grabwp-tenancy/."
 msgstr "Data tenant berada di dalam wp-content/uploads/ - terekspos ke pemindai unggahan media, alat cadangan, dan sinkronisasi CDN. Direkomendasikan: wp-content/grabwp-tenancy/."
 
-#: includes/class-grabwp-tenancy-status-checker.php:230
+#: includes/class-grabwp-tenancy-status-checker.php:229
 msgid "Pro config directory inside uploads/"
 msgstr "Direktori config Pro di dalam uploads/"
 
-#: includes/class-grabwp-tenancy-status-checker.php:231
+#: includes/class-grabwp-tenancy-status-checker.php:230
 msgid "Pro tenant configs are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-pro/."
 msgstr "Config tenant Pro berada di dalam wp-content/uploads/. Direkomendasikan: wp-content/grabwp-tenancy-pro/."
 
-#: includes/class-grabwp-tenancy-status-checker.php:241
+#: includes/class-grabwp-tenancy-status-checker.php:240
 msgid "SQLite directory inside uploads/"
 msgstr "Direktori SQLite di dalam uploads/"
 
-#: includes/class-grabwp-tenancy-status-checker.php:242
+#: includes/class-grabwp-tenancy-status-checker.php:241
 msgid "SQLite databases are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-sqlite/."
 msgstr "Database SQLite berada di dalam wp-content/uploads/. Direkomendasikan: wp-content/grabwp-tenancy-sqlite/."
 
-#: includes/class-grabwp-tenancy-status-checker.php:261
+#: includes/class-grabwp-tenancy-status-checker.php:260
 msgid "Directory paths hardcoded in wp-config.php"
 msgstr "Jalur direktori di-hardcode dalam wp-config.php"
 
-#: includes/class-grabwp-tenancy-status-checker.php:262
+#: includes/class-grabwp-tenancy-status-checker.php:261
 msgid "Constants defined before load.php override all auto-detection and Pro admin directory settings."
 msgstr "Konstanta yang didefinisikan sebelum load.php menimpa semua deteksi otomatis dan pengaturan direktori admin Pro."
 
-#: includes/class-grabwp-tenancy-status-checker.php:277
+#: includes/class-grabwp-tenancy-status-checker.php:276
 msgid "Multiple tenant-aliases.php files detected"
 msgstr "Beberapa file tenant-aliases.php terdeteksi"
 
-#: includes/class-grabwp-tenancy-status-checker.php:278
+#: includes/class-grabwp-tenancy-status-checker.php:277
 msgid "Only the copy at the active base directory is loaded. Remove stale copies to prevent confusion."
 msgstr "Hanya salinan di direktori basis aktif yang dimuat. Hapus salinan usang untuk mencegah kebingungan."
 
-#: includes/class-grabwp-tenancy-status-checker.php:294
+#: includes/class-grabwp-tenancy-status-checker.php:293
 msgid "Unknown"
 msgstr "Tidak diketahui"
 
@@ -1302,7 +2854,7 @@ msgstr "Gagal membuat tenant."
 
 #: includes/class-grabwp-tenancy-tenant-crud.php:104
 #: includes/class-grabwp-tenancy-tenant-crud.php:152
-#: includes/class-grabwp-tenancy-tenant-installer.php:160
+#: includes/class-grabwp-tenancy-tenant-installer.php:540
 msgid "Invalid tenant ID."
 msgstr "ID tenant tidak valid."
 
@@ -1340,845 +2892,6 @@ msgstr "Domain sudah digunakan oleh tenant lain: %s. Setiap domain hanya dapat d
 msgid "Domain(s) already in use: %s. Each domain can only be assigned to one tenant."
 msgstr "Domain sudah digunakan: %s. Setiap domain hanya dapat ditetapkan ke satu tenant."
 
-#. translators: %s: reason the install failed.
-#: admin/views/partials/site-result.php:33
-#: admin/views/setup-steps/done.php:50
-#, php-format
-msgid "The site was created but WordPress could not be installed automatically: %s"
-msgstr "Situs sudah dibuat, tetapi WordPress tidak dapat dipasang secara otomatis: %s"
-
-#: admin/views/partials/site-result.php:39
-#: admin/views/setup-steps/done.php:56
-msgid "Finish install in browser"
-msgstr "Selesaikan pemasangan di browser"
-
-#. translators: %s: tenant ID.
-#: admin/views/partials/site-result.php:49
-#: admin/views/setup-steps/done.php:38
-#, php-format
-msgid "Site created: %s"
-msgstr "Situs dibuat: %s"
-
-#: admin/views/partials/site-result.php:58
-#: admin/views/setup-steps/done.php:61
-msgid "Username"
-msgstr "Nama Pengguna"
-
-#: admin/views/partials/site-result.php:60
-#: admin/views/setup-steps/done.php:63
-msgid "Password"
-msgstr "Kata Sandi"
-
-#: admin/views/partials/site-result.php:62
-#: admin/views/setup-steps/done.php:65
-msgid "Show"
-msgstr "Tampilkan"
-
-#: admin/views/partials/site-result.php:62
-#: admin/views/setup-steps/done.php:65
-msgid "Hide"
-msgstr "Sembunyikan"
-
-#: admin/views/partials/site-result.php:65
-msgid "This password is shown once. You do not need it: the 1-click Admin button logs you in."
-msgstr "Kata sandi ini hanya ditampilkan sekali. Anda tidak memerlukannya: tombol Admin 1 klik akan memasukkan Anda."
-
-#: admin/views/partials/site-result.php:68
-#: admin/views/setup-steps/done.php:92
-msgid "Open site admin (1-click)"
-msgstr "Buka admin situs (1 klik)"
-
-#: admin/views/setup-steps/check.php:110
-msgid "Site can reach itself (loopback)"
-msgstr "Situs dapat menjangkau dirinya sendiri (loopback)"
-
-#: admin/views/setup-steps/check.php:112
-msgid "OK"
-msgstr "OK"
-
-#: admin/views/setup-steps/check.php:114
-msgid "Failed"
-msgstr "Gagal"
-
-#: admin/views/setup-steps/check.php:120
-msgid "GrabWP can install WordPress in new sites for you."
-msgstr "GrabWP dapat memasang WordPress di situs baru untuk Anda."
-
-#: admin/views/setup-steps/check.php:121
-msgid "This server cannot open its own address, so new sites must be installed in the browser. Check firewall, basic auth, or the server routing rules."
-msgstr "Server ini tidak dapat membuka alamatnya sendiri, jadi situs baru harus dipasang di browser. Periksa firewall, basic auth, atau aturan routing server."
-
-#: admin/views/setup-steps/check.php:128
-msgid ".htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
-msgstr "Nginx tidak menggunakan file .htaccess. Konfigurasikan routing tenant di blok server Anda."
-
-#. translators: %d: number of items that need attention.
-#: admin/views/setup-steps/check.php:74
-#, php-format
-msgid "%d item needs attention."
-msgid_plural "%d items need attention."
-msgstr[0] "%d item perlu perhatian."
-
-#: admin/views/setup-steps/check.php:78
-msgid "Fix automatically"
-msgstr "Perbaiki otomatis"
-
-#: admin/views/setup-steps/done.php:21
-msgid "You're ready"
-msgstr "Anda sudah siap"
-
-#: admin/views/setup-steps/done.php:81
-msgid "Open this step"
-msgstr "Buka langkah ini"
-
-#: admin/views/setup-steps/done.php:93
-msgid "Visit site"
-msgstr "Kunjungi situs"
-
-#: admin/views/setup-steps/site.php:34
-#: admin/views/setup-wizard.php:18
-msgid "Save and continue"
-msgstr "Simpan dan lanjutkan"
-
-#: admin/views/settings-routing-confirm.php:36
-#: admin/views/settings-routing-confirm.php:62
-#: admin/views/setup-steps/site.php:37
-#: admin/views/setup-steps/site.php:55
-msgid "Site"
-msgstr "Situs"
-
-#: admin/views/setup-steps/site.php:44
-msgid "Create a new site"
-msgstr "Buat situs baru"
-
-#: admin/views/setup-steps/site.php:49
-msgid "Use an existing site"
-msgstr "Gunakan situs yang ada"
-
-#: admin/views/setup-steps/site.php:58
-msgid "Existing site"
-msgstr "Situs yang ada"
-
-#: admin/views/setup-steps/site.php:70
-msgid "Site title"
-msgstr "Judul situs"
-
-#: admin/views/setup-steps/site.php:75
-#: admin/views/setup-steps/site.php:103
-msgid "Address"
-msgstr "Alamat"
-
-#: admin/views/setup-steps/site.php:80
-msgid "Works now. No DNS needed. The ID is created on save."
-msgstr "Langsung berfungsi. Tidak perlu DNS. ID dibuat saat disimpan."
-
-#: admin/views/setup-steps/site.php:83
-#: admin/views/setup-steps/site.php:97
-#: admin/views/setup-steps/site.php:106
-msgid "Custom domain"
-msgstr "Domain kustom"
-
-#: admin/views/setup-steps/site.php:84
-msgid "Point the domain's DNS to this server first."
-msgstr "Arahkan DNS domain ke server ini terlebih dahulu."
-
-#: admin/views/setup-steps/site.php:120
-#: admin/views/tenant-create.php:131
-msgid "WordPress"
-msgstr "WordPress"
-
-#: admin/views/tenant-create.php:135
-msgid "Install WordPress now"
-msgstr "Pasang WordPress sekarang"
-
-#: admin/views/tenant-create.php:137
-msgid "Creates the site's database and an administrator named after the site ID with a random password. Use the 1-click Admin button to log in; you never need the password."
-msgstr "Membuat database situs dan administrator bernama sesuai ID situs dengan kata sandi acak. Gunakan tombol Admin 1 klik untuk masuk; Anda tidak pernah memerlukan kata sandinya."
-
-#: admin/views/setup-steps/site.php:128
-msgid "Turned off because this server cannot reach itself (see the Check step). You can finish the install in the browser after the site is created."
-msgstr "Dinonaktifkan karena server ini tidak dapat menjangkau dirinya sendiri (lihat langkah Pemeriksaan). Anda dapat menyelesaikan pemasangan di browser setelah situs dibuat."
-
-#: admin/views/setup-wizard.php:25
-#: includes/class-grabwp-tenancy-setup-wizard.php:67
-#: includes/class-grabwp-tenancy-setup-wizard.php:68
-msgid "GrabWP setup"
-msgstr "Penyiapan GrabWP"
-
-#: admin/views/setup-wizard.php:26
-msgid "Exit setup"
-msgstr "Keluar dari penyiapan"
-
-#: admin/views/setup-wizard.php:125
-msgid "Back"
-msgstr "Kembali"
-
-#: admin/views/setup-wizard.php:129
-msgid "Skip this step"
-msgstr "Lewati langkah ini"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:355
-msgid "Run setup wizard"
-msgstr "Jalankan wizard penyiapan"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:143
-#: includes/class-grabwp-tenancy-setup-wizard.php:151
-msgid "Continue"
-msgstr "Lanjutkan"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:165
-msgid "First site"
-msgstr "Situs pertama"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:170
-msgid "Create site"
-msgstr "Buat situs"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:186
-msgid "Done"
-msgstr "Selesai"
-
-#. translators: %d: number of setup steps left.
-#: includes/class-grabwp-tenancy-setup-wizard.php:691
-#, php-format
-msgid "GrabWP: finish setup to get your first site running (%d step left)."
-msgid_plural "GrabWP: finish setup to get your first site running (%d steps left)."
-msgstr[0] "GrabWP: selesaikan penyiapan agar situs pertama Anda berjalan (tersisa %d langkah)."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:697
-msgid "Continue setup"
-msgstr "Lanjutkan penyiapan"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1038
-msgid "Unknown setup step."
-msgstr "Langkah penyiapan tidak dikenal."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1256
-msgid "Create your first site"
-msgstr "Buat situs pertama Anda"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1258
-msgid "My First Site"
-msgstr "Situs Pertama Saya"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1304
-msgid "Pick a site from the list."
-msgstr "Pilih situs dari daftar."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1313
-msgid "Enter a site title (up to 100 characters)."
-msgstr "Masukkan judul situs (maksimal 100 karakter)."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1317
-msgid "Enter a valid admin email."
-msgstr "Masukkan email admin yang valid."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1335
-msgid "Enter the custom domain, or choose Path URL."
-msgstr "Masukkan domain kustom, atau pilih URL Jalur."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1479
-msgid "Server checked"
-msgstr "Server sudah diperiksa"
-
-#. translators: %s: tenant ID.
-#: includes/class-grabwp-tenancy-setup-wizard.php:1496
-#, php-format
-msgid "Site %s created and installed"
-msgstr "Situs %s dibuat dan dipasang"
-
-#. translators: %s: tenant ID.
-#: includes/class-grabwp-tenancy-setup-wizard.php:1498
-#, php-format
-msgid "Site %s created; WordPress is not installed yet"
-msgstr "Situs %s dibuat; WordPress belum dipasang"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1504
-msgid "First site: Skipped"
-msgstr "Situs pertama: Dilewati"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1522
-msgid "Map a custom domain"
-msgstr "Petakan domain kustom"
-
-#. translators: %s: name of a setup item.
-#: includes/class-grabwp-tenancy-setup-wizard.php:1565
-#, php-format
-msgid "%s: Skipped"
-msgstr "%s: Dilewati"
-
-#. translators: %d: HTTP status code.
-#: includes/class-grabwp-tenancy-tenant-installer.php:215
-#, php-format
-msgid "The site answered with HTTP %d."
-msgstr "Situs merespons dengan HTTP %d."
-
-#. translators: %d: number of domains stored for the site.
-#: admin/class-grabwp-tenancy-list-table.php:303
-#, php-format
-msgid "%d stored domain, not used in Path mode"
-msgid_plural "%d stored domains, not used in Path mode"
-msgstr[0] "%d domain tersimpan, tidak digunakan dalam mode Path"
-
-#. translators: %s: example path URL of a site.
-#: admin/views/partials/routing-mode-options.php:20
-#, php-format
-msgid "Every site opens at %s. Works right away, no DNS needed. Domains you add are kept but not used for links."
-msgstr "Setiap situs dibuka di %s. Langsung berfungsi, tanpa perlu DNS. Domain yang Anda tambahkan tetap disimpan tetapi tidak digunakan untuk tautan."
-
-#: admin/views/partials/routing-mode-options.php:23
-msgid "Every site opens on its own domain. Visitors who open a path URL of a site are redirected (301) to its domain. Every site needs a domain."
-msgstr "Setiap situs dibuka pada domainnya sendiri. Pengunjung yang membuka URL path situs akan dialihkan (301) ke domainnya. Setiap situs memerlukan domain."
-
-#: admin/views/partials/routing-mode-options.php:24
-msgid "Sites with a domain open on it; sites without one open on the path URL. Both addresses keep working. This is how GrabWP worked before routing modes."
-msgstr "Situs dengan domain dibuka pada domain tersebut; situs tanpa domain dibuka pada URL path. Kedua alamat tetap berfungsi. Beginilah cara kerja GrabWP sebelum adanya mode routing."
-
-#: admin/views/partials/routing-mode-options.php:28
-#: admin/views/partials/settings-routing.php:43
-#: admin/views/setup-steps/routing.php:66
-msgid "Routing mode"
-msgstr "Mode routing"
-
-#: admin/views/partials/settings-field-rows.php:43
-msgid "Yes"
-msgstr "Ya"
-
-#. translators: %s: technical constant or setting name, e.g. DISALLOW_FILE_MODS=true
-#: admin/views/partials/settings-field-rows.php:47
-#, php-format
-msgid "Yes, %s"
-msgstr "Ya, %s"
-
-#. translators: %s: constant name.
-#: admin/views/partials/settings-routing.php:21
-#: admin/views/setup-steps/routing.php:50
-#, php-format
-msgid "The routing mode is set by %s in wp-config.php. Remove the constant to change it here."
-msgstr "Mode routing diatur oleh %s di wp-config.php. Hapus konstanta tersebut untuk mengubahnya di sini."
-
-#. translators: %s: constant name.
-#: admin/views/partials/settings-routing.php:33
-#, php-format
-msgid "%s in wp-config.php is not a valid mode (path, domain or both), so it is ignored."
-msgstr "%s di wp-config.php bukan mode yang valid (path, domain, atau both), sehingga diabaikan."
-
-#: admin/views/partials/settings-routing.php:46
-msgid "Not saved yet. Your sites use Path and domain, the behaviour from before routing modes."
-msgstr "Belum disimpan. Situs Anda menggunakan Path dan domain, perilaku sebelum adanya mode routing."
-
-#: admin/views/partials/settings-routing.php:63
-msgid "Path prefix"
-msgstr "Prefiks path"
-
-#: admin/views/partials/settings-routing.php:66
-msgid "GrabWP Tenancy Pro can change the prefix and give each site a readable alias."
-msgstr "GrabWP Tenancy Pro dapat mengubah prefiks dan memberikan alias yang mudah dibaca untuk setiap situs."
-
-#: admin/views/partials/status-env-cards.php:33
-msgid "In wp-config.php, reload to confirm"
-msgstr "Ada di wp-config.php, muat ulang untuk mengonfirmasi"
-
-#: admin/views/partials/status-env-cards.php:330
-msgid "Watched for changes. Not read-only, because the web server does not own these files (optional):"
-msgstr "Dipantau untuk perubahan. Bukan baca-saja, karena server web tidak memiliki berkas ini (opsional):"
-
-#: admin/views/settings-routing-confirm.php:17
-msgid "Change routing mode"
-msgstr "Ubah mode routing"
-
-#. translators: 1: current routing mode, 2: new routing mode.
-#: admin/views/settings-routing-confirm.php:22
-#, php-format
-msgid "From %1$s to %2$s."
-msgstr "Dari %1$s ke %2$s."
-
-#: admin/views/settings-routing-confirm.php:31
-#: includes/class-grabwp-tenancy-admin-form-handler.php:234
-msgid "Domain mode needs a domain for every site. These sites have none yet:"
-msgstr "Mode domain memerlukan domain untuk setiap situs. Situs-situs ini belum memilikinya:"
-
-#: admin/views/settings-routing-confirm.php:37
-msgid "Action"
-msgstr "Tindakan"
-
-#: admin/views/settings-routing-confirm.php:45
-msgid "Add a domain"
-msgstr "Tambah domain"
-
-#: admin/views/settings-routing-confirm.php:52
-msgid "Back to Routing settings"
-msgstr "Kembali ke pengaturan Routing"
-
-#: admin/views/settings-routing-confirm.php:55
-msgid "Sites whose address changes"
-msgstr "Situs yang alamatnya berubah"
-
-#: admin/views/settings-routing-confirm.php:57
-msgid "No site address changes."
-msgstr "Tidak ada perubahan alamat situs."
-
-#: admin/views/settings-routing-confirm.php:63
-msgid "Current address"
-msgstr "Alamat saat ini"
-
-#: admin/views/settings-routing-confirm.php:64
-msgid "New address"
-msgstr "Alamat baru"
-
-#: admin/views/settings-routing-confirm.php:79
-msgid "What else happens"
-msgstr "Apa lagi yang terjadi"
-
-#: admin/views/settings-routing-confirm.php:82
-msgid "Visitors who open a path URL of a site are redirected (301) to its domain. Form posts and server calls to path URLs keep working."
-msgstr "Pengunjung yang membuka URL path situs akan dialihkan (301) ke domainnya. Pengiriman formulir dan panggilan server ke URL path tetap berfungsi."
-
-#: admin/views/settings-routing-confirm.php:85
-msgid "Path URLs stop redirecting and open the site again. Browsers and CDNs may keep a cached redirect until you purge them."
-msgstr "URL path berhenti mengalihkan dan membuka situs kembali. Browser dan CDN mungkin menyimpan cache pengalihan hingga Anda membersihkannya."
-
-#: admin/views/settings-routing-confirm.php:87
-msgid "Links stored inside site content are not changed. Old addresses keep working."
-msgstr "Tautan yang tersimpan di dalam konten situs tidak diubah. Alamat lama tetap berfungsi."
-
-#: admin/views/settings-routing-confirm.php:89
-msgid "People logged in to a site whose address changes are signed out once."
-msgstr "Pengguna yang masuk ke situs yang alamatnya berubah akan dikeluarkan satu kali."
-
-#: admin/views/settings-routing-confirm.php:91
-msgid "Purge page and CDN caches after the switch."
-msgstr "Bersihkan cache halaman dan CDN setelah beralih."
-
-#. translators: %s: new routing mode.
-#: admin/views/settings-routing-confirm.php:103
-#, php-format
-msgid "Switch to %s"
-msgstr "Beralih ke %s"
-
-#: admin/views/settings.php:27
-#: includes/class-grabwp-tenancy-setup-wizard.php:147
-msgid "Routing"
-msgstr "Routing"
-
-#: admin/views/setup-steps/check.php:39
-msgid "Welcome to GrabWP"
-msgstr "Selamat datang di GrabWP"
-
-#: admin/views/setup-steps/check.php:40
-msgid "A few short steps get your first site running. Every step has a working default, and you can skip any of them."
-msgstr "Beberapa langkah singkat untuk menjalankan situs pertama Anda. Setiap langkah memiliki pengaturan bawaan yang siap pakai, dan Anda dapat melewati langkah mana pun."
-
-#: admin/views/setup-steps/check.php:44
-msgid "One WordPress, many websites"
-msgstr "Satu WordPress, banyak situs web"
-
-#: admin/views/setup-steps/check.php:45
-msgid "GrabWP runs many separate websites from this one WordPress install. Each one is called a site (a \"tenant\" in some GrabWP screens)."
-msgstr "GrabWP menjalankan banyak situs web terpisah dari satu instalasi WordPress ini. Masing-masing disebut situs (\"tenant\" di beberapa layar GrabWP)."
-
-#: admin/views/setup-steps/check.php:48
-msgid "Each site stands on its own"
-msgstr "Setiap situs berdiri sendiri"
-
-#: admin/views/setup-steps/check.php:49
-msgid "A site has its own posts, pages, media, users and admin area. Sites share the plugins and themes installed here, so you update them once."
-msgstr "Setiap situs memiliki pos, halaman, media, pengguna, dan area admin sendiri. Situs-situs berbagi plugin dan tema yang terinstal di sini, sehingga Anda cukup memperbaruinya satu kali."
-
-#: admin/views/setup-steps/check.php:52
-msgid "Not WordPress Multisite"
-msgstr "Bukan WordPress Multisite"
-
-#: admin/views/setup-steps/check.php:53
-msgid "You do not need to know or turn on Multisite. You manage every site from the Tenancy menu of this admin."
-msgstr "Anda tidak perlu memahami atau mengaktifkan Multisite. Anda mengelola setiap situs dari menu Tenancy di admin ini."
-
-#: admin/views/setup-steps/check.php:67
-msgid "Server check"
-msgstr "Pemeriksaan server"
-
-#: admin/views/setup-steps/check.php:79
-#: admin/views/setup-steps/check.php:89
-msgid "Check again"
-msgstr "Periksa lagi"
-
-#: admin/views/setup-steps/check.php:82
-msgid "The loader is in wp-config.php, but this page loaded before it was read. Check again to confirm."
-msgstr "Loader sudah ada di wp-config.php, tetapi halaman ini dimuat sebelum loader terbaca. Periksa lagi untuk mengonfirmasi."
-
-#: admin/views/setup-steps/check.php:88
-msgid "Everything is ready. Nothing to do here."
-msgstr "Semuanya sudah siap. Tidak ada yang perlu dilakukan di sini."
-
-#: admin/views/setup-steps/check.php:95
-msgid "Show the server checks"
-msgstr "Tampilkan pemeriksaan server"
-
-#. translators: %s: example site address such as /site/{id}
-#: admin/views/setup-steps/check.php:100
-#, php-format
-msgid "GrabWP set these up when you activated it. Site addresses like %s need every item."
-msgstr "GrabWP telah mengaturnya saat Anda mengaktifkannya. Alamat situs seperti %s memerlukan setiap item."
-
-#: admin/views/setup-steps/done.php:22
-msgid "Your setup is saved. Open your site, then grow it whenever you like."
-msgstr "Penyiapan Anda telah disimpan. Buka situs Anda, lalu kembangkan kapan pun Anda mau."
-
-#. translators: %s: tenant ID.
-#: admin/views/setup-steps/done.php:38
-#, php-format
-msgid "Your site: %s"
-msgstr "Situs Anda: %s"
-
-#: admin/views/setup-steps/done.php:67
-msgid "I saved it, hide this"
-msgstr "Sudah saya simpan, sembunyikan ini"
-
-#: admin/views/setup-steps/done.php:69
-msgid "Keep this password somewhere safe. It stays on this screen until you hide it. You do not need it to log in: the 1-click Admin button does that."
-msgstr "Simpan kata sandi ini di tempat yang aman. Kata sandi akan tetap tampil di layar ini sampai Anda menyembunyikannya. Anda tidak memerlukannya untuk masuk: tombol Admin 1-klik yang akan melakukannya."
-
-#: admin/views/setup-steps/done.php:74
-msgid "What you set up"
-msgstr "Yang telah Anda siapkan"
-
-#: admin/views/setup-steps/done.php:89
-msgid "Try it now"
-msgstr "Coba sekarang"
-
-#: admin/views/setup-steps/done.php:95
-msgid "All sites"
-msgstr "Semua situs"
-
-#: admin/views/setup-steps/done.php:103
-msgid "Grow later"
-msgstr "Kembangkan nanti"
-
-#. translators: %s: example path URL of a site.
-#: admin/views/setup-steps/routing.php:25
-#, php-format
-msgid "Every site lives under this WordPress address. Works right away, no DNS needed. For example: %s"
-msgstr "Setiap situs berada di bawah alamat WordPress ini. Langsung berfungsi, tanpa perlu DNS. Misalnya: %s"
-
-#. translators: %s: example domain of a site.
-#: admin/views/setup-steps/routing.php:31
-#, php-format
-msgid "Every site has its own domain. Each domain must point to this server (DNS) before its site opens. For example: %s"
-msgstr "Setiap situs memiliki domainnya sendiri. Setiap domain harus diarahkan ke server ini (DNS) sebelum situsnya dapat dibuka. Misalnya: %s"
-
-#: admin/views/setup-steps/routing.php:36
-msgid "A site opens on the path address until you give it a domain; then it opens on the domain and the path keeps working. Works now; add domains whenever you like."
-msgstr "Situs dibuka pada alamat path sampai Anda memberinya domain; setelah itu situs dibuka pada domain dan alamat path tetap berfungsi. Berfungsi sekarang; tambahkan domain kapan pun Anda mau."
-
-#: admin/views/setup-steps/routing.php:41
-msgid "Choose the web address of your sites"
-msgstr "Pilih alamat web situs Anda"
-
-#: admin/views/setup-steps/routing.php:42
-msgid "This decides how visitors reach each site. Start simple. You can change this later in Tenancy > Settings > Routing."
-msgstr "Ini menentukan cara pengunjung mengakses setiap situs. Mulailah dengan yang sederhana. Anda dapat mengubahnya nanti di Tenancy > Pengaturan > Routing."
-
-#: admin/views/setup-steps/routing.php:59
-msgid "Sites already exist. A new mode changes their addresses, so switch it in Settings, which lists every site that changes."
-msgstr "Situs sudah ada. Mode baru akan mengubah alamatnya, jadi ubah melalui Pengaturan yang menampilkan daftar setiap situs yang berubah."
-
-#: admin/views/setup-steps/routing.php:60
-msgid "Open Settings > Routing"
-msgstr "Buka Pengaturan > Routing"
-
-#: admin/views/setup-steps/site.php:45
-msgid "Start from an empty WordPress site."
-msgstr "Mulai dari situs WordPress kosong."
-
-#: admin/views/setup-steps/site.php:50
-msgid "Pick one of your sites from the list below."
-msgstr "Pilih salah satu situs Anda dari daftar di bawah."
-
-#: admin/views/setup-steps/site.php:91
-msgid "Path address"
-msgstr "Alamat path"
-
-#. translators: %s: path URL of the new site, {id} stands for its ID.
-#: admin/views/setup-steps/site.php:93
-#, php-format
-msgid "Works now, no DNS needed. The site ID is created when you save: %s"
-msgstr "Langsung berfungsi, tanpa perlu DNS. ID situs dibuat saat Anda menyimpan: %s"
-
-#: admin/views/setup-steps/site.php:98
-msgid "Type the domain below. Point its DNS to this server first."
-msgstr "Ketik domain di bawah. Arahkan DNS-nya ke server ini terlebih dahulu."
-
-#: admin/views/setup-steps/site.php:112
-msgid "Site admin email"
-msgstr "Email admin situs"
-
-#: admin/views/setup-steps/site.php:115
-msgid "The new site's administrator account uses this email."
-msgstr "Akun administrator situs baru menggunakan email ini."
-
-#: admin/views/setup-steps/site.php:124
-msgid "Set up WordPress in the new site now"
-msgstr "Siapkan WordPress di situs baru sekarang"
-
-#: admin/views/setup-steps/site.php:126
-msgid "The site is ready to use right away, with an administrator account named after the site ID. You log in with the 1-click button and never need its password."
-msgstr "Situs langsung siap digunakan, dengan akun administrator yang dinamai sesuai ID situs. Anda masuk dengan tombol 1-klik dan tidak pernah memerlukan kata sandinya."
-
-#: admin/views/setup-wizard.php:57
-msgid "(done)"
-msgstr "(selesai)"
-
-#. translators: 1: step title, 2: current part of the step, 3: number of parts.
-#: admin/views/setup-wizard.php:69
-#, php-format
-msgid "%1$s (%2$d of %3$d)"
-msgstr "%1$s (%2$d dari %3$d)"
-
-#. translators: 1: current step number, 2: number of steps, 3: step title.
-#: admin/views/setup-wizard.php:77
-#, php-format
-msgid "Step %1$d of %2$d: %3$s"
-msgstr "Langkah %1$d dari %2$d: %3$s"
-
-#: admin/views/status-base.php:112
-msgid "empty"
-msgstr "kosong"
-
-#: admin/views/tenant-clone.php:227
-msgid "Path URL only"
-msgstr "Hanya URL path"
-
-#: admin/views/tenant-create.php:21
-msgid "Create a new tenant. It opens on the domain you enter."
-msgstr "Buat tenant baru. Tenant akan dibuka pada domain yang Anda masukkan."
-
-#: admin/views/tenant-create.php:94
-#: admin/views/tenant-edit.php:126
-msgid "Domain mode needs at least one domain."
-msgstr "Mode domain memerlukan setidaknya satu domain."
-
-#. translators: %d: number of domains stored for the site.
-#: admin/views/tenant-edit.php:93
-#, php-format
-msgid "Stored domains (%d): kept, not used for links in Path mode"
-msgid_plural "Stored domains (%d): kept, not used for links in Path mode"
-msgstr[0] "Domain tersimpan (%d): disimpan, tidak digunakan untuk tautan dalam mode Path"
-
-#: includes/class-grabwp-tenancy-admin-form-handler.php:197
-#: includes/class-grabwp-tenancy-admin-form-handler.php:247
-#: includes/class-grabwp-tenancy-setup-wizard.php:1224
-msgid "Could not write tenants.php. Check file permissions."
-msgstr "Tidak dapat menulis ke tenants.php. Periksa izin berkas."
-
-#: includes/class-grabwp-tenancy-admin-form-handler.php:226
-msgid "The routing mode is set in wp-config.php and cannot be changed here."
-msgstr "Mode routing diatur di wp-config.php dan tidak dapat diubah di sini."
-
-#: includes/class-grabwp-tenancy-admin-form-handler.php:229
-msgid "Invalid routing mode."
-msgstr "Mode routing tidak valid."
-
-#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false
-#: includes/class-grabwp-tenancy-admin.php:146
-#, php-format
-msgid "Your wp-config.php already sets %1$s to %2$s, so this setting has no effect. Remove that line to let GrabWP control it."
-msgstr "Berkas wp-config.php Anda sudah mengatur %1$s ke %2$s, sehingga pengaturan ini tidak berpengaruh. Hapus baris tersebut agar GrabWP dapat mengontrolnya."
-
-#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false
-#: includes/class-grabwp-tenancy-admin.php:153
-#, php-format
-msgid "Another plugin or file already sets %1$s to %2$s, so this setting has no effect."
-msgstr "Plugin atau berkas lain sudah mengatur %1$s ke %2$s, sehingga pengaturan ini tidak berpengaruh."
-
-#: includes/class-grabwp-tenancy-admin.php:548
-msgid "Routing mode saved."
-msgstr "Mode routing disimpan."
-
-#: includes/class-grabwp-tenancy-routing.php:80
-msgid "Path"
-msgstr "Path"
-
-#: includes/class-grabwp-tenancy-routing.php:82
-msgid "Domain"
-msgstr "Domain"
-
-#: includes/class-grabwp-tenancy-routing.php:84
-msgid "Path and domain"
-msgstr "Path dan domain"
-
-#: includes/class-grabwp-tenancy-settings.php:122
-msgid "Disable Install Plugins & Themes"
-msgstr "Nonaktifkan Instalasi Plugin & Tema"
-
-#: includes/class-grabwp-tenancy-settings.php:125
-msgid "Tenant admins cannot install, update or delete plugins and themes."
-msgstr "Admin tenant tidak dapat menginstal, memperbarui, atau menghapus plugin dan tema."
-
-#: includes/class-grabwp-tenancy-settings.php:130
-msgid "Disable Plugin & Theme File Editor"
-msgstr "Nonaktifkan Editor Berkas Plugin & Tema"
-
-#: includes/class-grabwp-tenancy-settings.php:133
-msgid "Tenant admins cannot use the built-in code editor for plugin and theme files."
-msgstr "Admin tenant tidak dapat menggunakan editor kode bawaan untuk berkas plugin dan tema."
-
-#: includes/class-grabwp-tenancy-settings.php:138
-msgid "Hide Plugins Menu"
-msgstr "Sembunyikan Menu Plugin"
-
-#: includes/class-grabwp-tenancy-settings.php:141
-msgid "Removes the Plugins menu from tenant dashboards."
-msgstr "Menghapus menu Plugin dari dasbor tenant."
-
-#: includes/class-grabwp-tenancy-settings.php:144
-msgid "Hide Appearance Menu"
-msgstr "Sembunyikan Menu Tampilan"
-
-#: includes/class-grabwp-tenancy-settings.php:147
-msgid "Removes the Appearance menu (themes) from tenant dashboards."
-msgstr "Menghapus menu Tampilan (tema) dari dasbor tenant."
-
-#: includes/class-grabwp-tenancy-settings.php:153
-msgid "Hides every GrabWP plugin and the SQLite plugin from the tenant Plugins list, so tenants cannot turn them off by mistake."
-msgstr "Menyembunyikan semua plugin GrabWP dan plugin SQLite dari daftar Plugin tenant, sehingga tenant tidak dapat menonaktifkannya secara tidak sengaja."
-
-#: includes/class-grabwp-tenancy-settings.php:159
-msgid "Turns off the built-in task scheduler on tenant sites. Run a server cron job instead."
-msgstr "Menonaktifkan penjadwal tugas bawaan di situs tenant. Jalankan cron job server sebagai gantinya."
-
-#: includes/class-grabwp-tenancy-settings.php:167
-msgid "Turns off the old remote publishing API, a common target of password-guessing attacks."
-msgstr "Menonaktifkan API publikasi jarak jauh versi lama yang sering menjadi sasaran serangan tebak kata sandi."
-
-#: includes/class-grabwp-tenancy-settings.php:170
-msgid "Post Revisions to Keep"
-msgstr "Revisi Pos yang Disimpan"
-
-#: includes/class-grabwp-tenancy-settings.php:173
-msgid "How many older versions of each post to keep. 0 turns revisions off."
-msgstr "Berapa banyak versi lama dari setiap pos yang disimpan. 0 akan menonaktifkan revisi."
-
-#: includes/class-grabwp-tenancy-settings.php:180
-msgid "Days Before Trash Is Emptied"
-msgstr "Hari Sebelum Sampah Dikosongkan"
-
-#: includes/class-grabwp-tenancy-settings.php:183
-msgid "Deleted items stay in the Trash this many days. 0 deletes them right away."
-msgstr "Item yang dihapus akan tetap berada di Sampah selama jumlah hari ini. 0 akan langsung menghapusnya."
-
-#: includes/class-grabwp-tenancy-settings.php:190
-msgid "Block External Requests"
-msgstr "Blokir Permintaan Eksternal"
-
-#: includes/class-grabwp-tenancy-settings.php:193
-msgid "Tenant sites cannot connect to other websites, except the allowed hosts below."
-msgstr "Situs tenant tidak dapat terhubung ke situs web lain, kecuali host yang diizinkan di bawah."
-
-#: includes/class-grabwp-tenancy-settings.php:198
-msgid "Allowed Hosts When Blocked"
-msgstr "Host yang Diizinkan Saat Diblokir"
-
-#: includes/class-grabwp-tenancy-settings.php:201
-msgid "Comma-separated host names tenant sites can still reach when external requests are blocked. Wildcards like *.wordpress.org work."
-msgstr "Nama host yang dipisahkan koma yang masih dapat dijangkau situs tenant saat permintaan eksternal diblokir. Wildcard seperti *.wordpress.org dapat digunakan."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:139
-msgid "Welcome"
-msgstr "Selamat Datang"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:154
-msgid "Custom domains"
-msgstr "Domain kustom"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:155
-msgid "Give any site its own domain from Tenancy > All Tenants > Edit."
-msgstr "Berikan domain sendiri untuk situs mana pun dari Tenancy > Semua Tenant > Edit."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:173
-msgid "More sites"
-msgstr "Lebih banyak situs"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:174
-msgid "Add as many as you need from Tenancy > Add New."
-msgstr "Tambahkan sebanyak yang Anda perlukan dari Tenancy > Tambah Baru."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:178
-msgid "Copies of a site"
-msgstr "Salinan situs"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:179
-msgid "Clone a finished site from its row in Tenancy > All Tenants to start the next one faster."
-msgstr "Kloning situs yang sudah jadi dari barisnya di Tenancy > Semua Tenant untuk memulai situs berikutnya lebih cepat."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:355
-#: includes/class-grabwp-tenancy-setup-wizard.php:646
-msgid "Resume setup wizard"
-msgstr "Lanjutkan panduan penyiapan"
-
-#. translators: %s: name of the button on the Status page, "Resume setup wizard".
-#: includes/class-grabwp-tenancy-setup-wizard.php:645
-#, php-format
-msgid "Setup paused. The steps you saved are kept. You can resume any time with \"%s\" on this Status page."
-msgstr "Penyiapan dijeda. Langkah yang telah Anda simpan tetap tersimpan. Anda dapat melanjutkan kapan saja dengan \"%s\" di halaman Status ini."
-
-#. translators: %s: plugin names, e.g. "GrabWP Tenancy Pro and GrabWP Tenancy WaaS".
-#: includes/class-grabwp-tenancy-setup-wizard.php:718
-#, php-format
-msgid "Finish activating %s, then run the setup wizard."
-msgstr "Selesaikan pengaktifan %s, lalu jalankan panduan penyiapan."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:724
-msgid "Run the setup wizard"
-msgstr "Jalankan panduan penyiapan"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1105
-msgid "Simple"
-msgstr "Sederhana"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1106
-msgid "Advanced"
-msgstr "Lanjutan"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1162
-msgid "Later, you can add:"
-msgstr "Nanti, Anda dapat menambahkan:"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1220
-msgid "Choose how visitors reach your sites."
-msgstr "Pilih cara pengunjung mengakses situs Anda."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1222
-msgid "Sites already exist, so their addresses would change. Change the mode in Tenancy > Settings > Routing, which lists the affected sites."
-msgstr "Situs sudah ada, sehingga alamatnya akan berubah. Ubah mode di Tenancy > Pengaturan > Routing yang menampilkan daftar situs yang terdampak."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1241
-msgid "Your first site opens on a path address right away. No DNS needed."
-msgstr "Situs pertama Anda langsung dibuka pada alamat path. Tanpa perlu DNS."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1242
-msgid "Your first site opens on its own domain. Point that domain to this server (DNS) first."
-msgstr "Situs pertama Anda dibuka pada domainnya sendiri. Arahkan domain tersebut ke server ini (DNS) terlebih dahulu."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1243
-msgid "Your first site opens on a path address right away. You can give it its own domain now or later."
-msgstr "Situs pertama Anda langsung dibuka pada alamat path. Anda dapat memberinya domain sendiri sekarang atau nanti."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1334
-msgid "Enter the domain of the site. Domain routing needs a domain for every site."
-msgstr "Masukkan domain situs. Routing domain memerlukan domain untuk setiap situs."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1523
-msgid "Give this site its own domain, like my-shop.com."
-msgstr "Berikan domain sendiri untuk situs ini, seperti my-shop.com."
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1528
-msgid "Add more sites"
-msgstr "Tambah situs lainnya"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1529
-msgid "Each one separate, all from this WordPress."
-msgstr "Masing-masing terpisah, semuanya dari WordPress ini."
-
 #: includes/class-grabwp-tenancy-tenant-crud.php:247
 msgid "Domain mode needs at least one domain for each site."
 msgstr "Mode domain memerlukan setidaknya satu domain untuk setiap situs."
@@ -2186,3 +2899,42 @@ msgstr "Mode domain memerlukan setidaknya satu domain untuk setiap situs."
 #: includes/class-grabwp-tenancy-tenant-crud.php:257
 msgid "Could not read tenants.php, so nothing was changed. Check the file and its permissions."
 msgstr "Tidak dapat membaca tenants.php, sehingga tidak ada yang diubah. Periksa berkas dan izinnya."
+
+#. translators: %d: HTTP status code.
+#: includes/class-grabwp-tenancy-tenant-installer.php:441
+#, php-format
+msgid "The address of the new site was answered by the main site or a proxy (HTTP %d), not by the new site. The web server may not have loaded the new site yet; wait a minute and try again."
+msgstr "Alamat situs baru dijawab oleh situs utama atau proxy (HTTP %d), bukan oleh situs baru. Server web mungkin belum memuat situs baru tersebut; tunggu sebentar lalu coba lagi."
+
+#. translators: %d: HTTP status code.
+#: includes/class-grabwp-tenancy-tenant-installer.php:447
+#: includes/class-grabwp-tenancy-tenant-installer.php:619
+#, php-format
+msgid "The site answered with HTTP %d."
+msgstr "Situs merespons dengan HTTP %d."
+
+#. translators: 1: reason, 2: administrator username.
+#: includes/class-grabwp-tenancy-tenant-installer.php:606
+#, php-format
+msgid "WordPress may be installed, but GrabWP could not confirm it: %1$s If it is, log in as %2$s with the password shown here."
+msgstr "WordPress mungkin sudah terinstal, tetapi GrabWP tidak dapat memastikannya: %1$s Jika sudah, masuk sebagai %2$s dengan kata sandi yang ditampilkan di sini."
+
+#: includes/class-grabwp-tenancy-theme-screen-lock.php:99
+msgid "Themes are managed by your host. You can still customize your current theme, menus and widgets from the Appearance menu."
+msgstr "Tema dikelola oleh penyedia hosting Anda. Anda tetap bisa menyesuaikan tema saat ini, menu, dan widget dari menu Tampilan."
+
+#: includes/class-grabwp-tenancy-theme-screen-lock.php:100
+msgid "Themes unavailable"
+msgstr "Tema tidak tersedia"
+
+#. translators: 1: line number, 2: PHP code on that line.
+#: admin/views/partials/setup-hosting-card.php:136
+#, php-format
+msgid "Line %1$d: %2$s (inside a condition, check it)"
+msgstr "Baris %1$d: %2$s (di dalam kondisi, periksa)"
+
+#. translators: 1: tenant ID, 2: date and time of the change (UTC).
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:586
+#, php-format
+msgid "tenant %1$s, %2$s"
+msgstr "tenant %1$s, %2$s"

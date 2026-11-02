@@ -3,7 +3,7 @@
  * Plugin Name: GrabWP Tenancy
  * Plugin URI: https://grabwp.com/tenancy
  * Description: Foundation multi-tenant WordPress solution with shared MySQL database and separated uploads. Designed to be extended by GrabWP Tenancy Pro for advanced features.
- * Version: 1.1.14
+ * Version: 1.1.15
  * Author: GrabWP
  * Author URI: https://grabwp.com
  * License: GPLv2 or later
@@ -29,7 +29,7 @@ if ( ! defined( 'GRABWP_MAINSITE_ID' ) ) {
 }
 
 // Define plugin constants
-define( 'GRABWP_TENANCY_VERSION', '1.1.14' );
+define( 'GRABWP_TENANCY_VERSION', '1.1.15' );
 define( 'GRABWP_TENANCY_PLUGIN_FILE', __FILE__ );
 define( 'GRABWP_TENANCY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 // Use content_url() to avoid symlink path resolution issues on some hosts
@@ -167,6 +167,7 @@ final class GrabWP_Tenancy {
 		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-routing.php';
 		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-tenant-installer.php';
 		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-setup-wizard.php';
+		require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-diagnostics.php';
 
 		
 		
@@ -184,6 +185,9 @@ final class GrabWP_Tenancy {
 		// Set tenant context from early loading
 		$this->tenant_id = defined( 'GRABWP_TENANCY_TENANT_ID' ) ? GRABWP_TENANCY_TENANT_ID : '';
 		$this->is_tenant = defined( 'GRABWP_TENANCY_IS_TENANT' ) ? GRABWP_TENANCY_IS_TENANT : false;
+
+		// Admin-only read-only diagnostics route (tenants answer it with a refusal).
+		GrabWP_Tenancy_Diagnostics::register();
 
 		// Single decision point - no more scattered checks
 		if ( $this->is_tenant() ) {
@@ -273,6 +277,12 @@ final class GrabWP_Tenancy {
 		if ( $this->get_effective_setting( 'hide_plugin_management' ) || $this->get_effective_setting( 'hide_theme_management' ) ) {
 			add_action( 'admin_menu', array( $this, 'remove_tenant_admin_menus' ), 999 );
 			add_action( 'admin_bar_menu', array( $this, 'remove_tenant_admin_bar_nodes' ), 999 );
+		}
+
+		// Hide only Appearance > Themes; skipped when the whole Appearance menu is hidden.
+		if ( $this->get_effective_setting( 'hide_theme_switching' ) ) {
+			require_once $this->plugin_dir . 'includes/class-grabwp-tenancy-theme-screen-lock.php';
+			GrabWP_Tenancy_Theme_Screen_Lock::maybe_register( $this->get_effective_setting( 'hide_theme_management' ), true );
 		}
 
 		// DISABLE_WP_CRON — tenants use system cron or main-site scheduler.

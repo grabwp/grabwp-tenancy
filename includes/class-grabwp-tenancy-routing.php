@@ -88,8 +88,9 @@ class GrabWP_Tenancy_Routing {
 	/**
 	 * Store a routing mode in tenants.php.
 	 *
-	 * Re-reads the file and writes it back with the new mode. Aborts when the
-	 * file is missing or cannot be read, so a bad read never empties the mappings.
+	 * Re-reads the file and writes it back with the new mode. A missing file
+	 * is created with no sites. Aborts when the file cannot be read, so a bad
+	 * read never empties the mappings.
 	 *
 	 * @param string $mode Mode.
 	 * @return bool
@@ -100,7 +101,7 @@ class GrabWP_Tenancy_Routing {
 		}
 
 		$current = GrabWP_Tenancy_Tenant_Crud::read_tenants_file();
-		if ( false === $current || ! $current['exists'] ) {
+		if ( false === $current ) {
 			return false;
 		}
 
@@ -113,6 +114,79 @@ class GrabWP_Tenancy_Routing {
 
 		grabwp_tenancy_routing_config( $routing );
 		return true;
+	}
+
+	/**
+	 * Whether tenants.php can be written, by cause.
+	 *
+	 * @param string|null $file Path; null for the configured tenants.php.
+	 * @return string 'ok', 'missing' (created on save), 'dir_not_writable',
+	 *                'unreadable' or 'not_writable' (the rename would fail).
+	 */
+	public static function file_status( $file = null ) {
+		$file = null === $file ? GrabWP_Tenancy_Path_Manager::get_tenants_file_path() : $file;
+		clearstatcache();
+
+		// The writer renames a temp file into the folder, so the folder must be
+		// writable; a missing folder is created inside its nearest parent.
+		$dir = dirname( $file );
+		while ( ! file_exists( $dir ) && dirname( $dir ) !== $dir ) {
+			$dir = dirname( $dir );
+		}
+		if ( ! is_dir( $dir ) || ! is_writable( $dir ) ) {
+			return 'dir_not_writable';
+		}
+		if ( ! file_exists( $file ) ) {
+			return 'missing';
+		}
+		if ( ! is_readable( $file ) ) {
+			return 'unreadable';
+		}
+		// A read-only file is replaced by the rename all the same, unless the
+		// folder is sticky and PHP owns neither the folder nor the file.
+		if ( is_writable( $file ) || ! ( fileperms( $dir ) & 01000 ) ) {
+			return 'ok';
+		}
+		$uid = function_exists( 'posix_geteuid' ) ? posix_geteuid() : getmyuid();
+		return in_array( $uid, array( fileowner( $dir ), fileowner( $file ) ), true ) ? 'ok' : 'not_writable';
+	}
+
+	/**
+	 * Message for a tenants.php status; '' for 'ok'.
+	 *
+	 * @param string      $status See file_status().
+	 * @param string|null $file   Path; null for the configured tenants.php.
+	 * @return string
+	 */
+	public static function file_message( $status, $file = null ) {
+		$file = null === $file ? GrabWP_Tenancy_Path_Manager::get_tenants_file_path() : $file;
+		switch ( $status ) {
+			case 'ok':
+				return '';
+			case 'missing':
+				/* translators: %s: path of tenants.php. */
+				return sprintf( __( '%s does not exist yet. It is created when you save.', 'grabwp-tenancy' ), $file );
+			case 'dir_not_writable':
+				/* translators: %s: folder of tenants.php. */
+				return sprintf( __( 'The folder %s is not writable by the web server, so tenants.php cannot be saved. Make the folder writable.', 'grabwp-tenancy' ), dirname( $file ) );
+			case 'unreadable':
+				/* translators: %s: path of tenants.php. */
+				return sprintf( __( '%s cannot be read by the web server, so it cannot be updated safely. Make it readable and writable.', 'grabwp-tenancy' ), $file );
+			case 'not_writable':
+				/* translators: %s: path of tenants.php. */
+				return sprintf( __( '%s is not writable by the web server. Make the file writable.', 'grabwp-tenancy' ), $file );
+		}
+		return __( 'Could not write tenants.php. Check file permissions.', 'grabwp-tenancy' );
+	}
+
+	/**
+	 * Error after a failed save, by its real cause when one is found.
+	 *
+	 * @return string
+	 */
+	public static function write_error_message() {
+		$status = self::file_status();
+		return self::file_message( in_array( $status, array( 'ok', 'missing' ), true ) ? 'failed' : $status );
 	}
 
 	/**

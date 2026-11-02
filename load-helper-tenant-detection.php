@@ -29,6 +29,7 @@ function grabwp_tenancy_load_tenant_mappings() {
 
 	$mappings_file = GRABWP_TENANCY_BASE_DIR . '/tenants.php';
 	if ( file_exists( $mappings_file ) && is_readable( $mappings_file ) ) {
+		grabwp_tenancy_refresh_mappings_for_loopback( $mappings_file );
 		$tenant_mappings        = array();
 		$grabwp_tenancy_routing = null;
 		include $mappings_file;
@@ -39,6 +40,38 @@ function grabwp_tenancy_load_tenant_mappings() {
 	grabwp_tenancy_routing_config( array() );
 	$tenant_mappings = array();
 	return $tenant_mappings;
+}
+
+/**
+ * Drop a stale OPcache copy of tenants.php before an installer loopback reads it.
+ *
+ * WP-CLI (or another PHP pool) that writes tenants.php only clears its own
+ * OPcache. The web server can keep the old copy for opcache.revalidate_freq
+ * seconds, and a new tenant's path then falls through to the main site.
+ *
+ * Without force, opcache_invalidate() drops the copy only when the file
+ * changed, so a repeated ?grabwp-loopback costs one stat. Skipped when OPcache
+ * does not validate timestamps (every call would then drop the copy) or when
+ * opcache.restrict_api does not allow this script.
+ *
+ * @param string $mappings_file Path of tenants.php.
+ */
+function grabwp_tenancy_refresh_mappings_for_loopback( $mappings_file ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( ! isset( $_GET['grabwp-loopback'] ) || ! function_exists( 'opcache_invalidate' ) ) {
+		return;
+	}
+	if ( ! filter_var( ini_get( 'opcache.validate_timestamps' ), FILTER_VALIDATE_BOOLEAN ) ) {
+		return;
+	}
+	$restrict = (string) ini_get( 'opcache.restrict_api' );
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+	$script = isset( $_SERVER['SCRIPT_FILENAME'] ) ? (string) $_SERVER['SCRIPT_FILENAME'] : '';
+	if ( '' !== $restrict && 0 !== strpos( $script, $restrict ) ) {
+		return;
+	}
+
+	opcache_invalidate( $mappings_file, false );
 }
 
 /**

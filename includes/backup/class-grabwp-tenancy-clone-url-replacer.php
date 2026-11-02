@@ -38,7 +38,16 @@ class GrabWP_Tenancy_Clone_Url_Replacer {
 		$old_domain = preg_replace( '#^https?://#', '', rtrim( $old_url, '/' ) );
 		$new_domain = preg_replace( '#^https?://#', '', rtrim( $new_url, '/' ) );
 
-		$this->replace_in_mysql( $wpdb, $prefix, $old_url, $new_url, $old_domain, $new_domain );
+		// One transaction: if the rewrite stops part way after changing siteurl, the clone's
+		// retry would see the new siteurl, skip the rewrite and leave template URLs behind.
+		$wpdb->query( 'START TRANSACTION' );
+		try {
+			$this->replace_in_mysql( $wpdb, $prefix, $old_url, $new_url, $old_domain, $new_domain );
+		} catch ( Throwable $e ) {
+			$wpdb->query( 'ROLLBACK' );
+			throw $e;
+		}
+		$wpdb->query( 'COMMIT' );
 	}
 
 	/**
@@ -187,13 +196,19 @@ class GrabWP_Tenancy_Clone_Url_Replacer {
 		if ( is_serialized( $value ) ) {
 			$data = @unserialize( $value );
 			if ( false !== $data ) {
-				if ( $old_domain !== $new_domain ) {
-					$data = $this->recursive_replace( $data, $old_domain, $new_domain );
+				try {
+					if ( $old_domain !== $new_domain ) {
+						$data = $this->recursive_replace( $data, $old_domain, $new_domain );
+					}
+					if ( ! $skip_url_replace ) {
+						$data = $this->recursive_replace( $data, $old_url, $new_url );
+					}
+					return serialize( $data );
+				} catch ( Throwable $e ) {
+					// One value that cannot be rewritten must not stop the whole clone.
+					error_log( '[GrabWP Clone] URL replace skipped a serialized value: ' . get_class( $e ) . ': ' . $e->getMessage() );
+					return $value;
 				}
-				if ( ! $skip_url_replace ) {
-					$data = $this->recursive_replace( $data, $old_url, $new_url );
-				}
-				return serialize( $data );
 			}
 		}
 
@@ -223,6 +238,12 @@ class GrabWP_Tenancy_Clone_Url_Replacer {
 				$data[ $key ] = $this->recursive_replace( $value, $search, $replace );
 			}
 		} elseif ( is_object( $data ) ) {
+			// A class that is not loaded in this request (a plugin active only on the
+			// tenant) unserializes as __PHP_Incomplete_Class, and writing one of its
+			// properties throws. Keep such objects as stored.
+			if ( $data instanceof __PHP_Incomplete_Class ) {
+				return $data;
+			}
 			foreach ( $data as $key => $value ) {
 				$data->$key = $this->recursive_replace( $value, $search, $replace );
 			}

@@ -194,7 +194,7 @@ class GrabWP_Tenancy_Admin_Form_Handler {
 		$posted = isset( $_POST['routing_mode'] ) ? sanitize_key( wp_unslash( $_POST['routing_mode'] ) ) : '';
 		$change = GrabWP_Tenancy_Routing::apply_posted_mode( $posted );
 		if ( 'failed' === $change ) {
-			$this->redirect_error( 'grabwp-tenancy-settings', __( 'Could not write tenants.php. Check file permissions.', 'grabwp-tenancy' ) );
+			$this->redirect_error( 'grabwp-tenancy-settings', GrabWP_Tenancy_Routing::write_error_message() );
 		}
 		if ( 'saved' === $change ) {
 			$this->redirect_routing_saved();
@@ -244,7 +244,7 @@ class GrabWP_Tenancy_Admin_Form_Handler {
 	 */
 	private function save_routing_mode( $mode ) {
 		if ( ! GrabWP_Tenancy_Routing::save_mode( $mode ) ) {
-			$this->redirect_error( 'grabwp-tenancy-settings', __( 'Could not write tenants.php. Check file permissions.', 'grabwp-tenancy' ) );
+			$this->redirect_error( 'grabwp-tenancy-settings', GrabWP_Tenancy_Routing::write_error_message() );
 		}
 		$this->redirect_routing_saved();
 	}

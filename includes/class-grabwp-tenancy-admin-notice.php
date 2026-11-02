@@ -29,6 +29,15 @@ class GrabWP_Tenancy_Admin_Notice {
 		add_action( 'wp_ajax_grabwp_fix_index_protection', array( __CLASS__, 'ajax_fix_index_protection' ) );
 		add_action( 'wp_ajax_grabwp_lock_shared_files', array( __CLASS__, 'ajax_lock_shared_files' ) );
 		add_action( 'wp_ajax_grabwp_unlock_shared_files', array( __CLASS__, 'ajax_unlock_shared_files' ) );
+
+		// Hosting setup card. Not named grabwp_install_* / grabwp_fix_*, so
+		// "Fix automatically" never runs them: each one needs a confirmation.
+		add_action( 'wp_ajax_grabwp_hosting_proxy_https', array( __CLASS__, 'ajax_hosting_action' ) );
+		add_action( 'wp_ajax_grabwp_hosting_proxy_https_undo', array( __CLASS__, 'ajax_hosting_action' ) );
+		add_action( 'wp_ajax_grabwp_hosting_https_urls', array( __CLASS__, 'ajax_hosting_action' ) );
+		add_action( 'wp_ajax_grabwp_hosting_https_urls_undo', array( __CLASS__, 'ajax_hosting_action' ) );
+		add_action( 'wp_ajax_grabwp_hosting_multisite_cleanup', array( __CLASS__, 'ajax_hosting_action' ) );
+		add_action( 'wp_ajax_grabwp_hosting_multisite_cleanup_undo', array( __CLASS__, 'ajax_hosting_action' ) );
 	}
 
 	// =========================================================================
@@ -88,10 +97,10 @@ class GrabWP_Tenancy_Admin_Notice {
 					$grabwp_pos = strpos( $root_htaccess_content, '# BEGIN GrabWP Tenancy' );
 					$wp_pos     = strpos( $root_htaccess_content, '# BEGIN WordPress' );
 
-					$prefix           = grabwp_tenancy_get_path_prefix();
-					$has_rewrite_rule = (
-						false !== strpos( $root_htaccess_content, 'RewriteRule ^' . $prefix . '/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)/?$ /index.php?site=$1 [QSA,L]' )
-						|| false !== strpos( $root_htaccess_content, 'RewriteRule ^' . $prefix . '/([a-z0-9]{6})/?$ /index.php?site=$1 [QSA,L]' )
+					$has_rewrite_rule = GrabWP_Tenancy_Installer::htaccess_has_site_path_rules(
+						$root_htaccess_content,
+						grabwp_tenancy_get_path_prefix(),
+						grabwp_tenancy_get_routing_mode()
 					);
 
 					if ( false === $grabwp_pos || ! $has_rewrite_rule || ( false !== $wp_pos && $grabwp_pos > $wp_pos ) ) {
@@ -157,6 +166,41 @@ class GrabWP_Tenancy_Admin_Notice {
 		check_ajax_referer( 'grabwp_fix_component' );
 		if ( ! current_user_can( 'manage_options' ) ) { wp_send_json_error( 'Permission denied.' ); }
 		self::send_result( GrabWP_Tenancy_Installer::unprotect_shared_files( true ) );
+	}
+
+	/** Hosting setup card fixes and their Undo. Main site only. */
+	public static function ajax_hosting_action() {
+		check_ajax_referer( 'grabwp_fix_component' );
+		if ( ! current_user_can( 'manage_options' ) ) { wp_send_json_error( __( 'Permission denied.', 'grabwp-tenancy' ) ); }
+		if ( defined( 'GRABWP_TENANCY_IS_TENANT' ) && GRABWP_TENANCY_IS_TENANT ) { wp_send_json_error( __( 'Run this from the main site.', 'grabwp-tenancy' ) ); }
+
+		$action = isset( $_POST['action'] ) ? sanitize_key( wp_unslash( $_POST['action'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Checked above.
+		switch ( $action ) {
+			case 'grabwp_hosting_proxy_https':
+				$result = GrabWP_Tenancy_Installer::install_proxy_https();
+				break;
+			case 'grabwp_hosting_proxy_https_undo':
+				$result = GrabWP_Tenancy_Installer::remove_proxy_https();
+				break;
+			case 'grabwp_hosting_https_urls':
+				$result = GrabWP_Tenancy_Installer::fix_https_urls();
+				break;
+			case 'grabwp_hosting_https_urls_undo':
+				$result = GrabWP_Tenancy_Installer::revert_https_urls();
+				break;
+			case 'grabwp_hosting_multisite_cleanup':
+				$result = GrabWP_Tenancy_Installer::remove_multisite_settings();
+				break;
+			case 'grabwp_hosting_multisite_cleanup_undo':
+				$result = GrabWP_Tenancy_Installer::undo_multisite_settings();
+				break;
+			default:
+				$result = array(
+					'success' => false,
+					'message' => __( 'Unknown action.', 'grabwp-tenancy' ),
+				);
+		}
+		self::send_result( $result );
 	}
 
 	// =========================================================================

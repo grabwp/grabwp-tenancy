@@ -112,7 +112,6 @@
 /* Setup wizard */
 .grabwp-setup {
 	--grabwp-setup-accent: var(--wp-admin-theme-color, #2271b1);
-	max-width: 960px;
 }
 .grabwp-setup-header {
 	display: flex;
@@ -204,6 +203,16 @@
 .grabwp-setup-site .grabwp-setup-existing {
 	margin-block-start: 8px;
 }
+.grabwp-setup-file-safety-list {
+	margin: 0 0 4px;
+	padding-inline-start: 18px;
+	list-style: disc;
+	color: #50575e;
+	font-size: 13px;
+}
+.grabwp-setup-file-safety-list li {
+	margin-block-end: 4px;
+}
 .grabwp-setup-done-list {
 	margin: 12px 0;
 	columns: 2 280px;
@@ -219,12 +228,6 @@
 }
 .grabwp-setup-done-list .is-skipped .dashicons {
 	color: #8c8f94;
-}
-.grabwp-setup-done-actions {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-	margin: 0 0 12px;
 }
 .grabwp-site-result-credentials {
 	display: flex;
@@ -288,6 +291,7 @@
 .grabwp-setup-level { display: inline-block; margin-inline-start: 6px; padding: 0 8px; border: 1px solid; border-radius: 10px; font-size: 11px; font-weight: 400; line-height: 1.6; vertical-align: middle; }
 .grabwp-setup-level.is-simple { border-color: #b8e6bf; background: #edfaef; color: #005c12; }
 .grabwp-setup-level.is-advanced { border-color: #c5d9ed; background: #f0f6fc; color: #0a4b78; }
+.grabwp-setup-level.is-recommended { border-color: #f0c33c; background: #fcf9e8; color: #6e4b00; }
 .grabwp-setup-intro { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 0; }
 .grabwp-setup-intro li { margin: 0; padding: 12px 14px; border-radius: 6px; background: #f6f7f7; }
 .grabwp-setup-intro strong,

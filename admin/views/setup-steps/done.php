@@ -5,7 +5,7 @@
  * Variables available from GrabWP_Tenancy_Setup_Wizard::render_done_step():
  * @var GrabWP_Tenancy_Tenant|null $grabwp_done_tenant Starter / first site.
  * @var array                      $grabwp_done_items  Each: ok, label, step.
- * @var array                      $grabwp_done_links  Extra buttons: url, label, target.
+ * @var array                      $grabwp_done_links  WaaS links: url, label, target, optional desc.
  * @var array                      $grabwp_done_next   "Grow later" links: url, label, desc.
  * @var array                      $grabwp_done_result   One-time result of the site just created (may be empty).
  * @var string                     $grabwp_done_password Admin password of the site (stored, or one-time without sodium), '' when none.
@@ -28,8 +28,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	$grabwp_done_new     = isset( $grabwp_done_result['tenant_id'] ) && $grabwp_done_result['tenant_id'] === $grabwp_done_tid;
 	$grabwp_done_error   = $grabwp_done_new && ! empty( $grabwp_done_result['install_error'] ) ? (string) $grabwp_done_result['install_error'] : '';
 	$grabwp_done_forget  = wp_nonce_url( add_query_arg( 'action', 'grabwp_tenancy_setup_forget_password', admin_url( 'admin-post.php' ) ), 'grabwp_tenancy_setup_forget_password' );
+
+	// An error that comes with a password: the install was posted but not confirmed, and may have worked.
+	$grabwp_done_unconfirmed = '' !== $grabwp_done_error && ! empty( $grabwp_done_result['password'] );
 	?>
-	<div class="notice notice-<?php echo '' !== $grabwp_done_error ? 'warning' : 'success'; ?> inline grabwp-site-result grabwp-setup-done-site">
+	<div class="notice notice-<?php echo esc_attr( '' !== $grabwp_done_error ? 'warning' : 'success' ); ?> inline grabwp-site-result grabwp-setup-done-site">
 		<p>
 			<strong>
 				<?php
@@ -45,11 +48,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php if ( '' !== $grabwp_done_error ) : ?>
 			<p>
 				<?php
-				printf(
-					/* translators: %s: reason the install failed. */
-					esc_html__( 'The site was created but WordPress could not be installed automatically: %s', 'grabwp-tenancy' ),
-					esc_html( $grabwp_done_error )
-				);
+				if ( $grabwp_done_unconfirmed ) {
+					echo esc_html( $grabwp_done_error );
+				} else {
+					printf(
+						/* translators: %s: reason the install failed. */
+						esc_html__( 'The site was created but WordPress could not be installed automatically: %s', 'grabwp-tenancy' ),
+						esc_html( $grabwp_done_error )
+					);
+				}
 				?>
 			</p>
 			<p>
@@ -85,19 +92,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 </ul>
 
 <div class="grabwp-setup-next">
-	<div class="grabwp-setup-next-group grabwp-setup-try">
-		<h3><?php esc_html_e( 'Try it now', 'grabwp-tenancy' ); ?></h3>
-		<p class="grabwp-setup-done-actions">
-			<?php if ( $grabwp_done_tenant ) : ?>
-				<a class="button button-primary grabwp-open-site-admin" href="<?php echo esc_url( $grabwp_done_tenant->get_admin_access_url() ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Open site admin (1-click)', 'grabwp-tenancy' ); ?></a>
-				<a class="button" href="<?php echo esc_url( $grabwp_done_tenant->get_site_url() ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Visit site', 'grabwp-tenancy' ); ?></a>
-			<?php endif; ?>
-			<a class="button" href="<?php echo esc_url( admin_url( 'admin.php?page=grabwp-tenancy' ) ); ?>"><?php esc_html_e( 'All sites', 'grabwp-tenancy' ); ?></a>
-			<?php foreach ( $grabwp_done_links as $grabwp_link ) : ?>
-				<a class="button grabwp-setup-done-extra" href="<?php echo esc_url( $grabwp_link['url'] ); ?>" <?php echo ! empty( $grabwp_link['target'] ) ? 'target="' . esc_attr( $grabwp_link['target'] ) . '" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html( $grabwp_link['label'] ); ?></a>
-			<?php endforeach; ?>
-		</p>
+	<?php
+	$grabwp_done_site_links = array();
+	if ( $grabwp_done_tenant ) {
+		$grabwp_done_site_links[] = array(
+			'url'    => $grabwp_done_tenant->get_admin_access_url(),
+			'label'  => __( 'Open site admin (1-click)', 'grabwp-tenancy' ),
+			'desc'   => __( 'Log in to this site without the password.', 'grabwp-tenancy' ),
+			'target' => '_blank',
+			'class'  => 'grabwp-open-site-admin',
+		);
+		$grabwp_done_site_links[] = array(
+			'url'    => $grabwp_done_tenant->get_site_url(),
+			'label'  => __( 'Visit site', 'grabwp-tenancy' ),
+			'desc'   => __( 'Open the site as a visitor.', 'grabwp-tenancy' ),
+			'target' => '_blank',
+		);
+	}
+	$grabwp_done_site_links[] = array(
+		'url'   => admin_url( 'admin.php?page=grabwp-tenancy' ),
+		'label' => __( 'All sites', 'grabwp-tenancy' ),
+		'desc'  => __( 'See and manage every site.', 'grabwp-tenancy' ),
+	);
+	?>
+	<div class="grabwp-setup-next-group grabwp-setup-try grabwp-setup-done-actions">
+		<h3><?php esc_html_e( 'Manage sites', 'grabwp-tenancy' ); ?></h3>
+		<?php GrabWP_Tenancy_Setup_Wizard::render_link_list( $grabwp_done_site_links ); ?>
 	</div>
+	<?php if ( $grabwp_done_links ) : ?>
+		<div class="grabwp-setup-next-group grabwp-setup-done-waas">
+			<h3><?php esc_html_e( 'Manage WaaS', 'grabwp-tenancy' ); ?></h3>
+			<?php GrabWP_Tenancy_Setup_Wizard::render_link_list( $grabwp_done_links ); ?>
+		</div>
+	<?php endif; ?>
 	<?php if ( $grabwp_done_next ) : ?>
 		<div class="grabwp-setup-next-group grabwp-setup-done-next">
 			<h3><?php esc_html_e( 'Grow later', 'grabwp-tenancy' ); ?></h3>

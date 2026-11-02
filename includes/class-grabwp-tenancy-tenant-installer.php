@@ -17,6 +17,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class GrabWP_Tenancy_Tenant_Installer {
 
+	/** Install states of a tenant. */
+	const INSTALLED     = 'installed';
+	const NOT_INSTALLED = 'not_installed';
+	const UNKNOWN       = 'unknown';
+
+	/** Response header that names the tenant answering a loopback (see load.php). */
+	const MARKER_HEADER = 'x-grabwp-tenant';
+
+	/** Default total wait for routing in WP-CLI, in seconds. */
+	const ROUTE_WAIT_CLI = 70;
+
+	/** Default total wait for routing in a web request: a proxy such as Cloudflare ends it after 100 s. */
+	const ROUTE_WAIT_WEB = 20;
+
+	/** Longest total wait a filter can set, in seconds. */
+	const ROUTE_WAIT_MAX = 300;
+
+	/** Seconds after a tenants.php write during which a stale OPcache copy may still answer. */
+	const ROUTE_FRESH_WINDOW = 90;
+
+	/** @var callable|null Current time in seconds; null for microtime( true ). */
+	private static $clock = null;
+
+	/** @var callable|null Sleep for a number of seconds; null for usleep(). */
+	private static $sleeper = null;
+
 	/**
 	 * Path URL of a tenant by ID (works without DNS), with trailing slash.
 	 * GrabWP_Tenancy_Tenant::get_path_url() is alias-aware and has no trailing slash.
@@ -48,7 +74,7 @@ class GrabWP_Tenancy_Tenant_Installer {
 	/**
 	 * Arguments for loopback requests (filterable for hosts that need e.g. basic auth).
 	 *
-	 * @param string $context One of 'loopback', 'status', 'install'.
+	 * @param string $context One of 'loopback', 'status', 'install', 'probe'.
 	 * @param array  $args    Extra arguments.
 	 * @return array
 	 */
@@ -75,7 +101,7 @@ class GrabWP_Tenancy_Tenant_Installer {
 		 *
 		 * @since 1.1.12
 		 * @param array  $args    wp_remote_request() arguments.
-		 * @param string $context 'loopback', 'status' or 'install'.
+		 * @param string $context 'loopback', 'status', 'install' or 'probe' (hosting checks, since 1.1.14).
 		 */
 		return apply_filters( 'grabwp_tenancy_tenant_install_request_args', $args, $context );
 	}
@@ -91,12 +117,132 @@ class GrabWP_Tenancy_Tenant_Installer {
 	}
 
 	/**
+	 * Send a loopback request, retrying it once over HTTPS when the server only
+	 * upgrades the scheme.
+	 *
+	 * WP-CLI and cron see no proxy headers, so site_url() can be http while the
+	 * proxy or CDN (e.g. Cloudflare "Always Use HTTPS") answers http with a
+	 * redirect to the same URL over https. The same method and body are sent
+	 * again, so an install POST stays a POST.
+	 *
+	 * @param string $method 'GET' or 'POST'.
+	 * @param string $url    URL. Set to the URL that gave the returned response.
+	 * @param array  $args   Result of request_args().
+	 * @return array|WP_Error
+	 */
+	private static function request( $method, &$url, $args ) {
+		$args['method'] = $method;
+		$response       = wp_remote_request( $url, $args );
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$https_url = self::https_upgrade_url( $url, $response );
+		if ( '' === $https_url ) {
+			return $response;
+		}
+		$url = $https_url;
+		return wp_remote_request( $url, $args );
+	}
+
+	/**
+	 * The https URL to retry, when a response redirects an http URL to the same
+	 * host and path over https. Empty for any other response.
+	 *
+	 * @param string $url      Requested URL.
+	 * @param array  $response Response.
+	 * @return string
+	 */
+	private static function https_upgrade_url( $url, $response ) {
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		if ( $code < 300 || $code >= 400 || 0 !== stripos( $url, 'http://' ) ) {
+			return '';
+		}
+
+		$from = wp_parse_url( $url );
+		$to   = wp_parse_url( self::location( $response ) );
+		if ( ! is_array( $from ) || ! is_array( $to ) || empty( $from['host'] ) || isset( $from['port'] ) || empty( $to['host'] ) ) {
+			return '';
+		}
+		if ( ! isset( $to['scheme'] ) || 'https' !== strtolower( $to['scheme'] ) || strtolower( $to['host'] ) !== strtolower( $from['host'] ) ) {
+			return '';
+		}
+		if ( isset( $to['port'] ) && 443 !== (int) $to['port'] ) {
+			return '';
+		}
+		$from_path = isset( $from['path'] ) ? $from['path'] : '';
+		$to_path   = isset( $to['path'] ) ? $to['path'] : '';
+		if ( $from_path !== $to_path ) {
+			return '';
+		}
+
+		return 'https://' . substr( $url, strlen( 'http://' ) );
+	}
+
+	/**
+	 * Location header of a response ('' when none).
+	 *
+	 * @param array $response Response.
+	 * @return string
+	 */
+	private static function location( $response ) {
+		return self::header( $response, 'location' );
+	}
+
+	/**
+	 * Last value of a response header ('' when none).
+	 *
+	 * @param array  $response Response.
+	 * @param string $name     Header name.
+	 * @return string
+	 */
+	private static function header( $response, $name ) {
+		$value = wp_remote_retrieve_header( $response, $name );
+		if ( is_array( $value ) ) {
+			$value = end( $value );
+		}
+		return (string) $value;
+	}
+
+	/**
+	 * Whether a redirect stays on the requested scheme, host and port, and goes
+	 * somewhere other than the requested URL.
+	 *
+	 * @param string $url      Requested URL.
+	 * @param string $location Location header.
+	 * @return bool
+	 */
+	private static function is_same_origin_redirect( $url, $location ) {
+		if ( $location === $url ) {
+			return false;
+		}
+		$from = wp_parse_url( $url );
+		$to   = wp_parse_url( $location );
+		if ( ! is_array( $from ) || ! is_array( $to ) ) {
+			return false;
+		}
+		if ( ! isset( $to['host'] ) ) {
+			return true;
+		}
+
+		$from_scheme = isset( $from['scheme'] ) ? strtolower( $from['scheme'] ) : '';
+		$to_scheme   = isset( $to['scheme'] ) ? strtolower( $to['scheme'] ) : $from_scheme;
+		$from_port   = isset( $from['port'] ) ? (int) $from['port'] : ( 'https' === $from_scheme ? 443 : 80 );
+		$to_port     = isset( $to['port'] ) ? (int) $to['port'] : ( 'https' === $to_scheme ? 443 : 80 );
+		return $to_scheme === $from_scheme
+			&& isset( $from['host'] )
+			&& strtolower( $to['host'] ) === strtolower( $from['host'] )
+			&& $to_port === $from_port;
+	}
+
+	/**
 	 * Whether the main site can reach itself over HTTP.
 	 *
 	 * @return bool
 	 */
 	public static function can_loopback() {
-		$response = wp_remote_get( self::no_cache_url( home_url( '/wp-login.php' ) ), self::request_args( 'loopback' ) );
+		$url      = self::no_cache_url( home_url( '/wp-login.php' ) );
+		$response = self::request( 'GET', $url, self::request_args( 'loopback' ) );
 		if ( is_wp_error( $response ) ) {
 			return false;
 		}
@@ -105,30 +251,255 @@ class GrabWP_Tenancy_Tenant_Installer {
 	}
 
 	/**
-	 * Whether WordPress is installed in the tenant.
+	 * One short GET for the hosting checks, with the same cache bypass as the
+	 * loopback checks and an explicit certificate check setting.
 	 *
-	 * An uninstalled tenant redirects every request to wp-admin/install.php.
+	 * @since 1.1.14
+	 * @param string $url       URL.
+	 * @param bool   $sslverify Whether the certificate must be valid.
+	 * @return array|WP_Error
+	 */
+	public static function probe_url( $url, $sslverify ) {
+		$url  = self::no_cache_url( $url );
+		$args = self::request_args( 'probe', array( 'timeout' => 8 ) );
+		// After the filter: a certificate check must stay a certificate check.
+		$args['sslverify'] = (bool) $sslverify;
+		return self::request( 'GET', $url, $args );
+	}
+
+	/**
+	 * Ask the tenant whether WordPress is installed.
+	 *
+	 * Only an answer that carries the tenant's marker header (sent by load.php)
+	 * comes from the tenant. Without it, the path fell through to the main site
+	 * (e.g. the web server still has an old tenants.php) or something in front
+	 * of the site answered, so the state is unknown.
+	 *
+	 * From the tenant: a 2xx or a same-origin redirect is installed; a redirect
+	 * to install.php (core does it for every request of an uninstalled site) is
+	 * not installed. Anything else (another scheme, host or port, the same URL,
+	 * no Location, 4xx, 5xx) is unknown.
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 * @return array {
+	 *     @type string         $state    INSTALLED, NOT_INSTALLED or UNKNOWN.
+	 *     @type bool           $unrouted An answer came, but not from the tenant.
+	 *     @type array|WP_Error $response Last response (null without a request).
+	 * }
+	 */
+	private static function probe( $tenant_id ) {
+		$probe = array(
+			'state'    => self::UNKNOWN,
+			'unrouted' => false,
+			'response' => null,
+		);
+		if ( ! GrabWP_Tenancy_Tenant::validate_id( $tenant_id ) ) {
+			return $probe;
+		}
+
+		$url               = self::no_cache_url( self::loopback_url( $tenant_id, 'wp-login.php' ) );
+		$response          = self::request( 'GET', $url, self::request_args( 'status' ) );
+		$probe['response'] = $response;
+		if ( is_wp_error( $response ) ) {
+			return $probe;
+		}
+		if ( self::header( $response, self::MARKER_HEADER ) !== $tenant_id ) {
+			$probe['unrouted'] = true;
+			return $probe;
+		}
+
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		if ( $code >= 200 && $code < 300 ) {
+			$probe['state'] = self::INSTALLED;
+		} elseif ( $code >= 300 && $code < 400 ) {
+			$location = self::location( $response );
+			if ( '' === $location ) {
+				return $probe;
+			}
+			if ( false !== strpos( $location, 'install.php' ) ) {
+				$probe['state'] = self::NOT_INSTALLED;
+			} elseif ( self::is_same_origin_redirect( $url, $location ) ) {
+				$probe['state'] = self::INSTALLED;
+			}
+		}
+		return $probe;
+	}
+
+	/**
+	 * Total time install() may wait for a new tenant to be routed, in seconds.
+	 *
+	 * Waiting only helps while the web server can still hold an old copy of
+	 * tenants.php, so the default is 0 once the file is older than
+	 * ROUTE_FRESH_WINDOW. Otherwise it is ROUTE_WAIT_CLI in WP-CLI and
+	 * ROUTE_WAIT_WEB in other requests.
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 * @return float Between 0 and ROUTE_WAIT_MAX.
+	 */
+	private static function route_wait_budget( $tenant_id ) {
+		$default = ( defined( 'WP_CLI' ) && WP_CLI ) ? self::ROUTE_WAIT_CLI : self::ROUTE_WAIT_WEB;
+		$default = min( (float) $default, self::fresh_window_left() );
+
+		/**
+		 * Filter how long install() waits, in total, for a new tenant to answer at its own address.
+		 *
+		 * @param float  $seconds   Maximum total wait in seconds, capped at 300. Default 70 in
+		 *                          WP-CLI and 20 in other requests, and 0 when tenants.php
+		 *                          was written more than 90 seconds ago.
+		 * @param string $tenant_id Tenant ID.
+		 */
+		$limit = (float) apply_filters( 'grabwp_tenancy_tenant_install_route_wait', $default, $tenant_id );
+		if ( ! is_finite( $limit ) ) {
+			$limit = $default;
+		}
+		return max( 0.0, min( $limit, (float) self::ROUTE_WAIT_MAX ) );
+	}
+
+	/**
+	 * Seconds left until tenants.php is older than ROUTE_FRESH_WINDOW (0 when missing).
+	 *
+	 * @return float
+	 */
+	private static function fresh_window_left() {
+		$file = GrabWP_Tenancy_Path_Manager::get_tenants_file_path();
+		clearstatcache( true, $file );
+		if ( ! file_exists( $file ) ) {
+			return 0.0;
+		}
+		$mtime = filemtime( $file );
+		if ( false === $mtime ) {
+			return 0.0;
+		}
+		return max( 0.0, (float) ( $mtime + self::ROUTE_FRESH_WINDOW - time() ) );
+	}
+
+	/**
+	 * Probe the tenant until it answers itself, within a wait budget.
+	 *
+	 * A tenant created from WP-CLI or another PHP pool can be answered by the
+	 * main site until the web server reloads tenants.php (OPcache keeps the old
+	 * copy for up to opcache.revalidate_freq seconds). Errors and answers from
+	 * the tenant are returned at once.
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 * @param float  $budget    Seconds left to wait; reduced by the time spent here.
+	 * @return array See probe().
+	 */
+	private static function wait_for_tenant( $tenant_id, &$budget ) {
+		$start = self::now();
+		$delay = min( 1.0, $budget / 8 );
+		$probe = self::probe( $tenant_id );
+		while ( $probe['unrouted'] ) {
+			$left = $budget - ( self::now() - $start );
+			if ( $left < 0.01 ) {
+				break;
+			}
+			self::sleep( min( $delay, $left ) );
+			$delay = min( $delay * 2, 10.0 );
+			$probe = self::probe( $tenant_id );
+		}
+		$budget = max( 0.0, $budget - ( self::now() - $start ) );
+		return $probe;
+	}
+
+	/**
+	 * Current time in seconds.
+	 *
+	 * @return float
+	 */
+	private static function now() {
+		return null === self::$clock ? microtime( true ) : (float) call_user_func( self::$clock );
+	}
+
+	/**
+	 * Sleep for a number of seconds.
+	 *
+	 * @param float $seconds Seconds.
+	 */
+	private static function sleep( $seconds ) {
+		if ( null === self::$sleeper ) {
+			usleep( (int) ( $seconds * 1000000 ) );
+			return;
+		}
+		call_user_func( self::$sleeper, $seconds );
+	}
+
+	/**
+	 * Why a probe did not prove the tenant state, for the admin.
+	 *
+	 * @param array $probe Result of probe().
+	 * @return string
+	 */
+	private static function probe_reason( $probe ) {
+		if ( is_wp_error( $probe['response'] ) ) {
+			return $probe['response']->get_error_message();
+		}
+		$code = (int) wp_remote_retrieve_response_code( $probe['response'] );
+		if ( $probe['unrouted'] ) {
+			return sprintf(
+				/* translators: %d: HTTP status code. */
+				__( 'The address of the new site was answered by the main site or a proxy (HTTP %d), not by the new site. The web server may not have loaded the new site yet; wait a minute and try again.', 'grabwp-tenancy' ),
+				$code
+			);
+		}
+		return sprintf(
+			/* translators: %d: HTTP status code. */
+			__( 'The site answered with HTTP %d.', 'grabwp-tenancy' ),
+			$code
+		);
+	}
+
+	/**
+	 * Whether a request failed by timing out (cURL and fsockopen transports).
+	 *
+	 * @param array|WP_Error $response Response.
+	 * @return bool
+	 */
+	private static function is_timeout( $response ) {
+		if ( ! is_wp_error( $response ) ) {
+			return false;
+		}
+		$message = $response->get_error_message();
+		return false !== stripos( $message, 'timed out' ) || false !== stripos( $message, 'cURL error 28' );
+	}
+
+	/**
+	 * Text ending with sentence punctuation, so another sentence can follow it.
+	 *
+	 * @param string $text Text, e.g. a transport error message.
+	 * @return string
+	 */
+	private static function sentence( $text ) {
+		$text = rtrim( (string) $text );
+		if ( '' === $text || preg_match( '/[.!?\x{3002}\x{FF01}\x{FF1F}\x{061F}]$/u', $text ) ) {
+			return $text;
+		}
+		return $text . '.';
+	}
+
+	/**
+	 * Install state of a tenant: INSTALLED, NOT_INSTALLED or UNKNOWN.
+	 *
+	 * One probe, no waiting. Callers should block only on NOT_INSTALLED.
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 * @return string
+	 */
+	public static function install_state( $tenant_id ) {
+		$probe = self::probe( $tenant_id );
+		return $probe['state'];
+	}
+
+	/**
+	 * Whether WordPress is installed in the tenant, proven by the tenant itself.
+	 *
+	 * False also when the state is unknown; see install_state().
 	 *
 	 * @param string $tenant_id Tenant ID.
 	 * @return bool
 	 */
 	public static function is_installed( $tenant_id ) {
-		if ( ! GrabWP_Tenancy_Tenant::validate_id( $tenant_id ) ) {
-			return false;
-		}
-
-		$response = wp_remote_get( self::no_cache_url( self::loopback_url( $tenant_id, 'wp-login.php' ) ), self::request_args( 'status' ) );
-		if ( is_wp_error( $response ) ) {
-			return false;
-		}
-
-		$code     = (int) wp_remote_retrieve_response_code( $response );
-		$location = (string) wp_remote_retrieve_header( $response, 'location' );
-		if ( $code >= 300 && $code < 400 && false !== strpos( $location, 'install.php' ) ) {
-			return false;
-		}
-
-		return $code >= 200 && $code < 400;
+		return self::INSTALLED === self::install_state( $tenant_id );
 	}
 
 	/**
@@ -136,6 +507,15 @@ class GrabWP_Tenancy_Tenant_Installer {
 	 *
 	 * The password is random, returned to the caller once and never stored.
 	 * A failure never deletes the tenant.
+	 *
+	 * ok is true only when the tenant itself proves it is installed. Nothing is
+	 * posted until the tenant proves it is not installed. When the install was
+	 * posted but the result cannot be confirmed (or the POST timed out), ok is
+	 * false and the password is still returned with the error, since the
+	 * install may have worked.
+	 *
+	 * The waits for routing before and after the POST share one budget, see
+	 * route_wait_budget().
 	 *
 	 * @param string $tenant_id Tenant ID.
 	 * @param array  $args {
@@ -161,9 +541,16 @@ class GrabWP_Tenancy_Tenant_Installer {
 			return $result;
 		}
 
-		if ( self::is_installed( $tenant_id ) ) {
+		$budget = self::route_wait_budget( $tenant_id );
+		$before = self::wait_for_tenant( $tenant_id, $budget );
+		if ( self::INSTALLED === $before['state'] ) {
 			$result['ok']                = true;
 			$result['already_installed'] = true;
+			return $result;
+		}
+		if ( self::NOT_INSTALLED !== $before['state'] ) {
+			$result['error'] = self::probe_reason( $before );
+			GrabWP_Tenancy_Logger::log( 'GrabWP Tenancy: install not started for tenant ' . $tenant_id . ', state unknown: ' . $result['error'] );
 			return $result;
 		}
 
@@ -180,8 +567,10 @@ class GrabWP_Tenancy_Tenant_Installer {
 		$language = ( 'en_US' !== $locale && in_array( $locale, get_available_languages(), true ) ) ? $locale : '';
 		$password = wp_generate_password( 24, true, false );
 
-		$response = wp_remote_post(
-			self::loopback_url( $tenant_id, 'wp-admin/install.php?step=2' ),
+		$install_url = self::loopback_url( $tenant_id, 'wp-admin/install.php?step=2' );
+		$response    = self::request(
+			'POST',
+			$install_url,
 			self::request_args(
 				'install',
 				array(
@@ -200,10 +589,25 @@ class GrabWP_Tenancy_Tenant_Installer {
 		);
 
 		// Trust the tenant state, not the response text.
-		if ( self::is_installed( $tenant_id ) ) {
+		$after = self::wait_for_tenant( $tenant_id, $budget );
+		if ( self::INSTALLED === $after['state'] ) {
 			GrabWP_Tenancy_Logger::log( 'GrabWP Tenancy: install ok for tenant ' . $tenant_id );
 			$result['ok']       = true;
 			$result['password'] = $password;
+			return $result;
+		}
+
+		// A POST that timed out may still be running install.php with this password.
+		if ( self::UNKNOWN === $after['state'] || self::is_timeout( $response ) ) {
+			$reason             = self::UNKNOWN === $after['state'] ? self::probe_reason( $after ) : $response->get_error_message();
+			$result['password'] = $password;
+			$result['error']    = sprintf(
+				/* translators: 1: reason, 2: administrator username. */
+				__( 'WordPress may be installed, but GrabWP could not confirm it: %1$s If it is, log in as %2$s with the password shown here.', 'grabwp-tenancy' ),
+				self::sentence( $reason ),
+				$tenant_id
+			);
+			GrabWP_Tenancy_Logger::log( 'GrabWP Tenancy: install unconfirmed for tenant ' . $tenant_id . ': ' . $reason );
 			return $result;
 		}
 
@@ -233,7 +637,11 @@ class GrabWP_Tenancy_Tenant_Installer {
 	 *     @type string $admin_email Administrator email.
 	 *     @type bool   $install     Install WordPress now.
 	 * }
-	 * @return array { ok: bool, tenant_id: string, password: string, error: string, install_error: string }
+	 * @return array {
+	 *     ok: bool (the tenant was created), tenant_id: string, password: string,
+	 *     error: string, install_error: string,
+	 *     installed: bool (WordPress install proven by the tenant)
+	 * }
 	 */
 	public static function create_site( $args ) {
 		$args = wp_parse_args(
@@ -252,6 +660,7 @@ class GrabWP_Tenancy_Tenant_Installer {
 			'password'      => '',
 			'error'         => '',
 			'install_error' => '',
+			'installed'     => false,
 		);
 
 		$crud   = new GrabWP_Tenancy_Tenant_Crud( grabwp_tenancy() );
@@ -295,9 +704,10 @@ class GrabWP_Tenancy_Tenant_Installer {
 					'admin_email' => '' !== $args['admin_email'] ? $args['admin_email'] : wp_get_current_user()->user_email,
 				)
 			);
-			if ( $install['ok'] ) {
-				$out['password'] = $install['password'];
-			} else {
+			// An unconfirmed install still returns its password with the error.
+			$out['password']  = $install['password'];
+			$out['installed'] = $install['ok'];
+			if ( ! $install['ok'] ) {
 				$out['install_error'] = $install['error'];
 			}
 		}

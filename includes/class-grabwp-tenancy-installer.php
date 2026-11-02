@@ -192,6 +192,9 @@ class GrabWP_Tenancy_Installer {
 		if ( false === $result ) {
 			return array( 'success' => false, 'message' => 'Could not write to wp-config.php. Please check file permissions.' );
 		}
+		if ( class_exists( 'GrabWP_Tenancy_Integrity_Watchdog' ) ) {
+			GrabWP_Tenancy_Integrity_Watchdog::adopt_change( $wp_config_path ); // The snapshot guards the new loader right away.
+		}
 
 		return array( 'success' => true, 'message' => 'Loader installed to wp-config.php successfully.' );
 	}
@@ -259,6 +262,734 @@ class GrabWP_Tenancy_Installer {
 		}
 
 		return array( 'success' => true, 'message' => 'Loader removed from wp-config.php.' );
+	}
+
+	// =========================================================================
+	// HTTPS behind a proxy (wp-config.php block) and https site addresses
+	// =========================================================================
+
+	/** Markers of the HTTPS proxy block in wp-config.php. */
+	const PROXY_MARKER_START = '# BEGIN GrabWP HTTPS proxy';
+	const PROXY_MARKER_END   = '# END GrabWP HTTPS proxy';
+
+	/** @var callable|null Whether the site still loads; null asks over a loopback. Tests replace it. */
+	private static $site_check = null;
+
+	/**
+	 * The HTTPS proxy block: turns HTTPS on when a proxy or CDN reports that
+	 * the visitor used https (X-Forwarded-Proto, or Cloudflare's CF-Visitor).
+	 * Plain PHP that needs nothing from GrabWP, so it stays valid without it.
+	 *
+	 * @since 1.1.14
+	 * @return string
+	 */
+	public static function get_proxy_https_block() {
+		return self::PROXY_MARKER_START . "\n" . <<<'PHP'
+if ( ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === strtolower( trim( current( explode( ',', $_SERVER['HTTP_X_FORWARDED_PROTO'] ) ) ) ) )
+	|| ( isset( $_SERVER['HTTP_CF_VISITOR'] ) && false !== strpos( strtolower( $_SERVER['HTTP_CF_VISITOR'] ), '"https"' ) ) ) {
+	$_SERVER['HTTPS'] = 'on';
+}
+PHP
+			. "\n" . self::PROXY_MARKER_END . "\n";
+	}
+
+	/**
+	 * Add the HTTPS proxy block to wp-config.php, before the GrabWP loader so
+	 * tenant boot sees HTTPS too (otherwise before the stop-editing line).
+	 *
+	 * The write is atomic and keeps the file permissions. The old content is
+	 * kept in the protected snapshot directory first. When the site no longer
+	 * loads afterwards, the old content is put back.
+	 *
+	 * @since 1.1.14
+	 * @param string|null $path wp-config.php path; null for the one next to WordPress.
+	 * @return array{success: bool, message: string}
+	 */
+	public static function install_proxy_https( $path = null ) {
+		$path = null === $path ? ABSPATH . 'wp-config.php' : $path;
+		if ( self::is_tenant_request() ) {
+			return self::failure( __( 'Run this from the main site.', 'grabwp-tenancy' ) );
+		}
+		self::begin_shared_write();
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_get_contents
+		$content = is_readable( $path ) ? file_get_contents( $path ) : false;
+		if ( false === $content ) {
+			return self::failure( __( 'Could not read wp-config.php.', 'grabwp-tenancy' ) );
+		}
+		if ( false !== strpos( $content, self::PROXY_MARKER_START ) ) {
+			return array(
+				'success' => true,
+				'message' => __( 'HTTPS detection is already in wp-config.php.', 'grabwp-tenancy' ),
+			);
+		}
+
+		$pos = self::proxy_block_position( $content );
+		if ( false === $pos ) {
+			return self::failure( __( 'Could not find where to add the code in wp-config.php. Add it by hand.', 'grabwp-tenancy' ) );
+		}
+		$new = substr( $content, 0, $pos ) . self::get_proxy_https_block() . "\n" . substr( $content, $pos );
+		$result = self::replace_wp_config( $path, $content, $new, 'pre-proxy' );
+		if ( $result['success'] ) {
+			$result['message'] = __( 'HTTPS detection added to wp-config.php.', 'grabwp-tenancy' );
+		}
+		return $result;
+	}
+
+	/**
+	 * Remove the HTTPS proxy block from wp-config.php (Undo). Takes back exactly
+	 * what install_proxy_https() added, with the same safe write.
+	 *
+	 * @since 1.1.14
+	 * @param string|null $path wp-config.php path; null for the one next to WordPress.
+	 * @return array{success: bool, message: string}
+	 */
+	public static function remove_proxy_https( $path = null ) {
+		$path = null === $path ? ABSPATH . 'wp-config.php' : $path;
+		if ( self::is_tenant_request() ) {
+			return self::failure( __( 'Run this from the main site.', 'grabwp-tenancy' ) );
+		}
+		self::begin_shared_write();
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_get_contents
+		$content = is_readable( $path ) ? file_get_contents( $path ) : false;
+		if ( false === $content ) {
+			return self::failure( __( 'Could not read wp-config.php.', 'grabwp-tenancy' ) );
+		}
+
+		$start = strpos( $content, self::PROXY_MARKER_START );
+		$end   = false === $start ? false : strpos( $content, self::PROXY_MARKER_END, $start );
+		if ( false === $end ) {
+			return array(
+				'success' => true,
+				'message' => __( 'HTTPS detection by GrabWP was not in wp-config.php.', 'grabwp-tenancy' ),
+			);
+		}
+		$end += strlen( self::PROXY_MARKER_END );
+		// The line break after the end marker and the blank line added after it.
+		foreach ( array( "\r\n", "\n" ) as $break ) {
+			if ( substr( $content, $end, strlen( $break ) ) === $break ) {
+				$end += strlen( $break );
+				if ( substr( $content, $end, strlen( $break ) ) === $break ) {
+					$end += strlen( $break );
+				}
+				break;
+			}
+		}
+		$new    = substr( $content, 0, $start ) . substr( $content, $end );
+		$result = self::replace_wp_config( $path, $content, $new, 'pre-proxy-undo' );
+		if ( $result['success'] ) {
+			$result['message'] = __( 'HTTPS detection removed from wp-config.php.', 'grabwp-tenancy' );
+		}
+		return $result;
+	}
+
+	/**
+	 * Offset of the line the HTTPS proxy block goes before: the GrabWP loader,
+	 * else the stop-editing line.
+	 *
+	 * @param string $content wp-config.php content.
+	 * @return int|false
+	 */
+	private static function proxy_block_position( $content ) {
+		$open = strpos( $content, '<?php' );
+		foreach ( array( '# BEGIN GrabWP Tenancy', 'grabwp-tenancy/load.php', "/* That's all, stop editing! Happy publishing. */", "/* That's all, stop editing! */" ) as $anchor ) {
+			$pos = strpos( $content, $anchor );
+			if ( false === $pos || false === $open || $pos < $open ) {
+				continue;
+			}
+			$line_start = strrpos( substr( $content, 0, $pos ), "\n" );
+			$pos        = false === $line_start ? 0 : $line_start + 1;
+			return $pos > $open ? $pos : false;
+		}
+		return false;
+	}
+
+	/**
+	 * Replace wp-config.php safely. See replace_files().
+	 *
+	 * Call begin_shared_write() first.
+	 *
+	 * @param string $path  wp-config.php path.
+	 * @param string $old   Current content.
+	 * @param string $new   New content.
+	 * @param string $label Backup label.
+	 * @return array{success: bool, message: string}
+	 */
+	private static function replace_wp_config( $path, $old, $new, $label ) {
+		return self::replace_files( array( compact( 'path', 'old', 'new' ) ), $label );
+	}
+
+	/**
+	 * Replace shared root files safely, together.
+	 *
+	 * 1. Every new PHP file must parse.
+	 * 2. The old content of each file is kept in the protected snapshot directory.
+	 * 3. Atomic writes that keep the permissions; the watchdog adopts them.
+	 * 4. Verify: each file reads back as written, and the site still loads when
+	 *    it loaded before. Otherwise every file is put back the same way.
+	 *
+	 * Call begin_shared_write() first.
+	 *
+	 * @param array[] $changes path, old, new.
+	 * @param string  $label   Backup label.
+	 * @return array{success: bool, message: string}
+	 */
+	private static function replace_files( $changes, $label ) {
+		$names = implode( ' + ', array_map( 'basename', array_column( $changes, 'path' ) ) );
+		foreach ( $changes as $change ) {
+			if ( ! self::filesystem_is_writable( $change['path'] ) ) {
+				/* translators: %s: file name. */
+				return self::failure( sprintf( __( '%s is not writable. Add the code by hand.', 'grabwp-tenancy' ), basename( $change['path'] ) ) );
+			}
+			if ( '.php' === substr( $change['path'], -4 ) && ! self::php_parses( $change['new'] ) ) {
+				/* translators: %s: file name. */
+				return self::failure( sprintf( __( '%s would not be valid PHP after the change, so nothing was changed.', 'grabwp-tenancy' ), basename( $change['path'] ) ) );
+			}
+		}
+		foreach ( $changes as $change ) {
+			if ( '' === GrabWP_Tenancy_Integrity_Watchdog::write_backup( basename( $change['path'] ) . '.' . $label . '.snap.php', $change['old'] ) ) {
+				/* translators: %s: file name. */
+				return self::failure( sprintf( __( 'Could not save a backup of %s, so nothing was changed.', 'grabwp-tenancy' ), basename( $change['path'] ) ) );
+			}
+		}
+
+		$loaded_before = self::site_loads();
+		$written       = array();
+		$write_failed  = false;
+		foreach ( $changes as $index => $change ) {
+			clearstatcache( true, $change['path'] );
+			$changes[ $index ]['mode'] = fileperms( $change['path'] ) & 0777;
+			if ( ! GrabWP_Tenancy_Path_Manager::atomic_write( $change['path'], $change['new'], $changes[ $index ]['mode'] ) ) {
+				$write_failed = true;
+				break;
+			}
+			$written[] = $changes[ $index ];
+			self::after_wp_config_write( $change['path'] );
+		}
+		/* translators: %s: file name(s). */
+		$write_error = sprintf( __( 'Could not write %s. The folder must be writable. Add the code by hand.', 'grabwp-tenancy' ), $names );
+		if ( $write_failed && ! $written ) {
+			return self::failure( $write_error );
+		}
+		$ok = ! $write_failed;
+
+		foreach ( $written as $change ) {
+			clearstatcache( true, $change['path'] );
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_get_contents
+			$ok = $ok && file_get_contents( $change['path'] ) === $change['new'];
+		}
+		if ( $ok && ( ! $loaded_before || self::site_loads() ) ) {
+			return array(
+				'success' => true,
+				'message' => '',
+			);
+		}
+
+		$restored = true;
+		foreach ( $written as $change ) {
+			$restored = GrabWP_Tenancy_Path_Manager::atomic_write( $change['path'], $change['old'], $change['mode'] ) && $restored;
+			self::after_wp_config_write( $change['path'] );
+		}
+		if ( $write_failed && $restored ) {
+			return self::failure( $write_error );
+		}
+		return self::failure(
+			$restored
+				/* translators: %s: file name(s). */
+				? sprintf( __( 'The site did not load after the change, so %s was put back as it was.', 'grabwp-tenancy' ), $names )
+				/* translators: %s: file name(s). */
+				: sprintf( __( 'The site did not load after the change and %s could not be put back. Restore it from the backup in the GrabWP data folder.', 'grabwp-tenancy' ), $names )
+		);
+	}
+
+	/** Watchdog adopts the change; the next request compiles the new file. */
+	private static function after_wp_config_write( $path ) {
+		GrabWP_Tenancy_Integrity_Watchdog::adopt_change( $path );
+		if ( ! class_exists( 'GrabWP_Tenancy_Status_Checker' ) ) {
+			require_once GRABWP_TENANCY_PLUGIN_DIR . 'includes/class-grabwp-tenancy-status-checker.php';
+		}
+		GrabWP_Tenancy_Status_Checker::refresh_boot_files();
+	}
+
+	/**
+	 * Whether PHP code parses (PHP 7+; older versions are not checked).
+	 *
+	 * @param string $code PHP file content.
+	 * @return bool
+	 */
+	public static function php_parses( $code ) {
+		if ( ! defined( 'TOKEN_PARSE' ) ) {
+			return true;
+		}
+		try {
+			token_get_all( $code, TOKEN_PARSE );
+			return true;
+		} catch ( \ParseError $e ) {
+			return false;
+		}
+	}
+
+	/** Whether the site answers its own loopback without a server error. */
+	private static function site_loads() {
+		return null === self::$site_check
+			? GrabWP_Tenancy_Tenant_Installer::can_loopback()
+			: (bool) call_user_func( self::$site_check );
+	}
+
+	/**
+	 * Switch home and siteurl to https.
+	 *
+	 * Only when GrabWP_Tenancy_Status_Checker::get_https_url_status() allows
+	 * it: valid https answers, this request is https, no WP_HOME / WP_SITEURL
+	 * constants, main site. The old values are kept for Undo. Post content is
+	 * not changed.
+	 *
+	 * @since 1.1.14
+	 * @return array{success: bool, message: string}
+	 */
+	public static function fix_https_urls() {
+		if ( ! class_exists( 'GrabWP_Tenancy_Status_Checker' ) ) {
+			require_once GRABWP_TENANCY_PLUGIN_DIR . 'includes/class-grabwp-tenancy-status-checker.php';
+		}
+		if ( self::is_tenant_request() ) {
+			return self::failure( __( 'Run this from the main site.', 'grabwp-tenancy' ) );
+		}
+		$status = GrabWP_Tenancy_Status_Checker::get_https_url_status();
+		if ( 'ok' === $status['state'] ) {
+			return array(
+				'success' => true,
+				'message' => __( 'The site address already uses https.', 'grabwp-tenancy' ),
+			);
+		}
+		if ( ! $status['fixable'] ) {
+			return self::failure( __( 'The site address cannot be switched here yet. Check again and follow the steps in the card.', 'grabwp-tenancy' ) );
+		}
+
+		$old = array(
+			'home'    => (string) get_option( 'home' ),
+			'siteurl' => (string) get_option( 'siteurl' ),
+		);
+		update_option( GrabWP_Tenancy_Status_Checker::HTTPS_URL_UNDO_OPTION, $old + array( 'time' => time() ), false );
+		update_option( 'home', set_url_scheme( $old['home'], 'https' ) );
+		update_option( 'siteurl', set_url_scheme( $old['siteurl'], 'https' ) );
+		delete_transient( GrabWP_Tenancy_Status_Checker::HOSTING_TRANSIENT );
+
+		if ( 0 !== stripos( (string) get_option( 'home' ), 'https://' ) || 0 !== stripos( (string) get_option( 'siteurl' ), 'https://' ) ) {
+			update_option( 'home', $old['home'] );
+			update_option( 'siteurl', $old['siteurl'] );
+			delete_option( GrabWP_Tenancy_Status_Checker::HTTPS_URL_UNDO_OPTION );
+			return self::failure( __( 'Could not save the https address. Nothing was changed.', 'grabwp-tenancy' ) );
+		}
+		return array(
+			'success' => true,
+			'message' => __( 'The site address now uses https.', 'grabwp-tenancy' ),
+		);
+	}
+
+	/**
+	 * Undo fix_https_urls(): put back the saved home and siteurl, unless they
+	 * were changed since.
+	 *
+	 * @since 1.1.14
+	 * @return array{success: bool, message: string}
+	 */
+	public static function revert_https_urls() {
+		if ( ! class_exists( 'GrabWP_Tenancy_Status_Checker' ) ) {
+			require_once GRABWP_TENANCY_PLUGIN_DIR . 'includes/class-grabwp-tenancy-status-checker.php';
+		}
+		if ( self::is_tenant_request() ) {
+			return self::failure( __( 'Run this from the main site.', 'grabwp-tenancy' ) );
+		}
+		$old = get_option( GrabWP_Tenancy_Status_Checker::HTTPS_URL_UNDO_OPTION );
+		if ( ! is_array( $old ) || ! isset( $old['home'], $old['siteurl'] ) ) {
+			return self::failure( __( 'There is no address change to undo.', 'grabwp-tenancy' ) );
+		}
+		if ( get_option( 'home' ) !== set_url_scheme( $old['home'], 'https' ) || get_option( 'siteurl' ) !== set_url_scheme( $old['siteurl'], 'https' ) ) {
+			delete_option( GrabWP_Tenancy_Status_Checker::HTTPS_URL_UNDO_OPTION );
+			return self::failure( __( 'The site address was changed since, so it was not undone. Edit it in Settings, General.', 'grabwp-tenancy' ) );
+		}
+		update_option( 'home', $old['home'] );
+		update_option( 'siteurl', $old['siteurl'] );
+		delete_option( GrabWP_Tenancy_Status_Checker::HTTPS_URL_UNDO_OPTION );
+		delete_transient( GrabWP_Tenancy_Status_Checker::HOSTING_TRANSIENT );
+		return array(
+			'success' => true,
+			'message' => __( 'The site address is back to what it was.', 'grabwp-tenancy' ),
+		);
+	}
+
+	// =========================================================================
+	// Multisite settings left by a managed host in wp-config.php
+	// =========================================================================
+
+	/** Option that keeps what the Multisite cleanup wrote, for Undo. */
+	const MULTISITE_UNDO_OPTION = 'grabwp_tenancy_multisite_undo';
+
+	/**
+	 * Plan the removal of the wp-config.php settings that stop GrabWP:
+	 * GrabWP_Tenancy_Status_Checker::CONFLICT_CONSTANTS and CONFLICT_VARIABLES,
+	 * whatever their value. Writes nothing.
+	 *
+	 * Only a whole top-level statement is removed. One inside a condition,
+	 * or a removed name still used by other code, goes to 'manual'. A WP_HOME
+	 * or WP_SITEURL set to a plain quoted URL goes to 'urls', so the main site
+	 * keeps that address in its home / siteurl option.
+	 *
+	 * .htaccess is never changed: Multisite rules there do not affect GrabWP,
+	 * which routes tenants through its own "GrabWP Tenancy" block.
+	 *
+	 * @since 1.1.14
+	 * @param string $config wp-config.php content.
+	 * @return array {
+	 *     @type string   $config  New wp-config.php content.
+	 *     @type bool     $changed Settings were found to remove.
+	 *     @type string[] $removed Removed wp-config.php code.
+	 *     @type string[] $urls    Option name ('home', 'siteurl') => URL the removed constant set.
+	 *     @type array[]  $manual  To remove by hand: file, name, line, code.
+	 * }
+	 */
+	public static function plan_multisite_cleanup( $config ) {
+		if ( ! class_exists( 'GrabWP_Tenancy_Status_Checker' ) ) {
+			require_once GRABWP_TENANCY_PLUGIN_DIR . 'includes/class-grabwp-tenancy-status-checker.php';
+		}
+		$plan    = array(
+			'config'  => (string) $config,
+			'changed' => false,
+			'removed' => array(),
+			'urls'    => array(),
+			'manual'  => array(),
+		);
+		$options = array(
+			'WP_HOME'    => 'home',
+			'WP_SITEURL' => 'siteurl',
+		);
+		$edits   = array();
+		$gone    = array();
+		foreach ( GrabWP_Tenancy_Status_Checker::scan_wp_config( $plan['config'] )['defines'] as $define ) {
+			if ( ! $define['statement'] || $define['conditional'] ) {
+				$plan['manual'][] = array(
+					'file' => 'wp-config.php',
+					'name' => $define['name'],
+					'line' => $define['line'],
+					'code' => $define['code'],
+				);
+				continue;
+			}
+			if ( isset( $options[ $define['name'] ] ) && preg_match( '#^([\'"])(https?://[^\'"$\\\\]+)\1$#i', $define['value'], $match ) ) {
+				$plan['urls'][ $options[ $define['name'] ] ] = rtrim( $match[2], '/' );
+			}
+			$plan['changed']   = true;
+			$gone[]            = $define['name'];
+			$edits[]           = self::define_removal( $plan['config'], $define['start'], $define['end'] );
+			$plan['removed'][] = $define['code'];
+		}
+
+		// Last first, so earlier byte offsets stay valid. $check keeps the line numbers.
+		$check = $plan['config'];
+		foreach ( array_reverse( $edits ) as $edit ) {
+			$check          = substr_replace( $check, str_repeat( "\n", substr_count( substr( $check, $edit[0], $edit[1] ), "\n" ) ), $edit[0], $edit[1] );
+			$plan['config'] = substr_replace( $plan['config'], $edit[2], $edit[0], $edit[1] );
+		}
+		// A removed name still used elsewhere would stop the site: leave it to the admin.
+		$lines = explode( "\n", (string) $config );
+		foreach ( self::constants_used( $check, $gone ) as $line => $name ) {
+			$plan['manual'][] = array(
+				'file' => 'wp-config.php',
+				'name' => $name,
+				'line' => $line,
+				'code' => trim( $lines[ $line - 1 ] ),
+			);
+		}
+		return $plan;
+	}
+
+	/**
+	 * Byte range that removes a define() statement: the whole line when it
+	 * holds nothing else (a trailing // or # comment goes with it).
+	 *
+	 * @param string $content Content.
+	 * @param int    $start   Statement start.
+	 * @param int    $end     Byte after the ;.
+	 * @return array start, length, replacement.
+	 */
+	private static function define_removal( $content, $start, $end ) {
+		$line_start = strrpos( substr( $content, 0, $start ), "\n" );
+		$line_start = false === $line_start ? 0 : $line_start + 1;
+		if ( '' === trim( substr( $content, $line_start, $start - $line_start ) )
+			&& preg_match( '/\G[ \t]*(?:(?:\/\/|#)(?:(?!\?>)[^\r\n])*)?(?:\r\n|\n|\r|$)/', $content, $match, 0, $end ) ) {
+			return array( $line_start, $end + strlen( $match[0] ) - $line_start, '' );
+		}
+		return array( $start, $end - $start, '' );
+	}
+
+	/**
+	 * Lines where code still uses one of the given constants or '$name' variables.
+	 *
+	 * @param string   $content PHP code.
+	 * @param string[] $names   Constant names and '$name' variable names.
+	 * @return string[] Line => name.
+	 */
+	private static function constants_used( $content, $names ) {
+		$used = array();
+		if ( ! $names || ! function_exists( 'token_get_all' ) ) {
+			return $used;
+		}
+		foreach ( @token_get_all( $content ) as $token ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			if ( ! is_array( $token ) ) {
+				continue;
+			}
+			// PHP 8 reads \NAME as one token.
+			$name = ltrim( $token[1], '\\' );
+			if ( ( T_STRING === $token[0] || T_VARIABLE === $token[0] || ( defined( 'T_NAME_FULLY_QUALIFIED' ) && T_NAME_FULLY_QUALIFIED === $token[0] ) )
+				&& in_array( $name, $names, true ) ) {
+				$used[ $token[2] ] = $name;
+			}
+		}
+		return $used;
+	}
+
+	/**
+	 * Remove the settings that stop GrabWP from wp-config.php, on an explicit
+	 * confirmed click (never by Fix automatically). .htaccess is never
+	 * changed, see plan_multisite_cleanup().
+	 *
+	 * Refused for a network with more than one site, on tenants, and when a
+	 * setting can only be removed by hand. A removed WP_HOME / WP_SITEURL URL
+	 * is saved to the home / siteurl option first; Undo puts the old values back. The file is written with
+	 * the safe write of replace_files() and backed up first ("pre-multisite").
+	 * Running it again on a clean site changes nothing.
+	 *
+	 * @since 1.1.14
+	 * @param string|null $config_path wp-config.php path; null for the one next to WordPress.
+	 * @return array{success: bool, message: string}
+	 */
+	public static function remove_multisite_settings( $config_path = null ) {
+		$config_path = null === $config_path ? ABSPATH . 'wp-config.php' : $config_path;
+		if ( ! class_exists( 'GrabWP_Tenancy_Status_Checker' ) ) {
+			require_once GRABWP_TENANCY_PLUGIN_DIR . 'includes/class-grabwp-tenancy-status-checker.php';
+		}
+		if ( self::is_tenant_request() ) {
+			return self::failure( __( 'Run this from the main site.', 'grabwp-tenancy' ) );
+		}
+		self::begin_shared_write();
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_get_contents
+		$config = is_readable( $config_path ) ? file_get_contents( $config_path ) : false;
+		if ( false === $config ) {
+			return self::failure( __( 'Could not read wp-config.php.', 'grabwp-tenancy' ) );
+		}
+
+		$status = GrabWP_Tenancy_Status_Checker::get_multisite_status( $config );
+		if ( 'network' === $status['state'] ) {
+			return self::failure(
+				sprintf(
+					/* translators: %d: number of sites in the Multisite network. */
+					__( 'This is a Multisite network with %d sites, so nothing was changed. Back up or move those sites first.', 'grabwp-tenancy' ),
+					(int) $status['sites']
+				)
+			);
+		}
+
+		$plan = self::plan_multisite_cleanup( $config );
+		if ( $plan['manual'] ) {
+			return self::failure(
+				sprintf(
+					/* translators: %s: list of file, line and code to edit by hand. */
+					__( 'Some wp-config.php settings must be removed by hand, so nothing was changed: %s', 'grabwp-tenancy' ),
+					self::describe_lines( $plan['manual'] )
+				)
+			);
+		}
+		if ( ! $plan['changed'] ) {
+			return array(
+				'success' => true,
+				'message' => __( 'No settings that stop GrabWP were left in wp-config.php.', 'grabwp-tenancy' ),
+			);
+		}
+
+		// The main site keeps the address the removed WP_HOME / WP_SITEURL gave it.
+		$options = self::save_url_options( $plan['urls'] );
+		if ( false === $options ) {
+			return self::failure( __( 'Could not save the site address. Nothing was changed.', 'grabwp-tenancy' ) );
+		}
+		$result = self::replace_wp_config( $config_path, $config, $plan['config'], 'pre-multisite' );
+		if ( ! $result['success'] ) {
+			self::update_options( $options );
+			return $result;
+		}
+
+		update_option(
+			self::MULTISITE_UNDO_OPTION,
+			array(
+				'files'   => array(
+					array(
+						'path' => $config_path,
+						'old'  => sha1( $config ),
+						'new'  => sha1( $plan['config'] ),
+					),
+				),
+				'options' => $options,
+				'time'    => time(),
+			),
+			false
+		);
+		delete_transient( GrabWP_Tenancy_Status_Checker::HOSTING_TRANSIENT );
+
+		return array(
+			'success' => true,
+			'message' => __( 'Settings that stop GrabWP were removed from wp-config.php. Log in again if asked, then activate plugins that were network activated.', 'grabwp-tenancy' ),
+		);
+	}
+
+	/**
+	 * Undo remove_multisite_settings(): put back the exact bytes of
+	 * wp-config.php, unless it was changed since, and the home / siteurl
+	 * options it changed.
+	 *
+	 * @since 1.1.14
+	 * @return array{success: bool, message: string}
+	 */
+	public static function undo_multisite_settings() {
+		if ( ! class_exists( 'GrabWP_Tenancy_Status_Checker' ) ) {
+			require_once GRABWP_TENANCY_PLUGIN_DIR . 'includes/class-grabwp-tenancy-status-checker.php';
+		}
+		if ( self::is_tenant_request() ) {
+			return self::failure( __( 'Run this from the main site.', 'grabwp-tenancy' ) );
+		}
+		$undo = get_option( self::MULTISITE_UNDO_OPTION );
+		if ( ! is_array( $undo ) || empty( $undo['files'] ) || ! is_array( $undo['files'] ) ) {
+			return self::failure( __( 'There is no Multisite cleanup to undo.', 'grabwp-tenancy' ) );
+		}
+		self::begin_shared_write();
+
+		$changes = array();
+		foreach ( $undo['files'] as $file ) {
+			$name   = basename( $file['path'] );
+			$backup = GrabWP_Tenancy_Integrity_Watchdog::get_snapshot_dir() . '/' . $name . '.pre-multisite.snap.php';
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_get_contents
+			$current = is_readable( $file['path'] ) ? file_get_contents( $file['path'] ) : false;
+			if ( false === $current || sha1( $current ) !== $file['new'] ) {
+				return self::failure(
+					sprintf(
+						/* translators: %s: file name. */
+						__( '%s was changed since the Multisite cleanup, so nothing was undone. The old copy is kept in the GrabWP data folder.', 'grabwp-tenancy' ),
+						$name
+					)
+				);
+			}
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_get_contents
+			$old    = is_readable( $backup ) ? (string) file_get_contents( $backup ) : '';
+			$header = GrabWP_Tenancy_Integrity_Watchdog::HEADER;
+			$old    = 0 === strpos( $old, $header ) ? substr( $old, strlen( $header ) ) : '';
+			if ( sha1( $old ) !== $file['old'] ) {
+				return self::failure(
+					sprintf(
+						/* translators: %s: file name. */
+						__( 'The backup of %s is missing or changed, so nothing was undone.', 'grabwp-tenancy' ),
+						$name
+					)
+				);
+			}
+			$changes[] = array(
+				'path' => $file['path'],
+				'old'  => $current,
+				'new'  => $old,
+			);
+		}
+
+		$result = self::replace_files( $changes, 'pre-multisite-undo' );
+		if ( ! $result['success'] ) {
+			return $result;
+		}
+		self::update_options( isset( $undo['options'] ) ? (array) $undo['options'] : array() );
+		delete_option( self::MULTISITE_UNDO_OPTION );
+		delete_transient( GrabWP_Tenancy_Status_Checker::HOSTING_TRANSIENT );
+		return array(
+			'success' => true,
+			'message' => __( 'The removed settings are back in wp-config.php.', 'grabwp-tenancy' ),
+		);
+	}
+
+	/**
+	 * Save the home / siteurl options in the database. Core filters both with
+	 * WP_HOME / WP_SITEURL, which hides the saved value from get_option() and
+	 * makes update_option() skip the write, so those filters are off meanwhile.
+	 *
+	 * @param string[] $urls option => URL.
+	 * @return string[]|false option => previous value, or false (nothing changed).
+	 */
+	private static function save_url_options( $urls ) {
+		$filters = array(
+			'option_home'    => '_config_wp_home',
+			'option_siteurl' => '_config_wp_siteurl',
+		);
+		$removed = array();
+		foreach ( $filters as $hook => $callback ) {
+			if ( remove_filter( $hook, $callback ) ) {
+				$removed[ $hook ] = $callback;
+			}
+		}
+		$options = array();
+		foreach ( $urls as $option => $url ) {
+			$current = (string) get_option( $option );
+			if ( $current === $url ) {
+				continue;
+			}
+			$options[ $option ] = $current;
+			update_option( $option, $url );
+			if ( (string) get_option( $option ) !== $url ) {
+				self::update_options( $options );
+				$options = false;
+				break;
+			}
+		}
+		foreach ( $removed as $hook => $callback ) {
+			add_filter( $hook, $callback );
+		}
+		return $options;
+	}
+
+	/**
+	 * @param array $options Option name => value.
+	 */
+	private static function update_options( $options ) {
+		foreach ( $options as $option => $value ) {
+			update_option( $option, $value );
+		}
+	}
+
+	/**
+	 * "file line N: code" list.
+	 *
+	 * @param array[] $lines file, line, code.
+	 * @return string
+	 */
+	private static function describe_lines( $lines ) {
+		$parts = array();
+		foreach ( $lines as $line ) {
+			$parts[] = sprintf(
+				/* translators: 1: file name, 2: line number, 3: code on that line. */
+				__( '%1$s line %2$d: %3$s', 'grabwp-tenancy' ),
+				$line['file'],
+				(int) $line['line'],
+				$line['code']
+			);
+		}
+		return implode( '; ', $parts );
+	}
+
+	/** Whether this request runs for a tenant. */
+	private static function is_tenant_request() {
+		return defined( 'GRABWP_TENANCY_IS_TENANT' ) && GRABWP_TENANCY_IS_TENANT;
+	}
+
+	/**
+	 * @param string $message Message.
+	 * @return array{success: bool, message: string}
+	 */
+	private static function failure( $message ) {
+		return array(
+			'success' => false,
+			'message' => $message,
+		);
 	}
 
 	// =========================================================================
@@ -439,7 +1170,7 @@ class GrabWP_Tenancy_Installer {
 		if ( self::$shared_write_open || ! self::shared_files_locked() ) {
 			return;
 		}
-		// Restore tampered files first so end_shared_write() never adopts them.
+		// Put back lost GrabWP blocks first so end_shared_write() never adopts their loss.
 		if ( class_exists( 'GrabWP_Tenancy_Integrity_Watchdog' ) ) {
 			GrabWP_Tenancy_Integrity_Watchdog::check();
 		}
@@ -512,18 +1243,81 @@ class GrabWP_Tenancy_Installer {
 			require_once ABSPATH . 'wp-admin/includes/misc.php';
 		}
 
-		$rules = array(
+		insert_with_markers( $htaccess_file, 'GrabWP Tenancy', self::get_site_path_rewrite_rules( $prefix ) );
+		self::reposition_htaccess_block( $htaccess_file );
+		// New rules (prefix change) are the known-good block, also when the lock could not be set.
+		if ( class_exists( 'GrabWP_Tenancy_Integrity_Watchdog' ) ) {
+			GrabWP_Tenancy_Integrity_Watchdog::adopt_change( $htaccess_file );
+		}
+	}
+
+	/**
+	 * Lines of the "GrabWP Tenancy" .htaccess block for a path prefix.
+	 *
+	 * A tenant path that is not a file or directory (pretty permalink, REST,
+	 * feed) goes straight to /index.php. Apache reaches the same result by
+	 * running .htaccess again on the stripped path, where the WordPress block
+	 * sends it to index.php; OpenLiteSpeed (xCloud) runs .htaccess once, so the
+	 * strip rule alone ends in a server 404. .php files (also with a path
+	 * after them, like index.php/2026/hello/) and the wp-admin, wp-content and
+	 * wp-includes paths always keep the strip rule, so they work as before
+	 * even where DOCUMENT_ROOT is not the WordPress root.
+	 *
+	 * @since 1.1.13
+	 * @param string $prefix Path prefix, for example "site".
+	 * @return string[]
+	 */
+	public static function get_site_path_rewrite_rules( $prefix ) {
+		$slug = '([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
+
+		return array(
 			'<IfModule mod_rewrite.c>',
 			'RewriteEngine On',
 			'# Tenant homepage: /' . $prefix . '/{tenant-id-or-alias}[/] → WordPress front-end with site param',
-			'RewriteRule ^' . $prefix . '/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)/?$ /index.php?site=$1 [QSA,L]',
-			'# Tenant sub-paths (wp-admin, wp-login, pages, etc.): strip prefix, pass site param',
-			'RewriteRule ^' . $prefix . '/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)/(.+)$ /$2?site=$1 [QSA,L,NE]',
+			'RewriteRule ^' . $prefix . '/' . $slug . '/?$ /index.php?site=$1 [QSA,L]',
+			'# Tenant pages, REST, feeds (not a file or directory): WordPress front-end with site param',
+			'RewriteCond %{REQUEST_URI} !\.php(/|$)',
+			'RewriteCond %{REQUEST_URI} !/wp-(admin|content|includes)(/|$)',
+			'RewriteCond %{DOCUMENT_ROOT}/$2 !-f',
+			'RewriteCond %{DOCUMENT_ROOT}/$2 !-d',
+			'RewriteRule ^' . $prefix . '/' . $slug . '/(.+)$ /index.php?site=$1 [QSA,L]',
+			'# Tenant files and directories (wp-admin, wp-login, assets): strip prefix, pass site param',
+			'RewriteRule ^' . $prefix . '/' . $slug . '/(.+)$ /$2?site=$1 [QSA,L,NE]',
 			'</IfModule>',
 		);
+	}
 
-		insert_with_markers( $htaccess_file, 'GrabWP Tenancy', $rules );
-		self::reposition_htaccess_block( $htaccess_file );
+	/**
+	 * Whether .htaccess content holds the current GrabWP Tenancy rules.
+	 *
+	 * Path and "both" modes need every RewriteCond and RewriteRule line of
+	 * get_site_path_rewrite_rules(). A block written before single-pass
+	 * routing only has the homepage and strip rules; it is reported as
+	 * outdated so the Status "Fix" button rewrites it. Domain mode never uses
+	 * the path rules and keeps the homepage-rule check (current or legacy
+	 * 6-char tenant ID).
+	 *
+	 * @since 1.1.13
+	 * @param string $content .htaccess content.
+	 * @param string $prefix  Path prefix, for example "site".
+	 * @param string $mode    Routing mode: path, domain or both.
+	 * @return bool
+	 */
+	public static function htaccess_has_site_path_rules( $content, $prefix, $mode ) {
+		$rules = self::get_site_path_rewrite_rules( $prefix );
+
+		if ( 'domain' === $mode ) {
+			// $rules[3] is the tenant homepage RewriteRule.
+			return false !== strpos( $content, $rules[3] )
+				|| false !== strpos( $content, 'RewriteRule ^' . $prefix . '/([a-z0-9]{6})/?$ /index.php?site=$1 [QSA,L]' );
+		}
+
+		foreach ( preg_grep( '/^Rewrite(Cond|Rule) /', $rules ) as $line ) {
+			if ( false === strpos( $content, $line ) ) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**

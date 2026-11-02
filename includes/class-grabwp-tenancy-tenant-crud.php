@@ -286,11 +286,22 @@ class GrabWP_Tenancy_Tenant_Crud {
 			opcache_invalidate( $mappings_file, true );
 		}
 
+		$parsed = self::parse_tenants_file( $mappings_file );
+		return false === $parsed ? false : array_merge( array( 'exists' => true ), $parsed );
+	}
+
+	/**
+	 * Include a tenants.php file and return what it defines.
+	 *
+	 * @param string $file Path.
+	 * @return array|false { mappings: array, routing: array|null } or false when it does not parse.
+	 */
+	private static function parse_tenants_file( $file ) {
 		$tenant_mappings        = null;
 		$grabwp_tenancy_routing = null;
 		ob_start();
 		try {
-			include $mappings_file;
+			include $file;
 		} catch ( \Throwable $e ) {
 			ob_end_clean();
 			return false;
@@ -302,10 +313,19 @@ class GrabWP_Tenancy_Tenant_Crud {
 		}
 
 		return array(
-			'exists'   => true,
 			'mappings' => $tenant_mappings,
 			'routing'  => is_array( $grabwp_tenancy_routing ) ? $grabwp_tenancy_routing : null,
 		);
+	}
+
+	/**
+	 * Routing mode of a routing block, '' when none is valid.
+	 *
+	 * @param array|null $routing Routing block.
+	 * @return string
+	 */
+	private static function routing_mode_of( $routing ) {
+		return ( is_array( $routing ) && isset( $routing['mode'] ) && in_array( $routing['mode'], grabwp_tenancy_routing_modes(), true ) ) ? $routing['mode'] : '';
 	}
 
 	/**
@@ -313,7 +333,9 @@ class GrabWP_Tenancy_Tenant_Crud {
 	 *
 	 * With $routing null, the routing block currently on disk is read right
 	 * before the write and emitted again, so no mappings change can drop the
-	 * routing mode. When that read fails, nothing is written.
+	 * routing mode. When that read fails, nothing is written. The new file is
+	 * read back before it replaces the old one: it must parse and hold the
+	 * same sites and routing mode, or the old file stays.
 	 *
 	 * @param array      $tenant_mappings Tenant ID => domains.
 	 * @param array|null $routing         Routing block to write, or null to keep the stored one.
@@ -353,7 +375,17 @@ class GrabWP_Tenancy_Tenant_Crud {
 
 		$content .= ");\n";
 
-		return GrabWP_Tenancy_Path_Manager::atomic_put_php_file( GrabWP_Tenancy_Path_Manager::get_tenants_file_path(), $content );
+		$count  = count( $tenant_mappings );
+		$mode   = self::routing_mode_of( $routing );
+		$verify = function ( $tmp_file ) use ( $count, $mode ) {
+			$parsed = self::parse_tenants_file( $tmp_file );
+			if ( function_exists( 'opcache_invalidate' ) ) {
+				opcache_invalidate( $tmp_file, true );
+			}
+			return false !== $parsed && count( $parsed['mappings'] ) === $count && self::routing_mode_of( $parsed['routing'] ) === $mode;
+		};
+
+		return GrabWP_Tenancy_Path_Manager::atomic_put_php_file( GrabWP_Tenancy_Path_Manager::get_tenants_file_path(), $content, $verify );
 	}
 
 	/**

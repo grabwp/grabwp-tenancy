@@ -7,1021 +7,47 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-11T19:14:49+00:00\n"
-"PO-Revision-Date: 2026-10-23 19:26+0000\n"
+"POT-Creation-Date: 2026-11-01T09:49:28+00:00\n"
+"PO-Revision-Date: 2026-11-02 19:16+0000\n"
 "Language: ar\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: grabwp-tenancy\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ((n == 1) ? 1 : ((n == 2) ? 2 : ((n % 100 >= 3 && n % 100 <= 10) ? 3 : ((n % 100 >= 11 && n % 100 <= 99) ? 4 : 5))));\n"
 "X-Loco-Version: 2.8.9; wp-7.1.3; php-8.3.6\n"
 
-#: admin/views/status.php:96
-msgid "1. Deactivate the plugin"
-msgstr "1. تعطيل الإضافة"
-
-#: admin/views/partials/status-env-cards.php:29
-msgid "1. wp-config.php Loader"
-msgstr "1. محمل wp-config.php"
-
-#: admin/views/partials/status-env-cards.php:82
-msgid "2. MU-Plugin"
-msgstr "2. إضافة MU"
-
-#: admin/views/status.php:99
-#, php-format
-msgid "2. Rename and move the entire %1$s folder to %2$s"
-msgstr "2. إعادة تسمية ونقل مجلد %1$s بالكامل إلى %2$s"
-
-#: admin/views/status.php:105
-msgid "3. Reactivate the plugin"
-msgstr "3. إعادة تفعيل الإضافة"
-
-#: admin/views/partials/status-env-cards.php:128
-msgid "3. Root .htaccess Rewrite Rules"
-msgstr "3. قواعد إعادة كتابة .htaccess في الجذر"
-
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:258
-msgid "A tenant request changed protected files; they were restored from the snapshot:"
-msgstr "غيّر أحد طلبات العميل ملفات محمية؛ وتمت استعادتها من النسخة المحفوظة:"
-
-#: admin/class-grabwp-tenancy-list-table.php:79
-msgid "Actions"
-msgstr "إجراءات"
-
-#: admin/views/status-general.php:47
-msgid "Active"
-msgstr "نشط"
-
-#: admin/views/tenants.php:18
-#: includes/class-grabwp-tenancy-admin.php:292
-msgid "Add New"
-msgstr "أضف جديد"
-
-#: admin/views/tenant-edit.php:120
-msgid "Add New Domain"
-msgstr "إضافة نطاق جديد"
-
-#: admin/views/tenant-create.php:16
-#: includes/class-grabwp-tenancy-admin.php:291
-msgid "Add New Tenant"
-msgstr "إضافة عميل جديد"
-
-#: admin/class-grabwp-tenancy-list-table.php:358
-msgid "Admin"
-msgstr "الإدارة"
-
-#. translators: %s: source tenant ID or "Main Site"
-#: admin/views/tenant-create.php:42
-#, php-format
-msgid "After creating this tenant, you will be redirected to clone %s into it."
-msgstr "بعد إنشاء هذا العميل، سيتم توجيهك لاستنساخ %s إليه."
-
-#: includes/class-grabwp-tenancy-admin.php:282
-#: includes/class-grabwp-tenancy-admin.php:283
-msgid "All Tenants"
-msgstr "كل العملاء"
-
-#: admin/views/partials/status-env-cards.php:149
-#, php-format
-msgid "Apache rewrite rules for path-based tenant URLs like /%s/{id}/wp-admin."
-msgstr "قواعد إعادة كتابة Apache لعناوين URL الخاصة بالمستأجر القائمة على المسار مثل /%s/{id}/wp-admin."
-
-#: admin/views/tenant-clone.php:326
-msgid "Are you sure? All data in the target tenant will be overwritten."
-msgstr "هل أنت متأكد؟ سيتم استبدال جميع البيانات في العميل الهدف."
-
-#: admin/views/status-general.php:159
-msgid "Auto-install of MU-plugin will not work. Manual installation required."
-msgstr "التنصيب التلقائي لإضافة MU لن يعمل. التنصيب اليدوي مطلوب."
-
-#: admin/views/tenant-clone.php:156
-msgid "Back to Tenants"
-msgstr "العودة إلى العملاء"
-
-#: admin/views/status-base.php:29
-msgid "Base Directory"
-msgstr "المجلد الأساسي"
-
-#: admin/views/status.php:77
-msgid "Base Plugin"
-msgstr "الإضافة الأساسية"
-
-#: admin/views/status-general.php:40
-msgid "Base Plugin Version"
-msgstr "إصدار الإضافة الأساسية"
-
-#: admin/views/tenant-create.php:169
-msgid "Better isolation, more control"
-msgstr "عزل أفضل، تحكم أكبر"
-
-#: admin/views/partials/status-env-cards.php:264
-msgid "Blank index.php prevents directory listing when .htaccess is unavailable."
-msgstr "يمنع index.php الفارغ سرد الدليل عندما يكون .htaccess غير متاح."
-
-#: admin/views/partials/status-env-cards.php:207
-msgid "Blocks direct HTTP access to PHP files and directory listing in the tenant data directory."
-msgstr "يمنع وصول HTTP المباشر إلى ملفات PHP وسرد الدليل في مجلد بيانات العميل."
-
-#: admin/views/settings-routing-confirm.php:108
-#: admin/views/tenant-clone.php:110
-#: admin/views/tenant-create.php:159
-#: admin/views/tenant-edit.php:145
-msgid "Cancel"
-msgstr "إلغاء"
-
-#: includes/backup/class-grabwp-tenancy-clone-admin.php:195
-msgid "Cannot clone a tenant into itself."
-msgstr "لا يمكن استنساخ موقع  عميل إلى نفسه."
-
-#: includes/backup/class-grabwp-tenancy-clone.php:150
-msgid "Cannot create temp staging directory."
-msgstr "لا يمكن إنشاء مجلد مرحلي مؤقت."
-
-#: admin/views/status-general.php:116
-msgid "Cannot detect (apache_get_modules unavailable)"
-msgstr "لا يمكن الكشف (apache_get_modules غير متاح)"
-
-#: includes/backup/class-grabwp-tenancy-clone-db-exporter.php:88
-msgid "Cannot open SQL output file."
-msgstr "لا يمكن فتح ملف إخراج SQL."
-
-#: admin/views/tenant-clone.php:59
-msgid "Choose clone target:"
-msgstr "اختر هدف الاستنساخ:"
-
-#: admin/views/tenant-clone.php:28
-msgid "Cleaning up"
-msgstr "تنظيف"
-
-#: admin/views/tenant-create.php:91
-#: admin/views/tenant-create.php:107
-msgid "Clear"
-msgstr "مسح"
-
-#: admin/views/tenant-clone.php:131
-msgid "Clone complete!"
-msgstr "اكتمل الاستنساخ!"
-
-#: includes/backup/class-grabwp-tenancy-clone.php:263
-msgid "Clone complete."
-msgstr "اكتمل الاستنساخ."
-
-#: includes/backup/class-grabwp-tenancy-clone.php:75
-msgid "Clone is already completed."
-msgstr "تم الاستنساخ بالفعل."
-
-#: includes/backup/class-grabwp-tenancy-clone.php:70
-msgid "Clone job not found or expired."
-msgstr "مهمة الاستنساخ غير موجودة أو منتهية الصلاحية."
-
-#: admin/views/tenant-clone.php:43
-msgid "Clone Main Site"
-msgstr "استنساخ الموقع الرئيسي"
-
-#: admin/views/tenant-clone.php:107
-#: includes/backup/class-grabwp-tenancy-clone-admin.php:78
-#: includes/backup/class-grabwp-tenancy-clone-admin.php:79
-#: includes/backup/class-grabwp-tenancy-clone-admin.php:123
-msgid "Clone Tenant"
-msgstr "استنساخ العميل"
-
-#: admin/views/tenant-clone.php:46
-#, php-format
-msgid "Clone Tenant: %s"
-msgstr "استنساخ العميل: %s"
-
-#: admin/views/tenant-clone.php:63
-msgid "Clone to existing site"
-msgstr "استنساخ إلى موقع موجود"
-
-#: admin/views/tenant-clone.php:67
-msgid "Clone to new site"
-msgstr "استنساخ إلى موقع جديد"
-
-#: admin/views/upgrade.php:52
-msgid "Cloud offload to S3-compatible storage"
-msgstr "نقل سحابي إلى تخزين متوافق مع S3"
-
-#: admin/views/status-base.php:81
-msgid "Configured on the Settings page."
-msgstr "مُكوَّن في صفحة الإعدادات."
-
-#: includes/class-grabwp-tenancy-status-checker.php:262
-msgid "Constants defined before load.php override all auto-detection and Pro admin directory settings."
-msgstr "الثوابت المحددة قبل load.php تتجاوز جميع إعدادات الاكتشاف التلقائي وأدلة إدارة Pro."
-
-#: admin/views/status-pro.php:61
-msgid "Content Isolation"
-msgstr "عزل المحتوى"
-
-#: admin/views/status-pro.php:54
-msgid "Content Isolation (Default)"
-msgstr "عزل المحتوى (الافتراضي)"
-
-#: admin/views/partials/site-result.php:63
-#: admin/views/setup-steps/done.php:66
-#: admin/views/tenant-edit.php:77
-msgid "Copy"
-msgstr "نسخ"
-
-#: admin/views/tenant-clone.php:27
-msgid "Copying uploads"
-msgstr "نسخ المرفقات"
-
-#: admin/views/tenant-create.php:23
-msgid "Create a new tenant. A path-based URL will be assigned automatically."
-msgstr "قم بإنشاء عميل جديد. سيتم تعيين رابط يعتمد على المسار تلقائيًا."
-
-#: admin/views/tenant-create.php:155
-msgid "Create Tenant"
-msgstr "إنشاء عميل"
-
-#: admin/views/tenant-create.php:154
-msgid "Create Tenant & Clone"
-msgstr "إنشاء عميل واستنساخ"
-
-#: admin/views/tenants.php:42
-msgid "Create Your First Tenant"
-msgstr "قم بإنشاء العميل الأول"
-
-#: admin/views/tenants.php:40
-msgid "Create your first tenant to get started with multi-tenancy."
-msgstr "قم بإنشاء العميل الأول للبدء مع تعدد العملاء."
-
-#: admin/views/upgrade.php:62
-msgid "Cross-database migration (shared, dedicated, SQLite)"
-msgstr "ترحيل عبر قواعد البيانات (مشتركة، مخصصة، SQLite)"
-
-#: admin/views/tenant-clone.php:139
-msgid "Dashboard"
-msgstr "لوحة التحكم"
-
-#: admin/views/status-general.php:142
-msgid "Data Dir Writable"
-msgstr "مجلد البيانات قابل للكتابة"
-
-#: admin/views/partials/status-env-cards.php:193
-msgid "Data Directory .htaccess"
-msgstr "مجلد البيانات .htaccess"
-
-#: includes/class-grabwp-tenancy-status-checker.php:220
-msgid "Data directory inside uploads/"
-msgstr "دليل البيانات داخل uploads/"
-
-#: includes/class-grabwp-tenancy-admin-notice.php:72
-msgid "Data directory is missing."
-msgstr "مجلد البيانات مفقود."
-
-#: admin/views/partials/status-env-cards.php:238
-#: admin/views/partials/status-env-cards.php:289
-msgid "Data directory is not writable, manual install required"
-msgstr "مجلد البيانات غير قابل للكتابة، التنصيب اليدوي مطلوب"
-
-#: admin/views/status-pro.php:85
-msgid "Database (Default)"
-msgstr "قاعدة البيانات (الافتراضي)"
-
-#: admin/views/status-general.php:94
-msgid "Database Engine"
-msgstr "محرك قاعدة البيانات"
-
-#: includes/backup/class-grabwp-tenancy-clone.php:195
-msgid "Database imported into target tenant."
-msgstr "تم استيراد قاعدة البيانات إلى العميل الهدف."
-
-#: admin/views/status-pro.php:94
-#: admin/views/tenant-clone.php:93
-msgid "Database Type"
-msgstr "نوع قاعدة البيانات"
-
-#: admin/views/upgrade.php:37
-msgid "Dedicated database per tenant (MySQL / SQLite)"
-msgstr "قاعدة بيانات مخصصة لكل عميل (MySQL / SQLite)"
-
-#: admin/views/status-pro.php:55
-msgid "Default content isolation settings applied when creating new tenants."
-msgstr "إعدادات عزل المحتوى الافتراضية المطبقة عند إنشاء عملاء جدد."
-
-#: admin/views/status-pro.php:86
-msgid "Default database configuration for new tenants."
-msgstr "إعدادات قاعدة البيانات الافتراضية للمستأجرين الجدد."
-
-#: includes/class-grabwp-tenancy-status-checker.php:261
-msgid "Directory paths hardcoded in wp-config.php"
-msgstr "مسارات الأدلة مشفرة بشكل ثابت في wp-config.php"
-
-#: includes/class-grabwp-tenancy-settings.php:156
-msgid "Disable WP-Cron"
-msgstr "تعطيل WP-Cron"
-
-#: includes/class-grabwp-tenancy-settings.php:164
-msgid "Disable XML-RPC"
-msgstr "تعطيل XML-RPC"
-
-#: admin/views/status-general.php:137
-msgid "Disabled"
-msgstr "مُعطَّل"
-
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:265
-#: includes/class-grabwp-tenancy-setup-wizard.php:700
-#: includes/class-grabwp-tenancy-setup-wizard.php:727
-msgid "Dismiss"
-msgstr "تجاهل"
-
-#: admin/views/tenant-create.php:75
-msgid "Domain Setup"
-msgstr "إعداد النطاق"
-
-#: includes/class-grabwp-tenancy-tenant-crud.php:215
-#, php-format
-msgid "Domain(s) already in use by other tenants: %s. Each domain can only be assigned to one tenant."
-msgstr "النطاق (النطاقات) قيد الاستخدام بالفعل من قبل عملاء آخرين: %s. يمكن تعيين كل نطاق لعميل واحد فقط."
-
-#: includes/class-grabwp-tenancy-tenant-crud.php:216
-#, php-format
-msgid "Domain(s) already in use: %s. Each domain can only be assigned to one tenant."
-msgstr "النطاق (النطاقات) قيد الاستخدام بالفعل: %s. يمكن تعيين كل نطاق لعميل واحد فقط."
-
-#: admin/class-grabwp-tenancy-list-table.php:78
-#: admin/views/tenant-clone.php:92
-#: admin/views/tenant-edit.php:84
-msgid "Domains"
-msgstr "النطاقات"
-
-#: includes/class-grabwp-tenancy-admin.php:300
-#: includes/class-grabwp-tenancy-admin.php:301
-msgid "Edit Tenant"
-msgstr "تعديل العميل"
-
-#: admin/views/tenant-clone.php:137
-msgid "Edit tenant"
-msgstr "تعديل العميل"
-
-#: admin/views/tenant-edit.php:32
-msgid "Edit tenant settings and domain mappings."
-msgstr "تحرير إعدادات العميل وتعيينات النطاق."
-
-#. translators: %s: tenant ID
-#: admin/views/tenant-edit.php:19
-#, php-format
-msgid "Edit Tenant: %s"
-msgstr "تحرير العميل: %s"
-
-#: admin/views/status-general.php:135
-msgid "Enabled"
-msgstr "مُفعَّل"
-
-#: admin/views/tenant-create.php:90
-#: admin/views/tenant-create.php:106
-msgid "Enter domain (e.g. mysite.com)"
-msgstr "أدخل النطاق (مثل mysite.com)"
-
-#: admin/views/tenant-edit.php:106
-#: admin/views/tenant-edit.php:114
-#: includes/class-grabwp-tenancy-admin.php:380
-msgid "Enter domain (e.g., tenant1.grabwp.local)"
-msgstr "أدخل النطاق (مثل، tenant1.grabwp.local)"
-
-#: admin/views/tenant-create.php:76
-msgid "Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page."
-msgstr "أدخل بدون http:// أو www (مثل mysite.com، blog.mysite.com). يمكنك إضافة نطاق في أي وقت من صفحة تحرير العميل."
-
-#: admin/views/status-general.php:30
-msgid "Environment Checks"
-msgstr "فحوصات البيئة"
-
-#: includes/backup/class-grabwp-tenancy-clone.php:182
-msgid "Export files not found."
-msgstr "ملفات التصدير غير موجودة."
-
-#: includes/backup/class-grabwp-tenancy-clone.php:187
-msgid "Export metadata is invalid."
-msgstr "البيانات الوصفية للتصدير غير صالحة."
-
-#: admin/views/tenant-clone.php:24
-msgid "Exporting source database"
-msgstr "تصدير قاعدة بيانات المصدر"
-
-#: admin/views/upgrade.php:72
-msgid "Extension management (symlink/copy/repair)"
-msgstr "إدارة الإضافات (symlink/نسخ/إصلاح)"
-
-#: includes/class-grabwp-tenancy-tenant-crud.php:91
-msgid "Failed to create tenant."
-msgstr "فشل إنشاء العميل."
-
-#: includes/class-grabwp-tenancy-tenant-crud.php:121
-msgid "Failed to delete tenant."
-msgstr "فشل حذف العميل."
-
-#: includes/class-grabwp-tenancy-tenant-crud.php:71
-msgid "Failed to generate a unique tenant ID. Please try again."
-msgstr "فشل إنشاء معرف عميل فريد. يرجى المحاولة مرة أخرى."
-
-#: includes/class-grabwp-tenancy-admin-form-handler.php:180
-msgid "Failed to save settings. Please check file permissions."
-msgstr "فشل حفظ الإعدادات. يرجى التحقق من أذونات الملفات."
-
-#: includes/class-grabwp-tenancy-tenant-crud.php:187
-msgid "Failed to update tenant."
-msgstr "فشل تحديث العميل."
-
-#: admin/views/upgrade.php:25
-msgid "Feature"
-msgstr "الميزة"
-
-#: admin/views/status-base.php:25
-msgid "File Structure"
-msgstr "بنية الملفات"
-
-#: admin/views/partials/status-env-cards.php:48
-#, php-format
-msgid "File: %1$s, place before %2$s"
-msgstr "الملف: %1$s، ضعه قبل %2$s"
-
-#: admin/views/partials/status-env-cards.php:99
-#: admin/views/partials/status-env-cards.php:210
-#: admin/views/partials/status-env-cards.php:267
-#, php-format
-msgid "File: %s"
-msgstr "الملف: %s"
-
-#: admin/views/partials/status-env-cards.php:155
-#, php-format
-msgid "File: %s, must appear BEFORE \"# BEGIN WordPress\""
-msgstr "الملف: %s، يجب أن يظهر قبل \"# BEGIN WordPress\""
-
-#: admin/views/partials/status-env-cards.php:41
-#: admin/views/partials/status-env-cards.php:94
-#: admin/views/partials/status-env-cards.php:144
-#: admin/views/partials/status-env-cards.php:205
-#: admin/views/partials/status-env-cards.php:262
-msgid "Fix steps and install code"
-msgstr "خطوات الإصلاح وكود التنصيب"
-
-#. Description of the plugin
-#: grabwp-tenancy.php
-msgid "Foundation multi-tenant WordPress solution with shared MySQL database and separated uploads. Designed to be extended by GrabWP Tenancy Pro for advanced features."
-msgstr "حل WordPress الأساسي متعدد العملاء مع قاعدة بيانات MySQL مشتركة ومرفوعات منفصلة. مصمم ليتم توسيعه بواسطة GrabWP Tenancy Pro للحصول على ميزات متقدمة."
-
-#: admin/views/upgrade.php:26
-msgid "Free"
-msgstr "مجاني"
-
-#: admin/views/upgrade.php:42
-msgid "Full tenant backup and restore"
-msgstr "نسخ احتياطي واستعادة كاملة للعميل"
-
-#: admin/views/tenant-clone.php:148
-#: admin/views/upgrade.php:86
-msgid "Get GrabWP Tenancy Pro"
-msgstr "احصل على GrabWP Tenancy Pro"
-
-#. Author of the plugin
-#: grabwp-tenancy.php
-msgid "GrabWP"
-msgstr "GrabWP"
-
 #. Plugin Name of the plugin
 #: grabwp-tenancy.php
 #: admin/views/tenant-edit.php:155
 #: admin/views/tenants.php:16
 #: includes/class-grabwp-tenancy-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:489
+#: includes/class-grabwp-tenancy-admin.php:503
+#: includes/class-grabwp-tenancy-diagnostics.php:291
 msgid "GrabWP Tenancy"
 msgstr "GrabWP Tenancy"
-
-#: admin/views/status-general.php:37
-msgid "GrabWP Tenancy Information"
-msgstr "معلومات GrabWP Tenancy"
-
-#: admin/views/status-pro.php:27
-msgid "GrabWP Tenancy Pro"
-msgstr "GrabWP Tenancy Pro"
-
-#: admin/views/tenant-create.php:168
-msgid "GrabWP Tenancy Pro adds isolated databases, custom plugin & theme management, scheduled backups, cloud storage offload, and more for every client site."
-msgstr "تضيف GrabWP Tenancy Pro قواعد بيانات معزولة، وإدارة مخصصة للإضافات والقوالب، ونسخ احتياطي مجدول، وتخزين سحابي، والمزيد لكل موقع عميل."
-
-#: includes/class-grabwp-tenancy-admin.php:228
-msgid "GrabWP Tenancy Pro adds scheduled auto backups, offsite cloud storage, dedicated database isolation, and more for every client site."
-msgstr "تضيف GrabWP Tenancy Pro نسخًا احتياطيًا تلقائيًا مجدولًا، وتخزينًا سحابيًا خارجيًا، وعزل قاعدة بيانات مخصص، والمزيد لكل موقع عميل."
-
-#: admin/views/upgrade.php:19
-msgid "GrabWP Tenancy Pro gives you the tools to manage client sites at scale: scheduled backups, dedicated databases, cloud storage offload, and more."
-msgstr "تمنحك GrabWP Tenancy Pro الأدوات اللازمة لإدارة مواقع العملاء على نطاق واسع: نسخ احتياطي مجدول، قواعد بيانات مخصصة، تخزين سحابي، والمزيد."
-
-#: admin/views/tenant-clone.php:147
-msgid "GrabWP Tenancy Pro schedules automatic backups for every client site and pushes copies to secure offsite storage. No more manual steps, no missed backups."
-msgstr "تقوم GrabWP Tenancy Pro بجدولة عمليات نسخ احتياطي تلقائية لكل موقع عميل وتدفع النسخ إلى تخزين خارجي آمن. لا مزيد من الخطوات اليدوية، ولا نسخ احتياطية مفقودة."
-
-#: admin/views/tenants.php:63
-msgid "GrabWP Tenancy Pro supports plugin & theme management,  seperated MySQL or SQLite, scheduled backups, cloud storage offload, and customization options for every client site."
-msgstr "تدعم GrabWP Tenancy Pro إدارة الإضافات والقوالب،  وقواعد بيانات MySQL أو SQLite منفصلة، ونسخ احتياطي مجدول، وتخزين سحابي، وخيارات تخصيص لكل موقع عميل."
-
-#: admin/views/settings.php:16
-msgid "GrabWP Tenancy Settings"
-msgstr "إعدادات GrabWP Tenancy"
-
-#: admin/views/status.php:65
-msgid "GrabWP Tenancy Status"
-msgstr "حالة GrabWP Tenancy"
-
-#: admin/views/status.php:94
-msgid "GrabWP Tenancy:"
-msgstr "GrabWP Tenancy:"
-
-#: includes/class-grabwp-tenancy-settings.php:150
-msgid "Hide GrabWP Plugins"
-msgstr "إخفاء إضافات GrabWP"
-
-#: admin/views/tenant-clone.php:138
-msgid "Homepage"
-msgstr "الصفحة الرئيسية"
-
-#. Author URI of the plugin
-#: grabwp-tenancy.php
-msgid "https://grabwp.com"
-msgstr "https://grabwp.com"
 
 #. Plugin URI of the plugin
 #: grabwp-tenancy.php
 msgid "https://grabwp.com/tenancy"
 msgstr "https://grabwp.com/tenancy"
 
-#: admin/views/tenant-create.php:101
-msgid "I have a domain"
-msgstr "لدي نطاق"
-
-#: admin/views/tenant-create.php:116
-msgid "I'll set up a domain later"
-msgstr "سأقوم بإعداد نطاق لاحقًا"
-
-#: admin/views/partials/status-env-cards.php:314
-msgid "If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again."
-msgstr "إذا احتاجت إضافة في الموقع الرئيسي (على سبيل المثال إضافة ذاكرة التخزين المؤقت) إلى كتابة هذه الملفات، قم بإلغاء القفل مؤقتاً، ثم قم بالقفل مرة أخرى."
-
-#: admin/views/tenant-clone.php:25
-msgid "Importing database into target tenant"
-msgstr "استيراد قاعدة البيانات إلى موقع العميل الهدف"
-
-#: admin/views/status-general.php:52
-msgid "Inactive"
-msgstr "غير نشط"
-
-#: includes/class-grabwp-tenancy-admin.php:383
-msgid "Incorrect tenant ID. Deletion cancelled."
-msgstr "معرف العميل غير صحيح. تم إلغاء الحذف."
-
-#: admin/views/partials/status-env-cards.php:252
-msgid "index.php Protection"
-msgstr "حماية index.php"
-
-#: includes/backup/class-grabwp-tenancy-clone-admin.php:266
-#: includes/class-grabwp-tenancy-setup-wizard.php:739
-#: includes/class-grabwp-tenancy-setup-wizard.php:757
-#: includes/class-grabwp-tenancy-setup-wizard.php:795
-#: includes/class-grabwp-tenancy-setup-wizard.php:978
-#: includes/class-grabwp-tenancy-setup-wizard.php:1032
-#: includes/class-grabwp-tenancy-setup-wizard.php:1435
-#: includes/class-grabwp-tenancy-tenant-crud.php:38
-#: includes/class-grabwp-tenancy-tenant-crud.php:100
-#: includes/class-grabwp-tenancy-tenant-crud.php:148
-#: includes/class-grabwp-tenancy-tenant-installer.php:156
-msgid "Insufficient permissions."
-msgstr "صلاحيات غير كافية."
-
-#. translators: %d: number of snapshot files.
-#: admin/views/partials/status-env-cards.php:327
-#, php-format
-msgid "Integrity snapshots: %d"
-msgstr "لقطات سلامة الملفات: %d"
-
-#: includes/backup/class-grabwp-tenancy-clone.php:129
-msgid "Invalid clone step."
-msgstr "خطوة استنساخ غير صالحة."
-
-#: includes/backup/class-grabwp-tenancy-clone.php:115
-msgid "Invalid source tenant ID."
-msgstr "معرف العميل المصدر غير صالح."
-
-#: includes/backup/class-grabwp-tenancy-clone.php:118
-msgid "Invalid target tenant ID."
-msgstr "معرف العميل الهدف غير صالح."
-
-#: includes/class-grabwp-tenancy-tenant-crud.php:104
-#: includes/class-grabwp-tenancy-tenant-crud.php:152
-#: includes/class-grabwp-tenancy-tenant-installer.php:160
-msgid "Invalid tenant ID."
-msgstr "معرف العميل غير صالح."
-
-#: admin/views/status-pro.php:97
-msgid "Isolated MySQL Database"
-msgstr "قاعدة بيانات MySQL معزولة"
-
-#: admin/views/status-pro.php:99
-msgid "Isolated SQLite Database"
-msgstr "قاعدة بيانات SQLite معزولة"
-
-#: admin/views/settings.php:70
-msgid "Learn about GrabWP Tenancy Pro"
-msgstr "تعرف على GrabWP Tenancy Pro"
-
-#: admin/views/partials/upsell-card.php:20
-#: admin/views/tenant-create.php:170
-#: admin/views/tenant-edit.php:156
-#: admin/views/tenants.php:64
-#: includes/class-grabwp-tenancy-admin.php:229
-msgid "Learn about Pro"
-msgstr "تعرف على Pro"
-
-#: includes/class-grabwp-tenancy-admin-notice.php:52
-msgid "load.php is not included in wp-config.php."
-msgstr "load.php غير مضمن في wp-config.php."
-
-#: admin/views/partials/status-env-cards.php:43
-msgid "Loads tenant detection before WordPress boots so domain/path routing can identify the tenant."
-msgstr "يقوم بتحميل اكتشاف العميل قبل إقلاع WordPress بحيث يمكن لتوجيه النطاق/المسار تحديد العميل."
-
-#: admin/views/partials/status-env-cards.php:338
-msgid "Lock shared files"
-msgstr "قفل الملفات المشتركة"
-
-#: admin/views/partials/status-env-cards.php:307
-msgid "Locked"
-msgstr "مقفل"
-
-#: admin/class-grabwp-tenancy-list-table.php:278
-#: admin/views/tenant-create.php:38
-msgid "Main Site"
-msgstr "الموقع الرئيسي"
-
-#: admin/views/partials/status-env-cards.php:313
-msgid "Makes the shared root files read-only (0444) so tenant plugins cannot rewrite them. GrabWP and main-site permalink saves unlock and re-lock automatically."
-msgstr "يجعل ملفات الجذر المشتركة للقراءة فقط (0444) بحيث لا يمكن لإضافات العميل إعادة كتابتها. عمليات حفظ روابط GrabWP والموقع الرئيسي تقوم بإلغاء القفل وإعادته تلقائياً."
-
-#: admin/views/tenants.php:22
-msgid "Manage your multi-tenant WordPress sites."
-msgstr "إدارة مواقع WordPress متعددة العميل."
-
-#: admin/views/status-general.php:108
-msgid "mod_rewrite"
-msgstr "mod_rewrite"
-
-#: includes/class-grabwp-tenancy-admin-notice.php:62
-msgid "MU-plugin is not installed. Tenant features may not work."
-msgstr "إضافة MU غير مثبتة. قد لا تعمل ميزات العميل."
-
-#: admin/views/status-general.php:153
-msgid "MU-Plugins Dir Writable"
-msgstr "مجلد إضافات MU قابل للكتابة"
-
-#: admin/views/partials/status-env-cards.php:114
-msgid "mu-plugins directory is not writable, manual install required"
-msgstr "مجلد mu-plugins غير قابل للكتابة، التنصيب اليدوي مطلوب"
-
-#: admin/views/partials/status-env-cards.php:96
-msgid "MU-plugins load on every request, including tenant admin, for settings sync and management features."
-msgstr "يتم تحميل إضافات MU عند كل طلب، بما في ذلك إدارة العميل، لمزامنة الإعدادات وميزات الإدارة."
-
-#: includes/class-grabwp-tenancy-status-checker.php:209
-msgid "Multiple global config.php files detected"
-msgstr "تم اكتشاف ملفات config.php عامة متعددة"
-
-#: includes/class-grabwp-tenancy-status-checker.php:277
-msgid "Multiple tenant-aliases.php files detected"
-msgstr "تم اكتشاف ملفات tenant-aliases.php متعددة"
-
-#: admin/views/upgrade.php:32
-msgid "Multiple tenants via shared MySQL"
-msgstr "عملاء متعددين عبر MySQL مشتركة"
-
-#: includes/class-grabwp-tenancy-status-checker.php:182
-msgid "Multiple tenants.php files detected"
-msgstr "تم اكتشاف ملفات tenants.php متعددة"
-
-#: admin/views/status-pro.php:117
-msgid "MySQL Database"
-msgstr "قاعدة بيانات MySQL"
-
-#: admin/views/status-pro.php:108
-msgid "MySQL Host"
-msgstr "مستضيف MySQL"
-
-#: admin/views/status-pro.php:126
-msgid "MySQL Username"
-msgstr "اسم مستخدم MySQL"
-
-#: admin/views/tenant-edit.php:154
-msgid "Need more control? GrabWP Tenancy Pro adds isolated databases (MySQL or SQLite), scheduled backups, cloud storage offload, and more for every client site."
-msgstr "هل تحتاج إلى مزيد من التحكم؟ تضيف GrabWP Tenancy Pro قواعد بيانات معزولة (MySQL أو SQLite)، ونسخ احتياطي مجدول، وتخزين سحابي، والمزيد لكل موقع عميل."
-
-#: admin/views/tenants.php:62
-msgid "Need more isolation?"
-msgstr "هل تحتاج إلى مزيد من العزل؟"
-
-#: admin/views/status-base.php:119
-#: admin/views/status-general.php:127
-msgid "No"
-msgstr "لا"
-
-#: admin/class-grabwp-tenancy-list-table.php:328
-msgid "No domains assigned"
-msgstr "لم يتم تعيين أي نطاقات"
-
-#: admin/views/tenants.php:39
-msgid "No Tenants Found"
-msgstr "لم يتم العثور على عملاء"
-
-#. translators: %s: search term
-#: admin/class-grabwp-tenancy-list-table.php:416
-#, php-format
-msgid "No tenants found matching \"%s\"."
-msgstr "لم يتم العثور على عملاء يطابقون \"%s\"."
-
-#: admin/class-grabwp-tenancy-list-table.php:420
-msgid "No tenants found."
-msgstr "لم يتم العثور على أي عملاء."
-
-#: includes/class-grabwp-tenancy-status-checker.php:183
-msgid "Only one tenants.php is loaded at boot. Stale copies at other locations may cause confusion during debugging or migration. Remove unused copies."
-msgstr "يتم تحميل ملف tenants.php واحد فقط عند التمهيد. قد تسبب النسخ القديمة في مواقع أخرى ارتباكًا أثناء تصحيح الأخطاء أو الترحيل. قم بإزالة النسخ غير المستخدمة."
-
-#: includes/class-grabwp-tenancy-status-checker.php:278
-msgid "Only the copy at the active base directory is loaded. Remove stale copies to prevent confusion."
-msgstr "يتم تحميل النسخة الموجودة في الدليل الأساسي النشط فقط. قم بإزالة النسخ القديمة لمنع الارتباك."
-
-#: admin/class-grabwp-tenancy-list-table.php:325
-msgid "Path access only"
-msgstr "الوصول عبر المسار فقط"
-
-#: admin/views/upgrade.php:67
-msgid "Path alias routing (/site/my-shop/)"
-msgstr "توجيه الاسم المستعار للمسار (/site/my-shop/)"
-
-#: admin/views/status-general.php:114
-msgid "Path routing requires mod_rewrite. Query string routing (?site=id) will be used as fallback."
-msgstr "يتطلب توجيه المسار mod_rewrite. سيتم استخدام توجيه سلسلة الاستعلام (?site=id) كبديل."
-
-#: admin/views/tenant-edit.php:72
-msgid "Path URL"
-msgstr "رابط المسار"
-
-#: admin/views/settings.php:26
-#: admin/views/status-base.php:90
-msgid "Performance & Security"
-msgstr "الأداء والأمان"
-
-#: admin/views/status-general.php:90
-msgid "PHP Version"
-msgstr "إصدار PHP"
-
-#: includes/class-grabwp-tenancy-tenant-crud.php:207
-msgid "Please enter at least one valid domain."
-msgstr "يرجى إدخال نطاق واحد صالح على الأقل."
-
-#: includes/backup/class-grabwp-tenancy-clone-admin.php:191
-msgid "Please select a target tenant."
-msgstr "يرجى تحديد عميل هدف."
-
-#: admin/views/status.php:73
-msgid "Plugin General"
-msgstr "عام الإضافة"
-
-#: admin/views/status-pro.php:63
-msgid "Plugin Isolation"
-msgstr "عزل الإضافة"
-
-#: admin/views/status-general.php:148
-msgid "Plugin needs write access to create tenant directories and manage configuration files."
-msgstr "تحتاج الإضافة إلى صلاحية الكتابة لإنشاء مجلدات المستأجرين وإدارة ملفات التكوين."
-
-#: admin/views/partials/upsell-card.php:27
-#: admin/views/partials/upsell-card.php:32
-#: admin/views/upgrade.php:27
-msgid "Pro"
-msgstr "Pro"
-
-#: includes/class-grabwp-tenancy-status-checker.php:230
-msgid "Pro config directory inside uploads/"
-msgstr "دليل تكوين Pro داخل uploads/"
-
-#: includes/class-grabwp-tenancy-status-checker.php:210
-msgid "Pro global configuration exists at both new and legacy locations. Boot loads the new path first; changes saved to the other copy are silently ignored. Remove the unused copy."
-msgstr "يوجد تكوين Pro العام في كل من المواقع الجديدة والقديمة. يحمل التمهيد المسار الجديد أولاً؛ يتم تجاهل التغييرات المحفوظة في النسخة الأخرى بصمت. قم بإزالة النسخة غير المستخدمة."
-
-#: admin/views/status-general.php:44
-#: admin/views/status.php:81
-msgid "Pro Plugin"
-msgstr "إضافة Pro"
-
-#: admin/views/status-pro.php:38
-msgid "Pro Plugin Information"
-msgstr "معلومات إضافة Pro"
-
-#: includes/class-grabwp-tenancy-status-checker.php:231
-msgid "Pro tenant configs are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-pro/."
-msgstr "تكوينات عميل Pro موجودة داخل wp-content/uploads/. يوصى باستخدام: wp-content/grabwp-tenancy-pro/."
-
-#: admin/views/status-pro.php:41
-msgid "Pro Version"
-msgstr "إصدار Pro"
-
-#: admin/views/status-general.php:57
-msgid "Registered Tenants"
-msgstr "المستأجرون المسجلون"
-
-#: admin/views/tenant-create.php:108
-#: admin/views/tenant-edit.php:107
-#: admin/views/tenant-edit.php:115
-#: includes/class-grabwp-tenancy-admin.php:381
-msgid "Remove"
-msgstr "إزالة"
-
-#: includes/class-grabwp-tenancy-admin-notice.php:108
-msgid "Root .htaccess needs to be updated for tenant routing."
-msgstr "يحتاج ملف .htaccess الجذري إلى التحديث لتوجيه العميل."
-
-#: admin/views/partials/status-env-cards.php:178
-msgid "Root directory or .htaccess is not writable, manual install required"
-msgstr "المجلد الجذر أو .htaccess غير قابل للكتابة، التنصيب اليدوي مطلوب"
-
-#: admin/views/settings.php:61
-msgid "Save Settings"
-msgstr "حفظ الإعدادات"
-
-#: admin/views/settings.php:69
-msgid "Schedule automatic backups for each tenant site on an interval you control. Pro automatically pushes backup copies to secure offsite storage after each run, so you never lose client data to a server failure."
-msgstr "قم بجدولة نسخ احتياطية تلقائية لكل موقع عميل بفواصل زمنية تتحكم فيها. يقوم Pro بدفع نسخ احتياطية تلقائياً إلى مساحة تخزين خارجية آمنة بعد كل عملية، لذا لن تفقد بيانات العملاء أبداً بسبب عطل في الخادم."
-
-#: admin/views/upgrade.php:47
-msgid "Scheduled automatic backups (daily, weekly, etc.)"
-msgstr "نسخ احتياطي تلقائي مجدول (يومي، أسبوعي، إلخ.)"
-
-#: admin/views/settings.php:68
-msgid "Scheduling and automatic backups"
-msgstr "الجدولة والنسخ الاحتياطي التلقائي"
-
-#: admin/class-grabwp-tenancy-list-table.php:535
-msgid "Search"
-msgstr "بحث"
-
-#: admin/class-grabwp-tenancy-list-table.php:534
-msgid "Search by ID or domain..."
-msgstr "البحث بواسطة المعرف أو النطاق..."
-
-#: admin/class-grabwp-tenancy-list-table.php:533
-msgid "Search Tenants"
-msgstr "البحث عن العملاء"
-
-#: includes/backup/class-grabwp-tenancy-clone-admin.php:138
-#: includes/backup/class-grabwp-tenancy-clone-admin.php:254
-#: includes/backup/class-grabwp-tenancy-clone-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:405
-msgid "Security check failed."
-msgstr "فشل فحص الأمان."
-
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:263
-msgid "See grabwp_debug.log for details. If you changed these files yourself, use Unlock then Lock on the Status page to refresh the snapshot."
-msgstr "راجع grabwp_debug.log للحصول على التفاصيل. إذا قمت بتغيير هذه الملفات بنفسك، فاستخدم \"إلغاء القفل\" ثم \"قفل\" في صفحة الحالة لتحديث اللقطة."
-
-#: admin/views/tenant-clone.php:87
-msgid "Select an existing tenant to clone data into. Create the target tenant first if needed."
-msgstr "حدد عميلا موجودًا لاستنساخ البيانات إليه. قم بإنشاء العميل الهدف أولًا إذا لزم الأمر."
-
-#: admin/class-grabwp-tenancy-list-table.php:362
-#: admin/views/status-base.php:82
-#: includes/class-grabwp-tenancy-admin.php:309
-#: includes/class-grabwp-tenancy-admin.php:310
-msgid "Settings"
-msgstr "إعدادات"
-
-#: admin/views/status-base.php:58
-msgid "Settings File"
-msgstr "ملف الإعدادات"
-
-#: includes/class-grabwp-tenancy-admin.php:547
-msgid "Settings saved successfully."
-msgstr "تم حفظ الإعدادات بنجاح."
-
-#: admin/views/status-pro.php:75
-msgid "Shared"
-msgstr "مشترك"
-
-#: admin/views/status-pro.php:101
-msgid "Shared Database (with table prefixes)"
-msgstr "قاعدة بيانات مشتركة (مع بادئات الجداول)"
-
-#: admin/views/partials/status-env-cards.php:305
-msgid "Shared Files Lock"
-msgstr "قفل الملفات المشتركة"
-
-#: admin/views/tenant-clone.php:53
-#: admin/views/tenant-clone.php:93
-msgid "Shared MySQL"
-msgstr "MySQL مشتركة"
-
-#: includes/backup/class-grabwp-tenancy-clone.php:253
-msgid "Site URLs updated."
-msgstr "تم تحديث روابط الموقع."
-
-#: includes/backup/class-grabwp-tenancy-clone.php:157
-msgid "Source and target tenants validated."
-msgstr "تم التحقق من العميل المصدر والهدف."
-
-#: includes/backup/class-grabwp-tenancy-clone.php:171
-msgid "Source database exported."
-msgstr "تم تصدير قاعدة بيانات المصدر."
-
-#: admin/views/tenant-clone.php:53
-#, php-format
-msgid "Source database type: %s"
-msgstr "نوع قاعدة بيانات المصدر: %s"
-
-#: includes/backup/class-grabwp-tenancy-clone.php:138
-msgid "Source tenant not found."
-msgstr "العميل المصدر غير موجود."
-
-#: includes/class-grabwp-tenancy-status-checker.php:242
-msgid "SQLite databases are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-sqlite/."
-msgstr "قواعد بيانات SQLite موجودة داخل wp-content/uploads/. يوصى باستخدام: wp-content/grabwp-tenancy-sqlite/."
-
-#: includes/class-grabwp-tenancy-status-checker.php:241
-msgid "SQLite directory inside uploads/"
-msgstr "دليل SQLite داخل uploads/"
-
-#: admin/views/status-pro.php:45
-#: includes/class-grabwp-tenancy-admin.php:318
-#: includes/class-grabwp-tenancy-admin.php:319
-msgid "Status"
-msgstr "الحالة"
-
-#: admin/views/partials/status-env-cards.php:69
-msgid "Stop-editing marker not found, manual install required"
-msgstr "لم يتم العثور على علامة التوقف عن التحرير، التنصيب اليدوي مطلوب"
-
-#: admin/views/upgrade.php:77
-msgid "Storage driver selection (Local / S3)"
-msgstr "اختيار محرك التخزين (محلي / S3)"
-
-#: admin/views/status-general.php:71
-msgid "System Information"
-msgstr "معلومات النظام"
-
-#: admin/views/tenant-clone.php:81
-msgid "Target Tenant"
-msgstr "العميل الهدف"
-
-#: includes/backup/class-grabwp-tenancy-clone-admin.php:208
-#: includes/backup/class-grabwp-tenancy-clone.php:143
-msgid "Target tenant not found."
-msgstr "العميل الهدف غير موجود."
-
-#: admin/views/tenant-clone.php:135
-msgid "Target tenant:"
-msgstr "العميل الهدف:"
-
-#: includes/class-grabwp-tenancy-admin.php:489
-msgid "Template not found."
-msgstr "القالب غير موجود."
-
-#: includes/class-grabwp-tenancy-admin.php:272
-msgid "Tenancy"
-msgstr "العملاء"
-
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:260
-msgid "tenant"
-msgstr "عميل"
-
-#: admin/views/settings.php:25
-#: admin/views/status-base.php:80
-msgid "Tenant Capabilities"
-msgstr "قدرات العميل"
-
-#: includes/class-grabwp-tenancy-admin.php:544
-#: includes/class-grabwp-tenancy-tenant-crud.php:85
-msgid "Tenant created successfully."
-msgstr "تم إنشاء العميل بنجاح."
-
-#: includes/class-grabwp-tenancy-status-checker.php:221
-msgid "Tenant data is inside wp-content/uploads/ — exposed to media upload scanners, backup tools, and CDN sync. Recommended: wp-content/grabwp-tenancy/."
-msgstr "بيانات العميل موجودة داخل wp-content/uploads/ - وهي مكشوفة لفاحصات رفع الوسائط، وأدوات النسخ الاحتياطي، ومزامنة CDN. يوصى باستخدام: wp-content/grabwp-tenancy/."
-
-#: includes/class-grabwp-tenancy-admin.php:546
-msgid "Tenant deleted successfully."
-msgstr "تم حذف العميل بنجاح."
-
-#: includes/class-grabwp-tenancy-tenant-crud.php:133
-msgid "Tenant deleted successfully. All files and database tables removed."
-msgstr "تم حذف العميل بنجاح. تمت إزالة جميع الملفات وجداول قاعدة البيانات."
-
-#: includes/class-grabwp-tenancy-tenant-crud.php:135
-msgid "Tenant deleted successfully. Files removed, but some database tables may remain."
-msgstr "تم حذف العميل بنجاح. تمت إزالة الملفات، ولكن قد تبقى بعض جداول قاعدة البيانات."
-
-#: includes/class-grabwp-tenancy-tenant-crud.php:138
-msgid "Tenant deleted, but some files or database tables may remain."
-msgstr "تم حذف العميل، ولكن قد تبقى بعض الملفات أو جداول قاعدة البيانات."
+#. Description of the plugin
+#: grabwp-tenancy.php
+msgid "Foundation multi-tenant WordPress solution with shared MySQL database and separated uploads. Designed to be extended by GrabWP Tenancy Pro for advanced features."
+msgstr "حل WordPress الأساسي متعدد العملاء مع قاعدة بيانات MySQL مشتركة ومرفوعات منفصلة. مصمم ليتم توسيعه بواسطة GrabWP Tenancy Pro للحصول على ميزات متقدمة."
+
+#. Author of the plugin
+#: grabwp-tenancy.php
+msgid "GrabWP"
+msgstr "GrabWP"
+
+#. Author URI of the plugin
+#: grabwp-tenancy.php
+msgid "https://grabwp.com"
+msgstr "https://grabwp.com"
+
+#: admin/class-grabwp-tenancy-list-table.php:62
+msgid "Tenants per page"
+msgstr "عدد العملاء لكل صفحة"
 
 #: admin/class-grabwp-tenancy-list-table.php:77
 #: admin/views/tenant-clone.php:91
@@ -1029,317 +55,20 @@ msgstr "تم حذف العميل، ولكن قد تبقى بعض الملفات 
 msgid "Tenant ID"
 msgstr "معرف العميل"
 
-#: includes/class-grabwp-tenancy-admin.php:411
-msgid "Tenant ID is required."
-msgstr "معرف العميل مطلوب."
-
-#: admin/views/status-base.php:46
-msgid "Tenant Mappings File"
-msgstr "ملف تعيينات العميل"
-
-#: includes/class-grabwp-tenancy-admin.php:416
-#: includes/class-grabwp-tenancy-tenant-crud.php:114
-#: includes/class-grabwp-tenancy-tenant-crud.php:177
-msgid "Tenant not found."
-msgstr "العميل غير موجود."
-
-#: admin/views/tenant-edit.php:40
-#: includes/class-grabwp-tenancy-admin.php:545
-#: includes/class-grabwp-tenancy-tenant-crud.php:184
-msgid "Tenant updated successfully."
-msgstr "تم تحديث العميل بنجاح."
-
-#: admin/views/status-base.php:70
-msgid "Tenant Uploads Pattern"
-msgstr "نمط مرفوعات العميل"
-
-#: admin/class-grabwp-tenancy-list-table.php:62
-msgid "Tenants per page"
-msgstr "عدد العملاء لكل صفحة"
-
-#: admin/views/tenant-clone.php:132
-msgid "The source tenant data has been cloned into the target tenant."
-msgstr "تم استنساخ بيانات العميل المصدر إلى العميل الهدف."
-
-#: admin/views/status-pro.php:62
-msgid "Theme Isolation"
-msgstr "عزل القالب"
-
-#: admin/views/tenant-edit.php:79
-msgid "This URL is always available, no DNS configuration needed."
-msgstr "هذا الرابط متاح دائمًا، لا حاجة لإعداد DNS."
-
-#: admin/views/tenant-clone.php:99
-msgid "This will overwrite all data in the target tenant (database, uploads). This action cannot be undone."
-msgstr "سيؤدي هذا إلى استبدال جميع البيانات في العميل الهدف (قاعدة البيانات، المرفقات). لا يمكن التراجع عن هذا الإجراء."
-
-#: admin/views/tenant-clone.php:146
-msgid "Tired of doing this by hand?"
-msgstr "هل تعبت من القيام بذلك يدويًا؟"
-
-#: includes/class-grabwp-tenancy-admin.php:382
-msgid "To confirm deletion, type the tenant ID:"
-msgstr "لتأكيد الحذف، اكتب معرف العميل:"
-
-#: includes/class-grabwp-tenancy-status-checker.php:294
-msgid "Unknown"
-msgstr "غير معروف"
-
-#: admin/views/partials/status-env-cards.php:338
-msgid "Unlock shared files"
-msgstr "إلغاء قفل الملفات المشتركة"
-
-#: admin/views/partials/status-env-cards.php:309
-msgid "Unlocked"
-msgstr "مفتوح"
-
-#: admin/views/tenant-edit.php:142
-msgid "Update Tenant"
-msgstr "تحديث العميل"
-
-#: admin/views/tenant-clone.php:26
-msgid "Updating site URLs"
-msgstr "تحديث روابط الموقع"
-
-#: admin/views/upgrade.php:17
-msgid "Upgrade to GrabWP Tenancy Pro"
-msgstr "الترقية إلى GrabWP Tenancy Pro"
-
-#: admin/views/status-pro.php:28
-msgid "Upgrade to GrabWP Tenancy Pro for advanced features including complete content isolation, separate databases per tenant, and enhanced management capabilities."
-msgstr "قم بالترقية إلى GrabWP Tenancy Pro للحصول على ميزات متقدمة بما في ذلك عزل المحتوى بالكامل، وقواعد بيانات منفصلة لكل عميل، وقدرات إدارة محسنة."
-
-#: admin/views/status-pro.php:29
-#: includes/class-grabwp-tenancy-admin.php:328
-#: includes/class-grabwp-tenancy-admin.php:329
-#: includes/class-grabwp-tenancy-admin.php:452
-msgid "Upgrade to Pro"
-msgstr "ترقية إلى Pro"
-
-#: admin/views/status-pro.php:64
-msgid "Upload Isolation"
-msgstr "عزل المرفقات"
-
-#: includes/backup/class-grabwp-tenancy-clone.php:218
-msgid "Uploads copied."
-msgstr "تم نسخ المرفقات."
-
-#: admin/views/tenant-edit.php:122
-msgid "Valid format: example.com, subdomain.example.com (no http:// or www)"
-msgstr "تنسيق صالح: example.com، subdomain.example.com (بدون http:// أو www)"
-
-#: admin/views/tenant-clone.php:23
-msgid "Validating source & target tenants"
-msgstr "التحقق من المستأجر المصدر والهدف"
-
-#: admin/views/status-general.php:61
-msgid "View all"
-msgstr "عرض الكل"
-
-#: includes/class-grabwp-tenancy-admin-notice.php:54
-#: includes/class-grabwp-tenancy-admin-notice.php:64
-#: includes/class-grabwp-tenancy-admin-notice.php:74
-#: includes/class-grabwp-tenancy-admin-notice.php:110
-msgid "View Status →"
-msgstr "عرض الحالة →"
-
-#: admin/class-grabwp-tenancy-list-table.php:344
-#: admin/class-grabwp-tenancy-list-table.php:355
-msgid "Visit Site"
-msgstr "زيارة الموقع"
-
-#: admin/views/tenant-clone.php:98
-msgid "Warning:"
-msgstr "تحذير:"
-
-#: admin/views/status-general.php:98
-msgid "Web Server"
-msgstr "خادم الويب"
-
-#: admin/views/status-general.php:122
-msgid "WordPress Multisite"
-msgstr "WordPress متعدد المواقع"
-
-#: admin/views/status-general.php:86
-msgid "WordPress Version"
-msgstr "إصدار WordPress"
-
-#. translators: 1: WordPress version, 2: PHP version, 3: server software label
-#: admin/views/status-general.php:76
-#, php-format
-msgid "WP %1$s · PHP %2$s · %3$s"
-msgstr "WP %1$s · PHP %2$s · %3$s"
-
-#: admin/views/status-general.php:132
-msgid "WP Debug Mode"
-msgstr "وضع تصحيح WP"
-
-#: admin/views/upgrade.php:57
-msgid "WP-CLI backup commands"
-msgstr "أوامر النسخ الاحتياطي عبر WP-CLI"
-
-#: admin/views/partials/status-env-cards.php:67
-msgid "wp-config.php is not writable, manual install required"
-msgstr "ملف wp-config.php غير قابل للكتابة، التنصيب اليدوي مطلوب"
-
-#: admin/views/status.php:95
-msgid "You're using a legacy path structure. To comply with WordPress standards:"
-msgstr "أنت تستخدم بنية مسار قديمة. للامتثال لمعايير WordPress:"
-
-#: admin/views/tenant-create.php:82
-#: admin/views/tenant-create.php:120
-msgid "Your site will be accessible at:"
-msgstr "سيكون موقعك متاحًا على:"
-
-#: admin/views/tenant-clone.php:85
-msgid "— Loading tenants…"
-msgstr "- جاري تحميل العملاء…"
-
-#: admin/views/tenant-clone.php:194
-msgid "— No eligible tenants found —"
-msgstr "- لم يتم العثور على عملاء مؤهلين -"
-
-#: admin/views/tenant-clone.php:199
-msgid "— Select target tenant —"
-msgstr "- حدد العميل الهدف -"
-
-#: admin/views/status-general.php:102
-msgid "ℹ .htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
-msgstr "ℹ لا يتم استخدام ملفات .htaccess بواسطة Nginx. قم بتكوين توجيه العميل في كتلة الخادم (server block) بدلاً من ذلك."
-
-#: admin/views/status-base.php:40
-msgid "ℹ Using custom path configuration"
-msgstr "ℹ استخدام تكوين مسار مخصص"
-
-#: admin/views/status.php:126
-msgid "← active"
-msgstr "← نشط"
-
-#: admin/views/partials/status-env-cards.php:197
-msgid "⚠ Incomplete"
-msgstr "⚠ غير مكتمل"
-
-#: admin/views/partials/status-env-cards.php:134
-msgid "⚠ Invalid content"
-msgstr "⚠ محتوى غير صالح"
-
-#: admin/views/partials/status-env-cards.php:256
-msgid "⚠ Missing"
-msgstr "⚠ مفقود"
-
-#: admin/views/partials/status-env-cards.php:136
-msgid "⚠ Missing block"
-msgstr "⚠ كتلة مفقودة"
-
-#: admin/views/status-general.php:158
-msgid "⚠ No"
-msgstr "⚠ لا"
-
-#: admin/views/status-base.php:64
-msgid "⚠ Not created yet (using defaults)"
-msgstr "⚠ لم يتم إنشاؤه بعد (باستخدام الإعدادات الافتراضية)"
-
-#: admin/views/partials/status-env-cards.php:86
-msgid "⚠ Outdated"
-msgstr "⚠ قديم"
-
-#: admin/views/status-base.php:38
-msgid "⚠ Using legacy path structure"
-msgstr "⚠ استخدام بنية مسار قديمة"
-
-#: admin/views/partials/status-env-cards.php:132
-msgid "⚠ Wrong position"
-msgstr "⚠ موضع خاطئ"
-
-#: admin/views/status-general.php:125
-msgid "⚠ Yes. GrabWP Tenancy is not designed for Multisite"
-msgstr "⚠ نعم. لم يتم تصميم GrabWP Tenancy لـ Multisite"
-
-#: admin/views/partials/status-env-cards.php:64
-#: admin/views/partials/status-env-cards.php:111
-#: admin/views/partials/status-env-cards.php:175
-#: admin/views/partials/status-env-cards.php:235
-#: admin/views/partials/status-env-cards.php:286
-msgid "⚡ Auto Fix"
-msgstr "⚡ إصلاح تلقائي"
-
-#: admin/views/partials/status-env-cards.php:31
-#: admin/views/status-pro.php:46
-msgid "✓ Active"
-msgstr "✓ نشط"
-
-#: admin/views/status-base.php:33
-msgid "✓ Directory exists"
-msgstr "✓ المجلد موجود"
-
-#: admin/views/status-base.php:62
-msgid "✓ File exists"
-msgstr "✓ الملف موجود"
-
-#: admin/views/status-base.php:50
-msgid "✓ File exists and is readable"
-msgstr "✓ الملف موجود وقابل للقراءة"
-
-#: admin/views/partials/status-env-cards.php:84
-#: admin/views/partials/status-env-cards.php:130
-msgid "✓ Installed"
-msgstr "✓ مُنصَّب"
-
-#: admin/views/status-pro.php:73
-msgid "✓ Isolated"
-msgstr "✓ معزول"
-
-#: admin/views/status-general.php:111
-msgid "✓ Loaded"
-msgstr "✓ مُحمَّل"
-
-#: admin/views/partials/status-env-cards.php:254
-msgid "✓ Present"
-msgstr "✓ موجود"
-
-#: admin/views/partials/status-env-cards.php:195
-msgid "✓ Protected"
-msgstr "✓ محمي"
-
-#: admin/views/status-base.php:117
-#: admin/views/status-general.php:145
-#: admin/views/status-general.php:156
-msgid "✓ Yes"
-msgstr "✓ نعم"
-
-#: admin/views/status-base.php:35
-msgid "✗ Directory does not exist"
-msgstr "✗ المجلد غير موجود"
-
-#: admin/views/status-base.php:52
-msgid "✗ File does not exist"
-msgstr "✗ الملف غير موجود"
-
-#: admin/views/partials/status-env-cards.php:88
-#: admin/views/partials/status-env-cards.php:199
-msgid "✗ Missing"
-msgstr "✗ مفقود"
-
-#: admin/views/status-general.php:147
-msgid "✗ No"
-msgstr "✗ لا"
-
-#: admin/views/partials/status-env-cards.php:138
-msgid "✗ No .htaccess"
-msgstr "✗ لا يوجد .htaccess"
-
-#: admin/views/partials/status-env-cards.php:35
-#: admin/views/status-general.php:113
-msgid "✗ Not loaded"
-msgstr "✗ غير مُحمَّل"
-
-#: admin/views/partials/status-env-cards.php:58
-#: admin/views/partials/status-env-cards.php:105
-#: admin/views/partials/status-env-cards.php:169
-#: admin/views/partials/status-env-cards.php:229
-#: admin/views/partials/status-env-cards.php:280
-msgid "📋 Copy Code"
-msgstr "📋 نسخ الكود"
+#: admin/class-grabwp-tenancy-list-table.php:78
+#: admin/views/tenant-clone.php:92
+#: admin/views/tenant-edit.php:84
+msgid "Domains"
+msgstr "النطاقات"
+
+#: admin/class-grabwp-tenancy-list-table.php:79
+msgid "Actions"
+msgstr "إجراءات"
+
+#: admin/class-grabwp-tenancy-list-table.php:278
+#: admin/views/tenant-create.php:38
+msgid "Main Site"
+msgstr "الموقع الرئيسي"
 
 #. translators: %d: number of domains stored for the site.
 #: admin/class-grabwp-tenancy-list-table.php:303
@@ -1352,6 +81,52 @@ msgstr[2] "نطاقان مخزنان (%d)، غير مستخدمين في وضع 
 msgstr[3] "%d نطاقات مخزنة، غير مستخدمة في وضع المسار"
 msgstr[4] "%d نطاقًا مخزنًا، غير مستخدم في وضع المسار"
 msgstr[5] "%d نطاق مخزن، غير مستخدم في وضع المسار"
+
+#: admin/class-grabwp-tenancy-list-table.php:325
+msgid "Path access only"
+msgstr "الوصول عبر المسار فقط"
+
+#: admin/class-grabwp-tenancy-list-table.php:328
+msgid "No domains assigned"
+msgstr "لم يتم تعيين أي نطاقات"
+
+#: admin/class-grabwp-tenancy-list-table.php:344
+#: admin/class-grabwp-tenancy-list-table.php:355
+msgid "Visit Site"
+msgstr "زيارة الموقع"
+
+#: admin/class-grabwp-tenancy-list-table.php:358
+msgid "Admin"
+msgstr "الإدارة"
+
+#: admin/class-grabwp-tenancy-list-table.php:362
+#: admin/views/status-base.php:82
+#: includes/class-grabwp-tenancy-admin.php:309
+#: includes/class-grabwp-tenancy-admin.php:310
+msgid "Settings"
+msgstr "إعدادات"
+
+#. translators: %s: search term
+#: admin/class-grabwp-tenancy-list-table.php:416
+#, php-format
+msgid "No tenants found matching \"%s\"."
+msgstr "لم يتم العثور على عملاء يطابقون \"%s\"."
+
+#: admin/class-grabwp-tenancy-list-table.php:420
+msgid "No tenants found."
+msgstr "لم يتم العثور على أي عملاء."
+
+#: admin/class-grabwp-tenancy-list-table.php:533
+msgid "Search Tenants"
+msgstr "البحث عن العملاء"
+
+#: admin/class-grabwp-tenancy-list-table.php:534
+msgid "Search by ID or domain..."
+msgstr "البحث بواسطة المعرف أو النطاق..."
+
+#: admin/class-grabwp-tenancy-list-table.php:535
+msgid "Search"
+msgstr "بحث"
 
 #. translators: %s: example path URL of a site.
 #: admin/views/partials/routing-mode-options.php:20
@@ -1369,11 +144,13 @@ msgstr "المواقع التي لها نطاق تفتح عليه؛ والموا
 
 #: admin/views/partials/routing-mode-options.php:28
 #: admin/views/partials/settings-routing.php:43
-#: admin/views/setup-steps/routing.php:66
+#: admin/views/setup-steps/routing.php:78
+#: includes/class-grabwp-tenancy-diagnostics.php:215
 msgid "Routing mode"
 msgstr "وضع التوجيه"
 
 #: admin/views/partials/settings-field-rows.php:43
+#: admin/views/partials/system-check.php:100
 msgid "Yes"
 msgstr "نعم"
 
@@ -1385,7 +162,7 @@ msgstr "نعم، %s"
 
 #. translators: %s: constant name.
 #: admin/views/partials/settings-routing.php:21
-#: admin/views/setup-steps/routing.php:50
+#: admin/views/setup-steps/routing.php:62
 #, php-format
 msgid "The routing mode is set by %s in wp-config.php. Remove the constant to change it here."
 msgstr "تم تعيين وضع التوجيه بواسطة %s في wp-config.php. قم بإزالة الثابت لتغييره هنا."
@@ -1401,6 +178,7 @@ msgid "Not saved yet. Your sites use Path and domain, the behaviour from before 
 msgstr "لم يتم الحفظ بعد. تستخدم مواقعك المسار والنطاق، وهو السلوك المتبع قبل أوضاع التوجيه."
 
 #: admin/views/partials/settings-routing.php:63
+#: includes/class-grabwp-tenancy-diagnostics.php:216
 msgid "Path prefix"
 msgstr "بادئة المسار"
 
@@ -1408,61 +186,660 @@ msgstr "بادئة المسار"
 msgid "GrabWP Tenancy Pro can change the prefix and give each site a readable alias."
 msgstr "يمكن لـ GrabWP Tenancy Pro تغيير البادئة ومنح كل موقع اسمًا مستعارًا مقروءًا."
 
+#: admin/views/partials/setup-file-safety-card.php:25
+#: admin/views/partials/setup-file-safety-card.php:38
+msgid "Tenant file safety"
+msgstr "أمان ملفات العملاء"
+
+#: admin/views/partials/setup-file-safety-card.php:26
+#: admin/views/partials/system-check.php:51
+msgid "OK"
+msgstr "سليم"
+
+#: admin/views/partials/setup-file-safety-card.php:28
+msgid "Tenant admins cannot install or edit plugin and theme code."
+msgstr "لا يستطيع مسؤولو المستأجرين تثبيت شيفرة الإضافات والقوالب أو تعديلها."
+
+#: admin/views/partials/setup-file-safety-card.php:39
+msgctxt "file safety status"
+msgid "Unsafe"
+msgstr "غير آمن"
+
+#: admin/views/partials/setup-file-safety-card.php:41
+msgid "Tenant admins can install or edit plugin and theme code. That code runs on this server and can read the secret keys every site shares."
+msgstr "يمكن لمديري العملاء تثبيت كود الإضافات والقوالب أو تعديله. يعمل هذا الكود على هذا الخادم ويمكنه قراءة المفاتيح السرية التي تشترك فيها جميع المواقع."
+
+#. translators: %s: setting name, e.g. Disable Plugin & Theme File Editor
+#: admin/views/partials/setup-file-safety-card.php:50
+#, php-format
+msgid "Turn on %s in Settings."
+msgstr "فعّل %s في الإعدادات."
+
+#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: the value false, 3: the value true
+#: admin/views/partials/setup-file-safety-card.php:56
+#, php-format
+msgid "Code that loads before GrabWP, usually wp-config.php, sets %1$s to %2$s. Change it to %3$s or remove that line."
+msgstr "كود يتم تحميله قبل GrabWP، وعادةً wp-config.php، يعيّن %1$s إلى %2$s. غيّره إلى %3$s أو احذف ذلك السطر."
+
+#. translators: 1: site ID, followed by its domain when known, 2: constant names, e.g. DISALLOW_FILE_EDIT, 3: the value false
+#: admin/views/partials/setup-file-safety-card.php:84
+#, php-format
+msgid "A per-site override sets %2$s to %3$s for site %1$s. In that site's Overrides screen (GrabWP Pro), choose Yes or Use global setting."
+msgstr "يضبط تجاوز خاص بالموقع %2$s على %3$s للموقع %1$s. أعد تفعيل الحماية من شاشة التجاوزات لذلك الموقع (GrabWP Pro) باختيار نعم أو استخدام الإعداد العام."
+
+#: admin/views/partials/setup-file-safety-card.php:95
+msgid "Open Settings"
+msgstr "فتح الإعدادات"
+
+#: admin/views/partials/setup-hosting-card.php:27
+msgid "Multisite and wp-config.php"
+msgstr "الشبكة المتعددة وwp-config.php"
+
+#: admin/views/partials/setup-hosting-card.php:28
+msgid "Secure address"
+msgstr "عنوان آمن"
+
+#: admin/views/partials/setup-hosting-card.php:29
+msgid "HTTPS behind a proxy"
+msgstr "HTTPS خلف خادم وكيل"
+
+#: admin/views/partials/setup-hosting-card.php:30
+msgid "Subdomains (wildcard)"
+msgstr "النطاقات الفرعية (wildcard)"
+
+#: admin/views/partials/setup-hosting-card.php:69
+msgid "Working..."
+msgstr "جارٍ العمل..."
+
+#: admin/views/partials/setup-hosting-card.php:70
+msgid "Network error. Check again."
+msgstr "خطأ في الشبكة. تحقّق مرّة أخرى."
+
+#: admin/views/partials/setup-hosting-card.php:72
+msgid "Hosting setup"
+msgstr "إعداد الاستضافة"
+
+#: admin/views/partials/setup-hosting-card.php:74
+msgid "✓ Ready"
+msgstr "✓ جاهز"
+
+#. translators: 1: rows that need attention, 2: number of rows.
+#: admin/views/partials/setup-hosting-card.php:80
+#, php-format
+msgid "%1$d of %2$d needs attention"
+msgid_plural "%1$d of %2$d need attention"
+msgstr[0] "%1$d من %2$d يحتاج إلى انتباه"
+msgstr[1] "%1$d من %2$d يحتاج إلى انتباه"
+msgstr[2] "%1$d من %2$d يحتاجان إلى انتباه"
+msgstr[3] "%1$d من %2$d تحتاج إلى انتباه"
+msgstr[4] "%1$d من %2$d يحتاج إلى انتباه"
+msgstr[5] "%1$d من %2$d يحتاج إلى انتباه"
+
+#. translators: %d: number of sites in the Multisite network.
+#: admin/views/partials/setup-hosting-card.php:100
+#, php-format
+msgid "This is a Multisite network with %d sites. Do not convert it: back up or move those sites first."
+msgstr "هذه شبكة متعدّدة المواقع (Multisite) تضم %d من المواقع. لا تقم بتحويلها: انسخ تلك المواقع احتياطيًا أو انقلها أولًا."
+
+#: admin/views/partials/setup-hosting-card.php:105
+msgid "This site still runs as WordPress Multisite. GrabWP needs regular WordPress. Remove every line below."
+msgstr "لا يزال هذا الموقع يعمل كشبكة WordPress Multisite. يتطلّب GrabWP تثبيت WordPress عادي. أزل كل سطر أدناه."
+
+#: admin/views/partials/setup-hosting-card.php:108
+msgid "wp-config.php has settings that stop GrabWP. Remove every line below."
+msgstr "يحتوي wp-config.php على إعدادات توقف GrabWP عن العمل. احذف كل سطر أدناه."
+
+#: admin/views/partials/setup-hosting-card.php:111
+msgid "Regular WordPress. WP_ALLOW_MULTISITE is optional cleanup."
+msgstr "WordPress عادي. إزالة WP_ALLOW_MULTISITE خطوة تنظيف اختيارية."
+
+#: admin/views/partials/setup-hosting-card.php:114
+msgid "This site runs as regular WordPress."
+msgstr "يعمل هذا الموقع كتثبيت WordPress عادي."
+
+#: admin/views/partials/setup-hosting-card.php:120
+msgid "Lines to remove by hand"
+msgstr "أسطر يجب إزالتها يدويًا"
+
+#. translators: %s: path of wp-config.php.
+#: admin/views/partials/setup-hosting-card.php:126
+#, php-format
+msgid "In %s:"
+msgstr "في %s:"
+
+#. translators: 1: line number, 2: PHP code on that line.
+#: admin/views/partials/setup-hosting-card.php:143
+#, php-format
+msgid "Line %1$d: %2$s"
+msgstr "السطر %1$d: %2$s"
+
+#. translators: %s: list of constant names.
+#: admin/views/partials/setup-hosting-card.php:157
+#, php-format
+msgid "Set outside wp-config.php (for example by a host must-use plugin): %s. Ask your host to remove them."
+msgstr "تم تعيينها خارج wp-config.php (مثلًا عبر إضافة must-use خاصة بالاستضافة): %s. اطلب من مزوّد الاستضافة إزالتها."
+
+#: admin/views/partials/setup-hosting-card.php:164
+msgid "Some of these lines are inside a condition or still used by other code, so GrabWP cannot remove them for you."
+msgstr "بعض هذه الأسطر موجود داخل شرط برمجي أو لا يزال مستخدمًا بواسطة كود آخر، لذا لا يمكن لـ GrabWP إزالتها نيابةً عنك."
+
+#: admin/views/partials/setup-hosting-card.php:167
+msgid "GrabWP never removes these lines for you. After removing them, log in again and activate plugins that were network activated, then Check again."
+msgstr "لا يزيل GrabWP هذه الأسطر نيابةً عنك أبدًا. بعد إزالتها، سجّل الدخول مرّة أخرى وفعّل الإضافات التي كانت مفعّلة على مستوى الشبكة، ثم تحقّق مرّة أخرى."
+
+#: admin/views/partials/setup-hosting-card.php:175
+msgid "Remove these settings"
+msgstr "حذف هذه الإعدادات"
+
+#: admin/views/partials/setup-hosting-card.php:176
+msgid "Remove the settings listed here from wp-config.php? A backup is kept in the GrabWP data folder, and you can undo this here. You may need to log in again."
+msgstr "هل تريد حذف الإعدادات المدرجة هنا من wp-config.php؟ تُحفظ نسخة احتياطية في مجلد بيانات GrabWP، ويمكنك التراجع من هنا. قد تحتاج إلى تسجيل الدخول مرة أخرى."
+
+#: admin/views/partials/setup-hosting-card.php:182
+msgid "Undo settings removal"
+msgstr "التراجع عن حذف الإعدادات"
+
+#: admin/views/partials/setup-hosting-card.php:183
+msgid "Put the removed settings back into wp-config.php? They may stop GrabWP again."
+msgstr "هل تريد إعادة الإعدادات المحذوفة إلى wp-config.php؟ قد توقف GrabWP عن العمل مرة أخرى."
+
+#: admin/views/partials/setup-hosting-card.php:198
+msgid "Your site works on https, but WordPress still uses http."
+msgstr "يعمل موقعك عبر https، لكن WordPress لا يزال يستخدم http."
+
+#: admin/views/partials/setup-hosting-card.php:201
+msgid "Your site works on https, but WordPress still uses http. Fix HTTPS behind a proxy first, then open this page over https."
+msgstr "يعمل موقعك عبر https، لكن WordPress لا يزال يستخدم http. أصلح HTTPS خلف خادم وكيل أولًا، ثم افتح هذه الصفحة عبر https."
+
+#: admin/views/partials/setup-hosting-card.php:204
+msgid "WP_HOME or WP_SITEURL sets the address. Remove it from wp-config.php above, then Check again."
+msgstr "WP_HOME أو WP_SITEURL يحدد العنوان. احذفه من wp-config.php أعلاه، ثم تحقق مرة أخرى."
+
+#. translators: %s: host name.
+#: admin/views/partials/setup-hosting-card.php:209
+#, php-format
+msgid "The https certificate of %s is not valid. Ask your host or CDN for one."
+msgstr "شهادة https الخاصة بـ %s غير صالحة. اطلب شهادة من مزوّد الاستضافة أو CDN."
+
+#. translators: %s: host name.
+#: admin/views/partials/setup-hosting-card.php:216
+#, php-format
+msgid "%s does not answer on https yet. Turn on SSL at your host or CDN."
+msgstr "لا يستجيب %s عبر https بعد. فعّل SSL لدى مزوّد الاستضافة أو CDN."
+
+#: admin/views/partials/setup-hosting-card.php:221
+msgid "WordPress uses https."
+msgstr "يستخدم WordPress بروتوكول https."
+
+#: admin/views/partials/setup-hosting-card.php:229
+msgid "Switch to https"
+msgstr "التبديل إلى https"
+
+#: admin/views/partials/setup-hosting-card.php:230
+msgid "Switch the WordPress Address and Site Address to https? Links inside posts are not changed. You can undo this here."
+msgstr "هل تريد تبديل عنوان WordPress وعنوان الموقع إلى https؟ لن تتغيّر الروابط داخل المقالات. يمكنك التراجع عن ذلك من هنا."
+
+#: admin/views/partials/setup-hosting-card.php:237
+msgid "Undo"
+msgstr "تراجع"
+
+#: admin/views/partials/setup-hosting-card.php:238
+msgid "Put the WordPress Address and Site Address back to http?"
+msgstr "هل تريد إعادة عنوان WordPress وعنوان الموقع إلى http؟"
+
+#: admin/views/partials/setup-hosting-card.php:253
+msgid "Your proxy or CDN serves https, but WordPress is not told."
+msgstr "يقدّم الخادم الوكيل أو CDN اتصالات https، لكن لم يتم إبلاغ WordPress بذلك."
+
+#. translators: %d: line number in wp-config.php.
+#: admin/views/partials/setup-hosting-card.php:258
+#, php-format
+msgid "wp-config.php has HTTPS code at line %d, but WordPress still sees http."
+msgstr "يحتوي ملف wp-config.php على كود HTTPS في السطر %d، لكن WordPress لا يزال يرى http."
+
+#. translators: %d: line number in wp-config.php.
+#: admin/views/partials/setup-hosting-card.php:265
+#, php-format
+msgid "The HTTPS code at line %d of wp-config.php runs after the GrabWP loader, so new sites can miss https."
+msgstr "يعمل كود HTTPS في السطر %d من ملف wp-config.php بعد محمّل GrabWP، لذا قد تفقد المواقع الجديدة اتصال https."
+
+#: admin/views/partials/setup-hosting-card.php:270
+msgid "No proxy or CDN reports https for this visit."
+msgstr "لا يبلّغ أي خادم وكيل أو CDN عن استخدام https لهذه الزيارة."
+
+#: admin/views/partials/setup-hosting-card.php:273
+msgid "WordPress sees https from your proxy or CDN."
+msgstr "يتعرّف WordPress على https من الخادم الوكيل أو CDN."
+
+#: admin/views/partials/setup-hosting-card.php:281
+msgid "Add HTTPS detection"
+msgstr "إضافة اكتشاف HTTPS"
+
+#: admin/views/partials/setup-hosting-card.php:282
+msgid "Add HTTPS detection to wp-config.php? A backup is kept in the GrabWP data folder, and you can undo this here."
+msgstr "هل تريد إضافة اكتشاف HTTPS إلى wp-config.php؟ يتم الاحتفاظ بنسخة احتياطية في مجلد بيانات GrabWP، ويمكنك التراجع عن ذلك من هنا."
+
+#: admin/views/partials/setup-hosting-card.php:288
+msgid "Remove HTTPS detection"
+msgstr "إزالة اكتشاف HTTPS"
+
+#: admin/views/partials/setup-hosting-card.php:289
+msgid "Remove the HTTPS detection that GrabWP added to wp-config.php? Behind a proxy, WordPress then sees http again."
+msgstr "هل تريد إزالة اكتشاف HTTPS الذي أضافه GrabWP إلى wp-config.php؟ خلف خادم وكيل، سيرى WordPress حينها http مرّة أخرى."
+
+#: admin/views/partials/setup-hosting-card.php:296
+msgid "Code to add by hand"
+msgstr "كود يجب إضافته يدويًا"
+
+#. translators: %s: the GrabWP loader marker line.
+#: admin/views/partials/setup-hosting-card.php:301
+#, php-format
+msgid "Add to wp-config.php, before %s:"
+msgstr "أضف إلى wp-config.php، قبل %s:"
+
+#: admin/views/partials/setup-hosting-card.php:309
+msgid "Copy code"
+msgstr "نسخ الكود"
+
+#: admin/views/partials/setup-hosting-card.php:325
+msgid "Not needed: sites use path addresses."
+msgstr "غير مطلوب: تستخدم المواقع عناوين المسارات."
+
+#: admin/views/partials/setup-hosting-card.php:328
+msgid "This site has no domain name, so sites cannot get subdomains."
+msgstr "ليس لهذا الموقع اسم نطاق، لذا لا يمكن للمواقع الحصول على نطاقات فرعية."
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:332
+#, php-format
+msgid "No DNS record for %s yet. Add a wildcard record at your DNS host."
+msgstr "لا يوجد سجل DNS لـ %s بعد. أضف سجل wildcard لدى مستضيف DNS الخاص بك."
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:336
+#, php-format
+msgid "%s has DNS, but nothing answers on https."
+msgstr "يوجد سجل DNS لـ %s، لكن لا شيء يستجيب عبر https."
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:340
+#, php-format
+msgid "%s reaches a different website. Point it at this site at your host."
+msgstr "يصل %s إلى موقع ويب مختلف. وجّهه إلى هذا الموقع لدى مزوّد الاستضافة."
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:344
+#, php-format
+msgid "%s reaches this site, but the certificate does not cover it."
+msgstr "يصل %s إلى هذا الموقع، لكن الشهادة لا تغطّيه."
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:348
+#, php-format
+msgid "New sites at %s work."
+msgstr "المواقع الجديدة على %s تعمل."
+
+#: admin/views/partials/setup-hosting-card.php:355
+msgid "DNS"
+msgstr "DNS"
+
+#: admin/views/partials/setup-hosting-card.php:356
+msgid "address"
+msgstr "العنوان"
+
+#: admin/views/partials/setup-hosting-card.php:357
+msgid "certificate"
+msgstr "الشهادة"
+
+#: admin/views/partials/setup-hosting-card.php:365
+#: admin/views/partials/system-check.php:70
+#: admin/views/setup-steps/check.php:70
+#: admin/views/setup-steps/check.php:80
+msgid "Check again"
+msgstr "تحقق مرة أخرى"
+
+#: admin/views/partials/setup-hosting-card.php:370
+msgid "Using xCloud?"
+msgstr "هل تستخدم xCloud؟"
+
+#: admin/views/partials/setup-hosting-card.php:372
+msgid "In xCloud, create the WordPress site as Multisite with subdomains. xCloud sets up wildcard subdomain hosting only for such sites."
+msgstr "في xCloud، أنشئ موقع WordPress كشبكة Multisite بنطاقات فرعية. يُعدّ xCloud استضافة النطاقات الفرعية الشاملة (wildcard) لهذه المواقع فقط."
+
+#: admin/views/partials/setup-hosting-card.php:373
+msgid "Wait until the Subdomains row here passes: DNS, address and certificate."
+msgstr "انتظر حتى يجتاز صف النطاقات الفرعية هنا الفحص: DNS والعنوان والشهادة."
+
+#: admin/views/partials/setup-hosting-card.php:374
+msgid "Then remove every native Multisite line from wp-config.php. GrabWP runs only on regular WordPress (single site). Old Multisite rules in .htaccess can stay."
+msgstr "ثم أزل كل سطر خاص بـ Multisite الافتراضي من wp-config.php. يعمل GrabWP فقط على WordPress العادي (موقع واحد). يمكن بقاء قواعد Multisite القديمة في .htaccess."
+
+#: admin/views/partials/setup-hosting-card.php:375
+msgid "If the network already has more than one site, do not convert it. Back up or move those sites first."
+msgstr "إذا كانت الشبكة تضم أكثر من موقع واحد بالفعل، فلا تقم بتحويلها. انسخ تلك المواقع احتياطيًا أو انقلها أولًا."
+
 #. translators: %s: reason the install failed.
-#: admin/views/partials/site-result.php:33
-#: admin/views/setup-steps/done.php:50
+#: admin/views/partials/site-result.php:39
+#: admin/views/setup-steps/done.php:56
 #, php-format
 msgid "The site was created but WordPress could not be installed automatically: %s"
 msgstr "تم إنشاء الموقع ولكن تعذر تنصيب WordPress تلقائيًا: %s"
 
-#: admin/views/partials/site-result.php:39
-#: admin/views/setup-steps/done.php:56
+#: admin/views/partials/site-result.php:46
+#: admin/views/setup-steps/done.php:63
 msgid "Finish install in browser"
 msgstr "إكمال التنصيب في المتصفح"
 
 #. translators: %s: tenant ID.
-#: admin/views/partials/site-result.php:49
-#: admin/views/setup-steps/done.php:38
+#: admin/views/partials/site-result.php:54
+#: admin/views/setup-steps/done.php:41
 #, php-format
 msgid "Site created: %s"
 msgstr "تم إنشاء الموقع: %s"
 
-#: admin/views/partials/site-result.php:58
-#: admin/views/setup-steps/done.php:61
+#: admin/views/partials/site-result.php:64
+#: admin/views/setup-steps/done.php:68
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: admin/views/partials/site-result.php:60
-#: admin/views/setup-steps/done.php:63
+#: admin/views/partials/site-result.php:66
+#: admin/views/setup-steps/done.php:70
 msgid "Password"
 msgstr "كلمة المرور"
 
-#: admin/views/partials/site-result.php:62
-#: admin/views/setup-steps/done.php:65
+#: admin/views/partials/site-result.php:68
+#: admin/views/setup-steps/done.php:72
 msgid "Show"
 msgstr "إظهار"
 
-#: admin/views/partials/site-result.php:62
-#: admin/views/setup-steps/done.php:65
+#: admin/views/partials/site-result.php:68
+#: admin/views/setup-steps/done.php:72
 msgid "Hide"
 msgstr "إخفاء"
 
-#: admin/views/partials/site-result.php:65
+#: admin/views/partials/site-result.php:69
+#: admin/views/setup-steps/done.php:73
+#: admin/views/tenant-edit.php:77
+msgid "Copy"
+msgstr "نسخ"
+
+#: admin/views/partials/site-result.php:71
 msgid "This password is shown once. You do not need it: the 1-click Admin button logs you in."
 msgstr "تظهر كلمة المرور هذه مرة واحدة. لست بحاجة إليها: زر الإدارة بنقرة واحدة يسجل دخولك."
 
-#: admin/views/partials/site-result.php:68
-#: admin/views/setup-steps/done.php:92
+#: admin/views/partials/site-result.php:75
+#: admin/views/setup-steps/done.php:100
 msgid "Open site admin (1-click)"
 msgstr "فتح إدارة الموقع (بنقرة واحدة)"
+
+#: admin/views/partials/status-env-cards.php:29
+msgid "1. wp-config.php Loader"
+msgstr "1. محمل wp-config.php"
+
+#: admin/views/partials/status-env-cards.php:31
+#: admin/views/status-pro.php:46
+msgid "✓ Active"
+msgstr "✓ نشط"
 
 #: admin/views/partials/status-env-cards.php:33
 msgid "In wp-config.php, reload to confirm"
 msgstr "في wp-config.php، أعد التحميل للتأكيد"
 
-#: admin/views/partials/status-env-cards.php:330
+#: admin/views/partials/status-env-cards.php:35
+msgid "✗ Not loaded"
+msgstr "✗ غير مُحمَّل"
+
+#: admin/views/partials/status-env-cards.php:41
+#: admin/views/partials/status-env-cards.php:94
+#: admin/views/partials/status-env-cards.php:144
+#: admin/views/partials/status-env-cards.php:200
+#: admin/views/partials/status-env-cards.php:257
+msgid "Fix steps and install code"
+msgstr "خطوات الإصلاح وكود التنصيب"
+
+#: admin/views/partials/status-env-cards.php:43
+msgid "Loads tenant detection before WordPress boots so domain/path routing can identify the tenant."
+msgstr "يقوم بتحميل اكتشاف العميل قبل إقلاع WordPress بحيث يمكن لتوجيه النطاق/المسار تحديد العميل."
+
+#: admin/views/partials/status-env-cards.php:48
+#, php-format
+msgid "File: %1$s, place before %2$s"
+msgstr "الملف: %1$s، ضعه قبل %2$s"
+
+#: admin/views/partials/status-env-cards.php:58
+#: admin/views/partials/status-env-cards.php:105
+#: admin/views/partials/status-env-cards.php:164
+#: admin/views/partials/status-env-cards.php:224
+#: admin/views/partials/status-env-cards.php:275
+msgid "📋 Copy Code"
+msgstr "📋 نسخ الكود"
+
+#: admin/views/partials/status-env-cards.php:64
+#: admin/views/partials/status-env-cards.php:111
+#: admin/views/partials/status-env-cards.php:170
+#: admin/views/partials/status-env-cards.php:230
+#: admin/views/partials/status-env-cards.php:281
+msgid "⚡ Auto Fix"
+msgstr "⚡ إصلاح تلقائي"
+
+#: admin/views/partials/status-env-cards.php:67
+msgid "wp-config.php is not writable, manual install required"
+msgstr "ملف wp-config.php غير قابل للكتابة، التنصيب اليدوي مطلوب"
+
+#: admin/views/partials/status-env-cards.php:69
+msgid "Stop-editing marker not found, manual install required"
+msgstr "لم يتم العثور على علامة التوقف عن التحرير، التنصيب اليدوي مطلوب"
+
+#: admin/views/partials/status-env-cards.php:82
+msgid "2. MU-Plugin"
+msgstr "2. إضافة MU"
+
+#: admin/views/partials/status-env-cards.php:84
+#: admin/views/partials/status-env-cards.php:130
+msgid "✓ Installed"
+msgstr "✓ مُنصَّب"
+
+#: admin/views/partials/status-env-cards.php:86
+msgid "⚠ Outdated"
+msgstr "⚠ قديم"
+
+#: admin/views/partials/status-env-cards.php:88
+#: admin/views/partials/status-env-cards.php:194
+msgid "✗ Missing"
+msgstr "✗ مفقود"
+
+#: admin/views/partials/status-env-cards.php:96
+msgid "MU-plugins load on every request, including tenant admin, for settings sync and management features."
+msgstr "يتم تحميل إضافات MU عند كل طلب، بما في ذلك إدارة العميل، لمزامنة الإعدادات وميزات الإدارة."
+
+#: admin/views/partials/status-env-cards.php:99
+#: admin/views/partials/status-env-cards.php:205
+#: admin/views/partials/status-env-cards.php:262
+#, php-format
+msgid "File: %s"
+msgstr "الملف: %s"
+
+#: admin/views/partials/status-env-cards.php:114
+msgid "mu-plugins directory is not writable, manual install required"
+msgstr "مجلد mu-plugins غير قابل للكتابة، التنصيب اليدوي مطلوب"
+
+#: admin/views/partials/status-env-cards.php:128
+msgid "3. Root .htaccess Rewrite Rules"
+msgstr "3. قواعد إعادة كتابة .htaccess في الجذر"
+
+#: admin/views/partials/status-env-cards.php:132
+msgid "⚠ Wrong position"
+msgstr "⚠ موضع خاطئ"
+
+#: admin/views/partials/status-env-cards.php:134
+msgid "⚠ Invalid content"
+msgstr "⚠ محتوى غير صالح"
+
+#: admin/views/partials/status-env-cards.php:136
+msgid "⚠ Missing block"
+msgstr "⚠ كتلة مفقودة"
+
+#: admin/views/partials/status-env-cards.php:138
+msgid "✗ No .htaccess"
+msgstr "✗ لا يوجد .htaccess"
+
+#: admin/views/partials/status-env-cards.php:149
+#, php-format
+msgid "Apache rewrite rules for path-based tenant URLs like /%s/{id}/wp-admin."
+msgstr "قواعد إعادة كتابة Apache لعناوين URL الخاصة بالمستأجر القائمة على المسار مثل /%s/{id}/wp-admin."
+
+#: admin/views/partials/status-env-cards.php:155
+#, php-format
+msgid "File: %s, must appear BEFORE \"# BEGIN WordPress\""
+msgstr "الملف: %s، يجب أن يظهر قبل \"# BEGIN WordPress\""
+
+#: admin/views/partials/status-env-cards.php:173
+msgid "Root directory or .htaccess is not writable, manual install required"
+msgstr "المجلد الجذر أو .htaccess غير قابل للكتابة، التنصيب اليدوي مطلوب"
+
+#: admin/views/partials/status-env-cards.php:188
+msgid "Data Directory .htaccess"
+msgstr "مجلد البيانات .htaccess"
+
+#: admin/views/partials/status-env-cards.php:190
+msgid "✓ Protected"
+msgstr "✓ محمي"
+
+#: admin/views/partials/status-env-cards.php:192
+msgid "⚠ Incomplete"
+msgstr "⚠ غير مكتمل"
+
+#: admin/views/partials/status-env-cards.php:202
+msgid "Blocks direct HTTP access to PHP files and directory listing in the tenant data directory."
+msgstr "يمنع وصول HTTP المباشر إلى ملفات PHP وسرد الدليل في مجلد بيانات العميل."
+
+#: admin/views/partials/status-env-cards.php:233
+#: admin/views/partials/status-env-cards.php:284
+msgid "Data directory is not writable, manual install required"
+msgstr "مجلد البيانات غير قابل للكتابة، التنصيب اليدوي مطلوب"
+
+#: admin/views/partials/status-env-cards.php:247
+msgid "index.php Protection"
+msgstr "حماية index.php"
+
+#: admin/views/partials/status-env-cards.php:249
+msgid "✓ Present"
+msgstr "✓ موجود"
+
+#: admin/views/partials/status-env-cards.php:251
+msgid "⚠ Missing"
+msgstr "⚠ مفقود"
+
+#: admin/views/partials/status-env-cards.php:259
+msgid "Blank index.php prevents directory listing when .htaccess is unavailable."
+msgstr "يمنع index.php الفارغ سرد الدليل عندما يكون .htaccess غير متاح."
+
+#: admin/views/partials/status-env-cards.php:300
+msgid "Shared Files Lock"
+msgstr "قفل الملفات المشتركة"
+
+#: admin/views/partials/status-env-cards.php:302
+msgid "Locked"
+msgstr "مقفل"
+
+#: admin/views/partials/status-env-cards.php:304
+msgid "Unlocked"
+msgstr "مفتوح"
+
+#: admin/views/partials/status-env-cards.php:308
+msgid "Makes the shared root files read-only (0444) so tenant plugins cannot rewrite them. GrabWP and main-site permalink saves unlock and re-lock automatically."
+msgstr "يجعل ملفات الجذر المشتركة للقراءة فقط (0444) بحيث لا يمكن لإضافات العميل إعادة كتابتها. عمليات حفظ روابط GrabWP والموقع الرئيسي تقوم بإلغاء القفل وإعادته تلقائياً."
+
+#: admin/views/partials/status-env-cards.php:309
+msgid "If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again."
+msgstr "إذا احتاجت إضافة في الموقع الرئيسي (على سبيل المثال إضافة ذاكرة التخزين المؤقت) إلى كتابة هذه الملفات، قم بإلغاء القفل مؤقتاً، ثم قم بالقفل مرة أخرى."
+
+#. translators: %d: number of snapshot files.
+#: admin/views/partials/status-env-cards.php:322
+#, php-format
+msgid "Integrity snapshots: %d"
+msgstr "لقطات سلامة الملفات: %d"
+
+#: admin/views/partials/status-env-cards.php:325
 msgid "Watched for changes. Not read-only, because the web server does not own these files (optional):"
 msgstr "مُراقَب للتغييرات. ليس للقراءة فقط، لأن خادم الويب لا يملك هذه الملفات (اختياري):"
+
+#: admin/views/partials/status-env-cards.php:333
+msgid "Unlock shared files"
+msgstr "إلغاء قفل الملفات المشتركة"
+
+#: admin/views/partials/status-env-cards.php:333
+msgid "Lock shared files"
+msgstr "قفل الملفات المشتركة"
+
+#: admin/views/partials/system-check.php:49
+msgid "Site can reach itself (loopback)"
+msgstr "الموقع يمكنه الوصول إلى نفسه (loopback)"
+
+#: admin/views/partials/system-check.php:53
+msgid "Not checked"
+msgstr "لم يتم الفحص"
+
+#: admin/views/partials/system-check.php:55
+msgid "Failed"
+msgstr "فشل"
+
+#: admin/views/partials/system-check.php:61
+msgid "GrabWP can install WordPress in new sites for you."
+msgstr "يمكن لـ GrabWP تنصيب WordPress في المواقع الجديدة نيابةً عنك."
+
+#: admin/views/partials/system-check.php:63
+msgid "No recent result. Use Check again to test whether this server can open its own address."
+msgstr "لا توجد نتيجة حديثة. استخدم \"تحقق مجددًا\" لاختبار ما إذا كان هذا الخادم يستطيع فتح عنوانه."
+
+#: admin/views/partials/system-check.php:65
+msgid "This server cannot open its own address, so new sites must be installed in the browser. Check firewall, basic auth, or the server routing rules."
+msgstr "لا يمكن لهذا الخادم فتح عنوانه الخاص، لذا يجب تنصيب المواقع الجديدة في المتصفح. تحقق من جدار الحماية أو المصادقة الأساسية أو قواعد توجيه الخادم."
+
+#: admin/views/partials/system-check.php:79
+msgid "System Information"
+msgstr "معلومات النظام"
+
+#. translators: 1: WordPress version, 2: PHP version, 3: server software label
+#: admin/views/partials/system-check.php:84
+#, php-format
+msgid "WP %1$s · PHP %2$s · %3$s"
+msgstr "WP %1$s · PHP %2$s · %3$s"
+
+#: admin/views/partials/system-check.php:100
+#: admin/views/status-base.php:119
+msgid "No"
+msgstr "لا"
+
+#: admin/views/partials/system-check.php:102
+msgid "Not set"
+msgstr "غير معيّن"
+
+#: admin/views/partials/system-check.php:127
+msgid "Support diagnostics"
+msgstr "تشخيصات الدعم"
+
+#: admin/views/partials/system-check.php:128
+msgid "Copies a summary of these checks, the System Information and the last lines of the GrabWP and WordPress debug logs to your clipboard. Passwords, keys, salts, emails and file paths are left out. Nothing is sent anywhere: paste it into your support request."
+msgstr "ينسخ ملخصًا لهذه الفحوصات ومعلومات النظام وآخر أسطر سجلات تصحيح GrabWP وووردبريس إلى الحافظة. تُستبعد كلمات المرور والمفاتيح والأملاح ورسائل البريد الإلكتروني ومسارات الملفات. لا يُرسل أي شيء: الصقه في طلب الدعم."
+
+#: admin/views/partials/system-check.php:130
+msgid "Copy diagnostics"
+msgstr "نسخ التشخيصات"
+
+#: admin/views/partials/upsell-card.php:20
+#: admin/views/tenant-create.php:170
+#: admin/views/tenant-edit.php:156
+#: admin/views/tenants.php:64
+#: includes/class-grabwp-tenancy-admin.php:229
+msgid "Learn about Pro"
+msgstr "تعرف على Pro"
+
+#: admin/views/partials/upsell-card.php:27
+#: admin/views/partials/upsell-card.php:32
+#: admin/views/upgrade.php:27
+msgid "Pro"
+msgstr "Pro"
 
 #: admin/views/settings-routing-confirm.php:17
 msgid "Change routing mode"
@@ -1481,8 +858,8 @@ msgstr "يحتاج وضع النطاق إلى نطاق لكل موقع. هذه �
 
 #: admin/views/settings-routing-confirm.php:36
 #: admin/views/settings-routing-confirm.php:62
-#: admin/views/setup-steps/site.php:37
-#: admin/views/setup-steps/site.php:55
+#: admin/views/setup-steps/site.php:38
+#: admin/views/setup-steps/site.php:56
 msgid "Site"
 msgstr "الموقع"
 
@@ -1544,49 +921,86 @@ msgstr "امسح ذاكرة التخزين المؤقت للصفحات وCDN ب�
 msgid "Switch to %s"
 msgstr "التبديل إلى %s"
 
+#: admin/views/settings-routing-confirm.php:108
+#: admin/views/tenant-clone.php:110
+#: admin/views/tenant-create.php:159
+#: admin/views/tenant-edit.php:145
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: admin/views/settings.php:16
+msgid "GrabWP Tenancy Settings"
+msgstr "إعدادات GrabWP Tenancy"
+
+#: admin/views/settings.php:25
+#: admin/views/status-base.php:80
+msgid "Tenant Capabilities"
+msgstr "قدرات العميل"
+
+#: admin/views/settings.php:26
+#: admin/views/status-base.php:90
+msgid "Performance & Security"
+msgstr "الأداء والأمان"
+
 #: admin/views/settings.php:27
 #: includes/class-grabwp-tenancy-setup-wizard.php:147
 msgid "Routing"
 msgstr "التوجيه"
 
-#: admin/views/setup-steps/check.php:39
+#: admin/views/settings.php:61
+msgid "Save Settings"
+msgstr "حفظ الإعدادات"
+
+#: admin/views/settings.php:68
+msgid "Scheduling and automatic backups"
+msgstr "الجدولة والنسخ الاحتياطي التلقائي"
+
+#: admin/views/settings.php:69
+msgid "Schedule automatic backups for each tenant site on an interval you control. Pro automatically pushes backup copies to secure offsite storage after each run, so you never lose client data to a server failure."
+msgstr "قم بجدولة نسخ احتياطية تلقائية لكل موقع عميل بفواصل زمنية تتحكم فيها. يقوم Pro بدفع نسخ احتياطية تلقائياً إلى مساحة تخزين خارجية آمنة بعد كل عملية، لذا لن تفقد بيانات العملاء أبداً بسبب عطل في الخادم."
+
+#: admin/views/settings.php:70
+msgid "Learn about GrabWP Tenancy Pro"
+msgstr "تعرف على GrabWP Tenancy Pro"
+
+#: admin/views/setup-steps/check.php:28
 msgid "Welcome to GrabWP"
 msgstr "مرحبًا بك في GrabWP"
 
-#: admin/views/setup-steps/check.php:40
+#: admin/views/setup-steps/check.php:29
 msgid "A few short steps get your first site running. Every step has a working default, and you can skip any of them."
 msgstr "خطوات قصيرة قليلة لتشغيل موقعك الأول. تحتوي كل خطوة على إعداد افتراضي جاهز للعمل، ويمكنك تخطي أي منها."
 
-#: admin/views/setup-steps/check.php:44
+#: admin/views/setup-steps/check.php:33
 msgid "One WordPress, many websites"
 msgstr "تنصيب WordPress واحد، مواقع عديدة"
 
-#: admin/views/setup-steps/check.php:45
+#: admin/views/setup-steps/check.php:34
 msgid "GrabWP runs many separate websites from this one WordPress install. Each one is called a site (a \"tenant\" in some GrabWP screens)."
 msgstr "يشغّل GrabWP العديد من المواقع المنفصلة من تنصيب WordPress هذا. يُسمى كل واحد منها موقعًا (أو \"عميل\" في بعض شاشات GrabWP)."
 
-#: admin/views/setup-steps/check.php:48
+#: admin/views/setup-steps/check.php:37
 msgid "Each site stands on its own"
 msgstr "كل موقع مستقل بذاته"
 
-#: admin/views/setup-steps/check.php:49
+#: admin/views/setup-steps/check.php:38
 msgid "A site has its own posts, pages, media, users and admin area. Sites share the plugins and themes installed here, so you update them once."
 msgstr "لكل موقع مقالاته وصفحاته ووسائطه ومستخدموه ومنطقة إدارته الخاصة. تشترك المواقع في الإضافات والقوالب المنصبة هنا، لذا تقوم بتحديثها مرة واحدة."
 
-#: admin/views/setup-steps/check.php:52
+#: admin/views/setup-steps/check.php:41
 msgid "Not WordPress Multisite"
 msgstr "ليس WordPress متعدد المواقع (Multisite)"
 
-#: admin/views/setup-steps/check.php:53
+#: admin/views/setup-steps/check.php:42
 msgid "You do not need to know or turn on Multisite. You manage every site from the Tenancy menu of this admin."
 msgstr "لا تحتاج إلى معرفة أو تفعيل Multisite. يمكنك إدارة كل موقع من قائمة العملاء في لوحة الإدارة هذه."
 
-#: admin/views/setup-steps/check.php:67
+#: admin/views/setup-steps/check.php:56
 msgid "Server check"
 msgstr "فحص الخادم"
 
 #. translators: %d: number of items that need attention.
-#: admin/views/setup-steps/check.php:74
+#: admin/views/setup-steps/check.php:63
 #, php-format
 msgid "%d item needs attention."
 msgid_plural "%d items need attention."
@@ -1597,56 +1011,27 @@ msgstr[3] "%d عناصر تحتاج إلى اهتمام."
 msgstr[4] "%d عنصرًا يحتاج إلى اهتمام."
 msgstr[5] "%d عنصر يحتاج إلى اهتمام."
 
-#: admin/views/setup-steps/check.php:78
+#: admin/views/setup-steps/check.php:68
 msgid "Fix automatically"
 msgstr "إصلاح تلقائي"
 
-#: admin/views/setup-steps/check.php:79
-#: admin/views/setup-steps/check.php:89
-msgid "Check again"
-msgstr "تحقق مرة أخرى"
-
-#: admin/views/setup-steps/check.php:82
+#: admin/views/setup-steps/check.php:73
 msgid "The loader is in wp-config.php, but this page loaded before it was read. Check again to confirm."
 msgstr "المحمل موجود في wp-config.php، ولكن تم تحميل هذه الصفحة قبل قراءته. تحقق مرة أخرى للتأكيد."
 
-#: admin/views/setup-steps/check.php:88
+#: admin/views/setup-steps/check.php:79
 msgid "Everything is ready. Nothing to do here."
 msgstr "كل شيء جاهز. لا يلزم فعل أي شيء هنا."
 
-#: admin/views/setup-steps/check.php:95
+#: admin/views/setup-steps/check.php:86
 msgid "Show the server checks"
 msgstr "إظهار فحوصات الخادم"
 
 #. translators: %s: example site address such as /site/{id}
-#: admin/views/setup-steps/check.php:100
+#: admin/views/setup-steps/check.php:91
 #, php-format
 msgid "GrabWP set these up when you activated it. Site addresses like %s need every item."
 msgstr "قام GrabWP بإعداد هذه العناصر عند تفعيله. تحتاج عناوين المواقع مثل %s إلى كل عنصر منها."
-
-#: admin/views/setup-steps/check.php:110
-msgid "Site can reach itself (loopback)"
-msgstr "الموقع يمكنه الوصول إلى نفسه (loopback)"
-
-#: admin/views/setup-steps/check.php:112
-msgid "OK"
-msgstr "سليم"
-
-#: admin/views/setup-steps/check.php:114
-msgid "Failed"
-msgstr "فشل"
-
-#: admin/views/setup-steps/check.php:120
-msgid "GrabWP can install WordPress in new sites for you."
-msgstr "يمكن لـ GrabWP تنصيب WordPress في المواقع الجديدة نيابةً عنك."
-
-#: admin/views/setup-steps/check.php:121
-msgid "This server cannot open its own address, so new sites must be installed in the browser. Check firewall, basic auth, or the server routing rules."
-msgstr "لا يمكن لهذا الخادم فتح عنوانه الخاص، لذا يجب تنصيب المواقع الجديدة في المتصفح. تحقق من جدار الحماية أو المصادقة الأساسية أو قواعد توجيه الخادم."
-
-#: admin/views/setup-steps/check.php:128
-msgid ".htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
-msgstr "لا يتم استخدام ملفات .htaccess بواسطة Nginx. قم بتكوين توجيه العميل في كتلة الخادم (server block) بدلاً من ذلك."
 
 #: admin/views/setup-steps/done.php:21
 msgid "You're ready"
@@ -1657,159 +1042,176 @@ msgid "Your setup is saved. Open your site, then grow it whenever you like."
 msgstr "تم حفظ إعداداتك. افتح موقعك، ثم وسّعه متى شئت."
 
 #. translators: %s: tenant ID.
-#: admin/views/setup-steps/done.php:38
+#: admin/views/setup-steps/done.php:41
 #, php-format
 msgid "Your site: %s"
 msgstr "موقعك: %s"
 
-#: admin/views/setup-steps/done.php:67
+#: admin/views/setup-steps/done.php:74
 msgid "I saved it, hide this"
 msgstr "لقد حفظتها، أخفِ هذا"
 
-#: admin/views/setup-steps/done.php:69
+#: admin/views/setup-steps/done.php:76
 msgid "Keep this password somewhere safe. It stays on this screen until you hide it. You do not need it to log in: the 1-click Admin button does that."
 msgstr "احتفظ بكلمة المرور هذه في مكان آمن. ستبقى على هذه الشاشة حتى تخفيها. لا تحتاج إليها لتسجيل الدخول: زر الإدارة بنقرة واحدة يقوم بذلك."
 
-#: admin/views/setup-steps/done.php:74
+#: admin/views/setup-steps/done.php:81
 msgid "What you set up"
 msgstr "ما قمت بإعداده"
 
-#: admin/views/setup-steps/done.php:81
+#: admin/views/setup-steps/done.php:88
 msgid "Open this step"
 msgstr "افتح هذه الخطوة"
 
-#: admin/views/setup-steps/done.php:89
-msgid "Try it now"
-msgstr "جرّبه الآن"
+#: admin/views/setup-steps/done.php:101
+msgid "Log in to this site without the password."
+msgstr "سجّل الدخول إلى هذا الموقع دون كلمة المرور."
 
-#: admin/views/setup-steps/done.php:93
+#: admin/views/setup-steps/done.php:107
 msgid "Visit site"
 msgstr "زيارة الموقع"
 
-#: admin/views/setup-steps/done.php:95
+#: admin/views/setup-steps/done.php:108
+msgid "Open the site as a visitor."
+msgstr "افتح الموقع كزائر."
+
+#: admin/views/setup-steps/done.php:114
 msgid "All sites"
 msgstr "كل المواقع"
 
-#: admin/views/setup-steps/done.php:103
+#: admin/views/setup-steps/done.php:115
+msgid "See and manage every site."
+msgstr "اعرض جميع المواقع وأدرها."
+
+#: admin/views/setup-steps/done.php:119
+msgid "Manage sites"
+msgstr "إدارة المواقع"
+
+#: admin/views/setup-steps/done.php:124
+msgid "Manage WaaS"
+msgstr "إدارة WaaS"
+
+#: admin/views/setup-steps/done.php:130
 msgid "Grow later"
 msgstr "التوسع لاحقًا"
 
 #. translators: %s: example path URL of a site.
-#: admin/views/setup-steps/routing.php:25
+#: admin/views/setup-steps/routing.php:28
 #, php-format
 msgid "Every site lives under this WordPress address. Works right away, no DNS needed. For example: %s"
 msgstr "يعمل كل موقع تحت عنوان WordPress هذا. يعمل فورًا، ولا حاجة لإعداد DNS. على سبيل المثال: %s"
 
-#. translators: %s: example domain of a site.
-#: admin/views/setup-steps/routing.php:31
+#. translators: %s: example address of a site.
+#: admin/views/setup-steps/routing.php:34
 #, php-format
-msgid "Every site has its own domain. Each domain must point to this server (DNS) before its site opens. For example: %s"
-msgstr "لكل موقع نطاقه الخاص. يجب أن يشير كل نطاق إلى هذا الخادم (DNS) قبل أن يفتح موقعه. على سبيل المثال: %s"
+msgid "Every site has its own subdomain or its own domain. Point that address at this server (DNS) before the site opens. For example: %s"
+msgstr "لكل موقع نطاقه الفرعي أو نطاقه الخاص. وجّه ذلك العنوان إلى هذا الخادم (DNS) قبل فتح الموقع. على سبيل المثال: %s"
 
-#: admin/views/setup-steps/routing.php:36
+#: admin/views/setup-steps/routing.php:40
 msgid "A site opens on the path address until you give it a domain; then it opens on the domain and the path keeps working. Works now; add domains whenever you like."
 msgstr "يفتح الموقع على عنوان المسار حتى تمنحه نطاقًا؛ ثم يفتح على النطاق ويستمر المسار في العمل. يعمل الآن؛ أضف النطاقات متى شئت."
 
-#: admin/views/setup-steps/routing.php:41
+#: admin/views/setup-steps/routing.php:47
 msgid "Choose the web address of your sites"
 msgstr "اختر عنوان الويب لمواقعك"
 
-#: admin/views/setup-steps/routing.php:42
-msgid "This decides how visitors reach each site. Start simple. You can change this later in Tenancy > Settings > Routing."
-msgstr "يحدد هذا كيفية وصول الزوار إلى كل موقع. ابدأ ببساطة. يمكنك تغيير هذا لاحقًا في العملاء > إعدادات > التوجيه."
+#: admin/views/setup-steps/routing.php:48
+msgid "This decides how visitors reach each site. Pick one. You can change this later in Tenancy > Settings > Routing, which also lets sites use both a path and a domain."
+msgstr "يحدّد هذا كيفية وصول الزوّار إلى كل موقع. اختر طريقة واحدة. يمكنك تغيير ذلك لاحقًا من Tenancy > الإعدادات > التوجيه، مما يتيح للمواقع أيضًا استخدام المسار والنطاق معًا."
 
-#: admin/views/setup-steps/routing.php:59
+#: admin/views/setup-steps/routing.php:71
 msgid "Sites already exist. A new mode changes their addresses, so switch it in Settings, which lists every site that changes."
 msgstr "توجد مواقع بالفعل. الوضع الجديد يغير عناوينها، لذا قم بالتبديل من الإعدادات، حيث يتم سرد كل موقع سيتغير."
 
-#: admin/views/setup-steps/routing.php:60
+#: admin/views/setup-steps/routing.php:72
 msgid "Open Settings > Routing"
 msgstr "فتح إعدادات > التوجيه"
 
-#: admin/views/setup-steps/site.php:34
+#: admin/views/setup-steps/site.php:35
 #: admin/views/setup-wizard.php:18
 msgid "Save and continue"
 msgstr "حفظ ومتابعة"
 
-#: admin/views/setup-steps/site.php:44
+#: admin/views/setup-steps/site.php:45
 msgid "Create a new site"
 msgstr "إنشاء موقع جديد"
 
-#: admin/views/setup-steps/site.php:45
+#: admin/views/setup-steps/site.php:46
 msgid "Start from an empty WordPress site."
 msgstr "ابدأ من موقع WordPress فارغ."
 
-#: admin/views/setup-steps/site.php:49
+#: admin/views/setup-steps/site.php:50
 msgid "Use an existing site"
 msgstr "استخدام موقع موجود"
 
-#: admin/views/setup-steps/site.php:50
+#: admin/views/setup-steps/site.php:51
 msgid "Pick one of your sites from the list below."
 msgstr "اختر أحد مواقعك من القائمة أدناه."
 
-#: admin/views/setup-steps/site.php:58
+#: admin/views/setup-steps/site.php:59
 msgid "Existing site"
 msgstr "موقع موجود"
 
-#: admin/views/setup-steps/site.php:70
+#: admin/views/setup-steps/site.php:71
 msgid "Site title"
 msgstr "عنوان الموقع"
 
-#: admin/views/setup-steps/site.php:75
-#: admin/views/setup-steps/site.php:103
+#: admin/views/setup-steps/site.php:76
+#: admin/views/setup-steps/site.php:104
 msgid "Address"
 msgstr "العنوان"
 
-#: admin/views/setup-steps/site.php:80
+#: admin/views/setup-steps/site.php:81
 msgid "Works now. No DNS needed. The ID is created on save."
 msgstr "يعمل الآن. لا حاجة لإعداد DNS. يتم إنشاء المعرف عند الحفظ."
 
-#: admin/views/setup-steps/site.php:83
-#: admin/views/setup-steps/site.php:97
-#: admin/views/setup-steps/site.php:106
+#: admin/views/setup-steps/site.php:84
+#: admin/views/setup-steps/site.php:98
+#: admin/views/setup-steps/site.php:107
 msgid "Custom domain"
 msgstr "نطاق مخصص"
 
-#: admin/views/setup-steps/site.php:84
+#: admin/views/setup-steps/site.php:85
 msgid "Point the domain's DNS to this server first."
 msgstr "وجّه DNS الخاص بالنطاق إلى هذا الخادم أولاً."
 
-#: admin/views/setup-steps/site.php:91
+#: admin/views/setup-steps/site.php:92
 msgid "Path address"
 msgstr "عنوان المسار"
 
 #. translators: %s: path URL of the new site, {id} stands for its ID.
-#: admin/views/setup-steps/site.php:93
+#: admin/views/setup-steps/site.php:94
 #, php-format
 msgid "Works now, no DNS needed. The site ID is created when you save: %s"
 msgstr "يعمل الآن، لا حاجة لإعداد DNS. يتم إنشاء معرف الموقع عند الحفظ: %s"
 
-#: admin/views/setup-steps/site.php:98
+#: admin/views/setup-steps/site.php:99
 msgid "Type the domain below. Point its DNS to this server first."
 msgstr "اكتب النطاق أدناه. وجّه DNS الخاص به إلى هذا الخادم أولاً."
 
-#: admin/views/setup-steps/site.php:112
+#: admin/views/setup-steps/site.php:113
 msgid "Site admin email"
 msgstr "البريد الإلكتروني لمدير الموقع"
 
-#: admin/views/setup-steps/site.php:115
+#: admin/views/setup-steps/site.php:116
 msgid "The new site's administrator account uses this email."
 msgstr "يستخدم حساب المدير للموقع الجديد هذا البريد الإلكتروني."
 
-#: admin/views/setup-steps/site.php:120
+#: admin/views/setup-steps/site.php:121
 #: admin/views/tenant-create.php:131
+#: includes/class-grabwp-tenancy-diagnostics.php:296
 msgid "WordPress"
 msgstr "WordPress"
 
-#: admin/views/setup-steps/site.php:124
+#: admin/views/setup-steps/site.php:125
 msgid "Set up WordPress in the new site now"
 msgstr "إعداد WordPress في الموقع الجديد الآن"
 
-#: admin/views/setup-steps/site.php:126
+#: admin/views/setup-steps/site.php:127
 msgid "The site is ready to use right away, with an administrator account named after the site ID. You log in with the 1-click button and never need its password."
 msgstr "الموقع جاهز للاستخدام فورًا، مع حساب مدير يحمل اسم معرف الموقع. يمكنك تسجيل الدخول بزر النقرة الواحدة ولن تحتاج إلى كلمة المرور أبدًا."
 
-#: admin/views/setup-steps/site.php:128
+#: admin/views/setup-steps/site.php:129
 msgid "Turned off because this server cannot reach itself (see the Check step). You can finish the install in the browser after the site is created."
 msgstr "مُعطَّل لأن هذا الخادم لا يمكنه الوصول إلى نفسه (راجع خطوة الفحص). يمكنك إكمال التنصيب في المتصفح بعد إنشاء الموقع."
 
@@ -1847,22 +1249,414 @@ msgstr "رجوع"
 msgid "Skip this step"
 msgstr "تخطي هذه الخطوة"
 
+#: admin/views/status-base.php:25
+msgid "File Structure"
+msgstr "بنية الملفات"
+
+#: admin/views/status-base.php:29
+msgid "Base Directory"
+msgstr "المجلد الأساسي"
+
+#: admin/views/status-base.php:33
+msgid "✓ Directory exists"
+msgstr "✓ المجلد موجود"
+
+#: admin/views/status-base.php:35
+msgid "✗ Directory does not exist"
+msgstr "✗ المجلد غير موجود"
+
+#: admin/views/status-base.php:38
+msgid "⚠ Using legacy path structure"
+msgstr "⚠ استخدام بنية مسار قديمة"
+
+#: admin/views/status-base.php:40
+msgid "ℹ Using custom path configuration"
+msgstr "ℹ استخدام تكوين مسار مخصص"
+
+#: admin/views/status-base.php:46
+msgid "Tenant Mappings File"
+msgstr "ملف تعيينات العميل"
+
+#: admin/views/status-base.php:50
+msgid "✓ File exists and is readable"
+msgstr "✓ الملف موجود وقابل للقراءة"
+
+#: admin/views/status-base.php:52
+msgid "✗ File does not exist"
+msgstr "✗ الملف غير موجود"
+
+#: admin/views/status-base.php:58
+msgid "Settings File"
+msgstr "ملف الإعدادات"
+
+#: admin/views/status-base.php:62
+msgid "✓ File exists"
+msgstr "✓ الملف موجود"
+
+#: admin/views/status-base.php:64
+msgid "⚠ Not created yet (using defaults)"
+msgstr "⚠ لم يتم إنشاؤه بعد (باستخدام الإعدادات الافتراضية)"
+
+#: admin/views/status-base.php:70
+msgid "Tenant Uploads Pattern"
+msgstr "نمط مرفوعات العميل"
+
+#: admin/views/status-base.php:81
+msgid "Configured on the Settings page."
+msgstr "مُكوَّن في صفحة الإعدادات."
+
 #: admin/views/status-base.php:112
 msgid "empty"
 msgstr "فارغ"
+
+#: admin/views/status-base.php:117
+msgid "✓ Yes"
+msgstr "✓ نعم"
+
+#: admin/views/status-general.php:32
+msgid "Environment Checks"
+msgstr "فحوصات البيئة"
+
+#: admin/views/status-pro.php:27
+msgid "GrabWP Tenancy Pro"
+msgstr "GrabWP Tenancy Pro"
+
+#: admin/views/status-pro.php:28
+msgid "Upgrade to GrabWP Tenancy Pro for advanced features including complete content isolation, separate databases per tenant, and enhanced management capabilities."
+msgstr "قم بالترقية إلى GrabWP Tenancy Pro للحصول على ميزات متقدمة بما في ذلك عزل المحتوى بالكامل، وقواعد بيانات منفصلة لكل عميل، وقدرات إدارة محسنة."
+
+#: admin/views/status-pro.php:29
+#: includes/class-grabwp-tenancy-admin.php:328
+#: includes/class-grabwp-tenancy-admin.php:329
+#: includes/class-grabwp-tenancy-admin.php:466
+msgid "Upgrade to Pro"
+msgstr "ترقية إلى Pro"
+
+#: admin/views/status-pro.php:38
+msgid "Pro Plugin Information"
+msgstr "معلومات إضافة Pro"
+
+#: admin/views/status-pro.php:41
+msgid "Pro Version"
+msgstr "إصدار Pro"
+
+#: admin/views/status-pro.php:45
+#: includes/class-grabwp-tenancy-admin.php:318
+#: includes/class-grabwp-tenancy-admin.php:319
+msgid "Status"
+msgstr "الحالة"
+
+#: admin/views/status-pro.php:54
+msgid "Content Isolation (Default)"
+msgstr "عزل المحتوى (الافتراضي)"
+
+#: admin/views/status-pro.php:55
+msgid "Default content isolation settings applied when creating new tenants."
+msgstr "إعدادات عزل المحتوى الافتراضية المطبقة عند إنشاء عملاء جدد."
+
+#: admin/views/status-pro.php:61
+msgid "Content Isolation"
+msgstr "عزل المحتوى"
+
+#: admin/views/status-pro.php:62
+msgid "Theme Isolation"
+msgstr "عزل القالب"
+
+#: admin/views/status-pro.php:63
+msgid "Plugin Isolation"
+msgstr "عزل الإضافة"
+
+#: admin/views/status-pro.php:64
+msgid "Upload Isolation"
+msgstr "عزل المرفقات"
+
+#: admin/views/status-pro.php:73
+msgid "✓ Isolated"
+msgstr "✓ معزول"
+
+#: admin/views/status-pro.php:75
+msgid "Shared"
+msgstr "مشترك"
+
+#: admin/views/status-pro.php:85
+msgid "Database (Default)"
+msgstr "قاعدة البيانات (الافتراضي)"
+
+#: admin/views/status-pro.php:86
+msgid "Default database configuration for new tenants."
+msgstr "إعدادات قاعدة البيانات الافتراضية للمستأجرين الجدد."
+
+#: admin/views/status-pro.php:94
+#: admin/views/tenant-clone.php:93
+msgid "Database Type"
+msgstr "نوع قاعدة البيانات"
+
+#: admin/views/status-pro.php:97
+msgid "Isolated MySQL Database"
+msgstr "قاعدة بيانات MySQL معزولة"
+
+#: admin/views/status-pro.php:99
+msgid "Isolated SQLite Database"
+msgstr "قاعدة بيانات SQLite معزولة"
+
+#: admin/views/status-pro.php:101
+msgid "Shared Database (with table prefixes)"
+msgstr "قاعدة بيانات مشتركة (مع بادئات الجداول)"
+
+#: admin/views/status-pro.php:108
+msgid "MySQL Host"
+msgstr "مستضيف MySQL"
+
+#: admin/views/status-pro.php:117
+msgid "MySQL Database"
+msgstr "قاعدة بيانات MySQL"
+
+#: admin/views/status-pro.php:126
+msgid "MySQL Username"
+msgstr "اسم مستخدم MySQL"
+
+#: admin/views/status.php:43
+msgid "GrabWP Tenancy Status"
+msgstr "حالة GrabWP Tenancy"
+
+#: admin/views/status.php:51
+msgid "Plugin General"
+msgstr "عام الإضافة"
+
+#: admin/views/status.php:55
+msgid "Base Plugin"
+msgstr "الإضافة الأساسية"
+
+#: admin/views/status.php:59
+#: includes/class-grabwp-tenancy-diagnostics.php:213
+msgid "Pro Plugin"
+msgstr "إضافة Pro"
+
+#: admin/views/status.php:72
+msgid "GrabWP Tenancy:"
+msgstr "GrabWP Tenancy:"
+
+#: admin/views/status.php:73
+msgid "You're using a legacy path structure. To comply with WordPress standards:"
+msgstr "أنت تستخدم بنية مسار قديمة. للامتثال لمعايير WordPress:"
+
+#: admin/views/status.php:74
+msgid "1. Deactivate the plugin"
+msgstr "1. تعطيل الإضافة"
+
+#: admin/views/status.php:77
+#, php-format
+msgid "2. Rename and move the entire %1$s folder to %2$s"
+msgstr "2. إعادة تسمية ونقل مجلد %1$s بالكامل إلى %2$s"
+
+#: admin/views/status.php:83
+msgid "3. Reactivate the plugin"
+msgstr "3. إعادة تفعيل الإضافة"
+
+#: admin/views/status.php:104
+msgid "← active"
+msgstr "← نشط"
+
+#: admin/views/tenant-clone.php:23
+msgid "Validating source & target tenants"
+msgstr "التحقق من المستأجر المصدر والهدف"
+
+#: admin/views/tenant-clone.php:24
+msgid "Exporting source database"
+msgstr "تصدير قاعدة بيانات المصدر"
+
+#: admin/views/tenant-clone.php:25
+msgid "Importing database into target tenant"
+msgstr "استيراد قاعدة البيانات إلى موقع العميل الهدف"
+
+#: admin/views/tenant-clone.php:26
+msgid "Updating site URLs"
+msgstr "تحديث روابط الموقع"
+
+#: admin/views/tenant-clone.php:27
+msgid "Copying uploads"
+msgstr "نسخ المرفقات"
+
+#: admin/views/tenant-clone.php:28
+msgid "Cleaning up"
+msgstr "تنظيف"
+
+#: admin/views/tenant-clone.php:43
+msgid "Clone Main Site"
+msgstr "استنساخ الموقع الرئيسي"
+
+#: admin/views/tenant-clone.php:46
+#, php-format
+msgid "Clone Tenant: %s"
+msgstr "استنساخ العميل: %s"
+
+#: admin/views/tenant-clone.php:53
+#, php-format
+msgid "Source database type: %s"
+msgstr "نوع قاعدة بيانات المصدر: %s"
+
+#: admin/views/tenant-clone.php:53
+#: admin/views/tenant-clone.php:93
+msgid "Shared MySQL"
+msgstr "MySQL مشتركة"
+
+#: admin/views/tenant-clone.php:59
+msgid "Choose clone target:"
+msgstr "اختر هدف الاستنساخ:"
+
+#: admin/views/tenant-clone.php:63
+msgid "Clone to existing site"
+msgstr "استنساخ إلى موقع موجود"
+
+#: admin/views/tenant-clone.php:67
+msgid "Clone to new site"
+msgstr "استنساخ إلى موقع جديد"
+
+#: admin/views/tenant-clone.php:81
+msgid "Target Tenant"
+msgstr "العميل الهدف"
+
+#: admin/views/tenant-clone.php:85
+msgid "— Loading tenants…"
+msgstr "- جاري تحميل العملاء…"
+
+#: admin/views/tenant-clone.php:87
+msgid "Select an existing tenant to clone data into. Create the target tenant first if needed."
+msgstr "حدد عميلا موجودًا لاستنساخ البيانات إليه. قم بإنشاء العميل الهدف أولًا إذا لزم الأمر."
+
+#: admin/views/tenant-clone.php:98
+msgid "Warning:"
+msgstr "تحذير:"
+
+#: admin/views/tenant-clone.php:99
+msgid "This will overwrite all data in the target tenant (database, uploads). This action cannot be undone."
+msgstr "سيؤدي هذا إلى استبدال جميع البيانات في العميل الهدف (قاعدة البيانات، المرفقات). لا يمكن التراجع عن هذا الإجراء."
+
+#: admin/views/tenant-clone.php:107
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:78
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:79
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:123
+msgid "Clone Tenant"
+msgstr "استنساخ العميل"
+
+#: admin/views/tenant-clone.php:131
+msgid "Clone complete!"
+msgstr "اكتمل الاستنساخ!"
+
+#: admin/views/tenant-clone.php:132
+msgid "The source tenant data has been cloned into the target tenant."
+msgstr "تم استنساخ بيانات العميل المصدر إلى العميل الهدف."
+
+#: admin/views/tenant-clone.php:135
+msgid "Target tenant:"
+msgstr "العميل الهدف:"
+
+#: admin/views/tenant-clone.php:137
+msgid "Edit tenant"
+msgstr "تعديل العميل"
+
+#: admin/views/tenant-clone.php:138
+msgid "Homepage"
+msgstr "الصفحة الرئيسية"
+
+#: admin/views/tenant-clone.php:139
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+#: admin/views/tenant-clone.php:146
+msgid "Tired of doing this by hand?"
+msgstr "هل تعبت من القيام بذلك يدويًا؟"
+
+#: admin/views/tenant-clone.php:147
+msgid "GrabWP Tenancy Pro schedules automatic backups for every client site and pushes copies to secure offsite storage. No more manual steps, no missed backups."
+msgstr "تقوم GrabWP Tenancy Pro بجدولة عمليات نسخ احتياطي تلقائية لكل موقع عميل وتدفع النسخ إلى تخزين خارجي آمن. لا مزيد من الخطوات اليدوية، ولا نسخ احتياطية مفقودة."
+
+#: admin/views/tenant-clone.php:148
+#: admin/views/upgrade.php:86
+msgid "Get GrabWP Tenancy Pro"
+msgstr "احصل على GrabWP Tenancy Pro"
+
+#: admin/views/tenant-clone.php:156
+msgid "Back to Tenants"
+msgstr "العودة إلى العملاء"
+
+#: admin/views/tenant-clone.php:194
+msgid "— No eligible tenants found —"
+msgstr "- لم يتم العثور على عملاء مؤهلين -"
+
+#: admin/views/tenant-clone.php:199
+msgid "— Select target tenant —"
+msgstr "- حدد العميل الهدف -"
 
 #: admin/views/tenant-clone.php:227
 msgid "Path URL only"
 msgstr "رابط المسار فقط"
 
+#: admin/views/tenant-clone.php:326
+msgid "Are you sure? All data in the target tenant will be overwritten."
+msgstr "هل أنت متأكد؟ سيتم استبدال جميع البيانات في العميل الهدف."
+
+#: admin/views/tenant-create.php:16
+#: includes/class-grabwp-tenancy-admin.php:291
+msgid "Add New Tenant"
+msgstr "إضافة عميل جديد"
+
 #: admin/views/tenant-create.php:21
 msgid "Create a new tenant. It opens on the domain you enter."
 msgstr "قم بإنشاء عميل جديد. يفتح على النطاق الذي تدخله."
+
+#: admin/views/tenant-create.php:23
+msgid "Create a new tenant. A path-based URL will be assigned automatically."
+msgstr "قم بإنشاء عميل جديد. سيتم تعيين رابط يعتمد على المسار تلقائيًا."
+
+#. translators: %s: source tenant ID or "Main Site"
+#: admin/views/tenant-create.php:42
+#, php-format
+msgid "After creating this tenant, you will be redirected to clone %s into it."
+msgstr "بعد إنشاء هذا العميل، سيتم توجيهك لاستنساخ %s إليه."
+
+#: admin/views/tenant-create.php:75
+msgid "Domain Setup"
+msgstr "إعداد النطاق"
+
+#: admin/views/tenant-create.php:76
+msgid "Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page."
+msgstr "أدخل بدون http:// أو www (مثل mysite.com، blog.mysite.com). يمكنك إضافة نطاق في أي وقت من صفحة تحرير العميل."
+
+#: admin/views/tenant-create.php:82
+#: admin/views/tenant-create.php:120
+msgid "Your site will be accessible at:"
+msgstr "سيكون موقعك متاحًا على:"
+
+#: admin/views/tenant-create.php:90
+#: admin/views/tenant-create.php:106
+msgid "Enter domain (e.g. mysite.com)"
+msgstr "أدخل النطاق (مثل mysite.com)"
+
+#: admin/views/tenant-create.php:91
+#: admin/views/tenant-create.php:107
+msgid "Clear"
+msgstr "مسح"
 
 #: admin/views/tenant-create.php:94
 #: admin/views/tenant-edit.php:126
 msgid "Domain mode needs at least one domain."
 msgstr "يحتاج وضع النطاق إلى نطاق واحد على الأقل."
+
+#: admin/views/tenant-create.php:101
+msgid "I have a domain"
+msgstr "لدي نطاق"
+
+#: admin/views/tenant-create.php:108
+#: admin/views/tenant-edit.php:107
+#: admin/views/tenant-edit.php:115
+#: includes/class-grabwp-tenancy-admin.php:382
+msgid "Remove"
+msgstr "إزالة"
+
+#: admin/views/tenant-create.php:116
+msgid "I'll set up a domain later"
+msgstr "سأقوم بإعداد نطاق لاحقًا"
 
 #: admin/views/tenant-create.php:135
 msgid "Install WordPress now"
@@ -1871,6 +1665,46 @@ msgstr "تنصيب WordPress الآن"
 #: admin/views/tenant-create.php:137
 msgid "Creates the site's database and an administrator named after the site ID with a random password. Use the 1-click Admin button to log in; you never need the password."
 msgstr "ينشئ قاعدة بيانات الموقع وحساب مدير يحمل اسم معرف الموقع بكلمة مرور عشوائية. استخدم زر الإدارة بنقرة واحدة لتسجيل الدخول؛ لن تحتاج إلى كلمة المرور أبدًا."
+
+#: admin/views/tenant-create.php:154
+msgid "Create Tenant & Clone"
+msgstr "إنشاء عميل واستنساخ"
+
+#: admin/views/tenant-create.php:155
+msgid "Create Tenant"
+msgstr "إنشاء عميل"
+
+#: admin/views/tenant-create.php:168
+msgid "GrabWP Tenancy Pro adds isolated databases, custom plugin & theme management, scheduled backups, cloud storage offload, and more for every client site."
+msgstr "تضيف GrabWP Tenancy Pro قواعد بيانات معزولة، وإدارة مخصصة للإضافات والقوالب، ونسخ احتياطي مجدول، وتخزين سحابي، والمزيد لكل موقع عميل."
+
+#: admin/views/tenant-create.php:169
+msgid "Better isolation, more control"
+msgstr "عزل أفضل، تحكم أكبر"
+
+#. translators: %s: tenant ID
+#: admin/views/tenant-edit.php:19
+#, php-format
+msgid "Edit Tenant: %s"
+msgstr "تحرير العميل: %s"
+
+#: admin/views/tenant-edit.php:32
+msgid "Edit tenant settings and domain mappings."
+msgstr "تحرير إعدادات العميل وتعيينات النطاق."
+
+#: admin/views/tenant-edit.php:40
+#: includes/class-grabwp-tenancy-admin.php:559
+#: includes/class-grabwp-tenancy-tenant-crud.php:184
+msgid "Tenant updated successfully."
+msgstr "تم تحديث العميل بنجاح."
+
+#: admin/views/tenant-edit.php:72
+msgid "Path URL"
+msgstr "رابط المسار"
+
+#: admin/views/tenant-edit.php:79
+msgid "This URL is always available, no DNS configuration needed."
+msgstr "هذا الرابط متاح دائمًا، لا حاجة لإعداد DNS."
 
 #. translators: %d: number of domains stored for the site.
 #: admin/views/tenant-edit.php:93
@@ -1884,11 +1718,214 @@ msgstr[3] "النطاقات المخزنة (%d): محتفظ بها، غير مس
 msgstr[4] "النطاقات المخزنة (%d): محتفظ بها، غير مستخدمة للروابط في وضع المسار"
 msgstr[5] "النطاقات المخزنة (%d): محتفظ بها، غير مستخدمة للروابط في وضع المسار"
 
-#: includes/class-grabwp-tenancy-admin-form-handler.php:197
-#: includes/class-grabwp-tenancy-admin-form-handler.php:247
-#: includes/class-grabwp-tenancy-setup-wizard.php:1224
-msgid "Could not write tenants.php. Check file permissions."
-msgstr "تعذرت كتابة ملف tenants.php. تحقق من أذونات الملفات."
+#: admin/views/tenant-edit.php:106
+#: admin/views/tenant-edit.php:114
+#: includes/class-grabwp-tenancy-admin.php:381
+msgid "Enter domain (e.g., tenant1.grabwp.local)"
+msgstr "أدخل النطاق (مثل، tenant1.grabwp.local)"
+
+#: admin/views/tenant-edit.php:120
+msgid "Add New Domain"
+msgstr "إضافة نطاق جديد"
+
+#: admin/views/tenant-edit.php:122
+msgid "Valid format: example.com, subdomain.example.com (no http:// or www)"
+msgstr "تنسيق صالح: example.com، subdomain.example.com (بدون http:// أو www)"
+
+#: admin/views/tenant-edit.php:142
+msgid "Update Tenant"
+msgstr "تحديث العميل"
+
+#: admin/views/tenant-edit.php:154
+msgid "Need more control? GrabWP Tenancy Pro adds isolated databases (MySQL or SQLite), scheduled backups, cloud storage offload, and more for every client site."
+msgstr "هل تحتاج إلى مزيد من التحكم؟ تضيف GrabWP Tenancy Pro قواعد بيانات معزولة (MySQL أو SQLite)، ونسخ احتياطي مجدول، وتخزين سحابي، والمزيد لكل موقع عميل."
+
+#: admin/views/tenants.php:18
+#: includes/class-grabwp-tenancy-admin.php:292
+msgid "Add New"
+msgstr "أضف جديد"
+
+#: admin/views/tenants.php:22
+msgid "Manage your multi-tenant WordPress sites."
+msgstr "إدارة مواقع WordPress متعددة العميل."
+
+#: admin/views/tenants.php:39
+msgid "No Tenants Found"
+msgstr "لم يتم العثور على عملاء"
+
+#: admin/views/tenants.php:40
+msgid "Create your first tenant to get started with multi-tenancy."
+msgstr "قم بإنشاء العميل الأول للبدء مع تعدد العملاء."
+
+#: admin/views/tenants.php:42
+msgid "Create Your First Tenant"
+msgstr "قم بإنشاء العميل الأول"
+
+#: admin/views/tenants.php:62
+msgid "Need more isolation?"
+msgstr "هل تحتاج إلى مزيد من العزل؟"
+
+#: admin/views/tenants.php:63
+msgid "GrabWP Tenancy Pro supports plugin & theme management,  seperated MySQL or SQLite, scheduled backups, cloud storage offload, and customization options for every client site."
+msgstr "تدعم GrabWP Tenancy Pro إدارة الإضافات والقوالب،  وقواعد بيانات MySQL أو SQLite منفصلة، ونسخ احتياطي مجدول، وتخزين سحابي، وخيارات تخصيص لكل موقع عميل."
+
+#: admin/views/upgrade.php:17
+msgid "Upgrade to GrabWP Tenancy Pro"
+msgstr "الترقية إلى GrabWP Tenancy Pro"
+
+#: admin/views/upgrade.php:19
+msgid "GrabWP Tenancy Pro gives you the tools to manage client sites at scale: scheduled backups, dedicated databases, cloud storage offload, and more."
+msgstr "تمنحك GrabWP Tenancy Pro الأدوات اللازمة لإدارة مواقع العملاء على نطاق واسع: نسخ احتياطي مجدول، قواعد بيانات مخصصة، تخزين سحابي، والمزيد."
+
+#: admin/views/upgrade.php:25
+msgid "Feature"
+msgstr "الميزة"
+
+#: admin/views/upgrade.php:26
+msgid "Free"
+msgstr "مجاني"
+
+#: admin/views/upgrade.php:32
+msgid "Multiple tenants via shared MySQL"
+msgstr "عملاء متعددين عبر MySQL مشتركة"
+
+#: admin/views/upgrade.php:37
+msgid "Dedicated database per tenant (MySQL / SQLite)"
+msgstr "قاعدة بيانات مخصصة لكل عميل (MySQL / SQLite)"
+
+#: admin/views/upgrade.php:42
+msgid "Full tenant backup and restore"
+msgstr "نسخ احتياطي واستعادة كاملة للعميل"
+
+#: admin/views/upgrade.php:47
+msgid "Scheduled automatic backups (daily, weekly, etc.)"
+msgstr "نسخ احتياطي تلقائي مجدول (يومي، أسبوعي، إلخ.)"
+
+#: admin/views/upgrade.php:52
+msgid "Cloud offload to S3-compatible storage"
+msgstr "نقل سحابي إلى تخزين متوافق مع S3"
+
+#: admin/views/upgrade.php:57
+msgid "WP-CLI backup commands"
+msgstr "أوامر النسخ الاحتياطي عبر WP-CLI"
+
+#: admin/views/upgrade.php:62
+msgid "Cross-database migration (shared, dedicated, SQLite)"
+msgstr "ترحيل عبر قواعد البيانات (مشتركة، مخصصة، SQLite)"
+
+#: admin/views/upgrade.php:67
+msgid "Path alias routing (/site/my-shop/)"
+msgstr "توجيه الاسم المستعار للمسار (/site/my-shop/)"
+
+#: admin/views/upgrade.php:72
+msgid "Extension management (symlink/copy/repair)"
+msgstr "إدارة الإضافات (symlink/نسخ/إصلاح)"
+
+#: admin/views/upgrade.php:77
+msgid "Storage driver selection (Local / S3)"
+msgstr "اختيار محرك التخزين (محلي / S3)"
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:138
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:254
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:271
+#: includes/class-grabwp-tenancy-admin.php:419
+msgid "Security check failed."
+msgstr "فشل فحص الأمان."
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:191
+msgid "Please select a target tenant."
+msgstr "يرجى تحديد عميل هدف."
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:195
+msgid "Cannot clone a tenant into itself."
+msgstr "لا يمكن استنساخ موقع  عميل إلى نفسه."
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:208
+#: includes/backup/class-grabwp-tenancy-clone.php:143
+msgid "Target tenant not found."
+msgstr "العميل الهدف غير موجود."
+
+#: includes/backup/class-grabwp-tenancy-clone-admin.php:266
+#: includes/class-grabwp-tenancy-setup-wizard.php:739
+#: includes/class-grabwp-tenancy-setup-wizard.php:757
+#: includes/class-grabwp-tenancy-setup-wizard.php:795
+#: includes/class-grabwp-tenancy-setup-wizard.php:994
+#: includes/class-grabwp-tenancy-setup-wizard.php:1048
+#: includes/class-grabwp-tenancy-setup-wizard.php:1536
+#: includes/class-grabwp-tenancy-tenant-crud.php:38
+#: includes/class-grabwp-tenancy-tenant-crud.php:100
+#: includes/class-grabwp-tenancy-tenant-crud.php:148
+#: includes/class-grabwp-tenancy-tenant-installer.php:536
+msgid "Insufficient permissions."
+msgstr "صلاحيات غير كافية."
+
+#: includes/backup/class-grabwp-tenancy-clone-db-exporter.php:88
+msgid "Cannot open SQL output file."
+msgstr "لا يمكن فتح ملف إخراج SQL."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:70
+msgid "Clone job not found or expired."
+msgstr "مهمة الاستنساخ غير موجودة أو منتهية الصلاحية."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:75
+msgid "Clone is already completed."
+msgstr "تم الاستنساخ بالفعل."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:115
+msgid "Invalid source tenant ID."
+msgstr "معرف العميل المصدر غير صالح."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:118
+msgid "Invalid target tenant ID."
+msgstr "معرف العميل الهدف غير صالح."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:129
+msgid "Invalid clone step."
+msgstr "خطوة استنساخ غير صالحة."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:138
+msgid "Source tenant not found."
+msgstr "العميل المصدر غير موجود."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:150
+msgid "Cannot create temp staging directory."
+msgstr "لا يمكن إنشاء مجلد مرحلي مؤقت."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:157
+msgid "Source and target tenants validated."
+msgstr "تم التحقق من العميل المصدر والهدف."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:171
+msgid "Source database exported."
+msgstr "تم تصدير قاعدة بيانات المصدر."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:182
+msgid "Export files not found."
+msgstr "ملفات التصدير غير موجودة."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:187
+msgid "Export metadata is invalid."
+msgstr "البيانات الوصفية للتصدير غير صالحة."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:195
+msgid "Database imported into target tenant."
+msgstr "تم استيراد قاعدة البيانات إلى العميل الهدف."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:218
+msgid "Uploads copied."
+msgstr "تم نسخ المرفقات."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:253
+msgid "Site URLs updated."
+msgstr "تم تحديث روابط الموقع."
+
+#: includes/backup/class-grabwp-tenancy-clone.php:263
+msgid "Clone complete."
+msgstr "اكتمل الاستنساخ."
+
+#: includes/class-grabwp-tenancy-admin-form-handler.php:180
+msgid "Failed to save settings. Please check file permissions."
+msgstr "فشل حفظ الإعدادات. يرجى التحقق من أذونات الملفات."
 
 #: includes/class-grabwp-tenancy-admin-form-handler.php:226
 msgid "The routing mode is set in wp-config.php and cannot be changed here."
@@ -1897,6 +1934,47 @@ msgstr "تم تعيين وضع التوجيه في wp-config.php ولا يمكن
 #: includes/class-grabwp-tenancy-admin-form-handler.php:229
 msgid "Invalid routing mode."
 msgstr "وضع التوجيه غير صالح."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:61
+msgid "load.php is not included in wp-config.php."
+msgstr "load.php غير مضمن في wp-config.php."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:63
+#: includes/class-grabwp-tenancy-admin-notice.php:73
+#: includes/class-grabwp-tenancy-admin-notice.php:83
+#: includes/class-grabwp-tenancy-admin-notice.php:119
+msgid "View Status →"
+msgstr "عرض الحالة →"
+
+#: includes/class-grabwp-tenancy-admin-notice.php:71
+msgid "MU-plugin is not installed. Tenant features may not work."
+msgstr "إضافة MU غير مثبتة. قد لا تعمل ميزات العميل."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:81
+msgid "Data directory is missing."
+msgstr "مجلد البيانات مفقود."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:117
+msgid "Root .htaccess needs to be updated for tenant routing."
+msgstr "يحتاج ملف .htaccess الجذري إلى التحديث لتوجيه العميل."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:174
+msgid "Permission denied."
+msgstr "تم رفض الإذن."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:175
+#: includes/class-grabwp-tenancy-installer.php:311
+#: includes/class-grabwp-tenancy-installer.php:349
+#: includes/class-grabwp-tenancy-installer.php:554
+#: includes/class-grabwp-tenancy-installer.php:600
+#: includes/class-grabwp-tenancy-installer.php:771
+#: includes/class-grabwp-tenancy-installer.php:855
+msgid "Run this from the main site."
+msgstr "شغّل هذا من الموقع الرئيسي."
+
+#: includes/class-grabwp-tenancy-admin-notice.php:200
+msgid "Unknown action."
+msgstr "إجراء غير معروف."
 
 #. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false
 #: includes/class-grabwp-tenancy-admin.php:146
@@ -1910,9 +1988,488 @@ msgstr "يقوم ملف wp-config.php لديك بالفعل بتعيين %1$s إ
 msgid "Another plugin or file already sets %1$s to %2$s, so this setting has no effect."
 msgstr "تقوم إضافة أخرى أو ملف آخر بالفعل بتعيين %1$s إلى %2$s، لذا لا تأثير لهذا الإعداد."
 
-#: includes/class-grabwp-tenancy-admin.php:548
+#: includes/class-grabwp-tenancy-admin.php:228
+msgid "GrabWP Tenancy Pro adds scheduled auto backups, offsite cloud storage, dedicated database isolation, and more for every client site."
+msgstr "تضيف GrabWP Tenancy Pro نسخًا احتياطيًا تلقائيًا مجدولًا، وتخزينًا سحابيًا خارجيًا، وعزل قاعدة بيانات مخصص، والمزيد لكل موقع عميل."
+
+#: includes/class-grabwp-tenancy-admin.php:272
+msgid "Tenancy"
+msgstr "العملاء"
+
+#: includes/class-grabwp-tenancy-admin.php:282
+#: includes/class-grabwp-tenancy-admin.php:283
+msgid "All Tenants"
+msgstr "كل العملاء"
+
+#: includes/class-grabwp-tenancy-admin.php:300
+#: includes/class-grabwp-tenancy-admin.php:301
+msgid "Edit Tenant"
+msgstr "تعديل العميل"
+
+#: includes/class-grabwp-tenancy-admin.php:383
+msgid "Copied!"
+msgstr "تم النسخ!"
+
+#: includes/class-grabwp-tenancy-admin.php:384
+msgid "To confirm deletion, type the tenant ID:"
+msgstr "لتأكيد الحذف، اكتب معرف العميل:"
+
+#: includes/class-grabwp-tenancy-admin.php:385
+msgid "Incorrect tenant ID. Deletion cancelled."
+msgstr "معرف العميل غير صحيح. تم إلغاء الحذف."
+
+#: includes/class-grabwp-tenancy-admin.php:425
+msgid "Tenant ID is required."
+msgstr "معرف العميل مطلوب."
+
+#: includes/class-grabwp-tenancy-admin.php:430
+#: includes/class-grabwp-tenancy-tenant-crud.php:114
+#: includes/class-grabwp-tenancy-tenant-crud.php:177
+msgid "Tenant not found."
+msgstr "العميل غير موجود."
+
+#: includes/class-grabwp-tenancy-admin.php:503
+msgid "Template not found."
+msgstr "القالب غير موجود."
+
+#: includes/class-grabwp-tenancy-admin.php:558
+#: includes/class-grabwp-tenancy-tenant-crud.php:85
+msgid "Tenant created successfully."
+msgstr "تم إنشاء العميل بنجاح."
+
+#: includes/class-grabwp-tenancy-admin.php:560
+msgid "Tenant deleted successfully."
+msgstr "تم حذف العميل بنجاح."
+
+#: includes/class-grabwp-tenancy-admin.php:561
+msgid "Settings saved successfully."
+msgstr "تم حفظ الإعدادات بنجاح."
+
+#: includes/class-grabwp-tenancy-admin.php:562
 msgid "Routing mode saved."
 msgstr "تم حفظ وضع التوجيه."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:102
+msgid "Diagnostics are available on the main site only."
+msgstr "التشخيصات متاحة على الموقع الرئيسي فقط."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:109
+msgid "Sorry, you are not allowed to read diagnostics."
+msgstr "عذرًا، غير مسموح لك بقراءة التشخيصات."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:212
+msgid "Base Plugin Version"
+msgstr "إصدار الإضافة الأساسية"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:214
+msgid "Registered Tenants"
+msgstr "المستأجرون المسجلون"
+
+#. translators: 1: plugin version, 2: Active or Inactive
+#: includes/class-grabwp-tenancy-diagnostics.php:221
+#, php-format
+msgid "%1$s, %2$s"
+msgstr "%1$s, %2$s"
+
+#. translators: 1: plugin version, 2: Active or Inactive
+#: includes/class-grabwp-tenancy-diagnostics.php:221
+msgid "Active"
+msgstr "نشط"
+
+#. translators: 1: plugin version, 2: Active or Inactive
+#: includes/class-grabwp-tenancy-diagnostics.php:221
+msgid "Inactive"
+msgstr "غير نشط"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:225
+msgid "Web Server"
+msgstr "خادم الويب"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:227
+msgid ".htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
+msgstr "لا يتم استخدام ملفات .htaccess بواسطة Nginx. قم بتكوين توجيه العميل في كتلة الخادم (server block) بدلاً من ذلك."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:231
+msgid "mod_rewrite"
+msgstr "mod_rewrite"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:231
+msgid "Cannot detect (apache_get_modules unavailable)"
+msgstr "لا يمكن الكشف (apache_get_modules غير متاح)"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:231
+msgid "Path routing requires mod_rewrite. Query string routing (?site=id) will be used as fallback."
+msgstr "يتطلب توجيه المسار mod_rewrite. سيتم استخدام توجيه سلسلة الاستعلام (?site=id) كبديل."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:236
+msgid "PHP Version"
+msgstr "إصدار PHP"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:237
+msgid "PHP SAPI"
+msgstr "PHP SAPI"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:238
+msgid "PHP memory limit"
+msgstr "حد ذاكرة PHP"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:239
+msgid "PHP time limit"
+msgstr "حد وقت تنفيذ PHP"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:240
+msgid "Max upload size"
+msgstr "الحد الأقصى لحجم الرفع"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:241
+msgid "PHP post max size"
+msgstr "الحد الأقصى لحجم POST في PHP"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:254
+msgid "Sodium"
+msgstr "Sodium"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:254
+msgid "GrabWP Pro needs it to encrypt tenant database passwords."
+msgstr "يحتاجه GrabWP Pro لتشفير كلمات مرور قواعد بيانات المستأجرين."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:255
+msgid "symlink()"
+msgstr "symlink()"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:255
+msgid "GrabWP Pro needs it for domain links."
+msgstr "يحتاجه GrabWP Pro لروابط النطاقات."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:256
+msgid "ZipArchive"
+msgstr "ZipArchive"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:256
+msgid "Backups, restores and add-on installs need it."
+msgstr "تحتاجه النسخ الاحتياطية والاستعادة وتثبيت الإضافات."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:257
+msgid "PDO SQLite"
+msgstr "PDO SQLite"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:257
+msgid "Tenants with SQLite databases need it."
+msgstr "يحتاجه المستأجرون الذين يستخدمون قواعد بيانات SQLite."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:258
+msgid "Tokenizer"
+msgstr "Tokenizer"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:258
+msgid "The wp-config.php checks need it."
+msgstr "تحتاجه فحوصات wp-config.php."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:259
+msgid "SimpleXML"
+msgstr "SimpleXML"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:259
+msgid "Backups to S3 storage need it."
+msgstr "تحتاجه النسخ الاحتياطية إلى تخزين S3."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:260
+msgid "OPcache"
+msgstr "OPcache"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:261
+msgid "cURL"
+msgstr "cURL"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:262
+msgid "mbstring"
+msgstr "mbstring"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:267
+msgid "Custom file"
+msgstr "ملف مخصص"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:276
+msgid "WordPress directory"
+msgstr "مجلد ووردبريس"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:277
+msgid "wp-content directory"
+msgstr "مجلد wp-content"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:278
+msgid "Plugins directory"
+msgstr "مجلد الإضافات"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:279
+msgid "Uploads directory"
+msgstr "مجلد الرفع"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:285
+msgid "MU-Plugins Dir Writable"
+msgstr "مجلد إضافات MU قابل للكتابة"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:285
+msgid "Auto-install of MU-plugin will not work. Manual installation required."
+msgstr "التنصيب التلقائي لإضافة MU لن يعمل. التنصيب اليدوي مطلوب."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:286
+msgid "Data Dir Writable"
+msgstr "مجلد البيانات قابل للكتابة"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:286
+msgid "Plugin needs write access to create tenant directories and manage configuration files."
+msgstr "تحتاج الإضافة إلى صلاحية الكتابة لإنشاء مجلدات المستأجرين وإدارة ملفات التكوين."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:298
+msgid "WordPress Version"
+msgstr "إصدار WordPress"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:299
+msgid "Site language"
+msgstr "لغة الموقع"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:300
+msgid "Environment type"
+msgstr "نوع البيئة"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:301
+msgid "Permalink structure"
+msgstr "بنية الروابط الدائمة"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:302
+msgid "HTTPS"
+msgstr "HTTPS"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:303
+msgid "WordPress Multisite"
+msgstr "WordPress متعدد المواقع"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:303
+msgid "GrabWP Tenancy is not designed for Multisite."
+msgstr "لم يُصمَّم GrabWP Tenancy للعمل مع الشبكة المتعددة (Multisite)."
+
+#: includes/class-grabwp-tenancy-diagnostics.php:304
+msgid "Object cache drop-in"
+msgstr "ملف drop-in لذاكرة الكائنات المؤقتة"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:305
+msgid "Page cache drop-in"
+msgstr "ملف drop-in لذاكرة الصفحات المؤقتة"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:310
+msgid "Server"
+msgstr "الخادم"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:315
+msgid "PHP extensions"
+msgstr "امتدادات PHP"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:320
+msgid "Database"
+msgstr "قاعدة البيانات"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:322
+msgid "Database Engine"
+msgstr "محرك قاعدة البيانات"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:323
+msgid "Database server version"
+msgstr "إصدار خادم قاعدة البيانات"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:324
+msgid "Table prefix"
+msgstr "بادئة الجداول"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:325
+msgid "Database charset"
+msgstr "ترميز قاعدة البيانات"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:330
+msgid "WordPress constants"
+msgstr "ثوابت ووردبريس"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:335
+msgid "Writable directories"
+msgstr "المجلدات القابلة للكتابة"
+
+#: includes/class-grabwp-tenancy-installer.php:317
+#: includes/class-grabwp-tenancy-installer.php:355
+#: includes/class-grabwp-tenancy-installer.php:777
+msgid "Could not read wp-config.php."
+msgstr "تعذّرت قراءة ملف wp-config.php."
+
+#: includes/class-grabwp-tenancy-installer.php:322
+msgid "HTTPS detection is already in wp-config.php."
+msgstr "اكتشاف HTTPS موجود بالفعل في wp-config.php."
+
+#: includes/class-grabwp-tenancy-installer.php:328
+msgid "Could not find where to add the code in wp-config.php. Add it by hand."
+msgstr "تعذّر العثور على موضع إضافة الكود في wp-config.php. أضفه يدويًا."
+
+#: includes/class-grabwp-tenancy-installer.php:333
+msgid "HTTPS detection added to wp-config.php."
+msgstr "تمت إضافة اكتشاف HTTPS إلى wp-config.php."
+
+#: includes/class-grabwp-tenancy-installer.php:363
+msgid "HTTPS detection by GrabWP was not in wp-config.php."
+msgstr "لم يكن اكتشاف HTTPS الخاص بـ GrabWP موجودًا في wp-config.php."
+
+#: includes/class-grabwp-tenancy-installer.php:380
+msgid "HTTPS detection removed from wp-config.php."
+msgstr "تمت إزالة اكتشاف HTTPS من wp-config.php."
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:441
+#, php-format
+msgid "%s is not writable. Add the code by hand."
+msgstr "الملف %s غير قابل للكتابة. أضف الكود يدويًا."
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:445
+#, php-format
+msgid "%s would not be valid PHP after the change, so nothing was changed."
+msgstr "لن يكون %s كود PHP صالحًا بعد التعديل، لذا لم يتم تغيير أي شيء."
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:451
+#, php-format
+msgid "Could not save a backup of %s, so nothing was changed."
+msgstr "تعذّر حفظ نسخة احتياطية من %s، لذا لم يتم تغيير أي شيء."
+
+#. translators: %s: file name(s).
+#: includes/class-grabwp-tenancy-installer.php:469
+#, php-format
+msgid "Could not write %s. The folder must be writable. Add the code by hand."
+msgstr "تعذّرت كتابة %s. يجب أن يكون المجلد قابلًا للكتابة. أضف الكود يدويًا."
+
+#. translators: %s: file name(s).
+#: includes/class-grabwp-tenancy-installer.php:498
+#, php-format
+msgid "The site did not load after the change, so %s was put back as it was."
+msgstr "لم يتم تحميل الموقع بعد التعديل، لذا تمت إعادة %s كما كان."
+
+#. translators: %s: file name(s).
+#: includes/class-grabwp-tenancy-installer.php:500
+#, php-format
+msgid "The site did not load after the change and %s could not be put back. Restore it from the backup in the GrabWP data folder."
+msgstr "لم يتم تحميل الموقع بعد التعديل وتعذّرت إعادة %s كما كان. استعده من النسخة الاحتياطية في مجلد بيانات GrabWP."
+
+#: includes/class-grabwp-tenancy-installer.php:560
+msgid "The site address already uses https."
+msgstr "عنوان الموقع يستخدم https بالفعل."
+
+#: includes/class-grabwp-tenancy-installer.php:564
+msgid "The site address cannot be switched here yet. Check again and follow the steps in the card."
+msgstr "لا يمكن تبديل عنوان الموقع من هنا بعد. تحقّق مرّة أخرى واتّبع الخطوات الموضّحة في البطاقة."
+
+#: includes/class-grabwp-tenancy-installer.php:580
+msgid "Could not save the https address. Nothing was changed."
+msgstr "تعذّر حفظ عنوان https. لم يتم تغيير أي شيء."
+
+#: includes/class-grabwp-tenancy-installer.php:584
+msgid "The site address now uses https."
+msgstr "يستخدم عنوان الموقع الآن https."
+
+#: includes/class-grabwp-tenancy-installer.php:604
+msgid "There is no address change to undo."
+msgstr "لا يوجد تغيير في العنوان للتراجع عنه."
+
+#: includes/class-grabwp-tenancy-installer.php:608
+msgid "The site address was changed since, so it was not undone. Edit it in Settings, General."
+msgstr "تم تغيير عنوان الموقع منذ ذلك الحين، لذا لم يتم التراجع عنه. عدّله من الإعدادات، عام."
+
+#: includes/class-grabwp-tenancy-installer.php:616
+msgid "The site address is back to what it was."
+msgstr "عاد عنوان الموقع إلى ما كان عليه."
+
+#. translators: %d: number of sites in the Multisite network.
+#: includes/class-grabwp-tenancy-installer.php:785
+#, php-format
+msgid "This is a Multisite network with %d sites, so nothing was changed. Back up or move those sites first."
+msgstr "هذه شبكة Multisite تضم %d من المواقع، لذا لم يتم تغيير أي شيء. انسخ تلك المواقع احتياطيًا أو انقلها أولًا."
+
+#. translators: %s: list of file, line and code to edit by hand.
+#: includes/class-grabwp-tenancy-installer.php:796
+#, php-format
+msgid "Some wp-config.php settings must be removed by hand, so nothing was changed: %s"
+msgstr "يجب حذف بعض إعدادات wp-config.php يدويًا، لذلك لم يتغير شيء: %s"
+
+#: includes/class-grabwp-tenancy-installer.php:804
+msgid "No settings that stop GrabWP were left in wp-config.php."
+msgstr "لم تعد هناك إعدادات في wp-config.php توقف GrabWP عن العمل."
+
+#: includes/class-grabwp-tenancy-installer.php:811
+msgid "Could not save the site address. Nothing was changed."
+msgstr "تعذر حفظ عنوان الموقع. لم يتم تغيير أي شيء."
+
+#: includes/class-grabwp-tenancy-installer.php:838
+msgid "Settings that stop GrabWP were removed from wp-config.php. Log in again if asked, then activate plugins that were network activated."
+msgstr "حُذفت من wp-config.php الإعدادات التي كانت توقف GrabWP عن العمل. سجّل الدخول مرة أخرى إذا طُلب منك، ثم فعّل الإضافات التي كانت مفعّلة على مستوى الشبكة."
+
+#: includes/class-grabwp-tenancy-installer.php:859
+msgid "There is no Multisite cleanup to undo."
+msgstr "لا يوجد تنظيف Multisite للتراجع عنه."
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:873
+#, php-format
+msgid "%s was changed since the Multisite cleanup, so nothing was undone. The old copy is kept in the GrabWP data folder."
+msgstr "تم تعديل %s منذ تنظيف Multisite، لذا لم يتم التراجع عن أي شيء. يتم الاحتفاظ بالنسخة القديمة في مجلد بيانات GrabWP."
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:886
+#, php-format
+msgid "The backup of %s is missing or changed, so nothing was undone."
+msgstr "النسخة الاحتياطية من %s مفقودة أو تم تعديلها، لذا لم يتم التراجع عن أي شيء."
+
+#: includes/class-grabwp-tenancy-installer.php:907
+msgid "The removed settings are back in wp-config.php."
+msgstr "عادت الإعدادات المحذوفة إلى wp-config.php."
+
+#. translators: 1: file name, 2: line number, 3: code on that line.
+#: includes/class-grabwp-tenancy-installer.php:970
+#, php-format
+msgid "%1$s line %2$d: %3$s"
+msgstr "%1$s السطر %2$d: %3$s"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:572
+msgid "GrabWP lost some of its own code in these files and put it back. Other edits were kept:"
+msgstr "فقد GrabWP جزءا من الشيفرة الخاصة به في هذه الملفات وأعاده. تم الاحتفاظ بالتعديلات الأخرى:"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:575
+msgid "GrabWP could not put back its own code in these files because they are empty, broken or not writable, so it left them as they are and kept the last good copy in the integrity snapshots folder. Check them now:"
+msgstr "لم يتمكن GrabWP من إعادة الشيفرة الخاصة به في هذه الملفات لأنها فارغة أو تالفة أو غير قابلة للكتابة، لذلك تركها كما هي واحتفظ بآخر نسخة سليمة في مجلد لقطات سلامة الملفات. افحصها الآن:"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:590
+msgid "See grabwp_debug.log for details. To remove a GrabWP block on purpose, turn protection off on the Status page first."
+msgstr "راجع grabwp_debug.log للحصول على التفاصيل. لإزالة كتلة GrabWP عن قصد، أوقف الحماية أولا من صفحة الحالة."
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:592
+#: includes/class-grabwp-tenancy-setup-wizard.php:700
+#: includes/class-grabwp-tenancy-setup-wizard.php:727
+msgid "Dismiss"
+msgstr "تجاهل"
+
+#: includes/class-grabwp-tenancy-loader.php:381
+msgid "This admin access link is not valid. Open the site admin again from the main site."
+msgstr "رابط وصول المدير هذا غير صالح. افتح لوحة تحكّم الموقع مرّة أخرى من الموقع الرئيسي."
+
+#: includes/class-grabwp-tenancy-loader.php:382
+msgid "This admin access link has expired. Open the site admin again from the main site."
+msgstr "انتهت صلاحية رابط وصول المدير هذا. افتح لوحة تحكّم الموقع مرّة أخرى من الموقع الرئيسي."
+
+#: includes/class-grabwp-tenancy-loader.php:383
+msgid "This admin access link was made for a different site address."
+msgstr "تم إنشاء رابط وصول المدير هذا لعنوان موقع مختلف."
+
+#: includes/class-grabwp-tenancy-loader.php:384
+msgid "This site could not be identified."
+msgstr "تعذّر التعرّف على هذا الموقع."
+
+#: includes/class-grabwp-tenancy-loader.php:385
+msgid "No administrator account was found in this site. The site may not be installed yet."
+msgstr "لم يتم العثور على حساب مدير في هذا الموقع. قد لا يكون الموقع مثبّتًا بعد."
 
 #: includes/class-grabwp-tenancy-routing.php:80
 msgid "Path"
@@ -1926,79 +2483,127 @@ msgstr "النطاق"
 msgid "Path and domain"
 msgstr "المسار والنطاق"
 
-#: includes/class-grabwp-tenancy-settings.php:122
+#. translators: %s: path of tenants.php.
+#: includes/class-grabwp-tenancy-routing.php:168
+#, php-format
+msgid "%s does not exist yet. It is created when you save."
+msgstr "الملف %s غير موجود بعد. يتم إنشاؤه عند الحفظ."
+
+#. translators: %s: folder of tenants.php.
+#: includes/class-grabwp-tenancy-routing.php:171
+#, php-format
+msgid "The folder %s is not writable by the web server, so tenants.php cannot be saved. Make the folder writable."
+msgstr "المجلد %s غير قابل للكتابة بواسطة خادم الويب، لذا لا يمكن حفظ tenants.php. اجعل المجلد قابلًا للكتابة."
+
+#. translators: %s: path of tenants.php.
+#: includes/class-grabwp-tenancy-routing.php:174
+#, php-format
+msgid "%s cannot be read by the web server, so it cannot be updated safely. Make it readable and writable."
+msgstr "لا يمكن قراءة %s بواسطة خادم الويب، لذا لا يمكن تحديثه بأمان. اجعله قابلًا للقراءة والكتابة."
+
+#. translators: %s: path of tenants.php.
+#: includes/class-grabwp-tenancy-routing.php:177
+#, php-format
+msgid "%s is not writable by the web server. Make the file writable."
+msgstr "الملف %s غير قابل للكتابة بواسطة خادم الويب. اجعل الملف قابلًا للكتابة."
+
+#: includes/class-grabwp-tenancy-routing.php:179
+msgid "Could not write tenants.php. Check file permissions."
+msgstr "تعذرت كتابة ملف tenants.php. تحقق من أذونات الملفات."
+
+#: includes/class-grabwp-tenancy-settings.php:123
 msgid "Disable Install Plugins & Themes"
 msgstr "تعطيل تنصيب الإضافات والقوالب"
 
-#: includes/class-grabwp-tenancy-settings.php:125
+#: includes/class-grabwp-tenancy-settings.php:126
 msgid "Tenant admins cannot install, update or delete plugins and themes."
 msgstr "لا يمكن لمديري العملاء تنصيب أو تحديث أو حذف الإضافات والقوالب."
 
-#: includes/class-grabwp-tenancy-settings.php:130
+#: includes/class-grabwp-tenancy-settings.php:131
 msgid "Disable Plugin & Theme File Editor"
 msgstr "تعطيل محرر ملفات الإضافات والقوالب"
 
-#: includes/class-grabwp-tenancy-settings.php:133
+#: includes/class-grabwp-tenancy-settings.php:134
 msgid "Tenant admins cannot use the built-in code editor for plugin and theme files."
 msgstr "لا يمكن لمديري العملاء استخدام محرر الكود المدمج لملفات الإضافات والقوالب."
 
-#: includes/class-grabwp-tenancy-settings.php:138
+#: includes/class-grabwp-tenancy-settings.php:139
 msgid "Hide Plugins Menu"
 msgstr "إخفاء قائمة الإضافات"
 
-#: includes/class-grabwp-tenancy-settings.php:141
+#: includes/class-grabwp-tenancy-settings.php:142
 msgid "Removes the Plugins menu from tenant dashboards."
 msgstr "يزيل قائمة الإضافات من لوحات تحكم العملاء."
 
-#: includes/class-grabwp-tenancy-settings.php:144
+#: includes/class-grabwp-tenancy-settings.php:145
 msgid "Hide Appearance Menu"
 msgstr "إخفاء قائمة المظهر"
 
-#: includes/class-grabwp-tenancy-settings.php:147
+#: includes/class-grabwp-tenancy-settings.php:148
 msgid "Removes the Appearance menu (themes) from tenant dashboards."
 msgstr "يزيل قائمة المظهر (القوالب) من لوحات تحكم العملاء."
 
-#: includes/class-grabwp-tenancy-settings.php:153
+#: includes/class-grabwp-tenancy-settings.php:151
+msgid "Hide Themes Screen"
+msgstr "إخفاء شاشة القوالب"
+
+#: includes/class-grabwp-tenancy-settings.php:154
+msgid "Tenant admins keep Customize, Menus and Widgets under Appearance but cannot browse, install or switch themes. Has no effect when Hide Appearance Menu is on."
+msgstr "يحتفظ مديرو الموقع بالتخصيص والقوائم والودجات ضمن المظهر، لكن لا يمكنهم تصفح القوالب أو تثبيتها أو تبديلها. لا يكون لهذا الخيار أثر عند تفعيل إخفاء قائمة المظهر."
+
+#: includes/class-grabwp-tenancy-settings.php:157
+msgid "Hide GrabWP Plugins"
+msgstr "إخفاء إضافات GrabWP"
+
+#: includes/class-grabwp-tenancy-settings.php:160
 msgid "Hides every GrabWP plugin and the SQLite plugin from the tenant Plugins list, so tenants cannot turn them off by mistake."
 msgstr "يخفي جميع إضافات GrabWP وإضافة SQLite من قائمة إضافات العميل، حتى لا يتمكن العملاء من تعطيلها عن طريق الخطأ."
 
-#: includes/class-grabwp-tenancy-settings.php:159
+#: includes/class-grabwp-tenancy-settings.php:163
+msgid "Disable WP-Cron"
+msgstr "تعطيل WP-Cron"
+
+#: includes/class-grabwp-tenancy-settings.php:166
 msgid "Turns off the built-in task scheduler on tenant sites. Run a server cron job instead."
 msgstr "يعطل مجدول المهام المدمج في مواقع العملاء. قم بتشغيل مهمة cron على الخادم بدلاً من ذلك."
 
-#: includes/class-grabwp-tenancy-settings.php:167
+#: includes/class-grabwp-tenancy-settings.php:171
+msgid "Disable XML-RPC"
+msgstr "تعطيل XML-RPC"
+
+#: includes/class-grabwp-tenancy-settings.php:174
 msgid "Turns off the old remote publishing API, a common target of password-guessing attacks."
 msgstr "يعطل واجهة API القديمة للنشر عن بُعد، وهي هدف شائع لهجمات تخمين كلمات المرور."
 
-#: includes/class-grabwp-tenancy-settings.php:170
+#: includes/class-grabwp-tenancy-settings.php:177
 msgid "Post Revisions to Keep"
 msgstr "مراجعات المقالات المحتفظ بها"
 
-#: includes/class-grabwp-tenancy-settings.php:173
+#: includes/class-grabwp-tenancy-settings.php:180
 msgid "How many older versions of each post to keep. 0 turns revisions off."
 msgstr "عدد النسخ الأقدم التي يتم الاحتفاظ بها لكل مقالة. القيمة 0 تعطل المراجعات."
 
-#: includes/class-grabwp-tenancy-settings.php:180
+#: includes/class-grabwp-tenancy-settings.php:187
 msgid "Days Before Trash Is Emptied"
 msgstr "الأيام قبل إفراغ سلة المهملات"
 
-#: includes/class-grabwp-tenancy-settings.php:183
+#: includes/class-grabwp-tenancy-settings.php:190
 msgid "Deleted items stay in the Trash this many days. 0 deletes them right away."
 msgstr "تبقى العناصر المحذوفة في سلة المهملات لهذا العدد من الأيام. القيمة 0 تحذفها فورًا."
 
-#: includes/class-grabwp-tenancy-settings.php:190
+#: includes/class-grabwp-tenancy-settings.php:197
 msgid "Block External Requests"
 msgstr "حظر الطلبات الخارجية"
 
-#: includes/class-grabwp-tenancy-settings.php:193
+#: includes/class-grabwp-tenancy-settings.php:200
 msgid "Tenant sites cannot connect to other websites, except the allowed hosts below."
 msgstr "لا يمكن لمواقع العملاء الاتصال بمواقع أخرى، باستثناء المضيفين المسموح بهم أدناه."
 
-#: includes/class-grabwp-tenancy-settings.php:198
+#: includes/class-grabwp-tenancy-settings.php:205
 msgid "Allowed Hosts When Blocked"
 msgstr "المضيفون المسموح بهم عند الحظر"
 
-#: includes/class-grabwp-tenancy-settings.php:201
+#: includes/class-grabwp-tenancy-settings.php:208
 msgid "Comma-separated host names tenant sites can still reach when external requests are blocked. Wildcards like *.wordpress.org work."
 msgstr "أسماء المضيفين المفصولة بفواصل التي لا يزال بإمكان مواقع العملاء الوصول إليها عند حظر الطلبات الخارجية. تعمل أحرف البدل مثل *.wordpress.org."
 
@@ -2088,111 +2693,230 @@ msgstr "أكمل تفعيل %s، ثم قم بتشغيل معالج الإعدا�
 msgid "Run the setup wizard"
 msgstr "تشغيل معالج الإعداد"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1038
+#: includes/class-grabwp-tenancy-setup-wizard.php:1054
 msgid "Unknown setup step."
 msgstr "خطوة إعداد غير معروفة."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1105
+#: includes/class-grabwp-tenancy-setup-wizard.php:1129
 msgid "Simple"
 msgstr "بسيط"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1106
+#: includes/class-grabwp-tenancy-setup-wizard.php:1130
 msgid "Advanced"
 msgstr "متقدم"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1162
+#: includes/class-grabwp-tenancy-setup-wizard.php:1138
+msgid "Recommended"
+msgstr "موصى به"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1191
 msgid "Later, you can add:"
 msgstr "لاحقًا، يمكنك إضافة:"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1220
+#: includes/class-grabwp-tenancy-setup-wizard.php:1294
+#: includes/class-grabwp-tenancy-setup-wizard.php:1298
 msgid "Choose how visitors reach your sites."
 msgstr "اختر كيف يصل الزوار إلى مواقعك."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1222
+#: includes/class-grabwp-tenancy-setup-wizard.php:1300
 msgid "Sites already exist, so their addresses would change. Change the mode in Tenancy > Settings > Routing, which lists the affected sites."
 msgstr "توجد مواقع بالفعل، لذا ستتغير عناوينها. غيّر الوضع من العملاء > إعدادات > التوجيه، حيث تُعرض المواقع المتأثرة."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1241
+#: includes/class-grabwp-tenancy-setup-wizard.php:1319
 msgid "Your first site opens on a path address right away. No DNS needed."
 msgstr "يفتح موقعك الأول على عنوان مسار فورًا. لا حاجة لإعداد DNS."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1242
+#: includes/class-grabwp-tenancy-setup-wizard.php:1320
 msgid "Your first site opens on its own domain. Point that domain to this server (DNS) first."
 msgstr "يفتح موقعك الأول على نطاقه الخاص. وجّه ذلك النطاق إلى هذا الخادم (DNS) أولًا."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1243
+#: includes/class-grabwp-tenancy-setup-wizard.php:1321
 msgid "Your first site opens on a path address right away. You can give it its own domain now or later."
 msgstr "يفتح موقعك الأول على عنوان مسار فورًا. يمكنك منحه نطاقه الخاص الآن أو لاحقًا."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1256
+#: includes/class-grabwp-tenancy-setup-wizard.php:1334
 msgid "Create your first site"
 msgstr "أنشئ موقعك الأول"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1258
+#: includes/class-grabwp-tenancy-setup-wizard.php:1336
 msgid "My First Site"
 msgstr "موقعي الأول"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1304
+#: includes/class-grabwp-tenancy-setup-wizard.php:1405
 msgid "Pick a site from the list."
 msgstr "اختر موقعًا من القائمة."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1313
+#: includes/class-grabwp-tenancy-setup-wizard.php:1414
 msgid "Enter a site title (up to 100 characters)."
 msgstr "أدخل عنوان الموقع (حتى 100 حرف)."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1317
+#: includes/class-grabwp-tenancy-setup-wizard.php:1418
 msgid "Enter a valid admin email."
 msgstr "أدخل بريدًا إلكترونيًا صالحًا للمدير."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1334
+#: includes/class-grabwp-tenancy-setup-wizard.php:1435
 msgid "Enter the domain of the site. Domain routing needs a domain for every site."
 msgstr "أدخل نطاق الموقع. يتطلب توجيه النطاق نطاقًا لكل موقع."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1335
+#: includes/class-grabwp-tenancy-setup-wizard.php:1436
 msgid "Enter the custom domain, or choose Path URL."
 msgstr "أدخل النطاق المخصص، أو اختر رابط المسار."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1479
+#: includes/class-grabwp-tenancy-setup-wizard.php:1580
 msgid "Server checked"
 msgstr "تم فحص الخادم"
 
 #. translators: %s: tenant ID.
-#: includes/class-grabwp-tenancy-setup-wizard.php:1496
+#: includes/class-grabwp-tenancy-setup-wizard.php:1596
 #, php-format
 msgid "Site %s created and installed"
 msgstr "تم إنشاء الموقع %s وتنصيبه"
 
 #. translators: %s: tenant ID.
-#: includes/class-grabwp-tenancy-setup-wizard.php:1498
+#: includes/class-grabwp-tenancy-setup-wizard.php:1599
 #, php-format
 msgid "Site %s created; WordPress is not installed yet"
 msgstr "تم إنشاء الموقع %s؛ لم يتم تنصيب WordPress بعد"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1504
+#. translators: %s: tenant ID.
+#: includes/class-grabwp-tenancy-setup-wizard.php:1602
+#, php-format
+msgid "Site %s created; GrabWP could not confirm that WordPress is installed"
+msgstr "تم إنشاء الموقع %s؛ تعذّر على GrabWP تأكيد تثبيت WordPress"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1612
 msgid "First site: Skipped"
 msgstr "الموقع الأول: تم التخطي"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1522
+#: includes/class-grabwp-tenancy-setup-wizard.php:1630
 msgid "Map a custom domain"
 msgstr "ربط نطاق مخصص"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1523
+#: includes/class-grabwp-tenancy-setup-wizard.php:1631
 msgid "Give this site its own domain, like my-shop.com."
 msgstr "امنح هذا الموقع نطاقه الخاص، مثل my-shop.com."
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1528
+#: includes/class-grabwp-tenancy-setup-wizard.php:1636
 msgid "Add more sites"
 msgstr "إضافة المزيد من المواقع"
 
-#: includes/class-grabwp-tenancy-setup-wizard.php:1529
+#: includes/class-grabwp-tenancy-setup-wizard.php:1637
 msgid "Each one separate, all from this WordPress."
 msgstr "كل موقع مستقل، وجميعها من تنصيب WordPress هذا."
 
 #. translators: %s: name of a setup item.
-#: includes/class-grabwp-tenancy-setup-wizard.php:1565
+#: includes/class-grabwp-tenancy-setup-wizard.php:1673
 #, php-format
 msgid "%s: Skipped"
 msgstr "%s: تم التخطي"
+
+#: includes/class-grabwp-tenancy-status-checker.php:181
+msgid "Multiple tenants.php files detected"
+msgstr "تم اكتشاف ملفات tenants.php متعددة"
+
+#: includes/class-grabwp-tenancy-status-checker.php:182
+msgid "Only one tenants.php is loaded at boot. Stale copies at other locations may cause confusion during debugging or migration. Remove unused copies."
+msgstr "يتم تحميل ملف tenants.php واحد فقط عند التمهيد. قد تسبب النسخ القديمة في مواقع أخرى ارتباكًا أثناء تصحيح الأخطاء أو الترحيل. قم بإزالة النسخ غير المستخدمة."
+
+#: includes/class-grabwp-tenancy-status-checker.php:208
+msgid "Multiple global config.php files detected"
+msgstr "تم اكتشاف ملفات config.php عامة متعددة"
+
+#: includes/class-grabwp-tenancy-status-checker.php:209
+msgid "Pro global configuration exists at both new and legacy locations. Boot loads the new path first; changes saved to the other copy are silently ignored. Remove the unused copy."
+msgstr "يوجد تكوين Pro العام في كل من المواقع الجديدة والقديمة. يحمل التمهيد المسار الجديد أولاً؛ يتم تجاهل التغييرات المحفوظة في النسخة الأخرى بصمت. قم بإزالة النسخة غير المستخدمة."
+
+#: includes/class-grabwp-tenancy-status-checker.php:219
+msgid "Data directory inside uploads/"
+msgstr "دليل البيانات داخل uploads/"
+
+#: includes/class-grabwp-tenancy-status-checker.php:220
+msgid "Tenant data is inside wp-content/uploads/ — exposed to media upload scanners, backup tools, and CDN sync. Recommended: wp-content/grabwp-tenancy/."
+msgstr "بيانات العميل موجودة داخل wp-content/uploads/ - وهي مكشوفة لفاحصات رفع الوسائط، وأدوات النسخ الاحتياطي، ومزامنة CDN. يوصى باستخدام: wp-content/grabwp-tenancy/."
+
+#: includes/class-grabwp-tenancy-status-checker.php:229
+msgid "Pro config directory inside uploads/"
+msgstr "دليل تكوين Pro داخل uploads/"
+
+#: includes/class-grabwp-tenancy-status-checker.php:230
+msgid "Pro tenant configs are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-pro/."
+msgstr "تكوينات عميل Pro موجودة داخل wp-content/uploads/. يوصى باستخدام: wp-content/grabwp-tenancy-pro/."
+
+#: includes/class-grabwp-tenancy-status-checker.php:240
+msgid "SQLite directory inside uploads/"
+msgstr "دليل SQLite داخل uploads/"
+
+#: includes/class-grabwp-tenancy-status-checker.php:241
+msgid "SQLite databases are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-sqlite/."
+msgstr "قواعد بيانات SQLite موجودة داخل wp-content/uploads/. يوصى باستخدام: wp-content/grabwp-tenancy-sqlite/."
+
+#: includes/class-grabwp-tenancy-status-checker.php:260
+msgid "Directory paths hardcoded in wp-config.php"
+msgstr "مسارات الأدلة مشفرة بشكل ثابت في wp-config.php"
+
+#: includes/class-grabwp-tenancy-status-checker.php:261
+msgid "Constants defined before load.php override all auto-detection and Pro admin directory settings."
+msgstr "الثوابت المحددة قبل load.php تتجاوز جميع إعدادات الاكتشاف التلقائي وأدلة إدارة Pro."
+
+#: includes/class-grabwp-tenancy-status-checker.php:276
+msgid "Multiple tenant-aliases.php files detected"
+msgstr "تم اكتشاف ملفات tenant-aliases.php متعددة"
+
+#: includes/class-grabwp-tenancy-status-checker.php:277
+msgid "Only the copy at the active base directory is loaded. Remove stale copies to prevent confusion."
+msgstr "يتم تحميل النسخة الموجودة في الدليل الأساسي النشط فقط. قم بإزالة النسخ القديمة لمنع الارتباك."
+
+#: includes/class-grabwp-tenancy-status-checker.php:293
+msgid "Unknown"
+msgstr "غير معروف"
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:71
+msgid "Failed to generate a unique tenant ID. Please try again."
+msgstr "فشل إنشاء معرف عميل فريد. يرجى المحاولة مرة أخرى."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:91
+msgid "Failed to create tenant."
+msgstr "فشل إنشاء العميل."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:104
+#: includes/class-grabwp-tenancy-tenant-crud.php:152
+#: includes/class-grabwp-tenancy-tenant-installer.php:540
+msgid "Invalid tenant ID."
+msgstr "معرف العميل غير صالح."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:121
+msgid "Failed to delete tenant."
+msgstr "فشل حذف العميل."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:133
+msgid "Tenant deleted successfully. All files and database tables removed."
+msgstr "تم حذف العميل بنجاح. تمت إزالة جميع الملفات وجداول قاعدة البيانات."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:135
+msgid "Tenant deleted successfully. Files removed, but some database tables may remain."
+msgstr "تم حذف العميل بنجاح. تمت إزالة الملفات، ولكن قد تبقى بعض جداول قاعدة البيانات."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:138
+msgid "Tenant deleted, but some files or database tables may remain."
+msgstr "تم حذف العميل، ولكن قد تبقى بعض الملفات أو جداول قاعدة البيانات."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:187
+msgid "Failed to update tenant."
+msgstr "فشل تحديث العميل."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:207
+msgid "Please enter at least one valid domain."
+msgstr "يرجى إدخال نطاق واحد صالح على الأقل."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:215
+#, php-format
+msgid "Domain(s) already in use by other tenants: %s. Each domain can only be assigned to one tenant."
+msgstr "النطاق (النطاقات) قيد الاستخدام بالفعل من قبل عملاء آخرين: %s. يمكن تعيين كل نطاق لعميل واحد فقط."
+
+#: includes/class-grabwp-tenancy-tenant-crud.php:216
+#, php-format
+msgid "Domain(s) already in use: %s. Each domain can only be assigned to one tenant."
+msgstr "النطاق (النطاقات) قيد الاستخدام بالفعل: %s. يمكن تعيين كل نطاق لعميل واحد فقط."
 
 #: includes/class-grabwp-tenancy-tenant-crud.php:247
 msgid "Domain mode needs at least one domain for each site."
@@ -2203,7 +2927,40 @@ msgid "Could not read tenants.php, so nothing was changed. Check the file and it
 msgstr "تعذرت قراءة ملف tenants.php، لذلك لم يتم تغيير أي شيء. تحقق من الملف وأذوناته."
 
 #. translators: %d: HTTP status code.
-#: includes/class-grabwp-tenancy-tenant-installer.php:215
+#: includes/class-grabwp-tenancy-tenant-installer.php:441
+#, php-format
+msgid "The address of the new site was answered by the main site or a proxy (HTTP %d), not by the new site. The web server may not have loaded the new site yet; wait a minute and try again."
+msgstr "تمت الاستجابة لعنوان الموقع الجديد من قِبل الموقع الرئيسي أو خادم وكيل (HTTP %d)، وليس من الموقع الجديد. قد لا يكون خادم الويب قد حمّل الموقع الجديد بعد؛ انتظر دقيقة وحاول مرّة أخرى."
+
+#. translators: %d: HTTP status code.
+#: includes/class-grabwp-tenancy-tenant-installer.php:447
+#: includes/class-grabwp-tenancy-tenant-installer.php:619
 #, php-format
 msgid "The site answered with HTTP %d."
 msgstr "استجاب الموقع برمز HTTP %d."
+
+#. translators: 1: reason, 2: administrator username.
+#: includes/class-grabwp-tenancy-tenant-installer.php:606
+#, php-format
+msgid "WordPress may be installed, but GrabWP could not confirm it: %1$s If it is, log in as %2$s with the password shown here."
+msgstr "قد يكون WordPress مثبّتًا، لكن تعذّر على GrabWP تأكيد ذلك: %1$s إذا كان مثبّتًا، فسجّل الدخول باسم %2$s باستخدام كلمة المرور الموضّحة هنا."
+
+#: includes/class-grabwp-tenancy-theme-screen-lock.php:99
+msgid "Themes are managed by your host. You can still customize your current theme, menus and widgets from the Appearance menu."
+msgstr "تتم إدارة القوالب من قبل مزود الاستضافة. لا يزال بإمكانك تخصيص قالبك الحالي والقوائم والودجات من قائمة المظهر."
+
+#: includes/class-grabwp-tenancy-theme-screen-lock.php:100
+msgid "Themes unavailable"
+msgstr "القوالب غير متاحة"
+
+#. translators: 1: line number, 2: PHP code on that line.
+#: admin/views/partials/setup-hosting-card.php:136
+#, php-format
+msgid "Line %1$d: %2$s (inside a condition, check it)"
+msgstr "السطر %1$d: %2$s (داخل شرط، تحقّق منه)"
+
+#. translators: 1: tenant ID, 2: date and time of the change (UTC).
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:586
+#, php-format
+msgid "tenant %1$s, %2$s"
+msgstr "المستأجر %1$s، %2$s"

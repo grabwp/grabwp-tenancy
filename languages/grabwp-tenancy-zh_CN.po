@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-11T19:14:49+00:00\n"
-"PO-Revision-Date: 2026-10-23 20:02+0000\n"
+"POT-Creation-Date: 2026-11-01T09:49:28+00:00\n"
+"PO-Revision-Date: 2026-11-02 19:12+0000\n"
 "Language: zh_CN\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: grabwp-tenancy\n"
@@ -19,7 +19,8 @@ msgstr ""
 #: admin/views/tenant-edit.php:155
 #: admin/views/tenants.php:16
 #: includes/class-grabwp-tenancy-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:489
+#: includes/class-grabwp-tenancy-admin.php:503
+#: includes/class-grabwp-tenancy-diagnostics.php:291
 msgid "GrabWP Tenancy"
 msgstr "GrabWP Tenancy"
 
@@ -68,6 +69,13 @@ msgstr "操作"
 msgid "Main Site"
 msgstr "主站点"
 
+#. translators: %d: number of domains stored for the site.
+#: admin/class-grabwp-tenancy-list-table.php:303
+#, php-format
+msgid "%d stored domain, not used in Path mode"
+msgid_plural "%d stored domains, not used in Path mode"
+msgstr[0] "已保存 %d 个域名，路径模式下不使用"
+
 #: admin/class-grabwp-tenancy-list-table.php:325
 msgid "Path access only"
 msgstr "仅限路径访问"
@@ -114,6 +122,700 @@ msgstr "按 ID 或域名搜索..."
 msgid "Search"
 msgstr "搜索"
 
+#. translators: %s: example path URL of a site.
+#: admin/views/partials/routing-mode-options.php:20
+#, php-format
+msgid "Every site opens at %s. Works right away, no DNS needed. Domains you add are kept but not used for links."
+msgstr "每个站点都在 %s 打开。即刻可用，无需配置 DNS。您添加的域名会被保留，但不会用于链接。"
+
+#: admin/views/partials/routing-mode-options.php:23
+msgid "Every site opens on its own domain. Visitors who open a path URL of a site are redirected (301) to its domain. Every site needs a domain."
+msgstr "每个站点都在其独立域名上打开。访问站点路径 URL 的访客将被重定向 (301) 到其域名。每个站点都需要一个域名。"
+
+#: admin/views/partials/routing-mode-options.php:24
+msgid "Sites with a domain open on it; sites without one open on the path URL. Both addresses keep working. This is how GrabWP worked before routing modes."
+msgstr "有域名的站点使用域名打开；没有域名的站点使用路径 URL 打开。两种地址均可正常访问。这是推出路由模式之前 GrabWP 的工作方式。"
+
+#: admin/views/partials/routing-mode-options.php:28
+#: admin/views/partials/settings-routing.php:43
+#: admin/views/setup-steps/routing.php:78
+#: includes/class-grabwp-tenancy-diagnostics.php:215
+msgid "Routing mode"
+msgstr "路由模式"
+
+#: admin/views/partials/settings-field-rows.php:43
+#: admin/views/partials/system-check.php:100
+msgid "Yes"
+msgstr "是"
+
+#. translators: %s: technical constant or setting name, e.g. DISALLOW_FILE_MODS=true
+#: admin/views/partials/settings-field-rows.php:47
+#, php-format
+msgid "Yes, %s"
+msgstr "是，%s"
+
+#. translators: %s: constant name.
+#: admin/views/partials/settings-routing.php:21
+#: admin/views/setup-steps/routing.php:62
+#, php-format
+msgid "The routing mode is set by %s in wp-config.php. Remove the constant to change it here."
+msgstr "路由模式已由 wp-config.php 中的 %s 设置。请移除该常量以在此处更改。"
+
+#. translators: %s: constant name.
+#: admin/views/partials/settings-routing.php:33
+#, php-format
+msgid "%s in wp-config.php is not a valid mode (path, domain or both), so it is ignored."
+msgstr "wp-config.php 中的 %s 不是有效的模式（path、domain 或 both），因此已被忽略。"
+
+#: admin/views/partials/settings-routing.php:46
+msgid "Not saved yet. Your sites use Path and domain, the behaviour from before routing modes."
+msgstr "尚未保存。您的站点当前使用“路径和域名”模式，即推出路由模式之前的默认方式。"
+
+#: admin/views/partials/settings-routing.php:63
+#: includes/class-grabwp-tenancy-diagnostics.php:216
+msgid "Path prefix"
+msgstr "路径前缀"
+
+#: admin/views/partials/settings-routing.php:66
+msgid "GrabWP Tenancy Pro can change the prefix and give each site a readable alias."
+msgstr "GrabWP Tenancy Pro 可以更改前缀并为每个站点设置易读的别名。"
+
+#: admin/views/partials/setup-file-safety-card.php:25
+#: admin/views/partials/setup-file-safety-card.php:38
+msgid "Tenant file safety"
+msgstr "租户文件安全"
+
+#: admin/views/partials/setup-file-safety-card.php:26
+#: admin/views/partials/system-check.php:51
+msgid "OK"
+msgstr "正常"
+
+#: admin/views/partials/setup-file-safety-card.php:28
+msgid "Tenant admins cannot install or edit plugin and theme code."
+msgstr "租户管理员无法安装或编辑插件和主题代码。"
+
+#: admin/views/partials/setup-file-safety-card.php:39
+msgctxt "file safety status"
+msgid "Unsafe"
+msgstr "不安全"
+
+#: admin/views/partials/setup-file-safety-card.php:41
+msgid "Tenant admins can install or edit plugin and theme code. That code runs on this server and can read the secret keys every site shares."
+msgstr "租户管理员可以安装或编辑插件和主题代码。这些代码在此服务器上运行，并且可以读取所有站点共享的密钥。"
+
+#. translators: %s: setting name, e.g. Disable Plugin & Theme File Editor
+#: admin/views/partials/setup-file-safety-card.php:50
+#, php-format
+msgid "Turn on %s in Settings."
+msgstr "在“设置”中开启 %s。"
+
+#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: the value false, 3: the value true
+#: admin/views/partials/setup-file-safety-card.php:56
+#, php-format
+msgid "Code that loads before GrabWP, usually wp-config.php, sets %1$s to %2$s. Change it to %3$s or remove that line."
+msgstr "在 GrabWP 之前加载的代码（通常是 wp-config.php）将 %1$s 设置为 %2$s。请将其改为 %3$s 或删除该行。"
+
+#. translators: 1: site ID, followed by its domain when known, 2: constant names, e.g. DISALLOW_FILE_EDIT, 3: the value false
+#: admin/views/partials/setup-file-safety-card.php:84
+#, php-format
+msgid "A per-site override sets %2$s to %3$s for site %1$s. In that site's Overrides screen (GrabWP Pro), choose Yes or Use global setting."
+msgstr "某个站点的单独覆盖将站点 %1$s 的 %2$s 设为 %3$s。请在该站点的覆盖屏幕（GrabWP Pro）中选择“是”或“使用全局设置”。"
+
+#: admin/views/partials/setup-file-safety-card.php:95
+msgid "Open Settings"
+msgstr "打开设置"
+
+#: admin/views/partials/setup-hosting-card.php:27
+msgid "Multisite and wp-config.php"
+msgstr "多站点与 wp-config.php"
+
+#: admin/views/partials/setup-hosting-card.php:28
+msgid "Secure address"
+msgstr "安全地址"
+
+#: admin/views/partials/setup-hosting-card.php:29
+msgid "HTTPS behind a proxy"
+msgstr "代理后的 HTTPS"
+
+#: admin/views/partials/setup-hosting-card.php:30
+msgid "Subdomains (wildcard)"
+msgstr "子域名（通配符）"
+
+#: admin/views/partials/setup-hosting-card.php:69
+msgid "Working..."
+msgstr "处理中..."
+
+#: admin/views/partials/setup-hosting-card.php:70
+msgid "Network error. Check again."
+msgstr "网络错误，请重新检查。"
+
+#: admin/views/partials/setup-hosting-card.php:72
+msgid "Hosting setup"
+msgstr "主机设置"
+
+#: admin/views/partials/setup-hosting-card.php:74
+msgid "✓ Ready"
+msgstr "✓ 已就绪"
+
+#. translators: 1: rows that need attention, 2: number of rows.
+#: admin/views/partials/setup-hosting-card.php:80
+#, php-format
+msgid "%1$d of %2$d needs attention"
+msgid_plural "%1$d of %2$d need attention"
+msgstr[0] "%1$d / %2$d 项需要注意"
+
+#. translators: %d: number of sites in the Multisite network.
+#: admin/views/partials/setup-hosting-card.php:100
+#, php-format
+msgid "This is a Multisite network with %d sites. Do not convert it: back up or move those sites first."
+msgstr "这是一个包含 %d 个站点的多站点网络。请勿直接转换：请先备份或迁移这些站点。"
+
+#: admin/views/partials/setup-hosting-card.php:105
+msgid "This site still runs as WordPress Multisite. GrabWP needs regular WordPress. Remove every line below."
+msgstr "此站点仍以 WordPress 多站点模式运行。GrabWP 需要常规 WordPress。请移除下方的所有行。"
+
+#: admin/views/partials/setup-hosting-card.php:108
+msgid "wp-config.php has settings that stop GrabWP. Remove every line below."
+msgstr "wp-config.php 中有会让 GrabWP 无法运行的设置。请删除下面的每一行。"
+
+#: admin/views/partials/setup-hosting-card.php:111
+msgid "Regular WordPress. WP_ALLOW_MULTISITE is optional cleanup."
+msgstr "常规 WordPress。WP_ALLOW_MULTISITE 为可选清理项。"
+
+#: admin/views/partials/setup-hosting-card.php:114
+msgid "This site runs as regular WordPress."
+msgstr "此站点以常规 WordPress 模式运行。"
+
+#: admin/views/partials/setup-hosting-card.php:120
+msgid "Lines to remove by hand"
+msgstr "需手动移除的代码行"
+
+#. translators: %s: path of wp-config.php.
+#: admin/views/partials/setup-hosting-card.php:126
+#, php-format
+msgid "In %s:"
+msgstr "在 %s 中："
+
+#. translators: 1: line number, 2: PHP code on that line.
+#: admin/views/partials/setup-hosting-card.php:143
+#, php-format
+msgid "Line %1$d: %2$s"
+msgstr "第 %1$d 行：%2$s"
+
+#. translators: %s: list of constant names.
+#: admin/views/partials/setup-hosting-card.php:157
+#, php-format
+msgid "Set outside wp-config.php (for example by a host must-use plugin): %s. Ask your host to remove them."
+msgstr "在 wp-config.php 之外设置（例如由主机的必用插件设置）：%s。请联系您的主机商将其移除。"
+
+#: admin/views/partials/setup-hosting-card.php:164
+msgid "Some of these lines are inside a condition or still used by other code, so GrabWP cannot remove them for you."
+msgstr "其中部分代码行位于条件语句内或仍被其他代码使用，因此 GrabWP 无法自动为您移除。"
+
+#: admin/views/partials/setup-hosting-card.php:167
+msgid "GrabWP never removes these lines for you. After removing them, log in again and activate plugins that were network activated, then Check again."
+msgstr "GrabWP 不会自动为您移除这些代码行。手动移除后，请重新登录并启用此前在整个网络启用的插件，然后再次检查。"
+
+#: admin/views/partials/setup-hosting-card.php:175
+msgid "Remove these settings"
+msgstr "删除这些设置"
+
+#: admin/views/partials/setup-hosting-card.php:176
+msgid "Remove the settings listed here from wp-config.php? A backup is kept in the GrabWP data folder, and you can undo this here. You may need to log in again."
+msgstr "要从 wp-config.php 删除此处列出的设置吗？备份会保存在 GrabWP 数据文件夹中，您可以在这里撤销。您可能需要重新登录。"
+
+#: admin/views/partials/setup-hosting-card.php:182
+msgid "Undo settings removal"
+msgstr "撤销删除设置"
+
+#: admin/views/partials/setup-hosting-card.php:183
+msgid "Put the removed settings back into wp-config.php? They may stop GrabWP again."
+msgstr "要把已删除的设置放回 wp-config.php 吗？它们可能再次让 GrabWP 无法运行。"
+
+#: admin/views/partials/setup-hosting-card.php:198
+msgid "Your site works on https, but WordPress still uses http."
+msgstr "您的站点已支持 https，但 WordPress 仍在使用 http。"
+
+#: admin/views/partials/setup-hosting-card.php:201
+msgid "Your site works on https, but WordPress still uses http. Fix HTTPS behind a proxy first, then open this page over https."
+msgstr "您的站点已支持 https，但 WordPress 仍在使用 http。请先修复“代理后的 HTTPS”，然后通过 https 打开此页面。"
+
+#: admin/views/partials/setup-hosting-card.php:204
+msgid "WP_HOME or WP_SITEURL sets the address. Remove it from wp-config.php above, then Check again."
+msgstr "WP_HOME 或 WP_SITEURL 设定了地址。请在上方从 wp-config.php 中删除它，然后重新检查。"
+
+#. translators: %s: host name.
+#: admin/views/partials/setup-hosting-card.php:209
+#, php-format
+msgid "The https certificate of %s is not valid. Ask your host or CDN for one."
+msgstr "%s 的 https 证书无效。请联系您的主机商或 CDN 获取有效证书。"
+
+#. translators: %s: host name.
+#: admin/views/partials/setup-hosting-card.php:216
+#, php-format
+msgid "%s does not answer on https yet. Turn on SSL at your host or CDN."
+msgstr "%s 尚未响应 https 请求。请在您的主机商或 CDN 处开启 SSL。"
+
+#: admin/views/partials/setup-hosting-card.php:221
+msgid "WordPress uses https."
+msgstr "WordPress 正在使用 https。"
+
+#: admin/views/partials/setup-hosting-card.php:229
+msgid "Switch to https"
+msgstr "切换到 https"
+
+#: admin/views/partials/setup-hosting-card.php:230
+msgid "Switch the WordPress Address and Site Address to https? Links inside posts are not changed. You can undo this here."
+msgstr "要将 WordPress 地址和站点地址切换到 https 吗？文章内的链接不会更改。您随时可以在此处撤消此操作。"
+
+#: admin/views/partials/setup-hosting-card.php:237
+msgid "Undo"
+msgstr "撤消"
+
+#: admin/views/partials/setup-hosting-card.php:238
+msgid "Put the WordPress Address and Site Address back to http?"
+msgstr "要将 WordPress 地址和站点地址恢复为 http 吗？"
+
+#: admin/views/partials/setup-hosting-card.php:253
+msgid "Your proxy or CDN serves https, but WordPress is not told."
+msgstr "您的代理或 CDN 已提供 https，但未告知 WordPress。"
+
+#. translators: %d: line number in wp-config.php.
+#: admin/views/partials/setup-hosting-card.php:258
+#, php-format
+msgid "wp-config.php has HTTPS code at line %d, but WordPress still sees http."
+msgstr "wp-config.php 的第 %d 行已有 HTTPS 代码，但 WordPress 识别到的仍是 http。"
+
+#. translators: %d: line number in wp-config.php.
+#: admin/views/partials/setup-hosting-card.php:265
+#, php-format
+msgid "The HTTPS code at line %d of wp-config.php runs after the GrabWP loader, so new sites can miss https."
+msgstr "wp-config.php 第 %d 行的 HTTPS 代码在 GrabWP 加载器之后运行，因此新站点可能会缺失 https。"
+
+#: admin/views/partials/setup-hosting-card.php:270
+msgid "No proxy or CDN reports https for this visit."
+msgstr "本次访问没有代理或 CDN 报告使用 https。"
+
+#: admin/views/partials/setup-hosting-card.php:273
+msgid "WordPress sees https from your proxy or CDN."
+msgstr "WordPress 已从您的代理或 CDN 识别到 https。"
+
+#: admin/views/partials/setup-hosting-card.php:281
+msgid "Add HTTPS detection"
+msgstr "添加 HTTPS 检测"
+
+#: admin/views/partials/setup-hosting-card.php:282
+msgid "Add HTTPS detection to wp-config.php? A backup is kept in the GrabWP data folder, and you can undo this here."
+msgstr "要将 HTTPS 检测添加到 wp-config.php 吗？备份将保存在 GrabWP 数据文件夹中，您随时可以在此处撤消此操作。"
+
+#: admin/views/partials/setup-hosting-card.php:288
+msgid "Remove HTTPS detection"
+msgstr "移除 HTTPS 检测"
+
+#: admin/views/partials/setup-hosting-card.php:289
+msgid "Remove the HTTPS detection that GrabWP added to wp-config.php? Behind a proxy, WordPress then sees http again."
+msgstr "要移除 GrabWP 添加到 wp-config.php 的 HTTPS 检测吗？在代理环境下，移除后 WordPress 将再次识别为 http。"
+
+#: admin/views/partials/setup-hosting-card.php:296
+msgid "Code to add by hand"
+msgstr "需手动添加的代码"
+
+#. translators: %s: the GrabWP loader marker line.
+#: admin/views/partials/setup-hosting-card.php:301
+#, php-format
+msgid "Add to wp-config.php, before %s:"
+msgstr "添加到 wp-config.php 中 %s 之前："
+
+#: admin/views/partials/setup-hosting-card.php:309
+msgid "Copy code"
+msgstr "复制代码"
+
+#: admin/views/partials/setup-hosting-card.php:325
+msgid "Not needed: sites use path addresses."
+msgstr "无需配置：站点使用路径地址。"
+
+#: admin/views/partials/setup-hosting-card.php:328
+msgid "This site has no domain name, so sites cannot get subdomains."
+msgstr "此站点没有域名，因此无法为各站点分配子域名。"
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:332
+#, php-format
+msgid "No DNS record for %s yet. Add a wildcard record at your DNS host."
+msgstr "尚无 %s 的 DNS 记录。请在您的 DNS 服务商处添加通配符记录。"
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:336
+#, php-format
+msgid "%s has DNS, but nothing answers on https."
+msgstr "%s 已有 DNS 记录，但未响应 https 请求。"
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:340
+#, php-format
+msgid "%s reaches a different website. Point it at this site at your host."
+msgstr "%s 指向了其他网站。请在您的主机商处将其指向此站点。"
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:344
+#, php-format
+msgid "%s reaches this site, but the certificate does not cover it."
+msgstr "%s 已指向此站点，但证书未涵盖该域名。"
+
+#. translators: %s: wildcard pattern such as *.example.com
+#: admin/views/partials/setup-hosting-card.php:348
+#, php-format
+msgid "New sites at %s work."
+msgstr "%s 下的新站点可正常运行。"
+
+#: admin/views/partials/setup-hosting-card.php:355
+msgid "DNS"
+msgstr "DNS"
+
+#: admin/views/partials/setup-hosting-card.php:356
+msgid "address"
+msgstr "地址"
+
+#: admin/views/partials/setup-hosting-card.php:357
+msgid "certificate"
+msgstr "证书"
+
+#: admin/views/partials/setup-hosting-card.php:365
+#: admin/views/partials/system-check.php:70
+#: admin/views/setup-steps/check.php:70
+#: admin/views/setup-steps/check.php:80
+msgid "Check again"
+msgstr "重新检查"
+
+#: admin/views/partials/setup-hosting-card.php:370
+msgid "Using xCloud?"
+msgstr "正在使用 xCloud？"
+
+#: admin/views/partials/setup-hosting-card.php:372
+msgid "In xCloud, create the WordPress site as Multisite with subdomains. xCloud sets up wildcard subdomain hosting only for such sites."
+msgstr "在 xCloud 中，请将 WordPress 站点创建为子域名多站点模式。xCloud 仅为此类站点配置通配符子域名主机环境。"
+
+#: admin/views/partials/setup-hosting-card.php:373
+msgid "Wait until the Subdomains row here passes: DNS, address and certificate."
+msgstr "请等待此处的“子域名”行全部通过检查：DNS、地址和证书。"
+
+#: admin/views/partials/setup-hosting-card.php:374
+msgid "Then remove every native Multisite line from wp-config.php. GrabWP runs only on regular WordPress (single site). Old Multisite rules in .htaccess can stay."
+msgstr "然后从 wp-config.php 中移除所有原生多站点代码行。GrabWP 仅在常规 WordPress（单站点）上运行。.htaccess 中的旧多站点规则可以保留。"
+
+#: admin/views/partials/setup-hosting-card.php:375
+msgid "If the network already has more than one site, do not convert it. Back up or move those sites first."
+msgstr "如果该网络已有多个站点，请勿转换。请先备份或迁移这些站点。"
+
+#. translators: %s: reason the install failed.
+#: admin/views/partials/site-result.php:39
+#: admin/views/setup-steps/done.php:56
+#, php-format
+msgid "The site was created but WordPress could not be installed automatically: %s"
+msgstr "站点已创建，但无法自动安装 WordPress：%s"
+
+#: admin/views/partials/site-result.php:46
+#: admin/views/setup-steps/done.php:63
+msgid "Finish install in browser"
+msgstr "在浏览器中完成安装"
+
+#. translators: %s: tenant ID.
+#: admin/views/partials/site-result.php:54
+#: admin/views/setup-steps/done.php:41
+#, php-format
+msgid "Site created: %s"
+msgstr "站点已创建：%s"
+
+#: admin/views/partials/site-result.php:64
+#: admin/views/setup-steps/done.php:68
+msgid "Username"
+msgstr "用户名"
+
+#: admin/views/partials/site-result.php:66
+#: admin/views/setup-steps/done.php:70
+msgid "Password"
+msgstr "密码"
+
+#: admin/views/partials/site-result.php:68
+#: admin/views/setup-steps/done.php:72
+msgid "Show"
+msgstr "显示"
+
+#: admin/views/partials/site-result.php:68
+#: admin/views/setup-steps/done.php:72
+msgid "Hide"
+msgstr "隐藏"
+
+#: admin/views/partials/site-result.php:69
+#: admin/views/setup-steps/done.php:73
+#: admin/views/tenant-edit.php:77
+msgid "Copy"
+msgstr "复制"
+
+#: admin/views/partials/site-result.php:71
+msgid "This password is shown once. You do not need it: the 1-click Admin button logs you in."
+msgstr "此密码仅显示一次。您无需使用它：一键管理按钮会直接为您登录。"
+
+#: admin/views/partials/site-result.php:75
+#: admin/views/setup-steps/done.php:100
+msgid "Open site admin (1-click)"
+msgstr "打开站点后台（一键）"
+
+#: admin/views/partials/status-env-cards.php:29
+msgid "1. wp-config.php Loader"
+msgstr "1. wp-config.php 加载器"
+
+#: admin/views/partials/status-env-cards.php:31
+#: admin/views/status-pro.php:46
+msgid "✓ Active"
+msgstr "✓ 激活"
+
+#: admin/views/partials/status-env-cards.php:33
+msgid "In wp-config.php, reload to confirm"
+msgstr "已写入 wp-config.php，请刷新页面确认"
+
+#: admin/views/partials/status-env-cards.php:35
+msgid "✗ Not loaded"
+msgstr "✗ 未加载"
+
+#: admin/views/partials/status-env-cards.php:41
+#: admin/views/partials/status-env-cards.php:94
+#: admin/views/partials/status-env-cards.php:144
+#: admin/views/partials/status-env-cards.php:200
+#: admin/views/partials/status-env-cards.php:257
+msgid "Fix steps and install code"
+msgstr "修复步骤和安装代码"
+
+#: admin/views/partials/status-env-cards.php:43
+msgid "Loads tenant detection before WordPress boots so domain/path routing can identify the tenant."
+msgstr "在 WordPress 启动之前加载租户检测，以便域名/路径路由可以识别租户。"
+
+#: admin/views/partials/status-env-cards.php:48
+#, php-format
+msgid "File: %1$s, place before %2$s"
+msgstr "文件：%1$s，放置在 %2$s 之前"
+
+#: admin/views/partials/status-env-cards.php:58
+#: admin/views/partials/status-env-cards.php:105
+#: admin/views/partials/status-env-cards.php:164
+#: admin/views/partials/status-env-cards.php:224
+#: admin/views/partials/status-env-cards.php:275
+msgid "📋 Copy Code"
+msgstr "📋 复制代码"
+
+#: admin/views/partials/status-env-cards.php:64
+#: admin/views/partials/status-env-cards.php:111
+#: admin/views/partials/status-env-cards.php:170
+#: admin/views/partials/status-env-cards.php:230
+#: admin/views/partials/status-env-cards.php:281
+msgid "⚡ Auto Fix"
+msgstr "⚡ 自动修复"
+
+#: admin/views/partials/status-env-cards.php:67
+msgid "wp-config.php is not writable, manual install required"
+msgstr "wp-config.php 不可写，需要手动安装"
+
+#: admin/views/partials/status-env-cards.php:69
+msgid "Stop-editing marker not found, manual install required"
+msgstr "未找到停止编辑标记，需要手动安装"
+
+#: admin/views/partials/status-env-cards.php:82
+msgid "2. MU-Plugin"
+msgstr "2. MU-Plugin"
+
+#: admin/views/partials/status-env-cards.php:84
+#: admin/views/partials/status-env-cards.php:130
+msgid "✓ Installed"
+msgstr "✓ 已安装"
+
+#: admin/views/partials/status-env-cards.php:86
+msgid "⚠ Outdated"
+msgstr "⚠ 已过期"
+
+#: admin/views/partials/status-env-cards.php:88
+#: admin/views/partials/status-env-cards.php:194
+msgid "✗ Missing"
+msgstr "✗ 缺失"
+
+#: admin/views/partials/status-env-cards.php:96
+msgid "MU-plugins load on every request, including tenant admin, for settings sync and management features."
+msgstr "MU-plugins 会在每个请求中加载（包括租户管理员），用于设置同步和管理功能。"
+
+#: admin/views/partials/status-env-cards.php:99
+#: admin/views/partials/status-env-cards.php:205
+#: admin/views/partials/status-env-cards.php:262
+#, php-format
+msgid "File: %s"
+msgstr "文件：%s"
+
+#: admin/views/partials/status-env-cards.php:114
+msgid "mu-plugins directory is not writable, manual install required"
+msgstr "mu-plugins 目录不可写，需要手动安装"
+
+#: admin/views/partials/status-env-cards.php:128
+msgid "3. Root .htaccess Rewrite Rules"
+msgstr "3. 根目录 .htaccess 重写规则"
+
+#: admin/views/partials/status-env-cards.php:132
+msgid "⚠ Wrong position"
+msgstr "⚠ 位置错误"
+
+#: admin/views/partials/status-env-cards.php:134
+msgid "⚠ Invalid content"
+msgstr "⚠ 内容无效"
+
+#: admin/views/partials/status-env-cards.php:136
+msgid "⚠ Missing block"
+msgstr "⚠ 缺失代码块"
+
+#: admin/views/partials/status-env-cards.php:138
+msgid "✗ No .htaccess"
+msgstr "✗ 没有 .htaccess"
+
+#: admin/views/partials/status-env-cards.php:149
+#, php-format
+msgid "Apache rewrite rules for path-based tenant URLs like /%s/{id}/wp-admin."
+msgstr "用于基于路径的租户 URL（如 /%s/{id}/wp-admin）的 Apache 重写规则。"
+
+#: admin/views/partials/status-env-cards.php:155
+#, php-format
+msgid "File: %s, must appear BEFORE \"# BEGIN WordPress\""
+msgstr "文件：%s，必须出现在“# BEGIN WordPress”之前"
+
+#: admin/views/partials/status-env-cards.php:173
+msgid "Root directory or .htaccess is not writable, manual install required"
+msgstr "根目录或 .htaccess 不可写，需要手动安装"
+
+#: admin/views/partials/status-env-cards.php:188
+msgid "Data Directory .htaccess"
+msgstr "数据目录 .htaccess"
+
+#: admin/views/partials/status-env-cards.php:190
+msgid "✓ Protected"
+msgstr "✓ 受保护"
+
+#: admin/views/partials/status-env-cards.php:192
+msgid "⚠ Incomplete"
+msgstr "⚠ 不完整"
+
+#: admin/views/partials/status-env-cards.php:202
+msgid "Blocks direct HTTP access to PHP files and directory listing in the tenant data directory."
+msgstr "阻止直接通过 HTTP 访问租户数据目录中的 PHP 文件和目录列表。"
+
+#: admin/views/partials/status-env-cards.php:233
+#: admin/views/partials/status-env-cards.php:284
+msgid "Data directory is not writable, manual install required"
+msgstr "数据目录不可写，需要手动安装"
+
+#: admin/views/partials/status-env-cards.php:247
+msgid "index.php Protection"
+msgstr "index.php 保护"
+
+#: admin/views/partials/status-env-cards.php:249
+msgid "✓ Present"
+msgstr "✓ 存在"
+
+#: admin/views/partials/status-env-cards.php:251
+msgid "⚠ Missing"
+msgstr "⚠ 缺失"
+
+#: admin/views/partials/status-env-cards.php:259
+msgid "Blank index.php prevents directory listing when .htaccess is unavailable."
+msgstr "当 .htaccess 不可用时，空白的 index.php 可防止列出目录。"
+
+#: admin/views/partials/status-env-cards.php:300
+msgid "Shared Files Lock"
+msgstr "共享文件锁定"
+
+#: admin/views/partials/status-env-cards.php:302
+msgid "Locked"
+msgstr "已锁定"
+
+#: admin/views/partials/status-env-cards.php:304
+msgid "Unlocked"
+msgstr "已解锁"
+
+#: admin/views/partials/status-env-cards.php:308
+msgid "Makes the shared root files read-only (0444) so tenant plugins cannot rewrite them. GrabWP and main-site permalink saves unlock and re-lock automatically."
+msgstr "使共享的根目录文件变为只读（0444），这样租户插件就无法重写它们。GrabWP 和主站点的固定链接保存会自动解锁和重新锁定。"
+
+#: admin/views/partials/status-env-cards.php:309
+msgid "If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again."
+msgstr "如果主站点插件（例如缓存插件）需要写入这些文件，请暂时解锁，然后再锁定。"
+
+#. translators: %d: number of snapshot files.
+#: admin/views/partials/status-env-cards.php:322
+#, php-format
+msgid "Integrity snapshots: %d"
+msgstr "完整性快照：%d"
+
+#: admin/views/partials/status-env-cards.php:325
+msgid "Watched for changes. Not read-only, because the web server does not own these files (optional):"
+msgstr "正在监控更改。未设为只读，因为 Web 服务器不拥有这些文件的所有者权限（可选）："
+
+#: admin/views/partials/status-env-cards.php:333
+msgid "Unlock shared files"
+msgstr "解锁共享文件"
+
+#: admin/views/partials/status-env-cards.php:333
+msgid "Lock shared files"
+msgstr "锁定共享文件"
+
+#: admin/views/partials/system-check.php:49
+msgid "Site can reach itself (loopback)"
+msgstr "站点可以访问自身（环回）"
+
+#: admin/views/partials/system-check.php:53
+msgid "Not checked"
+msgstr "未检查"
+
+#: admin/views/partials/system-check.php:55
+msgid "Failed"
+msgstr "失败"
+
+#: admin/views/partials/system-check.php:61
+msgid "GrabWP can install WordPress in new sites for you."
+msgstr "GrabWP 可以为您在新站点中安装 WordPress。"
+
+#: admin/views/partials/system-check.php:63
+msgid "No recent result. Use Check again to test whether this server can open its own address."
+msgstr "没有最近的结果。使用\"重新检查\"测试此服务器能否打开自己的地址。"
+
+#: admin/views/partials/system-check.php:65
+msgid "This server cannot open its own address, so new sites must be installed in the browser. Check firewall, basic auth, or the server routing rules."
+msgstr "此服务器无法访问自己的地址，因此新站点必须在浏览器中安装。请检查防火墙、基本认证或服务器路由规则。"
+
+#: admin/views/partials/system-check.php:79
+msgid "System Information"
+msgstr "系统信息"
+
+#. translators: 1: WordPress version, 2: PHP version, 3: server software label
+#: admin/views/partials/system-check.php:84
+#, php-format
+msgid "WP %1$s · PHP %2$s · %3$s"
+msgstr "WP %1$s · PHP %2$s · %3$s"
+
+#: admin/views/partials/system-check.php:100
+#: admin/views/status-base.php:119
+msgid "No"
+msgstr "否"
+
+#: admin/views/partials/system-check.php:102
+msgid "Not set"
+msgstr "未设置"
+
+#: admin/views/partials/system-check.php:127
+msgid "Support diagnostics"
+msgstr "支持诊断"
+
+#: admin/views/partials/system-check.php:128
+msgid "Copies a summary of these checks, the System Information and the last lines of the GrabWP and WordPress debug logs to your clipboard. Passwords, keys, salts, emails and file paths are left out. Nothing is sent anywhere: paste it into your support request."
+msgstr "将这些检查的摘要、系统信息以及 GrabWP 和 WordPress 调试日志的最后几行复制到剪贴板。密码、密钥、盐值、电子邮件和文件路径均不包含在内。不会发送任何内容：请将其粘贴到您的支持请求中。"
+
+#: admin/views/partials/system-check.php:130
+msgid "Copy diagnostics"
+msgstr "复制诊断信息"
+
 #: admin/views/partials/upsell-card.php:20
 #: admin/views/tenant-create.php:170
 #: admin/views/tenant-edit.php:156
@@ -127,6 +829,93 @@ msgstr "了解 Pro"
 #: admin/views/upgrade.php:27
 msgid "Pro"
 msgstr "Pro"
+
+#: admin/views/settings-routing-confirm.php:17
+msgid "Change routing mode"
+msgstr "更改路由模式"
+
+#. translators: 1: current routing mode, 2: new routing mode.
+#: admin/views/settings-routing-confirm.php:22
+#, php-format
+msgid "From %1$s to %2$s."
+msgstr "从 %1$s 更改为 %2$s。"
+
+#: admin/views/settings-routing-confirm.php:31
+#: includes/class-grabwp-tenancy-admin-form-handler.php:234
+msgid "Domain mode needs a domain for every site. These sites have none yet:"
+msgstr "域名模式要求每个站点都有一个域名。以下站点尚未设置域名："
+
+#: admin/views/settings-routing-confirm.php:36
+#: admin/views/settings-routing-confirm.php:62
+#: admin/views/setup-steps/site.php:38
+#: admin/views/setup-steps/site.php:56
+msgid "Site"
+msgstr "站点"
+
+#: admin/views/settings-routing-confirm.php:37
+msgid "Action"
+msgstr "操作"
+
+#: admin/views/settings-routing-confirm.php:45
+msgid "Add a domain"
+msgstr "添加域名"
+
+#: admin/views/settings-routing-confirm.php:52
+msgid "Back to Routing settings"
+msgstr "返回路由设置"
+
+#: admin/views/settings-routing-confirm.php:55
+msgid "Sites whose address changes"
+msgstr "地址发生变更的站点"
+
+#: admin/views/settings-routing-confirm.php:57
+msgid "No site address changes."
+msgstr "没有站点地址发生变更。"
+
+#: admin/views/settings-routing-confirm.php:63
+msgid "Current address"
+msgstr "当前地址"
+
+#: admin/views/settings-routing-confirm.php:64
+msgid "New address"
+msgstr "新地址"
+
+#: admin/views/settings-routing-confirm.php:79
+msgid "What else happens"
+msgstr "其他影响"
+
+#: admin/views/settings-routing-confirm.php:82
+msgid "Visitors who open a path URL of a site are redirected (301) to its domain. Form posts and server calls to path URLs keep working."
+msgstr "访问站点路径 URL 的访客将被重定向 (301) 到其域名。发往路径 URL 的表单提交和服务器调用仍可正常工作。"
+
+#: admin/views/settings-routing-confirm.php:85
+msgid "Path URLs stop redirecting and open the site again. Browsers and CDNs may keep a cached redirect until you purge them."
+msgstr "路径 URL 将停止重定向并重新直接打开站点。在您清除缓存之前，浏览器和 CDN 可能会保留缓存的重定向。"
+
+#: admin/views/settings-routing-confirm.php:87
+msgid "Links stored inside site content are not changed. Old addresses keep working."
+msgstr "站点内容中保存的链接不会更改。旧地址仍可正常访问。"
+
+#: admin/views/settings-routing-confirm.php:89
+msgid "People logged in to a site whose address changes are signed out once."
+msgstr "已登录到地址变更站点的用户将被退出登录一次。"
+
+#: admin/views/settings-routing-confirm.php:91
+msgid "Purge page and CDN caches after the switch."
+msgstr "切换后请清除页面和 CDN 缓存。"
+
+#. translators: %s: new routing mode.
+#: admin/views/settings-routing-confirm.php:103
+#, php-format
+msgid "Switch to %s"
+msgstr "切换到 %s"
+
+#: admin/views/settings-routing-confirm.php:108
+#: admin/views/tenant-clone.php:110
+#: admin/views/tenant-create.php:159
+#: admin/views/tenant-edit.php:145
+msgid "Cancel"
+msgstr "取消"
 
 #: admin/views/settings.php:16
 msgid "GrabWP Tenancy Settings"
@@ -142,17 +931,10 @@ msgstr "租户权限"
 msgid "Performance & Security"
 msgstr "性能与安全"
 
-#: includes/class-grabwp-tenancy-settings.php:150
-msgid "Hide GrabWP Plugins"
-msgstr "隐藏 GrabWP 插件"
-
-#: includes/class-grabwp-tenancy-settings.php:156
-msgid "Disable WP-Cron"
-msgstr "禁用 WP-Cron"
-
-#: includes/class-grabwp-tenancy-settings.php:164
-msgid "Disable XML-RPC"
-msgstr "禁用 XML-RPC"
+#: admin/views/settings.php:27
+#: includes/class-grabwp-tenancy-setup-wizard.php:147
+msgid "Routing"
+msgstr "路由"
 
 #: admin/views/settings.php:61
 msgid "Save Settings"
@@ -169,6 +951,287 @@ msgstr "按照您控制的时间间隔为每个租户站点安排自动备份。
 #: admin/views/settings.php:70
 msgid "Learn about GrabWP Tenancy Pro"
 msgstr "了解 GrabWP Tenancy Pro"
+
+#: admin/views/setup-steps/check.php:28
+msgid "Welcome to GrabWP"
+msgstr "欢迎使用 GrabWP"
+
+#: admin/views/setup-steps/check.php:29
+msgid "A few short steps get your first site running. Every step has a working default, and you can skip any of them."
+msgstr "只需简单几步即可运行您的第一个站点。每一步都有可用的默认设置，您可以跳过任意步骤。"
+
+#: admin/views/setup-steps/check.php:33
+msgid "One WordPress, many websites"
+msgstr "一个 WordPress，多个网站"
+
+#: admin/views/setup-steps/check.php:34
+msgid "GrabWP runs many separate websites from this one WordPress install. Each one is called a site (a \"tenant\" in some GrabWP screens)."
+msgstr "GrabWP 可在此单个 WordPress 安装中运行多个独立的网站。每个网站称为一个站点（在部分 GrabWP 界面中称为“租户”）。"
+
+#: admin/views/setup-steps/check.php:37
+msgid "Each site stands on its own"
+msgstr "每个站点彼此独立"
+
+#: admin/views/setup-steps/check.php:38
+msgid "A site has its own posts, pages, media, users and admin area. Sites share the plugins and themes installed here, so you update them once."
+msgstr "每个站点都拥有自己的文章、页面、媒体、用户和后台管理区域。各站点共享此处安装的插件和主题，因此您只需更新一次。"
+
+#: admin/views/setup-steps/check.php:41
+msgid "Not WordPress Multisite"
+msgstr "并非 WordPress 多站点"
+
+#: admin/views/setup-steps/check.php:42
+msgid "You do not need to know or turn on Multisite. You manage every site from the Tenancy menu of this admin."
+msgstr "您无需了解或启用多站点网络 (Multisite)。您可以通过当前管理后台的 Tenancy 菜单管理所有站点。"
+
+#: admin/views/setup-steps/check.php:56
+msgid "Server check"
+msgstr "服务器检查"
+
+#. translators: %d: number of items that need attention.
+#: admin/views/setup-steps/check.php:63
+#, php-format
+msgid "%d item needs attention."
+msgid_plural "%d items need attention."
+msgstr[0] "%d 个项目需要处理。"
+
+#: admin/views/setup-steps/check.php:68
+msgid "Fix automatically"
+msgstr "自动修复"
+
+#: admin/views/setup-steps/check.php:73
+msgid "The loader is in wp-config.php, but this page loaded before it was read. Check again to confirm."
+msgstr "加载器已写入 wp-config.php，但此页面在读取该配置前就已加载。请重新检查以确认。"
+
+#: admin/views/setup-steps/check.php:79
+msgid "Everything is ready. Nothing to do here."
+msgstr "一切就绪，此处无需任何操作。"
+
+#: admin/views/setup-steps/check.php:86
+msgid "Show the server checks"
+msgstr "显示服务器检查项"
+
+#. translators: %s: example site address such as /site/{id}
+#: admin/views/setup-steps/check.php:91
+#, php-format
+msgid "GrabWP set these up when you activated it. Site addresses like %s need every item."
+msgstr "GrabWP 在您启用插件时已配置好这些项目。像 %s 这样的站点地址需要所有项目均正常工作。"
+
+#: admin/views/setup-steps/done.php:21
+msgid "You're ready"
+msgstr "准备就绪"
+
+#: admin/views/setup-steps/done.php:22
+msgid "Your setup is saved. Open your site, then grow it whenever you like."
+msgstr "您的设置已保存。现在可以打开您的站点，并随时根据需要扩展。"
+
+#. translators: %s: tenant ID.
+#: admin/views/setup-steps/done.php:41
+#, php-format
+msgid "Your site: %s"
+msgstr "您的站点：%s"
+
+#: admin/views/setup-steps/done.php:74
+msgid "I saved it, hide this"
+msgstr "我已保存，隐藏此项"
+
+#: admin/views/setup-steps/done.php:76
+msgid "Keep this password somewhere safe. It stays on this screen until you hide it. You do not need it to log in: the 1-click Admin button does that."
+msgstr "请将此密码保存在安全的地方。在您隐藏它之前，它会一直显示在此界面上。您无需使用密码登录：点击一键管理按钮即可直接登录。"
+
+#: admin/views/setup-steps/done.php:81
+msgid "What you set up"
+msgstr "您已完成的配置"
+
+#: admin/views/setup-steps/done.php:88
+msgid "Open this step"
+msgstr "打开此步骤"
+
+#: admin/views/setup-steps/done.php:101
+msgid "Log in to this site without the password."
+msgstr "免密登录到此站点。"
+
+#: admin/views/setup-steps/done.php:107
+msgid "Visit site"
+msgstr "访问站点"
+
+#: admin/views/setup-steps/done.php:108
+msgid "Open the site as a visitor."
+msgstr "以访客身份打开站点。"
+
+#: admin/views/setup-steps/done.php:114
+msgid "All sites"
+msgstr "所有站点"
+
+#: admin/views/setup-steps/done.php:115
+msgid "See and manage every site."
+msgstr "查看并管理所有站点。"
+
+#: admin/views/setup-steps/done.php:119
+msgid "Manage sites"
+msgstr "管理站点"
+
+#: admin/views/setup-steps/done.php:124
+msgid "Manage WaaS"
+msgstr "管理 WaaS"
+
+#: admin/views/setup-steps/done.php:130
+msgid "Grow later"
+msgstr "后续扩展"
+
+#. translators: %s: example path URL of a site.
+#: admin/views/setup-steps/routing.php:28
+#, php-format
+msgid "Every site lives under this WordPress address. Works right away, no DNS needed. For example: %s"
+msgstr "每个站点都位于此 WordPress 地址下。即刻可用，无需配置 DNS。例如：%s"
+
+#. translators: %s: example address of a site.
+#: admin/views/setup-steps/routing.php:34
+#, php-format
+msgid "Every site has its own subdomain or its own domain. Point that address at this server (DNS) before the site opens. For example: %s"
+msgstr "每个站点都有自己的子域名或独立域名。在打开站点前，请将该地址解析到此服务器（DNS）。例如：%s"
+
+#: admin/views/setup-steps/routing.php:40
+msgid "A site opens on the path address until you give it a domain; then it opens on the domain and the path keeps working. Works now; add domains whenever you like."
+msgstr "在您为站点绑定域名之前，站点使用路径地址打开；绑定后将使用域名打开，且路径地址仍然可用。即刻可用，您可以随时添加域名。"
+
+#: admin/views/setup-steps/routing.php:47
+msgid "Choose the web address of your sites"
+msgstr "选择站点的网址格式"
+
+#: admin/views/setup-steps/routing.php:48
+msgid "This decides how visitors reach each site. Pick one. You can change this later in Tenancy > Settings > Routing, which also lets sites use both a path and a domain."
+msgstr "这决定了访客如何访问各个站点，请选择一种方式。您稍后可以在“多租户 > 设置 > 路由”中更改此设置，在那里还可以让站点同时使用路径和域名。"
+
+#: admin/views/setup-steps/routing.php:71
+msgid "Sites already exist. A new mode changes their addresses, so switch it in Settings, which lists every site that changes."
+msgstr "已存在站点。切换新模式会更改这些站点的地址，请在“设置”中切换，那里会列出所有受影响的站点。"
+
+#: admin/views/setup-steps/routing.php:72
+msgid "Open Settings > Routing"
+msgstr "打开“设置 > 路由”"
+
+#: admin/views/setup-steps/site.php:35
+#: admin/views/setup-wizard.php:18
+msgid "Save and continue"
+msgstr "保存并继续"
+
+#: admin/views/setup-steps/site.php:45
+msgid "Create a new site"
+msgstr "创建新站点"
+
+#: admin/views/setup-steps/site.php:46
+msgid "Start from an empty WordPress site."
+msgstr "从一个全新的空白 WordPress 站点开始。"
+
+#: admin/views/setup-steps/site.php:50
+msgid "Use an existing site"
+msgstr "使用现有站点"
+
+#: admin/views/setup-steps/site.php:51
+msgid "Pick one of your sites from the list below."
+msgstr "从下方列表中选择一个您的站点。"
+
+#: admin/views/setup-steps/site.php:59
+msgid "Existing site"
+msgstr "现有站点"
+
+#: admin/views/setup-steps/site.php:71
+msgid "Site title"
+msgstr "站点标题"
+
+#: admin/views/setup-steps/site.php:76
+#: admin/views/setup-steps/site.php:104
+msgid "Address"
+msgstr "地址"
+
+#: admin/views/setup-steps/site.php:81
+msgid "Works now. No DNS needed. The ID is created on save."
+msgstr "立即可用，无需 DNS。ID 在保存时生成。"
+
+#: admin/views/setup-steps/site.php:84
+#: admin/views/setup-steps/site.php:98
+#: admin/views/setup-steps/site.php:107
+msgid "Custom domain"
+msgstr "自定义域名"
+
+#: admin/views/setup-steps/site.php:85
+msgid "Point the domain's DNS to this server first."
+msgstr "请先将该域名的 DNS 指向此服务器。"
+
+#: admin/views/setup-steps/site.php:92
+msgid "Path address"
+msgstr "路径地址"
+
+#. translators: %s: path URL of the new site, {id} stands for its ID.
+#: admin/views/setup-steps/site.php:94
+#, php-format
+msgid "Works now, no DNS needed. The site ID is created when you save: %s"
+msgstr "即刻可用，无需配置 DNS。保存时将生成站点 ID：%s"
+
+#: admin/views/setup-steps/site.php:99
+msgid "Type the domain below. Point its DNS to this server first."
+msgstr "请在下方输入域名。请先将其 DNS 解析指向此服务器。"
+
+#: admin/views/setup-steps/site.php:113
+msgid "Site admin email"
+msgstr "站点管理员邮箱"
+
+#: admin/views/setup-steps/site.php:116
+msgid "The new site's administrator account uses this email."
+msgstr "新站点的管理员账户将使用此邮箱。"
+
+#: admin/views/setup-steps/site.php:121
+#: admin/views/tenant-create.php:131
+#: includes/class-grabwp-tenancy-diagnostics.php:296
+msgid "WordPress"
+msgstr "WordPress"
+
+#: admin/views/setup-steps/site.php:125
+msgid "Set up WordPress in the new site now"
+msgstr "立即在新站点中安装配置 WordPress"
+
+#: admin/views/setup-steps/site.php:127
+msgid "The site is ready to use right away, with an administrator account named after the site ID. You log in with the 1-click button and never need its password."
+msgstr "站点立即可用，并会自动创建一个以站点 ID 命名的管理员账户。您只需点击一键登录按钮即可登录，无需输入密码。"
+
+#: admin/views/setup-steps/site.php:129
+msgid "Turned off because this server cannot reach itself (see the Check step). You can finish the install in the browser after the site is created."
+msgstr "已关闭，因为此服务器无法访问自身（参见“检查”步骤）。创建站点后，您可以在浏览器中完成安装。"
+
+#: admin/views/setup-wizard.php:25
+#: includes/class-grabwp-tenancy-setup-wizard.php:67
+#: includes/class-grabwp-tenancy-setup-wizard.php:68
+msgid "GrabWP setup"
+msgstr "GrabWP 设置向导"
+
+#: admin/views/setup-wizard.php:26
+msgid "Exit setup"
+msgstr "退出设置"
+
+#: admin/views/setup-wizard.php:57
+msgid "(done)"
+msgstr "(已完成)"
+
+#. translators: 1: step title, 2: current part of the step, 3: number of parts.
+#: admin/views/setup-wizard.php:69
+#, php-format
+msgid "%1$s (%2$d of %3$d)"
+msgstr "%1$s (%2$d/%3$d)"
+
+#. translators: 1: current step number, 2: number of steps, 3: step title.
+#: admin/views/setup-wizard.php:77
+#, php-format
+msgid "Step %1$d of %2$d: %3$s"
+msgstr "第 %1$d 步（共 %2$d 步）：%3$s"
+
+#: admin/views/setup-wizard.php:125
+msgid "Back"
+msgstr "返回"
+
+#: admin/views/setup-wizard.php:129
+msgid "Skip this step"
+msgstr "跳过此步骤"
 
 #: admin/views/status-base.php:25
 msgid "File Structure"
@@ -226,332 +1289,17 @@ msgstr "租户上传模式"
 msgid "Configured on the Settings page."
 msgstr "在设置页面配置。"
 
-#: admin/views/status-general.php:137
-msgid "Disabled"
-msgstr "已禁用"
-
-#: admin/views/status-general.php:30
-msgid "Environment Checks"
-msgstr "环境检查"
-
-#: admin/views/partials/status-env-cards.php:29
-msgid "1. wp-config.php Loader"
-msgstr "1. wp-config.php 加载器"
-
-#: admin/views/partials/status-env-cards.php:31
-#: admin/views/status-pro.php:46
-msgid "✓ Active"
-msgstr "✓ 激活"
-
-#: admin/views/partials/status-env-cards.php:35
-#: admin/views/status-general.php:113
-msgid "✗ Not loaded"
-msgstr "✗ 未加载"
-
-#: admin/views/partials/status-env-cards.php:41
-#: admin/views/partials/status-env-cards.php:94
-#: admin/views/partials/status-env-cards.php:144
-#: admin/views/partials/status-env-cards.php:205
-#: admin/views/partials/status-env-cards.php:262
-msgid "Fix steps and install code"
-msgstr "修复步骤和安装代码"
-
-#: admin/views/partials/status-env-cards.php:43
-msgid "Loads tenant detection before WordPress boots so domain/path routing can identify the tenant."
-msgstr "在 WordPress 启动之前加载租户检测，以便域名/路径路由可以识别租户。"
-
-#: admin/views/partials/status-env-cards.php:48
-#, php-format
-msgid "File: %1$s, place before %2$s"
-msgstr "文件：%1$s，放置在 %2$s 之前"
-
-#: admin/views/partials/status-env-cards.php:58
-#: admin/views/partials/status-env-cards.php:105
-#: admin/views/partials/status-env-cards.php:169
-#: admin/views/partials/status-env-cards.php:229
-#: admin/views/partials/status-env-cards.php:280
-msgid "📋 Copy Code"
-msgstr "📋 复制代码"
-
-#: admin/views/partials/status-env-cards.php:64
-#: admin/views/partials/status-env-cards.php:111
-#: admin/views/partials/status-env-cards.php:175
-#: admin/views/partials/status-env-cards.php:235
-#: admin/views/partials/status-env-cards.php:286
-msgid "⚡ Auto Fix"
-msgstr "⚡ 自动修复"
-
-#: admin/views/partials/status-env-cards.php:67
-msgid "wp-config.php is not writable, manual install required"
-msgstr "wp-config.php 不可写，需要手动安装"
-
-#: admin/views/partials/status-env-cards.php:69
-msgid "Stop-editing marker not found, manual install required"
-msgstr "未找到停止编辑标记，需要手动安装"
-
-#: admin/views/partials/status-env-cards.php:82
-msgid "2. MU-Plugin"
-msgstr "2. MU-Plugin"
-
-#: admin/views/partials/status-env-cards.php:84
-#: admin/views/partials/status-env-cards.php:130
-msgid "✓ Installed"
-msgstr "✓ 已安装"
-
-#: admin/views/partials/status-env-cards.php:86
-msgid "⚠ Outdated"
-msgstr "⚠ 已过期"
-
-#: admin/views/partials/status-env-cards.php:88
-#: admin/views/partials/status-env-cards.php:199
-msgid "✗ Missing"
-msgstr "✗ 缺失"
-
-#: admin/views/partials/status-env-cards.php:96
-msgid "MU-plugins load on every request, including tenant admin, for settings sync and management features."
-msgstr "MU-plugins 会在每个请求中加载（包括租户管理员），用于设置同步和管理功能。"
-
-#: admin/views/partials/status-env-cards.php:99
-#: admin/views/partials/status-env-cards.php:210
-#: admin/views/partials/status-env-cards.php:267
-#, php-format
-msgid "File: %s"
-msgstr "文件：%s"
-
-#: admin/views/partials/status-env-cards.php:114
-msgid "mu-plugins directory is not writable, manual install required"
-msgstr "mu-plugins 目录不可写，需要手动安装"
-
-#: admin/views/partials/status-env-cards.php:128
-msgid "3. Root .htaccess Rewrite Rules"
-msgstr "3. 根目录 .htaccess 重写规则"
-
-#: admin/views/partials/status-env-cards.php:132
-msgid "⚠ Wrong position"
-msgstr "⚠ 位置错误"
-
-#: admin/views/partials/status-env-cards.php:134
-msgid "⚠ Invalid content"
-msgstr "⚠ 内容无效"
-
-#: admin/views/partials/status-env-cards.php:136
-msgid "⚠ Missing block"
-msgstr "⚠ 缺失代码块"
-
-#: admin/views/partials/status-env-cards.php:138
-msgid "✗ No .htaccess"
-msgstr "✗ 没有 .htaccess"
-
-#: admin/views/partials/status-env-cards.php:149
-#, php-format
-msgid "Apache rewrite rules for path-based tenant URLs like /%s/{id}/wp-admin."
-msgstr "用于基于路径的租户 URL（如 /%s/{id}/wp-admin）的 Apache 重写规则。"
-
-#: admin/views/partials/status-env-cards.php:155
-#, php-format
-msgid "File: %s, must appear BEFORE \"# BEGIN WordPress\""
-msgstr "文件：%s，必须出现在“# BEGIN WordPress”之前"
-
-#: admin/views/partials/status-env-cards.php:178
-msgid "Root directory or .htaccess is not writable, manual install required"
-msgstr "根目录或 .htaccess 不可写，需要手动安装"
-
-#: admin/views/partials/status-env-cards.php:193
-msgid "Data Directory .htaccess"
-msgstr "数据目录 .htaccess"
-
-#: admin/views/partials/status-env-cards.php:195
-msgid "✓ Protected"
-msgstr "✓ 受保护"
-
-#: admin/views/partials/status-env-cards.php:197
-msgid "⚠ Incomplete"
-msgstr "⚠ 不完整"
-
-#: admin/views/partials/status-env-cards.php:207
-msgid "Blocks direct HTTP access to PHP files and directory listing in the tenant data directory."
-msgstr "阻止直接通过 HTTP 访问租户数据目录中的 PHP 文件和目录列表。"
-
-#: admin/views/partials/status-env-cards.php:238
-#: admin/views/partials/status-env-cards.php:289
-msgid "Data directory is not writable, manual install required"
-msgstr "数据目录不可写，需要手动安装"
-
-#: admin/views/partials/status-env-cards.php:252
-msgid "index.php Protection"
-msgstr "index.php 保护"
-
-#: admin/views/partials/status-env-cards.php:254
-msgid "✓ Present"
-msgstr "✓ 存在"
-
-#: admin/views/partials/status-env-cards.php:256
-msgid "⚠ Missing"
-msgstr "⚠ 缺失"
-
-#: admin/views/partials/status-env-cards.php:264
-msgid "Blank index.php prevents directory listing when .htaccess is unavailable."
-msgstr "当 .htaccess 不可用时，空白的 index.php 可防止列出目录。"
-
-#: admin/views/partials/status-env-cards.php:305
-msgid "Shared Files Lock"
-msgstr "共享文件锁定"
-
-#: admin/views/partials/status-env-cards.php:307
-msgid "Locked"
-msgstr "已锁定"
-
-#: admin/views/partials/status-env-cards.php:309
-msgid "Unlocked"
-msgstr "已解锁"
-
-#: admin/views/partials/status-env-cards.php:313
-msgid "Makes the shared root files read-only (0444) so tenant plugins cannot rewrite them. GrabWP and main-site permalink saves unlock and re-lock automatically."
-msgstr "使共享的根目录文件变为只读（0444），这样租户插件就无法重写它们。GrabWP 和主站点的固定链接保存会自动解锁和重新锁定。"
-
-#: admin/views/partials/status-env-cards.php:314
-msgid "If a main-site plugin (for example a cache plugin) needs to write these files, Unlock temporarily, then Lock again."
-msgstr "如果主站点插件（例如缓存插件）需要写入这些文件，请暂时解锁，然后再锁定。"
-
-#. translators: %d: number of snapshot files.
-#: admin/views/partials/status-env-cards.php:327
-#, php-format
-msgid "Integrity snapshots: %d"
-msgstr "完整性快照：%d"
-
-#: admin/views/partials/status-env-cards.php:338
-msgid "Unlock shared files"
-msgstr "解锁共享文件"
-
-#: admin/views/partials/status-env-cards.php:338
-msgid "Lock shared files"
-msgstr "锁定共享文件"
-
-#: admin/views/status-general.php:37
-msgid "GrabWP Tenancy Information"
-msgstr "GrabWP Tenancy 信息"
-
-#: admin/views/status-general.php:40
-msgid "Base Plugin Version"
-msgstr "基础插件版本"
-
-#: admin/views/status-general.php:44
-#: admin/views/status.php:81
-msgid "Pro Plugin"
-msgstr "Pro 插件"
-
-#: admin/views/status-general.php:47
-msgid "Active"
-msgstr "已启用"
-
-#: admin/views/status-general.php:52
-msgid "Inactive"
-msgstr "未启用"
-
-#: admin/views/status-general.php:57
-msgid "Registered Tenants"
-msgstr "已注册的租户"
-
-#: admin/views/status-general.php:61
-msgid "View all"
-msgstr "查看全部"
-
-#: admin/views/status-general.php:71
-msgid "System Information"
-msgstr "系统信息"
-
-#. translators: 1: WordPress version, 2: PHP version, 3: server software label
-#: admin/views/status-general.php:76
-#, php-format
-msgid "WP %1$s · PHP %2$s · %3$s"
-msgstr "WP %1$s · PHP %2$s · %3$s"
-
-#: admin/views/status-general.php:86
-msgid "WordPress Version"
-msgstr "WordPress 版本"
-
-#: admin/views/status-general.php:90
-msgid "PHP Version"
-msgstr "PHP 版本"
-
-#: admin/views/status-general.php:94
-msgid "Database Engine"
-msgstr "数据库引擎"
-
-#: admin/views/status-general.php:98
-msgid "Web Server"
-msgstr "Web 服务器"
-
-#: admin/views/status-general.php:102
-msgid "ℹ .htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
-msgstr "ℹ Nginx 不使用 .htaccess 文件。请改为在您的 server 块中配置租户路由。"
-
-#: admin/views/status-general.php:108
-msgid "mod_rewrite"
-msgstr "mod_rewrite"
-
-#: admin/views/status-general.php:111
-msgid "✓ Loaded"
-msgstr "✓ 已加载"
-
-#: admin/views/status-general.php:114
-msgid "Path routing requires mod_rewrite. Query string routing (?site=id) will be used as fallback."
-msgstr "路径路由需要 mod_rewrite。查询字符串路由（?site=id）将作为回退使用。"
-
-#: admin/views/status-general.php:116
-msgid "Cannot detect (apache_get_modules unavailable)"
-msgstr "无法检测（apache_get_modules 不可用）"
-
-#: admin/views/status-general.php:122
-msgid "WordPress Multisite"
-msgstr "WordPress 多站点"
-
-#: admin/views/status-general.php:125
-msgid "⚠ Yes. GrabWP Tenancy is not designed for Multisite"
-msgstr "⚠ 是。GrabWP Tenancy 不是为多站点设计的"
-
-#: admin/views/status-base.php:119
-#: admin/views/status-general.php:127
-msgid "No"
-msgstr "否"
-
-#: admin/views/status-general.php:132
-msgid "WP Debug Mode"
-msgstr "WP 调试模式"
-
-#: admin/views/status-general.php:135
-msgid "Enabled"
-msgstr "已启用"
-
-#: admin/views/status-general.php:142
-msgid "Data Dir Writable"
-msgstr "数据目录可写"
+#: admin/views/status-base.php:112
+msgid "empty"
+msgstr "空"
 
 #: admin/views/status-base.php:117
-#: admin/views/status-general.php:145
-#: admin/views/status-general.php:156
 msgid "✓ Yes"
 msgstr "✓ 是"
 
-#: admin/views/status-general.php:147
-msgid "✗ No"
-msgstr "✗ 否"
-
-#: admin/views/status-general.php:148
-msgid "Plugin needs write access to create tenant directories and manage configuration files."
-msgstr "插件需要写入权限以创建租户目录和管理配置文件。"
-
-#: admin/views/status-general.php:153
-msgid "MU-Plugins Dir Writable"
-msgstr "MU-Plugins 目录可写"
-
-#: admin/views/status-general.php:158
-msgid "⚠ No"
-msgstr "⚠ 否"
-
-#: admin/views/status-general.php:159
-msgid "Auto-install of MU-plugin will not work. Manual installation required."
-msgstr "自动安装 MU-plugin 将不起作用。需要手动安装。"
+#: admin/views/status-general.php:32
+msgid "Environment Checks"
+msgstr "环境检查"
 
 #: admin/views/status-pro.php:27
 msgid "GrabWP Tenancy Pro"
@@ -564,7 +1312,7 @@ msgstr "升级到 GrabWP Tenancy Pro 以获得高级功能，包括完整的内�
 #: admin/views/status-pro.php:29
 #: includes/class-grabwp-tenancy-admin.php:328
 #: includes/class-grabwp-tenancy-admin.php:329
-#: includes/class-grabwp-tenancy-admin.php:452
+#: includes/class-grabwp-tenancy-admin.php:466
 msgid "Upgrade to Pro"
 msgstr "升级到 Pro"
 
@@ -651,40 +1399,45 @@ msgstr "MySQL 数据库"
 msgid "MySQL Username"
 msgstr "MySQL 用户名"
 
-#: admin/views/status.php:65
+#: admin/views/status.php:43
 msgid "GrabWP Tenancy Status"
 msgstr "GrabWP Tenancy 状态"
 
-#: admin/views/status.php:73
+#: admin/views/status.php:51
 msgid "Plugin General"
 msgstr "插件常规"
 
-#: admin/views/status.php:77
+#: admin/views/status.php:55
 msgid "Base Plugin"
 msgstr "基础插件"
 
-#: admin/views/status.php:94
+#: admin/views/status.php:59
+#: includes/class-grabwp-tenancy-diagnostics.php:213
+msgid "Pro Plugin"
+msgstr "Pro 插件"
+
+#: admin/views/status.php:72
 msgid "GrabWP Tenancy:"
 msgstr "GrabWP Tenancy:"
 
-#: admin/views/status.php:95
+#: admin/views/status.php:73
 msgid "You're using a legacy path structure. To comply with WordPress standards:"
 msgstr "您正在使用传统的路径结构。为了符合 WordPress 标准:"
 
-#: admin/views/status.php:96
+#: admin/views/status.php:74
 msgid "1. Deactivate the plugin"
 msgstr "1. 停用该插件"
 
-#: admin/views/status.php:99
+#: admin/views/status.php:77
 #, php-format
 msgid "2. Rename and move the entire %1$s folder to %2$s"
 msgstr "2. 重命名并将整个 %1$s 文件夹移动到 %2$s"
 
-#: admin/views/status.php:105
+#: admin/views/status.php:83
 msgid "3. Reactivate the plugin"
 msgstr "3. 重新启用该插件"
 
-#: admin/views/status.php:126
+#: admin/views/status.php:104
 msgid "← active"
 msgstr "← 已启用"
 
@@ -770,13 +1523,6 @@ msgstr "这将覆盖目标租户中的所有数据 (数据库、上传文件)。
 msgid "Clone Tenant"
 msgstr "克隆租户"
 
-#: admin/views/settings-routing-confirm.php:108
-#: admin/views/tenant-clone.php:110
-#: admin/views/tenant-create.php:159
-#: admin/views/tenant-edit.php:145
-msgid "Cancel"
-msgstr "取消"
-
 #: admin/views/tenant-clone.php:131
 msgid "Clone complete!"
 msgstr "克隆完成！"
@@ -826,6 +1572,10 @@ msgstr "- 未找到符合条件的租户 -"
 msgid "— Select target tenant —"
 msgstr "- 选择目标租户 -"
 
+#: admin/views/tenant-clone.php:227
+msgid "Path URL only"
+msgstr "仅路径 URL"
+
 #: admin/views/tenant-clone.php:326
 msgid "Are you sure? All data in the target tenant will be overwritten."
 msgstr "您确定吗？目标租户中的所有数据将被覆盖。"
@@ -834,6 +1584,10 @@ msgstr "您确定吗？目标租户中的所有数据将被覆盖。"
 #: includes/class-grabwp-tenancy-admin.php:291
 msgid "Add New Tenant"
 msgstr "添加新租户"
+
+#: admin/views/tenant-create.php:21
+msgid "Create a new tenant. It opens on the domain you enter."
+msgstr "创建一个新租户。它将通过您输入的域名打开。"
 
 #: admin/views/tenant-create.php:23
 msgid "Create a new tenant. A path-based URL will be assigned automatically."
@@ -853,9 +1607,10 @@ msgstr "域名设置"
 msgid "Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page."
 msgstr "输入时不带 http:// 或 www (例如 mysite.com、blog.mysite.com)。您可以随时从租户编辑页面添加域名。"
 
-#: admin/views/tenant-create.php:101
-msgid "I have a domain"
-msgstr "我有一个域名"
+#: admin/views/tenant-create.php:82
+#: admin/views/tenant-create.php:120
+msgid "Your site will be accessible at:"
+msgstr "您的站点将可通过以下地址访问:"
 
 #: admin/views/tenant-create.php:90
 #: admin/views/tenant-create.php:106
@@ -867,10 +1622,19 @@ msgstr "输入域名 (例如 mysite.com)"
 msgid "Clear"
 msgstr "清除"
 
+#: admin/views/tenant-create.php:94
+#: admin/views/tenant-edit.php:126
+msgid "Domain mode needs at least one domain."
+msgstr "域名模式至少需要一个域名。"
+
+#: admin/views/tenant-create.php:101
+msgid "I have a domain"
+msgstr "我有一个域名"
+
 #: admin/views/tenant-create.php:108
 #: admin/views/tenant-edit.php:107
 #: admin/views/tenant-edit.php:115
-#: includes/class-grabwp-tenancy-admin.php:381
+#: includes/class-grabwp-tenancy-admin.php:382
 msgid "Remove"
 msgstr "移除"
 
@@ -878,10 +1642,13 @@ msgstr "移除"
 msgid "I'll set up a domain later"
 msgstr "我稍后再设置域名"
 
-#: admin/views/tenant-create.php:82
-#: admin/views/tenant-create.php:120
-msgid "Your site will be accessible at:"
-msgstr "您的站点将可通过以下地址访问:"
+#: admin/views/tenant-create.php:135
+msgid "Install WordPress now"
+msgstr "立即安装 WordPress"
+
+#: admin/views/tenant-create.php:137
+msgid "Creates the site's database and an administrator named after the site ID with a random password. Use the 1-click Admin button to log in; you never need the password."
+msgstr "创建站点数据库，以及一个以站点 ID 命名、使用随机密码的管理员。使用一键管理按钮登录，您永远不需要该密码。"
 
 #: admin/views/tenant-create.php:154
 msgid "Create Tenant & Clone"
@@ -910,7 +1677,7 @@ msgid "Edit tenant settings and domain mappings."
 msgstr "编辑租户设置和域名映射。"
 
 #: admin/views/tenant-edit.php:40
-#: includes/class-grabwp-tenancy-admin.php:545
+#: includes/class-grabwp-tenancy-admin.php:559
 #: includes/class-grabwp-tenancy-tenant-crud.php:184
 msgid "Tenant updated successfully."
 msgstr "租户更新成功。"
@@ -919,19 +1686,20 @@ msgstr "租户更新成功。"
 msgid "Path URL"
 msgstr "路径 URL"
 
-#: admin/views/partials/site-result.php:63
-#: admin/views/setup-steps/done.php:66
-#: admin/views/tenant-edit.php:77
-msgid "Copy"
-msgstr "复制"
-
 #: admin/views/tenant-edit.php:79
 msgid "This URL is always available, no DNS configuration needed."
 msgstr "此 URL 始终可用，无需 DNS 配置。"
 
+#. translators: %d: number of domains stored for the site.
+#: admin/views/tenant-edit.php:93
+#, php-format
+msgid "Stored domains (%d): kept, not used for links in Path mode"
+msgid_plural "Stored domains (%d): kept, not used for links in Path mode"
+msgstr[0] "已保存的域名 (%d)：已保留，路径模式下不用于链接"
+
 #: admin/views/tenant-edit.php:106
 #: admin/views/tenant-edit.php:114
-#: includes/class-grabwp-tenancy-admin.php:380
+#: includes/class-grabwp-tenancy-admin.php:381
 msgid "Enter domain (e.g., tenant1.grabwp.local)"
 msgstr "输入域名 (例如，tenant1.grabwp.local)"
 
@@ -1039,7 +1807,7 @@ msgstr "存储驱动程序选择 (本地 / S3)"
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:138
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:254
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:405
+#: includes/class-grabwp-tenancy-admin.php:419
 msgid "Security check failed."
 msgstr "安全检查失败。"
 
@@ -1060,13 +1828,13 @@ msgstr "未找到目标租户。"
 #: includes/class-grabwp-tenancy-setup-wizard.php:739
 #: includes/class-grabwp-tenancy-setup-wizard.php:757
 #: includes/class-grabwp-tenancy-setup-wizard.php:795
-#: includes/class-grabwp-tenancy-setup-wizard.php:978
-#: includes/class-grabwp-tenancy-setup-wizard.php:1032
-#: includes/class-grabwp-tenancy-setup-wizard.php:1435
+#: includes/class-grabwp-tenancy-setup-wizard.php:994
+#: includes/class-grabwp-tenancy-setup-wizard.php:1048
+#: includes/class-grabwp-tenancy-setup-wizard.php:1536
 #: includes/class-grabwp-tenancy-tenant-crud.php:38
 #: includes/class-grabwp-tenancy-tenant-crud.php:100
 #: includes/class-grabwp-tenancy-tenant-crud.php:148
-#: includes/class-grabwp-tenancy-tenant-installer.php:156
+#: includes/class-grabwp-tenancy-tenant-installer.php:536
 msgid "Insufficient permissions."
 msgstr "权限不足。"
 
@@ -1138,28 +1906,66 @@ msgstr "克隆完成。"
 msgid "Failed to save settings. Please check file permissions."
 msgstr "保存设置失败。请检查文件权限。"
 
-#: includes/class-grabwp-tenancy-admin-notice.php:52
+#: includes/class-grabwp-tenancy-admin-form-handler.php:226
+msgid "The routing mode is set in wp-config.php and cannot be changed here."
+msgstr "路由模式已在 wp-config.php 中设置，无法在此处更改。"
+
+#: includes/class-grabwp-tenancy-admin-form-handler.php:229
+msgid "Invalid routing mode."
+msgstr "无效的路由模式。"
+
+#: includes/class-grabwp-tenancy-admin-notice.php:61
 msgid "load.php is not included in wp-config.php."
 msgstr "load.php 未包含在 wp-config.php 中。"
 
-#: includes/class-grabwp-tenancy-admin-notice.php:54
-#: includes/class-grabwp-tenancy-admin-notice.php:64
-#: includes/class-grabwp-tenancy-admin-notice.php:74
-#: includes/class-grabwp-tenancy-admin-notice.php:110
+#: includes/class-grabwp-tenancy-admin-notice.php:63
+#: includes/class-grabwp-tenancy-admin-notice.php:73
+#: includes/class-grabwp-tenancy-admin-notice.php:83
+#: includes/class-grabwp-tenancy-admin-notice.php:119
 msgid "View Status →"
 msgstr "查看状态 →"
 
-#: includes/class-grabwp-tenancy-admin-notice.php:62
+#: includes/class-grabwp-tenancy-admin-notice.php:71
 msgid "MU-plugin is not installed. Tenant features may not work."
 msgstr "未安装 MU-plugin。租户功能可能无法正常工作。"
 
-#: includes/class-grabwp-tenancy-admin-notice.php:72
+#: includes/class-grabwp-tenancy-admin-notice.php:81
 msgid "Data directory is missing."
 msgstr "数据目录缺失。"
 
-#: includes/class-grabwp-tenancy-admin-notice.php:108
+#: includes/class-grabwp-tenancy-admin-notice.php:117
 msgid "Root .htaccess needs to be updated for tenant routing."
 msgstr "需要更新根目录的 .htaccess 以用于租户路由。"
+
+#: includes/class-grabwp-tenancy-admin-notice.php:174
+msgid "Permission denied."
+msgstr "权限不足。"
+
+#: includes/class-grabwp-tenancy-admin-notice.php:175
+#: includes/class-grabwp-tenancy-installer.php:311
+#: includes/class-grabwp-tenancy-installer.php:349
+#: includes/class-grabwp-tenancy-installer.php:554
+#: includes/class-grabwp-tenancy-installer.php:600
+#: includes/class-grabwp-tenancy-installer.php:771
+#: includes/class-grabwp-tenancy-installer.php:855
+msgid "Run this from the main site."
+msgstr "请从主站点运行此操作。"
+
+#: includes/class-grabwp-tenancy-admin-notice.php:200
+msgid "Unknown action."
+msgstr "未知操作。"
+
+#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false
+#: includes/class-grabwp-tenancy-admin.php:146
+#, php-format
+msgid "Your wp-config.php already sets %1$s to %2$s, so this setting has no effect. Remove that line to let GrabWP control it."
+msgstr "您的 wp-config.php 已将 %1$s 设置为 %2$s，因此此设置不会生效。请移除该行以交由 GrabWP 控制。"
+
+#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false
+#: includes/class-grabwp-tenancy-admin.php:153
+#, php-format
+msgid "Another plugin or file already sets %1$s to %2$s, so this setting has no effect."
+msgstr "其他插件或文件已将 %1$s 设置为 %2$s，因此此设置不会生效。"
 
 #: includes/class-grabwp-tenancy-admin.php:228
 msgid "GrabWP Tenancy Pro adds scheduled auto backups, offsite cloud storage, dedicated database isolation, and more for every client site."
@@ -1179,116 +1985,862 @@ msgstr "所有租户"
 msgid "Edit Tenant"
 msgstr "编辑租户"
 
-#: includes/class-grabwp-tenancy-admin.php:382
+#: includes/class-grabwp-tenancy-admin.php:383
+msgid "Copied!"
+msgstr "已复制！"
+
+#: includes/class-grabwp-tenancy-admin.php:384
 msgid "To confirm deletion, type the tenant ID:"
 msgstr "要确认删除，请键入租户 ID:"
 
-#: includes/class-grabwp-tenancy-admin.php:383
+#: includes/class-grabwp-tenancy-admin.php:385
 msgid "Incorrect tenant ID. Deletion cancelled."
 msgstr "租户 ID 不正确。删除已取消。"
 
-#: includes/class-grabwp-tenancy-admin.php:411
+#: includes/class-grabwp-tenancy-admin.php:425
 msgid "Tenant ID is required."
 msgstr "需要提供租户 ID。"
 
-#: includes/class-grabwp-tenancy-admin.php:416
+#: includes/class-grabwp-tenancy-admin.php:430
 #: includes/class-grabwp-tenancy-tenant-crud.php:114
 #: includes/class-grabwp-tenancy-tenant-crud.php:177
 msgid "Tenant not found."
 msgstr "未找到租户。"
 
-#: includes/class-grabwp-tenancy-admin.php:489
+#: includes/class-grabwp-tenancy-admin.php:503
 msgid "Template not found."
 msgstr "未找到模板。"
 
-#: includes/class-grabwp-tenancy-admin.php:544
+#: includes/class-grabwp-tenancy-admin.php:558
 #: includes/class-grabwp-tenancy-tenant-crud.php:85
 msgid "Tenant created successfully."
 msgstr "租户创建成功。"
 
-#: includes/class-grabwp-tenancy-admin.php:546
+#: includes/class-grabwp-tenancy-admin.php:560
 msgid "Tenant deleted successfully."
 msgstr "租户删除成功。"
 
-#: includes/class-grabwp-tenancy-admin.php:547
+#: includes/class-grabwp-tenancy-admin.php:561
 msgid "Settings saved successfully."
 msgstr "设置保存成功。"
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:258
-msgid "A tenant request changed protected files; they were restored from the snapshot:"
-msgstr "一个租户请求更改了受保护的文件；它们已从快照中恢复："
+#: includes/class-grabwp-tenancy-admin.php:562
+msgid "Routing mode saved."
+msgstr "路由模式已保存。"
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:260
-msgid "tenant"
-msgstr "租户"
+#: includes/class-grabwp-tenancy-diagnostics.php:102
+msgid "Diagnostics are available on the main site only."
+msgstr "诊断仅在主站点可用。"
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:263
-msgid "See grabwp_debug.log for details. If you changed these files yourself, use Unlock then Lock on the Status page to refresh the snapshot."
-msgstr "详情请查看 grabwp_debug.log。如果您自己更改了这些文件，请在“状态”页面上使用“解锁”然后“锁定”以刷新快照。"
+#: includes/class-grabwp-tenancy-diagnostics.php:109
+msgid "Sorry, you are not allowed to read diagnostics."
+msgstr "抱歉，您无权读取诊断信息。"
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:265
+#: includes/class-grabwp-tenancy-diagnostics.php:212
+msgid "Base Plugin Version"
+msgstr "基础插件版本"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:214
+msgid "Registered Tenants"
+msgstr "已注册的租户"
+
+#. translators: 1: plugin version, 2: Active or Inactive
+#: includes/class-grabwp-tenancy-diagnostics.php:221
+#, php-format
+msgid "%1$s, %2$s"
+msgstr "%1$s, %2$s"
+
+#. translators: 1: plugin version, 2: Active or Inactive
+#: includes/class-grabwp-tenancy-diagnostics.php:221
+msgid "Active"
+msgstr "已启用"
+
+#. translators: 1: plugin version, 2: Active or Inactive
+#: includes/class-grabwp-tenancy-diagnostics.php:221
+msgid "Inactive"
+msgstr "未启用"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:225
+msgid "Web Server"
+msgstr "Web 服务器"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:227
+msgid ".htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
+msgstr "Nginx 不使用 .htaccess 文件。请改为在 server 块中配置租户路由。"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:231
+msgid "mod_rewrite"
+msgstr "mod_rewrite"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:231
+msgid "Cannot detect (apache_get_modules unavailable)"
+msgstr "无法检测（apache_get_modules 不可用）"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:231
+msgid "Path routing requires mod_rewrite. Query string routing (?site=id) will be used as fallback."
+msgstr "路径路由需要 mod_rewrite。查询字符串路由（?site=id）将作为回退使用。"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:236
+msgid "PHP Version"
+msgstr "PHP 版本"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:237
+msgid "PHP SAPI"
+msgstr "PHP SAPI"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:238
+msgid "PHP memory limit"
+msgstr "PHP 内存限制"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:239
+msgid "PHP time limit"
+msgstr "PHP 时间限制"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:240
+msgid "Max upload size"
+msgstr "最大上传大小"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:241
+msgid "PHP post max size"
+msgstr "PHP POST 最大大小"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:254
+msgid "Sodium"
+msgstr "Sodium"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:254
+msgid "GrabWP Pro needs it to encrypt tenant database passwords."
+msgstr "GrabWP Pro 需要它来加密租户数据库密码。"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:255
+msgid "symlink()"
+msgstr "symlink()"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:255
+msgid "GrabWP Pro needs it for domain links."
+msgstr "GrabWP Pro 需要它来创建域名链接。"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:256
+msgid "ZipArchive"
+msgstr "ZipArchive"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:256
+msgid "Backups, restores and add-on installs need it."
+msgstr "备份、恢复和附加组件安装需要它。"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:257
+msgid "PDO SQLite"
+msgstr "PDO SQLite"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:257
+msgid "Tenants with SQLite databases need it."
+msgstr "使用 SQLite 数据库的租户需要它。"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:258
+msgid "Tokenizer"
+msgstr "Tokenizer"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:258
+msgid "The wp-config.php checks need it."
+msgstr "wp-config.php 检查需要它。"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:259
+msgid "SimpleXML"
+msgstr "SimpleXML"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:259
+msgid "Backups to S3 storage need it."
+msgstr "备份到 S3 存储需要它。"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:260
+msgid "OPcache"
+msgstr "OPcache"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:261
+msgid "cURL"
+msgstr "cURL"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:262
+msgid "mbstring"
+msgstr "mbstring"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:267
+msgid "Custom file"
+msgstr "自定义文件"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:276
+msgid "WordPress directory"
+msgstr "WordPress 目录"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:277
+msgid "wp-content directory"
+msgstr "wp-content 目录"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:278
+msgid "Plugins directory"
+msgstr "插件目录"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:279
+msgid "Uploads directory"
+msgstr "上传目录"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:285
+msgid "MU-Plugins Dir Writable"
+msgstr "MU-Plugins 目录可写"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:285
+msgid "Auto-install of MU-plugin will not work. Manual installation required."
+msgstr "自动安装 MU-plugin 将不起作用。需要手动安装。"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:286
+msgid "Data Dir Writable"
+msgstr "数据目录可写"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:286
+msgid "Plugin needs write access to create tenant directories and manage configuration files."
+msgstr "插件需要写入权限以创建租户目录和管理配置文件。"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:298
+msgid "WordPress Version"
+msgstr "WordPress 版本"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:299
+msgid "Site language"
+msgstr "站点语言"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:300
+msgid "Environment type"
+msgstr "环境类型"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:301
+msgid "Permalink structure"
+msgstr "固定链接结构"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:302
+msgid "HTTPS"
+msgstr "HTTPS"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:303
+msgid "WordPress Multisite"
+msgstr "WordPress 多站点"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:303
+msgid "GrabWP Tenancy is not designed for Multisite."
+msgstr "GrabWP Tenancy 并非为多站点设计。"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:304
+msgid "Object cache drop-in"
+msgstr "对象缓存 drop-in"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:305
+msgid "Page cache drop-in"
+msgstr "页面缓存 drop-in"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:310
+msgid "Server"
+msgstr "服务器"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:315
+msgid "PHP extensions"
+msgstr "PHP 扩展"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:320
+msgid "Database"
+msgstr "数据库"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:322
+msgid "Database Engine"
+msgstr "数据库引擎"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:323
+msgid "Database server version"
+msgstr "数据库服务器版本"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:324
+msgid "Table prefix"
+msgstr "表前缀"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:325
+msgid "Database charset"
+msgstr "数据库字符集"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:330
+msgid "WordPress constants"
+msgstr "WordPress 常量"
+
+#: includes/class-grabwp-tenancy-diagnostics.php:335
+msgid "Writable directories"
+msgstr "可写目录"
+
+#: includes/class-grabwp-tenancy-installer.php:317
+#: includes/class-grabwp-tenancy-installer.php:355
+#: includes/class-grabwp-tenancy-installer.php:777
+msgid "Could not read wp-config.php."
+msgstr "无法读取 wp-config.php。"
+
+#: includes/class-grabwp-tenancy-installer.php:322
+msgid "HTTPS detection is already in wp-config.php."
+msgstr "wp-config.php 中已存在 HTTPS 检测代码。"
+
+#: includes/class-grabwp-tenancy-installer.php:328
+msgid "Could not find where to add the code in wp-config.php. Add it by hand."
+msgstr "无法在 wp-config.php 中找到添加代码的位置，请手动添加。"
+
+#: includes/class-grabwp-tenancy-installer.php:333
+msgid "HTTPS detection added to wp-config.php."
+msgstr "已将 HTTPS 检测添加到 wp-config.php。"
+
+#: includes/class-grabwp-tenancy-installer.php:363
+msgid "HTTPS detection by GrabWP was not in wp-config.php."
+msgstr "wp-config.php 中未找到由 GrabWP 添加的 HTTPS 检测代码。"
+
+#: includes/class-grabwp-tenancy-installer.php:380
+msgid "HTTPS detection removed from wp-config.php."
+msgstr "已从 wp-config.php 中移除 HTTPS 检测。"
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:441
+#, php-format
+msgid "%s is not writable. Add the code by hand."
+msgstr "%s 不可写，请手动添加代码。"
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:445
+#, php-format
+msgid "%s would not be valid PHP after the change, so nothing was changed."
+msgstr "更改后 %s 将不是有效的 PHP 文件，因此未做任何更改。"
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:451
+#, php-format
+msgid "Could not save a backup of %s, so nothing was changed."
+msgstr "无法保存 %s 的备份，因此未做任何更改。"
+
+#. translators: %s: file name(s).
+#: includes/class-grabwp-tenancy-installer.php:469
+#, php-format
+msgid "Could not write %s. The folder must be writable. Add the code by hand."
+msgstr "无法写入 %s。文件夹必须可写，请手动添加代码。"
+
+#. translators: %s: file name(s).
+#: includes/class-grabwp-tenancy-installer.php:498
+#, php-format
+msgid "The site did not load after the change, so %s was put back as it was."
+msgstr "更改后站点无法加载，因此已将 %s 恢复原状。"
+
+#. translators: %s: file name(s).
+#: includes/class-grabwp-tenancy-installer.php:500
+#, php-format
+msgid "The site did not load after the change and %s could not be put back. Restore it from the backup in the GrabWP data folder."
+msgstr "更改后站点无法加载，且无法恢复 %s。请从 GrabWP 数据文件夹中的备份进行恢复。"
+
+#: includes/class-grabwp-tenancy-installer.php:560
+msgid "The site address already uses https."
+msgstr "站点地址已在使用 https。"
+
+#: includes/class-grabwp-tenancy-installer.php:564
+msgid "The site address cannot be switched here yet. Check again and follow the steps in the card."
+msgstr "目前还无法在此处切换站点地址。请重新检查并按照卡片中的步骤操作。"
+
+#: includes/class-grabwp-tenancy-installer.php:580
+msgid "Could not save the https address. Nothing was changed."
+msgstr "无法保存 https 地址，未做任何更改。"
+
+#: includes/class-grabwp-tenancy-installer.php:584
+msgid "The site address now uses https."
+msgstr "站点地址现在已使用 https。"
+
+#: includes/class-grabwp-tenancy-installer.php:604
+msgid "There is no address change to undo."
+msgstr "没有可撤消的地址更改。"
+
+#: includes/class-grabwp-tenancy-installer.php:608
+msgid "The site address was changed since, so it was not undone. Edit it in Settings, General."
+msgstr "站点地址在此之后已被修改，因此未撤消。请在“设置 > 常规”中进行编辑。"
+
+#: includes/class-grabwp-tenancy-installer.php:616
+msgid "The site address is back to what it was."
+msgstr "站点地址已恢复原状。"
+
+#. translators: %d: number of sites in the Multisite network.
+#: includes/class-grabwp-tenancy-installer.php:785
+#, php-format
+msgid "This is a Multisite network with %d sites, so nothing was changed. Back up or move those sites first."
+msgstr "这是一个包含 %d 个站点的多站点网络，因此未做任何更改。请先备份或迁移这些站点。"
+
+#. translators: %s: list of file, line and code to edit by hand.
+#: includes/class-grabwp-tenancy-installer.php:796
+#, php-format
+msgid "Some wp-config.php settings must be removed by hand, so nothing was changed: %s"
+msgstr "wp-config.php 中有些设置必须手动删除，因此没有做任何更改：%s"
+
+#: includes/class-grabwp-tenancy-installer.php:804
+msgid "No settings that stop GrabWP were left in wp-config.php."
+msgstr "wp-config.php 中已没有会让 GrabWP 无法运行的设置。"
+
+#: includes/class-grabwp-tenancy-installer.php:811
+msgid "Could not save the site address. Nothing was changed."
+msgstr "无法保存站点地址。未做任何更改。"
+
+#: includes/class-grabwp-tenancy-installer.php:838
+msgid "Settings that stop GrabWP were removed from wp-config.php. Log in again if asked, then activate plugins that were network activated."
+msgstr "已从 wp-config.php 删除会让 GrabWP 无法运行的设置。如有提示请重新登录，然后激活之前在网络中启用的插件。"
+
+#: includes/class-grabwp-tenancy-installer.php:859
+msgid "There is no Multisite cleanup to undo."
+msgstr "没有可撤消的多站点清理操作。"
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:873
+#, php-format
+msgid "%s was changed since the Multisite cleanup, so nothing was undone. The old copy is kept in the GrabWP data folder."
+msgstr "%s 在多站点清理后已被修改，因此未执行撤消。旧副本保存在 GrabWP 数据文件夹中。"
+
+#. translators: %s: file name.
+#: includes/class-grabwp-tenancy-installer.php:886
+#, php-format
+msgid "The backup of %s is missing or changed, so nothing was undone."
+msgstr "%s 的备份已丢失或被修改，因此未执行撤消。"
+
+#: includes/class-grabwp-tenancy-installer.php:907
+msgid "The removed settings are back in wp-config.php."
+msgstr "已删除的设置已放回 wp-config.php。"
+
+#. translators: 1: file name, 2: line number, 3: code on that line.
+#: includes/class-grabwp-tenancy-installer.php:970
+#, php-format
+msgid "%1$s line %2$d: %3$s"
+msgstr "%1$s 第 %2$d 行：%3$s"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:572
+msgid "GrabWP lost some of its own code in these files and put it back. Other edits were kept:"
+msgstr "GrabWP 在这些文件中丢失了自己的部分代码，已将其放回。其他编辑已保留："
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:575
+msgid "GrabWP could not put back its own code in these files because they are empty, broken or not writable, so it left them as they are and kept the last good copy in the integrity snapshots folder. Check them now:"
+msgstr "GrabWP 无法在这些文件中放回自己的代码，因为它们为空、已损坏或不可写入，所以保持原样，并在完整性快照文件夹中保留了最后一份正常副本。请立即检查："
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:590
+msgid "See grabwp_debug.log for details. To remove a GrabWP block on purpose, turn protection off on the Status page first."
+msgstr "详情请查看 grabwp_debug.log。如需有意移除某个 GrabWP 代码块，请先在“状态”页面关闭保护。"
+
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:592
 #: includes/class-grabwp-tenancy-setup-wizard.php:700
 #: includes/class-grabwp-tenancy-setup-wizard.php:727
 msgid "Dismiss"
 msgstr "忽略"
 
-#: includes/class-grabwp-tenancy-status-checker.php:182
+#: includes/class-grabwp-tenancy-loader.php:381
+msgid "This admin access link is not valid. Open the site admin again from the main site."
+msgstr "此管理后台访问链接无效。请从主站点重新打开该站点的管理后台。"
+
+#: includes/class-grabwp-tenancy-loader.php:382
+msgid "This admin access link has expired. Open the site admin again from the main site."
+msgstr "此管理后台访问链接已过期。请从主站点重新打开该站点的管理后台。"
+
+#: includes/class-grabwp-tenancy-loader.php:383
+msgid "This admin access link was made for a different site address."
+msgstr "此管理后台访问链接是为其他站点地址生成的。"
+
+#: includes/class-grabwp-tenancy-loader.php:384
+msgid "This site could not be identified."
+msgstr "无法识别此站点。"
+
+#: includes/class-grabwp-tenancy-loader.php:385
+msgid "No administrator account was found in this site. The site may not be installed yet."
+msgstr "在此站点中未找到管理员账户。该站点可能尚未安装完成。"
+
+#: includes/class-grabwp-tenancy-routing.php:80
+msgid "Path"
+msgstr "路径"
+
+#: includes/class-grabwp-tenancy-routing.php:82
+msgid "Domain"
+msgstr "域名"
+
+#: includes/class-grabwp-tenancy-routing.php:84
+msgid "Path and domain"
+msgstr "路径和域名"
+
+#. translators: %s: path of tenants.php.
+#: includes/class-grabwp-tenancy-routing.php:168
+#, php-format
+msgid "%s does not exist yet. It is created when you save."
+msgstr "%s 尚不存在，将在您保存时创建。"
+
+#. translators: %s: folder of tenants.php.
+#: includes/class-grabwp-tenancy-routing.php:171
+#, php-format
+msgid "The folder %s is not writable by the web server, so tenants.php cannot be saved. Make the folder writable."
+msgstr "文件夹 %s 对 Web 服务器不可写，因此无法保存 tenants.php。请将该文件夹设为可写。"
+
+#. translators: %s: path of tenants.php.
+#: includes/class-grabwp-tenancy-routing.php:174
+#, php-format
+msgid "%s cannot be read by the web server, so it cannot be updated safely. Make it readable and writable."
+msgstr "Web 服务器无法读取 %s，因此无法安全更新。请将其设为可读可写。"
+
+#. translators: %s: path of tenants.php.
+#: includes/class-grabwp-tenancy-routing.php:177
+#, php-format
+msgid "%s is not writable by the web server. Make the file writable."
+msgstr "%s 对 Web 服务器不可写。请将该文件设为可写。"
+
+#: includes/class-grabwp-tenancy-routing.php:179
+msgid "Could not write tenants.php. Check file permissions."
+msgstr "无法写入 tenants.php。请检查文件权限。"
+
+#: includes/class-grabwp-tenancy-settings.php:123
+msgid "Disable Install Plugins & Themes"
+msgstr "禁止安装插件和主题"
+
+#: includes/class-grabwp-tenancy-settings.php:126
+msgid "Tenant admins cannot install, update or delete plugins and themes."
+msgstr "租户管理员无法安装、更新或删除插件和主题。"
+
+#: includes/class-grabwp-tenancy-settings.php:131
+msgid "Disable Plugin & Theme File Editor"
+msgstr "禁用插件和主题文件编辑器"
+
+#: includes/class-grabwp-tenancy-settings.php:134
+msgid "Tenant admins cannot use the built-in code editor for plugin and theme files."
+msgstr "租户管理员无法使用内置代码编辑器编辑插件和主题文件。"
+
+#: includes/class-grabwp-tenancy-settings.php:139
+msgid "Hide Plugins Menu"
+msgstr "隐藏“插件”菜单"
+
+#: includes/class-grabwp-tenancy-settings.php:142
+msgid "Removes the Plugins menu from tenant dashboards."
+msgstr "从租户仪表盘中移除“插件”菜单。"
+
+#: includes/class-grabwp-tenancy-settings.php:145
+msgid "Hide Appearance Menu"
+msgstr "隐藏“外观”菜单"
+
+#: includes/class-grabwp-tenancy-settings.php:148
+msgid "Removes the Appearance menu (themes) from tenant dashboards."
+msgstr "从租户仪表盘中移除“外观”（主题）菜单。"
+
+#: includes/class-grabwp-tenancy-settings.php:151
+msgid "Hide Themes Screen"
+msgstr "隐藏“主题”页面"
+
+#: includes/class-grabwp-tenancy-settings.php:154
+msgid "Tenant admins keep Customize, Menus and Widgets under Appearance but cannot browse, install or switch themes. Has no effect when Hide Appearance Menu is on."
+msgstr "站点管理员仍可使用“外观”下的“自定义”“菜单”和“小工具”，但无法浏览、安装或切换主题。开启“隐藏‘外观’菜单”时此项无效。"
+
+#: includes/class-grabwp-tenancy-settings.php:157
+msgid "Hide GrabWP Plugins"
+msgstr "隐藏 GrabWP 插件"
+
+#: includes/class-grabwp-tenancy-settings.php:160
+msgid "Hides every GrabWP plugin and the SQLite plugin from the tenant Plugins list, so tenants cannot turn them off by mistake."
+msgstr "在租户的插件列表中隐藏所有 GrabWP 插件和 SQLite 插件，防止租户误将其停用。"
+
+#: includes/class-grabwp-tenancy-settings.php:163
+msgid "Disable WP-Cron"
+msgstr "禁用 WP-Cron"
+
+#: includes/class-grabwp-tenancy-settings.php:166
+msgid "Turns off the built-in task scheduler on tenant sites. Run a server cron job instead."
+msgstr "关闭租户站点的内置计划任务调度器。请改用服务器 cron 任务运行。"
+
+#: includes/class-grabwp-tenancy-settings.php:171
+msgid "Disable XML-RPC"
+msgstr "禁用 XML-RPC"
+
+#: includes/class-grabwp-tenancy-settings.php:174
+msgid "Turns off the old remote publishing API, a common target of password-guessing attacks."
+msgstr "关闭旧版远程发布 API，该接口常成为密码猜测攻击的目标。"
+
+#: includes/class-grabwp-tenancy-settings.php:177
+msgid "Post Revisions to Keep"
+msgstr "保留的文章修订版本数"
+
+#: includes/class-grabwp-tenancy-settings.php:180
+msgid "How many older versions of each post to keep. 0 turns revisions off."
+msgstr "每篇文章保留的历史版本数量。设为 0 则关闭修订版本。"
+
+#: includes/class-grabwp-tenancy-settings.php:187
+msgid "Days Before Trash Is Emptied"
+msgstr "清空回收站前的保留天数"
+
+#: includes/class-grabwp-tenancy-settings.php:190
+msgid "Deleted items stay in the Trash this many days. 0 deletes them right away."
+msgstr "已删除的项目在回收站中保留的天数。设为 0 则立即永久删除。"
+
+#: includes/class-grabwp-tenancy-settings.php:197
+msgid "Block External Requests"
+msgstr "阻止外部请求"
+
+#: includes/class-grabwp-tenancy-settings.php:200
+msgid "Tenant sites cannot connect to other websites, except the allowed hosts below."
+msgstr "除下方允许的主机外，租户站点无法连接到其他网站。"
+
+#: includes/class-grabwp-tenancy-settings.php:205
+msgid "Allowed Hosts When Blocked"
+msgstr "阻止外部请求时允许的主机"
+
+#: includes/class-grabwp-tenancy-settings.php:208
+msgid "Comma-separated host names tenant sites can still reach when external requests are blocked. Wildcards like *.wordpress.org work."
+msgstr "阻止外部请求时，租户站点仍可访问的主机名（以英文逗号分隔）。支持 *.wordpress.org 等通配符。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:139
+msgid "Welcome"
+msgstr "欢迎"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:143
+#: includes/class-grabwp-tenancy-setup-wizard.php:151
+msgid "Continue"
+msgstr "继续"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:154
+msgid "Custom domains"
+msgstr "自定义域名"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:155
+msgid "Give any site its own domain from Tenancy > All Tenants > Edit."
+msgstr "在“Tenancy > 所有租户 > 编辑”中为任意站点绑定独立域名。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:165
+msgid "First site"
+msgstr "第一个站点"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:170
+msgid "Create site"
+msgstr "创建站点"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:173
+msgid "More sites"
+msgstr "更多站点"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:174
+msgid "Add as many as you need from Tenancy > Add New."
+msgstr "在“Tenancy > 新建租户”中按需添加任意数量的站点。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:178
+msgid "Copies of a site"
+msgstr "复制站点"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:179
+msgid "Clone a finished site from its row in Tenancy > All Tenants to start the next one faster."
+msgstr "在“Tenancy > 所有租户”列表中克隆已完成的站点，更快速地创建下一个站点。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:186
+msgid "Done"
+msgstr "完成"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:355
+#: includes/class-grabwp-tenancy-setup-wizard.php:646
+msgid "Resume setup wizard"
+msgstr "继续设置向导"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:355
+msgid "Run setup wizard"
+msgstr "运行设置向导"
+
+#. translators: %s: name of the button on the Status page, "Resume setup wizard".
+#: includes/class-grabwp-tenancy-setup-wizard.php:645
+#, php-format
+msgid "Setup paused. The steps you saved are kept. You can resume any time with \"%s\" on this Status page."
+msgstr "设置已暂停。您已保存的步骤均已保留。您可以随时通过此状态页面上的“%s”继续。"
+
+#. translators: %d: number of setup steps left.
+#: includes/class-grabwp-tenancy-setup-wizard.php:691
+#, php-format
+msgid "GrabWP: finish setup to get your first site running (%d step left)."
+msgid_plural "GrabWP: finish setup to get your first site running (%d steps left)."
+msgstr[0] "GrabWP：完成设置即可运行您的第一个站点（还剩 %d 步）。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:697
+msgid "Continue setup"
+msgstr "继续设置"
+
+#. translators: %s: plugin names, e.g. "GrabWP Tenancy Pro and GrabWP Tenancy WaaS".
+#: includes/class-grabwp-tenancy-setup-wizard.php:718
+#, php-format
+msgid "Finish activating %s, then run the setup wizard."
+msgstr "请先完成 %s 的启用，然后运行设置向导。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:724
+msgid "Run the setup wizard"
+msgstr "运行设置向导"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1054
+msgid "Unknown setup step."
+msgstr "未知的设置步骤。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1129
+msgid "Simple"
+msgstr "简单"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1130
+msgid "Advanced"
+msgstr "高级"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1138
+msgid "Recommended"
+msgstr "推荐"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1191
+msgid "Later, you can add:"
+msgstr "稍后，您可以添加："
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1294
+#: includes/class-grabwp-tenancy-setup-wizard.php:1298
+msgid "Choose how visitors reach your sites."
+msgstr "选择访客访问您站点的方式。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1300
+msgid "Sites already exist, so their addresses would change. Change the mode in Tenancy > Settings > Routing, which lists the affected sites."
+msgstr "已存在站点，切换模式会更改其地址。请在“Tenancy > 设置 > 路由”中更改模式，那里会列出受影响的站点。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1319
+msgid "Your first site opens on a path address right away. No DNS needed."
+msgstr "您的第一个站点可立即通过路径地址打开，无需配置 DNS。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1320
+msgid "Your first site opens on its own domain. Point that domain to this server (DNS) first."
+msgstr "您的第一个站点将通过其独立域名打开。请先将该域名解析 (DNS) 指向此服务器。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1321
+msgid "Your first site opens on a path address right away. You can give it its own domain now or later."
+msgstr "您的第一个站点可立即通过路径地址打开。您可以现在或稍后为其绑定独立域名。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1334
+msgid "Create your first site"
+msgstr "创建您的第一个站点"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1336
+msgid "My First Site"
+msgstr "我的第一个站点"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1405
+msgid "Pick a site from the list."
+msgstr "请从列表中选择一个站点。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1414
+msgid "Enter a site title (up to 100 characters)."
+msgstr "请输入站点标题（最多 100 个字符）。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1418
+msgid "Enter a valid admin email."
+msgstr "请输入有效的管理员邮箱。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1435
+msgid "Enter the domain of the site. Domain routing needs a domain for every site."
+msgstr "请输入站点的域名。域名路由要求每个站点都有一个域名。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1436
+msgid "Enter the custom domain, or choose Path URL."
+msgstr "请输入自定义域名，或选择路径 URL。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1580
+msgid "Server checked"
+msgstr "服务器已检查"
+
+#. translators: %s: tenant ID.
+#: includes/class-grabwp-tenancy-setup-wizard.php:1596
+#, php-format
+msgid "Site %s created and installed"
+msgstr "站点 %s 已创建并安装"
+
+#. translators: %s: tenant ID.
+#: includes/class-grabwp-tenancy-setup-wizard.php:1599
+#, php-format
+msgid "Site %s created; WordPress is not installed yet"
+msgstr "站点 %s 已创建，尚未安装 WordPress"
+
+#. translators: %s: tenant ID.
+#: includes/class-grabwp-tenancy-setup-wizard.php:1602
+#, php-format
+msgid "Site %s created; GrabWP could not confirm that WordPress is installed"
+msgstr "站点 %s 已创建；GrabWP 无法确认 WordPress 是否已安装"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1612
+msgid "First site: Skipped"
+msgstr "第一个站点：已跳过"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1630
+msgid "Map a custom domain"
+msgstr "绑定自定义域名"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1631
+msgid "Give this site its own domain, like my-shop.com."
+msgstr "为此站点绑定独立域名，例如 my-shop.com。"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1636
+msgid "Add more sites"
+msgstr "添加更多站点"
+
+#: includes/class-grabwp-tenancy-setup-wizard.php:1637
+msgid "Each one separate, all from this WordPress."
+msgstr "彼此独立，全部源自此 WordPress。"
+
+#. translators: %s: name of a setup item.
+#: includes/class-grabwp-tenancy-setup-wizard.php:1673
+#, php-format
+msgid "%s: Skipped"
+msgstr "%s：已跳过"
+
+#: includes/class-grabwp-tenancy-status-checker.php:181
 msgid "Multiple tenants.php files detected"
 msgstr "检测到多个 tenants.php 文件"
 
-#: includes/class-grabwp-tenancy-status-checker.php:183
+#: includes/class-grabwp-tenancy-status-checker.php:182
 msgid "Only one tenants.php is loaded at boot. Stale copies at other locations may cause confusion during debugging or migration. Remove unused copies."
 msgstr "启动时仅加载一个 tenants.php。其他位置的过时副本可能会在调试或迁移过程中引起混乱。请删除未使用的副本。"
 
-#: includes/class-grabwp-tenancy-status-checker.php:209
+#: includes/class-grabwp-tenancy-status-checker.php:208
 msgid "Multiple global config.php files detected"
 msgstr "检测到多个全局 config.php 文件"
 
-#: includes/class-grabwp-tenancy-status-checker.php:210
+#: includes/class-grabwp-tenancy-status-checker.php:209
 msgid "Pro global configuration exists at both new and legacy locations. Boot loads the new path first; changes saved to the other copy are silently ignored. Remove the unused copy."
 msgstr "Pro 全局配置同时存在于新位置和旧位置。启动时优先加载新路径；保存到另一个副本的更改将被静默忽略。请删除未使用的副本。"
 
-#: includes/class-grabwp-tenancy-status-checker.php:220
+#: includes/class-grabwp-tenancy-status-checker.php:219
 msgid "Data directory inside uploads/"
 msgstr "数据目录位于 uploads/ 内部"
 
-#: includes/class-grabwp-tenancy-status-checker.php:221
+#: includes/class-grabwp-tenancy-status-checker.php:220
 msgid "Tenant data is inside wp-content/uploads/ — exposed to media upload scanners, backup tools, and CDN sync. Recommended: wp-content/grabwp-tenancy/."
 msgstr "租户数据位于 wp-content/uploads/ 内部，暴露给媒体上传扫描器、备份工具和 CDN 同步。推荐：wp-content/grabwp-tenancy/。"
 
-#: includes/class-grabwp-tenancy-status-checker.php:230
+#: includes/class-grabwp-tenancy-status-checker.php:229
 msgid "Pro config directory inside uploads/"
 msgstr "Pro 配置目录位于 uploads/ 内部"
 
-#: includes/class-grabwp-tenancy-status-checker.php:231
+#: includes/class-grabwp-tenancy-status-checker.php:230
 msgid "Pro tenant configs are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-pro/."
 msgstr "Pro 租户配置位于 wp-content/uploads/ 内部。推荐：wp-content/grabwp-tenancy-pro/。"
 
-#: includes/class-grabwp-tenancy-status-checker.php:241
+#: includes/class-grabwp-tenancy-status-checker.php:240
 msgid "SQLite directory inside uploads/"
 msgstr "SQLite 目录位于 uploads/ 内部"
 
-#: includes/class-grabwp-tenancy-status-checker.php:242
+#: includes/class-grabwp-tenancy-status-checker.php:241
 msgid "SQLite databases are inside wp-content/uploads/. Recommended: wp-content/grabwp-tenancy-sqlite/."
 msgstr "SQLite 数据库位于 wp-content/uploads/ 内部。推荐：wp-content/grabwp-tenancy-sqlite/。"
 
-#: includes/class-grabwp-tenancy-status-checker.php:261
+#: includes/class-grabwp-tenancy-status-checker.php:260
 msgid "Directory paths hardcoded in wp-config.php"
 msgstr "wp-config.php 中硬编码了目录路径"
 
-#: includes/class-grabwp-tenancy-status-checker.php:262
+#: includes/class-grabwp-tenancy-status-checker.php:261
 msgid "Constants defined before load.php override all auto-detection and Pro admin directory settings."
 msgstr "在 load.php 之前定义的常量会覆盖所有自动检测和 Pro 管理目录设置。"
 
-#: includes/class-grabwp-tenancy-status-checker.php:277
+#: includes/class-grabwp-tenancy-status-checker.php:276
 msgid "Multiple tenant-aliases.php files detected"
 msgstr "检测到多个 tenant-aliases.php 文件"
 
-#: includes/class-grabwp-tenancy-status-checker.php:278
+#: includes/class-grabwp-tenancy-status-checker.php:277
 msgid "Only the copy at the active base directory is loaded. Remove stale copies to prevent confusion."
 msgstr "仅加载活动基础目录中的副本。请删除过时的副本以防混淆。"
 
-#: includes/class-grabwp-tenancy-status-checker.php:294
+#: includes/class-grabwp-tenancy-status-checker.php:293
 msgid "Unknown"
 msgstr "未知"
 
@@ -1302,7 +2854,7 @@ msgstr "无法创建租户。"
 
 #: includes/class-grabwp-tenancy-tenant-crud.php:104
 #: includes/class-grabwp-tenancy-tenant-crud.php:152
-#: includes/class-grabwp-tenancy-tenant-installer.php:160
+#: includes/class-grabwp-tenancy-tenant-installer.php:540
 msgid "Invalid tenant ID."
 msgstr "无效的租户 ID。"
 
@@ -1340,845 +2892,6 @@ msgstr "域名已被其他租户使用：%s。每个域名只能分配给一个�
 msgid "Domain(s) already in use: %s. Each domain can only be assigned to one tenant."
 msgstr "域名已被使用：%s。每个域名只能分配给一个租户。"
 
-#. translators: %s: reason the install failed.
-#: admin/views/partials/site-result.php:33
-#: admin/views/setup-steps/done.php:50
-#, php-format
-msgid "The site was created but WordPress could not be installed automatically: %s"
-msgstr "站点已创建，但无法自动安装 WordPress：%s"
-
-#: admin/views/partials/site-result.php:39
-#: admin/views/setup-steps/done.php:56
-msgid "Finish install in browser"
-msgstr "在浏览器中完成安装"
-
-#. translators: %s: tenant ID.
-#: admin/views/partials/site-result.php:49
-#: admin/views/setup-steps/done.php:38
-#, php-format
-msgid "Site created: %s"
-msgstr "站点已创建：%s"
-
-#: admin/views/partials/site-result.php:58
-#: admin/views/setup-steps/done.php:61
-msgid "Username"
-msgstr "用户名"
-
-#: admin/views/partials/site-result.php:60
-#: admin/views/setup-steps/done.php:63
-msgid "Password"
-msgstr "密码"
-
-#: admin/views/partials/site-result.php:62
-#: admin/views/setup-steps/done.php:65
-msgid "Show"
-msgstr "显示"
-
-#: admin/views/partials/site-result.php:62
-#: admin/views/setup-steps/done.php:65
-msgid "Hide"
-msgstr "隐藏"
-
-#: admin/views/partials/site-result.php:65
-msgid "This password is shown once. You do not need it: the 1-click Admin button logs you in."
-msgstr "此密码仅显示一次。您无需使用它：一键管理按钮会直接为您登录。"
-
-#: admin/views/partials/site-result.php:68
-#: admin/views/setup-steps/done.php:92
-msgid "Open site admin (1-click)"
-msgstr "打开站点后台（一键）"
-
-#: admin/views/setup-steps/check.php:110
-msgid "Site can reach itself (loopback)"
-msgstr "站点可以访问自身（环回）"
-
-#: admin/views/setup-steps/check.php:112
-msgid "OK"
-msgstr "正常"
-
-#: admin/views/setup-steps/check.php:114
-msgid "Failed"
-msgstr "失败"
-
-#: admin/views/setup-steps/check.php:120
-msgid "GrabWP can install WordPress in new sites for you."
-msgstr "GrabWP 可以为您在新站点中安装 WordPress。"
-
-#: admin/views/setup-steps/check.php:121
-msgid "This server cannot open its own address, so new sites must be installed in the browser. Check firewall, basic auth, or the server routing rules."
-msgstr "此服务器无法访问自己的地址，因此新站点必须在浏览器中安装。请检查防火墙、基本认证或服务器路由规则。"
-
-#: admin/views/setup-steps/check.php:128
-msgid ".htaccess files are not used by Nginx. Configure tenant routing in your server block instead."
-msgstr "Nginx 不使用 .htaccess 文件。请改为在 server 块中配置租户路由。"
-
-#. translators: %d: number of items that need attention.
-#: admin/views/setup-steps/check.php:74
-#, php-format
-msgid "%d item needs attention."
-msgid_plural "%d items need attention."
-msgstr[0] "%d 个项目需要处理。"
-
-#: admin/views/setup-steps/check.php:78
-msgid "Fix automatically"
-msgstr "自动修复"
-
-#: admin/views/setup-steps/done.php:21
-msgid "You're ready"
-msgstr "准备就绪"
-
-#: admin/views/setup-steps/done.php:81
-msgid "Open this step"
-msgstr "打开此步骤"
-
-#: admin/views/setup-steps/done.php:93
-msgid "Visit site"
-msgstr "访问站点"
-
-#: admin/views/setup-steps/site.php:34
-#: admin/views/setup-wizard.php:18
-msgid "Save and continue"
-msgstr "保存并继续"
-
-#: admin/views/settings-routing-confirm.php:36
-#: admin/views/settings-routing-confirm.php:62
-#: admin/views/setup-steps/site.php:37
-#: admin/views/setup-steps/site.php:55
-msgid "Site"
-msgstr "站点"
-
-#: admin/views/setup-steps/site.php:44
-msgid "Create a new site"
-msgstr "创建新站点"
-
-#: admin/views/setup-steps/site.php:49
-msgid "Use an existing site"
-msgstr "使用现有站点"
-
-#: admin/views/setup-steps/site.php:58
-msgid "Existing site"
-msgstr "现有站点"
-
-#: admin/views/setup-steps/site.php:70
-msgid "Site title"
-msgstr "站点标题"
-
-#: admin/views/setup-steps/site.php:75
-#: admin/views/setup-steps/site.php:103
-msgid "Address"
-msgstr "地址"
-
-#: admin/views/setup-steps/site.php:80
-msgid "Works now. No DNS needed. The ID is created on save."
-msgstr "立即可用，无需 DNS。ID 在保存时生成。"
-
-#: admin/views/setup-steps/site.php:83
-#: admin/views/setup-steps/site.php:97
-#: admin/views/setup-steps/site.php:106
-msgid "Custom domain"
-msgstr "自定义域名"
-
-#: admin/views/setup-steps/site.php:84
-msgid "Point the domain's DNS to this server first."
-msgstr "请先将该域名的 DNS 指向此服务器。"
-
-#: admin/views/setup-steps/site.php:120
-#: admin/views/tenant-create.php:131
-msgid "WordPress"
-msgstr "WordPress"
-
-#: admin/views/tenant-create.php:135
-msgid "Install WordPress now"
-msgstr "立即安装 WordPress"
-
-#: admin/views/tenant-create.php:137
-msgid "Creates the site's database and an administrator named after the site ID with a random password. Use the 1-click Admin button to log in; you never need the password."
-msgstr "创建站点数据库，以及一个以站点 ID 命名、使用随机密码的管理员。使用一键管理按钮登录，您永远不需要该密码。"
-
-#: admin/views/setup-steps/site.php:128
-msgid "Turned off because this server cannot reach itself (see the Check step). You can finish the install in the browser after the site is created."
-msgstr "已关闭，因为此服务器无法访问自身（参见“检查”步骤）。创建站点后，您可以在浏览器中完成安装。"
-
-#: admin/views/setup-wizard.php:25
-#: includes/class-grabwp-tenancy-setup-wizard.php:67
-#: includes/class-grabwp-tenancy-setup-wizard.php:68
-msgid "GrabWP setup"
-msgstr "GrabWP 设置向导"
-
-#: admin/views/setup-wizard.php:26
-msgid "Exit setup"
-msgstr "退出设置"
-
-#: admin/views/setup-wizard.php:125
-msgid "Back"
-msgstr "返回"
-
-#: admin/views/setup-wizard.php:129
-msgid "Skip this step"
-msgstr "跳过此步骤"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:355
-msgid "Run setup wizard"
-msgstr "运行设置向导"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:143
-#: includes/class-grabwp-tenancy-setup-wizard.php:151
-msgid "Continue"
-msgstr "继续"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:165
-msgid "First site"
-msgstr "第一个站点"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:170
-msgid "Create site"
-msgstr "创建站点"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:186
-msgid "Done"
-msgstr "完成"
-
-#. translators: %d: number of setup steps left.
-#: includes/class-grabwp-tenancy-setup-wizard.php:691
-#, php-format
-msgid "GrabWP: finish setup to get your first site running (%d step left)."
-msgid_plural "GrabWP: finish setup to get your first site running (%d steps left)."
-msgstr[0] "GrabWP：完成设置即可运行您的第一个站点（还剩 %d 步）。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:697
-msgid "Continue setup"
-msgstr "继续设置"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1038
-msgid "Unknown setup step."
-msgstr "未知的设置步骤。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1256
-msgid "Create your first site"
-msgstr "创建您的第一个站点"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1258
-msgid "My First Site"
-msgstr "我的第一个站点"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1304
-msgid "Pick a site from the list."
-msgstr "请从列表中选择一个站点。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1313
-msgid "Enter a site title (up to 100 characters)."
-msgstr "请输入站点标题（最多 100 个字符）。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1317
-msgid "Enter a valid admin email."
-msgstr "请输入有效的管理员邮箱。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1335
-msgid "Enter the custom domain, or choose Path URL."
-msgstr "请输入自定义域名，或选择路径 URL。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1479
-msgid "Server checked"
-msgstr "服务器已检查"
-
-#. translators: %s: tenant ID.
-#: includes/class-grabwp-tenancy-setup-wizard.php:1496
-#, php-format
-msgid "Site %s created and installed"
-msgstr "站点 %s 已创建并安装"
-
-#. translators: %s: tenant ID.
-#: includes/class-grabwp-tenancy-setup-wizard.php:1498
-#, php-format
-msgid "Site %s created; WordPress is not installed yet"
-msgstr "站点 %s 已创建，尚未安装 WordPress"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1504
-msgid "First site: Skipped"
-msgstr "第一个站点：已跳过"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1522
-msgid "Map a custom domain"
-msgstr "绑定自定义域名"
-
-#. translators: %s: name of a setup item.
-#: includes/class-grabwp-tenancy-setup-wizard.php:1565
-#, php-format
-msgid "%s: Skipped"
-msgstr "%s：已跳过"
-
-#. translators: %d: HTTP status code.
-#: includes/class-grabwp-tenancy-tenant-installer.php:215
-#, php-format
-msgid "The site answered with HTTP %d."
-msgstr "站点返回了 HTTP %d。"
-
-#. translators: %d: number of domains stored for the site.
-#: admin/class-grabwp-tenancy-list-table.php:303
-#, php-format
-msgid "%d stored domain, not used in Path mode"
-msgid_plural "%d stored domains, not used in Path mode"
-msgstr[0] "已保存 %d 个域名，路径模式下不使用"
-
-#. translators: %s: example path URL of a site.
-#: admin/views/partials/routing-mode-options.php:20
-#, php-format
-msgid "Every site opens at %s. Works right away, no DNS needed. Domains you add are kept but not used for links."
-msgstr "每个站点都在 %s 打开。即刻可用，无需配置 DNS。您添加的域名会被保留，但不会用于链接。"
-
-#: admin/views/partials/routing-mode-options.php:23
-msgid "Every site opens on its own domain. Visitors who open a path URL of a site are redirected (301) to its domain. Every site needs a domain."
-msgstr "每个站点都在其独立域名上打开。访问站点路径 URL 的访客将被重定向 (301) 到其域名。每个站点都需要一个域名。"
-
-#: admin/views/partials/routing-mode-options.php:24
-msgid "Sites with a domain open on it; sites without one open on the path URL. Both addresses keep working. This is how GrabWP worked before routing modes."
-msgstr "有域名的站点使用域名打开；没有域名的站点使用路径 URL 打开。两种地址均可正常访问。这是推出路由模式之前 GrabWP 的工作方式。"
-
-#: admin/views/partials/routing-mode-options.php:28
-#: admin/views/partials/settings-routing.php:43
-#: admin/views/setup-steps/routing.php:66
-msgid "Routing mode"
-msgstr "路由模式"
-
-#: admin/views/partials/settings-field-rows.php:43
-msgid "Yes"
-msgstr "是"
-
-#. translators: %s: technical constant or setting name, e.g. DISALLOW_FILE_MODS=true
-#: admin/views/partials/settings-field-rows.php:47
-#, php-format
-msgid "Yes, %s"
-msgstr "是，%s"
-
-#. translators: %s: constant name.
-#: admin/views/partials/settings-routing.php:21
-#: admin/views/setup-steps/routing.php:50
-#, php-format
-msgid "The routing mode is set by %s in wp-config.php. Remove the constant to change it here."
-msgstr "路由模式已由 wp-config.php 中的 %s 设置。请移除该常量以在此处更改。"
-
-#. translators: %s: constant name.
-#: admin/views/partials/settings-routing.php:33
-#, php-format
-msgid "%s in wp-config.php is not a valid mode (path, domain or both), so it is ignored."
-msgstr "wp-config.php 中的 %s 不是有效的模式（path、domain 或 both），因此已被忽略。"
-
-#: admin/views/partials/settings-routing.php:46
-msgid "Not saved yet. Your sites use Path and domain, the behaviour from before routing modes."
-msgstr "尚未保存。您的站点当前使用“路径和域名”模式，即推出路由模式之前的默认方式。"
-
-#: admin/views/partials/settings-routing.php:63
-msgid "Path prefix"
-msgstr "路径前缀"
-
-#: admin/views/partials/settings-routing.php:66
-msgid "GrabWP Tenancy Pro can change the prefix and give each site a readable alias."
-msgstr "GrabWP Tenancy Pro 可以更改前缀并为每个站点设置易读的别名。"
-
-#: admin/views/partials/status-env-cards.php:33
-msgid "In wp-config.php, reload to confirm"
-msgstr "已写入 wp-config.php，请刷新页面确认"
-
-#: admin/views/partials/status-env-cards.php:330
-msgid "Watched for changes. Not read-only, because the web server does not own these files (optional):"
-msgstr "正在监控更改。未设为只读，因为 Web 服务器不拥有这些文件的所有者权限（可选）："
-
-#: admin/views/settings-routing-confirm.php:17
-msgid "Change routing mode"
-msgstr "更改路由模式"
-
-#. translators: 1: current routing mode, 2: new routing mode.
-#: admin/views/settings-routing-confirm.php:22
-#, php-format
-msgid "From %1$s to %2$s."
-msgstr "从 %1$s 更改为 %2$s。"
-
-#: admin/views/settings-routing-confirm.php:31
-#: includes/class-grabwp-tenancy-admin-form-handler.php:234
-msgid "Domain mode needs a domain for every site. These sites have none yet:"
-msgstr "域名模式要求每个站点都有一个域名。以下站点尚未设置域名："
-
-#: admin/views/settings-routing-confirm.php:37
-msgid "Action"
-msgstr "操作"
-
-#: admin/views/settings-routing-confirm.php:45
-msgid "Add a domain"
-msgstr "添加域名"
-
-#: admin/views/settings-routing-confirm.php:52
-msgid "Back to Routing settings"
-msgstr "返回路由设置"
-
-#: admin/views/settings-routing-confirm.php:55
-msgid "Sites whose address changes"
-msgstr "地址发生变更的站点"
-
-#: admin/views/settings-routing-confirm.php:57
-msgid "No site address changes."
-msgstr "没有站点地址发生变更。"
-
-#: admin/views/settings-routing-confirm.php:63
-msgid "Current address"
-msgstr "当前地址"
-
-#: admin/views/settings-routing-confirm.php:64
-msgid "New address"
-msgstr "新地址"
-
-#: admin/views/settings-routing-confirm.php:79
-msgid "What else happens"
-msgstr "其他影响"
-
-#: admin/views/settings-routing-confirm.php:82
-msgid "Visitors who open a path URL of a site are redirected (301) to its domain. Form posts and server calls to path URLs keep working."
-msgstr "访问站点路径 URL 的访客将被重定向 (301) 到其域名。发往路径 URL 的表单提交和服务器调用仍可正常工作。"
-
-#: admin/views/settings-routing-confirm.php:85
-msgid "Path URLs stop redirecting and open the site again. Browsers and CDNs may keep a cached redirect until you purge them."
-msgstr "路径 URL 将停止重定向并重新直接打开站点。在您清除缓存之前，浏览器和 CDN 可能会保留缓存的重定向。"
-
-#: admin/views/settings-routing-confirm.php:87
-msgid "Links stored inside site content are not changed. Old addresses keep working."
-msgstr "站点内容中保存的链接不会更改。旧地址仍可正常访问。"
-
-#: admin/views/settings-routing-confirm.php:89
-msgid "People logged in to a site whose address changes are signed out once."
-msgstr "已登录到地址变更站点的用户将被退出登录一次。"
-
-#: admin/views/settings-routing-confirm.php:91
-msgid "Purge page and CDN caches after the switch."
-msgstr "切换后请清除页面和 CDN 缓存。"
-
-#. translators: %s: new routing mode.
-#: admin/views/settings-routing-confirm.php:103
-#, php-format
-msgid "Switch to %s"
-msgstr "切换到 %s"
-
-#: admin/views/settings.php:27
-#: includes/class-grabwp-tenancy-setup-wizard.php:147
-msgid "Routing"
-msgstr "路由"
-
-#: admin/views/setup-steps/check.php:39
-msgid "Welcome to GrabWP"
-msgstr "欢迎使用 GrabWP"
-
-#: admin/views/setup-steps/check.php:40
-msgid "A few short steps get your first site running. Every step has a working default, and you can skip any of them."
-msgstr "只需简单几步即可运行您的第一个站点。每一步都有可用的默认设置，您可以跳过任意步骤。"
-
-#: admin/views/setup-steps/check.php:44
-msgid "One WordPress, many websites"
-msgstr "一个 WordPress，多个网站"
-
-#: admin/views/setup-steps/check.php:45
-msgid "GrabWP runs many separate websites from this one WordPress install. Each one is called a site (a \"tenant\" in some GrabWP screens)."
-msgstr "GrabWP 可在此单个 WordPress 安装中运行多个独立的网站。每个网站称为一个站点（在部分 GrabWP 界面中称为“租户”）。"
-
-#: admin/views/setup-steps/check.php:48
-msgid "Each site stands on its own"
-msgstr "每个站点彼此独立"
-
-#: admin/views/setup-steps/check.php:49
-msgid "A site has its own posts, pages, media, users and admin area. Sites share the plugins and themes installed here, so you update them once."
-msgstr "每个站点都拥有自己的文章、页面、媒体、用户和后台管理区域。各站点共享此处安装的插件和主题，因此您只需更新一次。"
-
-#: admin/views/setup-steps/check.php:52
-msgid "Not WordPress Multisite"
-msgstr "并非 WordPress 多站点"
-
-#: admin/views/setup-steps/check.php:53
-msgid "You do not need to know or turn on Multisite. You manage every site from the Tenancy menu of this admin."
-msgstr "您无需了解或启用多站点网络 (Multisite)。您可以通过当前管理后台的 Tenancy 菜单管理所有站点。"
-
-#: admin/views/setup-steps/check.php:67
-msgid "Server check"
-msgstr "服务器检查"
-
-#: admin/views/setup-steps/check.php:79
-#: admin/views/setup-steps/check.php:89
-msgid "Check again"
-msgstr "重新检查"
-
-#: admin/views/setup-steps/check.php:82
-msgid "The loader is in wp-config.php, but this page loaded before it was read. Check again to confirm."
-msgstr "加载器已写入 wp-config.php，但此页面在读取该配置前就已加载。请重新检查以确认。"
-
-#: admin/views/setup-steps/check.php:88
-msgid "Everything is ready. Nothing to do here."
-msgstr "一切就绪，此处无需任何操作。"
-
-#: admin/views/setup-steps/check.php:95
-msgid "Show the server checks"
-msgstr "显示服务器检查项"
-
-#. translators: %s: example site address such as /site/{id}
-#: admin/views/setup-steps/check.php:100
-#, php-format
-msgid "GrabWP set these up when you activated it. Site addresses like %s need every item."
-msgstr "GrabWP 在您启用插件时已配置好这些项目。像 %s 这样的站点地址需要所有项目均正常工作。"
-
-#: admin/views/setup-steps/done.php:22
-msgid "Your setup is saved. Open your site, then grow it whenever you like."
-msgstr "您的设置已保存。现在可以打开您的站点，并随时根据需要扩展。"
-
-#. translators: %s: tenant ID.
-#: admin/views/setup-steps/done.php:38
-#, php-format
-msgid "Your site: %s"
-msgstr "您的站点：%s"
-
-#: admin/views/setup-steps/done.php:67
-msgid "I saved it, hide this"
-msgstr "我已保存，隐藏此项"
-
-#: admin/views/setup-steps/done.php:69
-msgid "Keep this password somewhere safe. It stays on this screen until you hide it. You do not need it to log in: the 1-click Admin button does that."
-msgstr "请将此密码保存在安全的地方。在您隐藏它之前，它会一直显示在此界面上。您无需使用密码登录：点击一键管理按钮即可直接登录。"
-
-#: admin/views/setup-steps/done.php:74
-msgid "What you set up"
-msgstr "您已完成的配置"
-
-#: admin/views/setup-steps/done.php:89
-msgid "Try it now"
-msgstr "立即体验"
-
-#: admin/views/setup-steps/done.php:95
-msgid "All sites"
-msgstr "所有站点"
-
-#: admin/views/setup-steps/done.php:103
-msgid "Grow later"
-msgstr "后续扩展"
-
-#. translators: %s: example path URL of a site.
-#: admin/views/setup-steps/routing.php:25
-#, php-format
-msgid "Every site lives under this WordPress address. Works right away, no DNS needed. For example: %s"
-msgstr "每个站点都位于此 WordPress 地址下。即刻可用，无需配置 DNS。例如：%s"
-
-#. translators: %s: example domain of a site.
-#: admin/views/setup-steps/routing.php:31
-#, php-format
-msgid "Every site has its own domain. Each domain must point to this server (DNS) before its site opens. For example: %s"
-msgstr "每个站点都拥有自己的独立域名。在打开站点之前，必须先将域名解析 (DNS) 指向此服务器。例如：%s"
-
-#: admin/views/setup-steps/routing.php:36
-msgid "A site opens on the path address until you give it a domain; then it opens on the domain and the path keeps working. Works now; add domains whenever you like."
-msgstr "在您为站点绑定域名之前，站点使用路径地址打开；绑定后将使用域名打开，且路径地址仍然可用。即刻可用，您可以随时添加域名。"
-
-#: admin/views/setup-steps/routing.php:41
-msgid "Choose the web address of your sites"
-msgstr "选择站点的网址格式"
-
-#: admin/views/setup-steps/routing.php:42
-msgid "This decides how visitors reach each site. Start simple. You can change this later in Tenancy > Settings > Routing."
-msgstr "这决定了访客如何访问每个站点。建议从简单的方式开始，您稍后可以在“Tenancy > 设置 > 路由”中更改。"
-
-#: admin/views/setup-steps/routing.php:59
-msgid "Sites already exist. A new mode changes their addresses, so switch it in Settings, which lists every site that changes."
-msgstr "已存在站点。切换新模式会更改这些站点的地址，请在“设置”中切换，那里会列出所有受影响的站点。"
-
-#: admin/views/setup-steps/routing.php:60
-msgid "Open Settings > Routing"
-msgstr "打开“设置 > 路由”"
-
-#: admin/views/setup-steps/site.php:45
-msgid "Start from an empty WordPress site."
-msgstr "从一个全新的空白 WordPress 站点开始。"
-
-#: admin/views/setup-steps/site.php:50
-msgid "Pick one of your sites from the list below."
-msgstr "从下方列表中选择一个您的站点。"
-
-#: admin/views/setup-steps/site.php:91
-msgid "Path address"
-msgstr "路径地址"
-
-#. translators: %s: path URL of the new site, {id} stands for its ID.
-#: admin/views/setup-steps/site.php:93
-#, php-format
-msgid "Works now, no DNS needed. The site ID is created when you save: %s"
-msgstr "即刻可用，无需配置 DNS。保存时将生成站点 ID：%s"
-
-#: admin/views/setup-steps/site.php:98
-msgid "Type the domain below. Point its DNS to this server first."
-msgstr "请在下方输入域名。请先将其 DNS 解析指向此服务器。"
-
-#: admin/views/setup-steps/site.php:112
-msgid "Site admin email"
-msgstr "站点管理员邮箱"
-
-#: admin/views/setup-steps/site.php:115
-msgid "The new site's administrator account uses this email."
-msgstr "新站点的管理员账户将使用此邮箱。"
-
-#: admin/views/setup-steps/site.php:124
-msgid "Set up WordPress in the new site now"
-msgstr "立即在新站点中安装配置 WordPress"
-
-#: admin/views/setup-steps/site.php:126
-msgid "The site is ready to use right away, with an administrator account named after the site ID. You log in with the 1-click button and never need its password."
-msgstr "站点立即可用，并会自动创建一个以站点 ID 命名的管理员账户。您只需点击一键登录按钮即可登录，无需输入密码。"
-
-#: admin/views/setup-wizard.php:57
-msgid "(done)"
-msgstr "(已完成)"
-
-#. translators: 1: step title, 2: current part of the step, 3: number of parts.
-#: admin/views/setup-wizard.php:69
-#, php-format
-msgid "%1$s (%2$d of %3$d)"
-msgstr "%1$s (%2$d/%3$d)"
-
-#. translators: 1: current step number, 2: number of steps, 3: step title.
-#: admin/views/setup-wizard.php:77
-#, php-format
-msgid "Step %1$d of %2$d: %3$s"
-msgstr "第 %1$d 步（共 %2$d 步）：%3$s"
-
-#: admin/views/status-base.php:112
-msgid "empty"
-msgstr "空"
-
-#: admin/views/tenant-clone.php:227
-msgid "Path URL only"
-msgstr "仅路径 URL"
-
-#: admin/views/tenant-create.php:21
-msgid "Create a new tenant. It opens on the domain you enter."
-msgstr "创建一个新租户。它将通过您输入的域名打开。"
-
-#: admin/views/tenant-create.php:94
-#: admin/views/tenant-edit.php:126
-msgid "Domain mode needs at least one domain."
-msgstr "域名模式至少需要一个域名。"
-
-#. translators: %d: number of domains stored for the site.
-#: admin/views/tenant-edit.php:93
-#, php-format
-msgid "Stored domains (%d): kept, not used for links in Path mode"
-msgid_plural "Stored domains (%d): kept, not used for links in Path mode"
-msgstr[0] "已保存的域名 (%d)：已保留，路径模式下不用于链接"
-
-#: includes/class-grabwp-tenancy-admin-form-handler.php:197
-#: includes/class-grabwp-tenancy-admin-form-handler.php:247
-#: includes/class-grabwp-tenancy-setup-wizard.php:1224
-msgid "Could not write tenants.php. Check file permissions."
-msgstr "无法写入 tenants.php。请检查文件权限。"
-
-#: includes/class-grabwp-tenancy-admin-form-handler.php:226
-msgid "The routing mode is set in wp-config.php and cannot be changed here."
-msgstr "路由模式已在 wp-config.php 中设置，无法在此处更改。"
-
-#: includes/class-grabwp-tenancy-admin-form-handler.php:229
-msgid "Invalid routing mode."
-msgstr "无效的路由模式。"
-
-#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false
-#: includes/class-grabwp-tenancy-admin.php:146
-#, php-format
-msgid "Your wp-config.php already sets %1$s to %2$s, so this setting has no effect. Remove that line to let GrabWP control it."
-msgstr "您的 wp-config.php 已将 %1$s 设置为 %2$s，因此此设置不会生效。请移除该行以交由 GrabWP 控制。"
-
-#. translators: 1: constant name, e.g. DISALLOW_FILE_EDIT, 2: its value, e.g. false
-#: includes/class-grabwp-tenancy-admin.php:153
-#, php-format
-msgid "Another plugin or file already sets %1$s to %2$s, so this setting has no effect."
-msgstr "其他插件或文件已将 %1$s 设置为 %2$s，因此此设置不会生效。"
-
-#: includes/class-grabwp-tenancy-admin.php:548
-msgid "Routing mode saved."
-msgstr "路由模式已保存。"
-
-#: includes/class-grabwp-tenancy-routing.php:80
-msgid "Path"
-msgstr "路径"
-
-#: includes/class-grabwp-tenancy-routing.php:82
-msgid "Domain"
-msgstr "域名"
-
-#: includes/class-grabwp-tenancy-routing.php:84
-msgid "Path and domain"
-msgstr "路径和域名"
-
-#: includes/class-grabwp-tenancy-settings.php:122
-msgid "Disable Install Plugins & Themes"
-msgstr "禁止安装插件和主题"
-
-#: includes/class-grabwp-tenancy-settings.php:125
-msgid "Tenant admins cannot install, update or delete plugins and themes."
-msgstr "租户管理员无法安装、更新或删除插件和主题。"
-
-#: includes/class-grabwp-tenancy-settings.php:130
-msgid "Disable Plugin & Theme File Editor"
-msgstr "禁用插件和主题文件编辑器"
-
-#: includes/class-grabwp-tenancy-settings.php:133
-msgid "Tenant admins cannot use the built-in code editor for plugin and theme files."
-msgstr "租户管理员无法使用内置代码编辑器编辑插件和主题文件。"
-
-#: includes/class-grabwp-tenancy-settings.php:138
-msgid "Hide Plugins Menu"
-msgstr "隐藏“插件”菜单"
-
-#: includes/class-grabwp-tenancy-settings.php:141
-msgid "Removes the Plugins menu from tenant dashboards."
-msgstr "从租户仪表盘中移除“插件”菜单。"
-
-#: includes/class-grabwp-tenancy-settings.php:144
-msgid "Hide Appearance Menu"
-msgstr "隐藏“外观”菜单"
-
-#: includes/class-grabwp-tenancy-settings.php:147
-msgid "Removes the Appearance menu (themes) from tenant dashboards."
-msgstr "从租户仪表盘中移除“外观”（主题）菜单。"
-
-#: includes/class-grabwp-tenancy-settings.php:153
-msgid "Hides every GrabWP plugin and the SQLite plugin from the tenant Plugins list, so tenants cannot turn them off by mistake."
-msgstr "在租户的插件列表中隐藏所有 GrabWP 插件和 SQLite 插件，防止租户误将其停用。"
-
-#: includes/class-grabwp-tenancy-settings.php:159
-msgid "Turns off the built-in task scheduler on tenant sites. Run a server cron job instead."
-msgstr "关闭租户站点的内置计划任务调度器。请改用服务器 cron 任务运行。"
-
-#: includes/class-grabwp-tenancy-settings.php:167
-msgid "Turns off the old remote publishing API, a common target of password-guessing attacks."
-msgstr "关闭旧版远程发布 API，该接口常成为密码猜测攻击的目标。"
-
-#: includes/class-grabwp-tenancy-settings.php:170
-msgid "Post Revisions to Keep"
-msgstr "保留的文章修订版本数"
-
-#: includes/class-grabwp-tenancy-settings.php:173
-msgid "How many older versions of each post to keep. 0 turns revisions off."
-msgstr "每篇文章保留的历史版本数量。设为 0 则关闭修订版本。"
-
-#: includes/class-grabwp-tenancy-settings.php:180
-msgid "Days Before Trash Is Emptied"
-msgstr "清空回收站前的保留天数"
-
-#: includes/class-grabwp-tenancy-settings.php:183
-msgid "Deleted items stay in the Trash this many days. 0 deletes them right away."
-msgstr "已删除的项目在回收站中保留的天数。设为 0 则立即永久删除。"
-
-#: includes/class-grabwp-tenancy-settings.php:190
-msgid "Block External Requests"
-msgstr "阻止外部请求"
-
-#: includes/class-grabwp-tenancy-settings.php:193
-msgid "Tenant sites cannot connect to other websites, except the allowed hosts below."
-msgstr "除下方允许的主机外，租户站点无法连接到其他网站。"
-
-#: includes/class-grabwp-tenancy-settings.php:198
-msgid "Allowed Hosts When Blocked"
-msgstr "阻止外部请求时允许的主机"
-
-#: includes/class-grabwp-tenancy-settings.php:201
-msgid "Comma-separated host names tenant sites can still reach when external requests are blocked. Wildcards like *.wordpress.org work."
-msgstr "阻止外部请求时，租户站点仍可访问的主机名（以英文逗号分隔）。支持 *.wordpress.org 等通配符。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:139
-msgid "Welcome"
-msgstr "欢迎"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:154
-msgid "Custom domains"
-msgstr "自定义域名"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:155
-msgid "Give any site its own domain from Tenancy > All Tenants > Edit."
-msgstr "在“Tenancy > 所有租户 > 编辑”中为任意站点绑定独立域名。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:173
-msgid "More sites"
-msgstr "更多站点"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:174
-msgid "Add as many as you need from Tenancy > Add New."
-msgstr "在“Tenancy > 新建租户”中按需添加任意数量的站点。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:178
-msgid "Copies of a site"
-msgstr "复制站点"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:179
-msgid "Clone a finished site from its row in Tenancy > All Tenants to start the next one faster."
-msgstr "在“Tenancy > 所有租户”列表中克隆已完成的站点，更快速地创建下一个站点。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:355
-#: includes/class-grabwp-tenancy-setup-wizard.php:646
-msgid "Resume setup wizard"
-msgstr "继续设置向导"
-
-#. translators: %s: name of the button on the Status page, "Resume setup wizard".
-#: includes/class-grabwp-tenancy-setup-wizard.php:645
-#, php-format
-msgid "Setup paused. The steps you saved are kept. You can resume any time with \"%s\" on this Status page."
-msgstr "设置已暂停。您已保存的步骤均已保留。您可以随时通过此状态页面上的“%s”继续。"
-
-#. translators: %s: plugin names, e.g. "GrabWP Tenancy Pro and GrabWP Tenancy WaaS".
-#: includes/class-grabwp-tenancy-setup-wizard.php:718
-#, php-format
-msgid "Finish activating %s, then run the setup wizard."
-msgstr "请先完成 %s 的启用，然后运行设置向导。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:724
-msgid "Run the setup wizard"
-msgstr "运行设置向导"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1105
-msgid "Simple"
-msgstr "简单"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1106
-msgid "Advanced"
-msgstr "高级"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1162
-msgid "Later, you can add:"
-msgstr "稍后，您可以添加："
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1220
-msgid "Choose how visitors reach your sites."
-msgstr "选择访客访问您站点的方式。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1222
-msgid "Sites already exist, so their addresses would change. Change the mode in Tenancy > Settings > Routing, which lists the affected sites."
-msgstr "已存在站点，切换模式会更改其地址。请在“Tenancy > 设置 > 路由”中更改模式，那里会列出受影响的站点。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1241
-msgid "Your first site opens on a path address right away. No DNS needed."
-msgstr "您的第一个站点可立即通过路径地址打开，无需配置 DNS。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1242
-msgid "Your first site opens on its own domain. Point that domain to this server (DNS) first."
-msgstr "您的第一个站点将通过其独立域名打开。请先将该域名解析 (DNS) 指向此服务器。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1243
-msgid "Your first site opens on a path address right away. You can give it its own domain now or later."
-msgstr "您的第一个站点可立即通过路径地址打开。您可以现在或稍后为其绑定独立域名。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1334
-msgid "Enter the domain of the site. Domain routing needs a domain for every site."
-msgstr "请输入站点的域名。域名路由要求每个站点都有一个域名。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1523
-msgid "Give this site its own domain, like my-shop.com."
-msgstr "为此站点绑定独立域名，例如 my-shop.com。"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1528
-msgid "Add more sites"
-msgstr "添加更多站点"
-
-#: includes/class-grabwp-tenancy-setup-wizard.php:1529
-msgid "Each one separate, all from this WordPress."
-msgstr "彼此独立，全部源自此 WordPress。"
-
 #: includes/class-grabwp-tenancy-tenant-crud.php:247
 msgid "Domain mode needs at least one domain for each site."
 msgstr "域名模式要求每个站点至少有一个域名。"
@@ -2186,3 +2899,42 @@ msgstr "域名模式要求每个站点至少有一个域名。"
 #: includes/class-grabwp-tenancy-tenant-crud.php:257
 msgid "Could not read tenants.php, so nothing was changed. Check the file and its permissions."
 msgstr "无法读取 tenants.php，因此未做任何更改。请检查该文件及其权限。"
+
+#. translators: %d: HTTP status code.
+#: includes/class-grabwp-tenancy-tenant-installer.php:441
+#, php-format
+msgid "The address of the new site was answered by the main site or a proxy (HTTP %d), not by the new site. The web server may not have loaded the new site yet; wait a minute and try again."
+msgstr "新站点地址由主站点或代理响应（HTTP %d），而非新站点响应。Web 服务器可能尚未加载新站点；请等待一分钟后再试。"
+
+#. translators: %d: HTTP status code.
+#: includes/class-grabwp-tenancy-tenant-installer.php:447
+#: includes/class-grabwp-tenancy-tenant-installer.php:619
+#, php-format
+msgid "The site answered with HTTP %d."
+msgstr "站点返回了 HTTP %d。"
+
+#. translators: 1: reason, 2: administrator username.
+#: includes/class-grabwp-tenancy-tenant-installer.php:606
+#, php-format
+msgid "WordPress may be installed, but GrabWP could not confirm it: %1$s If it is, log in as %2$s with the password shown here."
+msgstr "WordPress 可能已安装，但 GrabWP 无法确认：%1$s 如果已安装，请使用此处显示的密码以 %2$s 身份登录。"
+
+#: includes/class-grabwp-tenancy-theme-screen-lock.php:99
+msgid "Themes are managed by your host. You can still customize your current theme, menus and widgets from the Appearance menu."
+msgstr "主题由您的主机服务商管理。您仍可在“外观”菜单中自定义当前主题、菜单和小工具。"
+
+#: includes/class-grabwp-tenancy-theme-screen-lock.php:100
+msgid "Themes unavailable"
+msgstr "主题不可用"
+
+#. translators: 1: line number, 2: PHP code on that line.
+#: admin/views/partials/setup-hosting-card.php:136
+#, php-format
+msgid "Line %1$d: %2$s (inside a condition, check it)"
+msgstr "第 %1$d 行：%2$s（位于条件语句内，请检查）"
+
+#. translators: 1: tenant ID, 2: date and time of the change (UTC).
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:586
+#, php-format
+msgid "tenant %1$s, %2$s"
+msgstr "租户 %1$s，%2$s"

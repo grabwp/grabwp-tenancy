@@ -206,11 +206,12 @@ class GrabWP_Tenancy_Path_Manager {
 	/**
 	 * Atomically write PHP content to a file with ABSPATH guard.
 	 *
-	 * @param string $file_path Absolute destination path.
-	 * @param string $content   Full PHP file content (including <?php tag).
+	 * @param string        $file_path Absolute destination path.
+	 * @param string        $content   Full PHP file content (including <?php tag).
+	 * @param callable|null $verify    Temp file path => bool, run before the rename; false keeps the old file.
 	 * @return bool True on success, false on failure.
 	 */
-	public static function atomic_put_php_file( $file_path, $content ) {
+	public static function atomic_put_php_file( $file_path, $content, $verify = null ) {
 		$guard = "if ( ! defined( 'ABSPATH' ) ) { exit; }\n";
 		if ( strpos( $content, $guard ) === false ) {
 			$content = preg_replace( '/^<\?php\s/', "<?php\n" . $guard, $content, 1 );
@@ -221,14 +222,36 @@ class GrabWP_Tenancy_Path_Manager {
 			wp_mkdir_p( $dir );
 		}
 
+		return self::atomic_write( $file_path, $content, null, $verify );
+	}
+
+	/**
+	 * Replace a file in one step: write a temporary file next to it, then
+	 * rename it over the file, so readers see the old or the new content only.
+	 *
+	 * @since 1.1.14
+	 * @param string   $file_path Absolute destination path.
+	 * @param string   $content   Full content.
+	 * @param int|null      $mode      Permissions for the new file (e.g. those of the file it replaces).
+	 * @param callable|null $verify    Temp file path => bool, run before the rename; false keeps the old file.
+	 * @return bool True on success, false on failure.
+	 */
+	public static function atomic_write( $file_path, $content, $mode = null, $verify = null ) {
 		$tmp_file = $file_path . '.tmp.' . uniqid( '', true );
 
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-		if ( false === file_put_contents( $tmp_file, $content, LOCK_EX ) ) {
+		if ( false === @file_put_contents( $tmp_file, $content, LOCK_EX ) ) {
+			return false;
+		}
+		if ( null !== $mode ) {
+			@chmod( $tmp_file, $mode ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		}
+		if ( null !== $verify && ! call_user_func( $verify, $tmp_file ) ) {
+			@unlink( $tmp_file ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 			return false;
 		}
 
-		if ( ! rename( $tmp_file, $file_path ) ) {
+		if ( ! @rename( $tmp_file, $file_path ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 			@unlink( $tmp_file );
 			return false;
 		}

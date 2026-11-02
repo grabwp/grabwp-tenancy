@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.14
+Stable tag: 1.1.15
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,21 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.15 =
+* New: Hosting setup card on the setup wizard Check screen and on Status. It checks for leftover Multisite settings, an https site address, HTTPS behind a proxy or CDN, and wildcard domain readiness, and can add a safe HTTPS proxy block to wp-config.php.
+* New: Remove Multisite settings, with Undo, in the Hosting setup card. It removes leftover Multisite lines from wp-config.php (including `$base` and COOKIE_DOMAIN, WP_HOME or WP_SITEURL set from HTTP_HOST), keeps a backup, checks that the site still loads and rolls back if not. Old Multisite rules in .htaccess are listed as a note only, because GrabWP does not use them.
+* New: The Status page and the setup wizard Check screen now show the same checks, plus System Information and a Copy diagnostics button for support requests. Passwords, keys, salts, emails and file paths are left out, and nothing is sent anywhere.
+* New: Setting to hide the Themes screen for tenants while keeping Customize, Menus and Widgets.
+* New: Tenant file safety warning when Disable Install Plugins & Themes or Disable Plugin & Theme File Editor is off, when code in wp-config.php forces them off, or when a tenant's own Pro override turns them off. These let a tenant admin run PHP on the server.
+* Enhance: The integrity watchdog now repairs only GrabWP's own blocks in wp-config.php and .htaccess and keeps your other edits. It checks wp-config.php with the PHP parser, never writes a broken file, repairs in one atomic step, and shows its notice on the Status page.
+* Enhance: Setup wizard polish: the routing save creates tenants.php when it is missing and names the real cause of a failed write, the wizard offers path or domain routing (both stays in Settings), recommended choices are preselected, and the site step suggests a domain.
+* Fix: Tenant pretty permalinks, REST and feed URLs returned 404 on OpenLiteSpeed (xCloud). Tenant URLs are now routed in one rewrite pass, and Fix on Status upgrades the old .htaccess block.
+* Fix: Tenants no longer share the main site's object cache drop-in. It is kept only when the cache keys stay separate (xSpeed with a per-tenant salt, Redis Object Cache with the tenant's own table prefix).
+* Fix: Creating a site behind Cloudflare or a proxy could report an empty site as ready. The installer now retries over HTTPS when the address is only upgraded, checks that the answer really comes from the new site, and waits a bounded time.
+* Fix: Cloning keeps working when a stored value holds an object of a plugin class that is not loaded, and clone URLs are rewritten in one transaction.
+* Enhance: All strings are translated in the six bundled languages.
+* Dev: Filters `grabwp_tenancy_tenant_object_cache_dropin`, `grabwp_tenancy_tenant_install_route_wait`, `grabwp_tenancy_unsafe_tenant_file_overrides` and `grabwp_tenancy_wildcard_domain`, and an admin-only read-only diagnostics REST route.
 
 = 1.1.14 =
 * New: A warning under a setting when wp-config.php or another plugin already sets its WordPress constant to a different value, so the setting has no effect. It shows on Settings and on Status > Base.
