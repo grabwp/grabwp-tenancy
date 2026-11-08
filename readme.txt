@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.16
+Stable tag: 1.1.17
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,16 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.17 =
+* New: Names and tags for tenants. Give each site a readable name and one or more tags on Add New and Edit, see them in the All Tenants list, filter the list by tag and search by ID, name, domain or tag. Turn it on or off under Settings > Management; turning it off hides the fields and keeps what you saved.
+* New: Tags page (from the Manage Tags link on All Tenants) to add, rename, change the slug of and delete tags, including bulk delete.
+* Fix: Deleting a tenant also removes its name and tags.
+* Fix: The integrity watchdog only repairs a protected file from snapshots made by the same install, so two installs that share one GrabWP data folder no longer overwrite each other's wp-config.php or .htaccess.
+* Enhance: New strings translated in the bundled languages (Vietnamese, Indonesian, Chinese, Spanish, French, Arabic).
+
+= 1.1.16 =
+* Fix: Republished 1.1.15 with all files included.
 
 = 1.1.15 =
 * New: Hosting setup card on the setup wizard Check screen and on Status. It checks for leftover Multisite settings, an https site address, HTTPS behind a proxy or CDN, and wildcard domain readiness, and can add a safe HTTPS proxy block to wp-config.php.

@@ -70,6 +70,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<input type="hidden" name="clone_source" value="<?php echo esc_attr( $grabwp_clone_source ); ?>" />
 			<?php endif; ?>
 			<table class="form-table">
+<?php
+if ( GrabWP_Tenancy_Management::is_enabled() ) {
+	$grabwp_management_tenant_id = '';
+	require __DIR__ . '/partials/tenant-management-rows.php';
+}
+?>
 				<tr>
 					<th scope="row">
 						<?php esc_html_e( 'Domain Setup', 'grabwp-tenancy' ); ?>

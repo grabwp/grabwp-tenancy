@@ -33,6 +33,13 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 	private $plugin;
 
 	/**
+	 * Tag vocabulary sorted by name, read on first use.
+	 *
+	 * @var array|null
+	 */
+	private $tag_vocabulary = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @param GrabWP_Tenancy $plugin Plugin instance
@@ -76,8 +83,11 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 		$columns = array(
 			'tenant_id' => __( 'Tenant ID', 'grabwp-tenancy' ),
 			'domains'   => __( 'Domains', 'grabwp-tenancy' ),
-			'actions'   => __( 'Actions', 'grabwp-tenancy' ),
 		);
+		if ( GrabWP_Tenancy_Management::is_enabled() ) {
+			$columns['tags'] = __( 'Tags', 'grabwp-tenancy' );
+		}
+		$columns['actions'] = __( 'Actions', 'grabwp-tenancy' );
 
 		/**
 		 * Filter list table columns
@@ -194,6 +204,12 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 			$tenant_mappings = $this->filter_mappings_by_search( $tenant_mappings, $search_term );
 		}
 
+		// Apply tag filter (search AND tag)
+		$tag_filter = $this->get_tag_filter();
+		if ( '' !== $tag_filter ) {
+			$tenant_mappings = $this->filter_mappings_by_tag( $tenant_mappings, $tag_filter );
+		}
+
 		// Apply sorting
 		$tenant_mappings = $this->sort_mappings( $tenant_mappings );
 
@@ -277,7 +293,105 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 		if ( defined( 'GRABWP_MAINSITE_ID' ) && GRABWP_MAINSITE_ID === $item->get_id() ) {
 			return '<strong>&#11088; ' . esc_html__( 'Main Site', 'grabwp-tenancy' ) . '</strong>';
 		}
-		return '<code>' . esc_html( $item->get_id() ) . '</code>';
+		$code = '<code>' . esc_html( $item->get_id() ) . '</code>';
+		if ( ! GrabWP_Tenancy_Management::is_enabled() ) {
+			return $code;
+		}
+		$entry = GrabWP_Tenancy_Management::get_tenant( $item->get_id() );
+		if ( '' === $entry['name'] ) {
+			return $code;
+		}
+		return '<strong>' . esc_html( $entry['name'] ) . '</strong><br>' . $code;
+	}
+
+	/**
+	 * Display tags column: the first 3 tags by name as filter links, the rest as +N.
+	 *
+	 * @param object $item Tenant object
+	 * @return string
+	 */
+	public function column_tags( $item ) {
+		if ( defined( 'GRABWP_MAINSITE_ID' ) && GRABWP_MAINSITE_ID === $item->get_id() ) {
+			return '';
+		}
+
+		$entry  = GrabWP_Tenancy_Management::get_tenant( $item->get_id() );
+		$ticked = array_flip( $entry['tags'] );
+		$names  = array();
+		foreach ( $this->get_tag_vocabulary() as $slug => $tag ) {
+			// isset() also matches an all-digit slug that PHP keys as an int.
+			if ( isset( $ticked[ $slug ] ) ) {
+				$names[ $slug ] = $tag['name'];
+			}
+		}
+
+		$output = '';
+		foreach ( array_slice( $names, 0, 3, true ) as $slug => $name ) {
+			$url     = admin_url( 'admin.php?page=grabwp-tenancy&tenant_tag=' . rawurlencode( (string) $slug ) );
+			$output .= '<a class="grabwp-tag-chip" href="' . esc_url( $url ) . '">' . esc_html( $name ) . '</a>';
+		}
+
+		$rest = array_slice( $names, 3 );
+		if ( ! empty( $rest ) ) {
+			$list    = implode( ', ', $rest );
+			$output .= '<span class="grabwp-tag-more" title="' . esc_attr( $list ) . '">+' . count( $rest )
+				. '<span class="screen-reader-text">: ' . esc_html( $list ) . '</span></span>';
+		}
+
+		return $output;
+	}
+
+	/**
+	 * Whether the list is filtered by a tag.
+	 *
+	 * @return bool
+	 */
+	public function is_tag_filtered() {
+		return '' !== $this->get_tag_filter();
+	}
+
+	/**
+	 * Tag vocabulary sorted by name.
+	 *
+	 * @return array slug => array( 'name' => string )
+	 */
+	private function get_tag_vocabulary() {
+		if ( null === $this->tag_vocabulary ) {
+			$this->tag_vocabulary = GrabWP_Tenancy_Management::get_tags();
+		}
+		return $this->tag_vocabulary;
+	}
+
+	/**
+	 * Tag slug from the tenant_tag query arg; ignored when names and tags are off.
+	 *
+	 * @return string
+	 */
+	private function get_tag_filter() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Filtering is read-only operation
+		if ( ! isset( $_REQUEST['tenant_tag'] ) || ! is_string( $_REQUEST['tenant_tag'] ) || ! GrabWP_Tenancy_Management::is_enabled() ) {
+			return '';
+		}
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Filtering is read-only operation
+		return sanitize_key( wp_unslash( $_REQUEST['tenant_tag'] ) );
+	}
+
+	/**
+	 * Keep only tenants that carry a tag.
+	 *
+	 * @param array  $tenant_mappings Array of raw tenant mappings
+	 * @param string $slug            Tag slug
+	 * @return array Filtered tenant mappings
+	 */
+	private function filter_mappings_by_tag( $tenant_mappings, $slug ) {
+		$entries = GrabWP_Tenancy_Management::get_tenants();
+		$kept    = array();
+		foreach ( $tenant_mappings as $tenant_id => $domains ) {
+			if ( isset( $entries[ $tenant_id ] ) && in_array( (string) $slug, $entries[ $tenant_id ]['tags'], true ) ) {
+				$kept[ $tenant_id ] = $domains;
+			}
+		}
+		return $kept;
 	}
 
 
@@ -416,6 +530,8 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 				esc_html__( 'No tenants found matching "%s".', 'grabwp-tenancy' ),
 				esc_html( $search_term )
 			);
+		} elseif ( $this->is_tag_filtered() ) {
+			esc_html_e( 'No tenants found with this tag.', 'grabwp-tenancy' );
 		} else {
 			esc_html_e( 'No tenants found.', 'grabwp-tenancy' );
 		}
@@ -491,6 +607,8 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 	private function filter_mappings_by_search( $tenant_mappings, $search_term ) {
 		$filtered_mappings = array();
 		$search_term_lower = strtolower( $search_term );
+		$entries           = GrabWP_Tenancy_Management::is_enabled() ? GrabWP_Tenancy_Management::get_tenants() : array();
+		$tags              = $this->get_tag_vocabulary();
 
 		foreach ( $tenant_mappings as $tenant_id => $domains ) {
 			$match = false;
@@ -498,6 +616,11 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 			// Search by tenant ID (exact match)
 			if ( strtolower( $tenant_id ) === $search_term_lower ) {
 				$match = true;
+			}
+
+			// Search by name or tag name (partial match)
+			if ( ! $match && isset( $entries[ $tenant_id ] ) ) {
+				$match = GrabWP_Tenancy_Management::matches( $entries[ $tenant_id ], $tags, $search_term );
 			}
 
 			// Search by domain (partial match)
@@ -530,8 +653,31 @@ class GrabWP_Tenancy_List_Table extends WP_List_Table {
 			<div class="alignleft actions">
 				<form method="get">
 					<input type="hidden" name="page" value="grabwp-tenancy" />
+<?php if ( GrabWP_Tenancy_Management::is_enabled() ) : ?>
+						<?php
+						$grabwp_tag_filter = $this->get_tag_filter();
+						$grabwp_tag_counts = GrabWP_Tenancy_Management::tenant_counts();
+						?>
+						<label for="tenant-tag-filter" class="screen-reader-text"><?php esc_html_e( 'Filter by tag', 'grabwp-tenancy' ); ?></label>
+						<select id="tenant-tag-filter" name="tenant_tag">
+							<option value=""><?php esc_html_e( 'All tags', 'grabwp-tenancy' ); ?></option>
+							<?php foreach ( $this->get_tag_vocabulary() as $grabwp_tag_slug => $grabwp_tag ) : ?>
+								<option value="<?php echo esc_attr( $grabwp_tag_slug ); ?>" <?php selected( $grabwp_tag_filter, $grabwp_tag_slug ); ?>>
+									<?php
+									printf(
+										/* translators: 1: tag name, 2: number of tenants with the tag. */
+										esc_html__( '%1$s (%2$d)', 'grabwp-tenancy' ),
+										esc_html( $grabwp_tag['name'] ),
+										(int) $grabwp_tag_counts[ $grabwp_tag_slug ]
+									);
+									?>
+								</option>
+							<?php endforeach; ?>
+						</select>
+						<?php submit_button( __( 'Filter', 'grabwp-tenancy' ), '', 'filter_action', false, array( 'id' => 'tenant-tag-filter-submit' ) ); ?>
+					<?php endif; ?>
 					<label for="tenant-search-input" class="screen-reader-text"><?php esc_html_e( 'Search Tenants', 'grabwp-tenancy' ); ?>:</label>
-					<input type="search" id="tenant-search-input" name="s" value="<?php _admin_search_query(); ?>" placeholder="<?php esc_attr_e( 'Search by ID or domain...', 'grabwp-tenancy' ); ?>" />
+					<input type="search" id="tenant-search-input" name="s" value="<?php _admin_search_query(); ?>" placeholder="<?php echo esc_attr( GrabWP_Tenancy_Management::is_enabled() ? __( 'Search by ID, name, domain or tag...', 'grabwp-tenancy' ) : __( 'Search by ID or domain...', 'grabwp-tenancy' ) ); ?>" />
 					<?php submit_button( __( 'Search', 'grabwp-tenancy' ), '', '', false, array( 'id' => 'search-submit' ) ); ?>
 				</form>
 			</div>

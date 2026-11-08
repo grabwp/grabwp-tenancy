@@ -17,6 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<a href="<?php echo esc_url( admin_url( 'admin.php?page=grabwp-tenancy-create' ) ); ?>" class="page-title-action">
 		<?php esc_html_e( 'Add New', 'grabwp-tenancy' ); ?>
 	</a>
+<?php if ( GrabWP_Tenancy_Management::is_enabled() ) : ?>
+		<a href="<?php echo esc_url( admin_url( 'admin.php?page=' . GrabWP_Tenancy_Tenant_Tags_Admin::PAGE ) ); ?>" class="page-title-action"><?php esc_html_e( 'Manage Tags', 'grabwp-tenancy' ); ?></a>
+	<?php endif; ?>
 	<hr class="wp-header-end">
 
 	<p class="grabwp-tenancy-page-intro"><?php esc_html_e( 'Manage your multi-tenant WordPress sites.', 'grabwp-tenancy' ); ?></p>

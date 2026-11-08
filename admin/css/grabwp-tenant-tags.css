@@ -1,0 +1,163 @@
+/* GrabWP Tenancy - tenant tags: chips, +N badge and the tag selector. Loaded only when names and tags are on. */
+
+.grabwp-tag-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+	margin-block: 2px;
+	margin-inline: 0 4px;
+	padding-block: 1px;
+	padding-inline: 8px;
+	border: 1px solid #c3c4c7;
+	border-radius: 999px;
+	background: #f6f7f7;
+	color: #1d2327;
+	font-size: 12px;
+	line-height: 1.6;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+a.grabwp-tag-chip:hover,
+a.grabwp-tag-chip:focus {
+	border-color: #2271b1;
+	color: #2271b1;
+}
+
+.grabwp-tag-more {
+	display: inline-block;
+	padding-inline: 6px;
+	border-radius: 999px;
+	background: #dcdcde;
+	color: #1d2327;
+	font-size: 12px;
+	line-height: 1.6;
+	cursor: help;
+}
+
+/* Selector: the checkbox list and "New tags" field are the no-JS fallback. */
+.grabwp-tenant-tags.is-enhanced .grabwp-tenant-tags__list,
+.grabwp-tenant-tags.is-enhanced .grabwp-tenant-tags__new {
+	display: none;
+}
+
+.grabwp-tenant-tags__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 16px;
+	margin-block-end: 8px;
+}
+
+.grabwp-tenant-tags__box {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px;
+	max-width: 25em;
+	padding: 3px 6px;
+	border: 1px solid #8c8f94;
+	border-radius: 4px;
+	background: #fff;
+	cursor: text;
+}
+
+.grabwp-tenant-tags__box:focus-within {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+.grabwp-tenant-tags__chips {
+	display: contents;
+	margin: 0;
+	list-style: none;
+}
+
+.grabwp-tenant-tags__chips .grabwp-tag-chip {
+	margin: 0;
+}
+
+.grabwp-tag-chip__remove {
+	padding-block: 0;
+	padding-inline: 2px;
+	border: 0;
+	background: none;
+	color: #50575e;
+	font-size: 14px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.grabwp-tag-chip__remove:hover,
+.grabwp-tag-chip__remove:focus {
+	color: #d63638;
+}
+
+.grabwp-tenant-tags__box .grabwp-tenant-tags__input {
+	flex: 1 1 8em;
+	min-width: 8em;
+	margin: 0;
+	padding-inline: 2px;
+	border: 0;
+	box-shadow: none;
+	background: transparent;
+}
+
+.grabwp-tenant-tags__box .grabwp-tenant-tags__input:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.grabwp-tenant-tags__dropdown {
+	position: absolute;
+	z-index: 100;
+	inset-block-start: 100%;
+	inset-inline: -1px;
+	max-height: 220px;
+	margin: 2px 0 0;
+	overflow-y: auto;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	background: #fff;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+	list-style: none;
+}
+
+.grabwp-tenant-tags__option,
+.grabwp-tenant-tags__empty {
+	margin: 0;
+	padding-block: 6px;
+	padding-inline: 10px;
+}
+
+.grabwp-tenant-tags__dropdown .grabwp-tenant-tags__option {
+	cursor: pointer;
+}
+
+.grabwp-tenant-tags__dropdown .grabwp-tenant-tags__option.is-highlighted,
+.grabwp-tenant-tags__dropdown .grabwp-tenant-tags__option:hover {
+	background: #2271b1;
+	color: #fff;
+}
+
+.grabwp-tenant-tags__option--create {
+	font-style: italic;
+}
+
+.grabwp-tenant-tags__empty {
+	color: #646970;
+}
+
+.grabwp-tenant-tags__status:empty {
+	display: none;
+}
+
+.grabwp-tenant-tags__status.is-error {
+	color: #d63638;
+}
+
+@media screen and (max-width: 782px) {
+	.grabwp-tenant-tags__box {
+		max-width: none;
+	}
+}

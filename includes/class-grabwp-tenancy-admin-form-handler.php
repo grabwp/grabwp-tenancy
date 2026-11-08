@@ -70,6 +70,10 @@ class GrabWP_Tenancy_Admin_Form_Handler {
 		$result = $this->crud->create( $domains );
 
 		if ( $result['type'] === 'success' ) {
+			if ( ! empty( $result['tenant_id'] ) ) {
+				$this->save_management_from_post( $result['tenant_id'] );
+			}
+
 			$clone_source = isset( $_POST['clone_source'] ) ? sanitize_key( wp_unslash( $_POST['clone_source'] ) ) : '';
 			if ( $clone_source && ! empty( $result['tenant_id'] ) ) {
 				$clone_page   = class_exists( 'GrabWP_Tenancy_Pro_Clone_Admin' ) ? 'grabwp-tenancy-pro-clone' : 'grabwp-tenancy-clone';
@@ -141,6 +145,8 @@ class GrabWP_Tenancy_Admin_Form_Handler {
 		$result = $this->crud->update( $tenant_id, $domains );
 
 		if ( $result['type'] === 'success' ) {
+			$this->save_management_from_post( $tenant_id );
+
 			$success_nonce = wp_create_nonce( 'grabwp_tenancy_notice' );
 			$edit_nonce    = wp_create_nonce( 'grabwp_tenancy_edit' );
 			wp_safe_redirect( admin_url( 'admin.php?page=grabwp-tenancy-edit&tenant_id=' . urlencode( $tenant_id ) . '&message=updated&_wpnonce=' . urlencode( $edit_nonce ) . '&_notice_nonce=' . urlencode( $success_nonce ) ) );
@@ -179,6 +185,8 @@ class GrabWP_Tenancy_Admin_Form_Handler {
 		if ( ! $settings_instance->save( $raw_settings ) ) {
 			$this->redirect_error( 'grabwp-tenancy-settings', __( 'Failed to save settings. Please check file permissions.', 'grabwp-tenancy' ) );
 		}
+
+		$this->save_management_toggle_from_post();
 
 		/**
 		 * Save extra Routing rows (Pro path prefix and aliases).
@@ -256,6 +264,38 @@ class GrabWP_Tenancy_Admin_Form_Handler {
 		$nonce = wp_create_nonce( 'grabwp_tenancy_notice' );
 		wp_safe_redirect( admin_url( 'admin.php?page=grabwp-tenancy-settings&message=routing_saved&_wpnonce=' . urlencode( $nonce ) . '#tab-routing' ) );
 		exit;
+	}
+
+	/**
+	 * Save the Settings > Management switch into management.php. The file is
+	 * written only when the value changes, so saving Settings alone never
+	 * creates it. Redirects with an error when the write fails.
+	 */
+	private function save_management_toggle_from_post() {
+		if ( empty( $_POST[ GrabWP_Tenancy_Management::MARKER ] ) ) {
+			return;
+		}
+		$enabled = ! empty( $_POST['grabwp_management_enabled'] );
+		if ( GrabWP_Tenancy_Management::is_enabled() === $enabled ) {
+			return;
+		}
+		if ( ! GrabWP_Tenancy_Management::set_enabled( $enabled ) ) {
+			$this->redirect_error( 'grabwp-tenancy-settings', __( 'The Management setting could not be saved. Check that the GrabWP data folder is writable.', 'grabwp-tenancy' ) );
+		}
+	}
+
+	/**
+	 * Save the optional Name and Tags rows for a tenant. Callers verified the
+	 * nonce. A failed write keeps the tenant save and leaves a warning for the
+	 * next Tenancy screen, including the clone page after a clone redirect.
+	 *
+	 * @param string $tenant_id Tenant ID.
+	 */
+	private function save_management_from_post( $tenant_id ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Callers verified the nonce; save_from_post() sanitizes each field.
+		if ( false === GrabWP_Tenancy_Management::save_from_post( $tenant_id, $_POST ) ) {
+			set_transient( 'grabwp_tenancy_management_warning', __( 'Tenant saved, but names and tags could not be written. Check that the GrabWP data folder is writable.', 'grabwp-tenancy' ), 60 );
+		}
 	}
 
 	private function extract_domains_from_post() {

@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-11-01T09:49:28+00:00\n"
-"PO-Revision-Date: 2026-11-02 19:12+0000\n"
+"PO-Revision-Date: 2026-11-07 19:28+0000\n"
 "Language: zh_CN\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: grabwp-tenancy\n"
@@ -16,10 +16,10 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: grabwp-tenancy.php
-#: admin/views/tenant-edit.php:155
+#: admin/views/tenant-edit.php:161
 #: admin/views/tenants.php:16
-#: includes/class-grabwp-tenancy-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:503
+#: includes/class-grabwp-tenancy-admin.php:273
+#: includes/class-grabwp-tenancy-admin.php:550
 #: includes/class-grabwp-tenancy-diagnostics.php:291
 msgid "GrabWP Tenancy"
 msgstr "GrabWP Tenancy"
@@ -44,81 +44,82 @@ msgstr "GrabWP"
 msgid "https://grabwp.com"
 msgstr "https://grabwp.com"
 
-#: admin/class-grabwp-tenancy-list-table.php:62
+#: admin/class-grabwp-tenancy-list-table.php:69
 msgid "Tenants per page"
 msgstr "每页显示租户数量"
 
-#: admin/class-grabwp-tenancy-list-table.php:77
+#: admin/class-grabwp-tenancy-list-table.php:84
 #: admin/views/tenant-clone.php:91
 #: admin/views/tenant-edit.php:67
 msgid "Tenant ID"
 msgstr "租户 ID"
 
-#: admin/class-grabwp-tenancy-list-table.php:78
+#: admin/class-grabwp-tenancy-list-table.php:85
 #: admin/views/tenant-clone.php:92
-#: admin/views/tenant-edit.php:84
+#: admin/views/tenant-edit.php:90
 msgid "Domains"
 msgstr "域名"
 
-#: admin/class-grabwp-tenancy-list-table.php:79
+#: admin/class-grabwp-tenancy-list-table.php:90
+#: admin/class-grabwp-tenancy-tag-list-table.php:62
 msgid "Actions"
 msgstr "操作"
 
-#: admin/class-grabwp-tenancy-list-table.php:278
+#: admin/class-grabwp-tenancy-list-table.php:294
 #: admin/views/tenant-create.php:38
 msgid "Main Site"
 msgstr "主站点"
 
 #. translators: %d: number of domains stored for the site.
-#: admin/class-grabwp-tenancy-list-table.php:303
+#: admin/class-grabwp-tenancy-list-table.php:417
 #, php-format
 msgid "%d stored domain, not used in Path mode"
 msgid_plural "%d stored domains, not used in Path mode"
 msgstr[0] "已保存 %d 个域名，路径模式下不使用"
 
-#: admin/class-grabwp-tenancy-list-table.php:325
+#: admin/class-grabwp-tenancy-list-table.php:439
 msgid "Path access only"
 msgstr "仅限路径访问"
 
-#: admin/class-grabwp-tenancy-list-table.php:328
+#: admin/class-grabwp-tenancy-list-table.php:442
 msgid "No domains assigned"
 msgstr "未分配域名"
 
-#: admin/class-grabwp-tenancy-list-table.php:344
-#: admin/class-grabwp-tenancy-list-table.php:355
+#: admin/class-grabwp-tenancy-list-table.php:458
+#: admin/class-grabwp-tenancy-list-table.php:469
 msgid "Visit Site"
 msgstr "访问站点"
 
-#: admin/class-grabwp-tenancy-list-table.php:358
+#: admin/class-grabwp-tenancy-list-table.php:472
 msgid "Admin"
 msgstr "管理"
 
-#: admin/class-grabwp-tenancy-list-table.php:362
+#: admin/class-grabwp-tenancy-list-table.php:476
 #: admin/views/status-base.php:82
-#: includes/class-grabwp-tenancy-admin.php:309
-#: includes/class-grabwp-tenancy-admin.php:310
+#: includes/class-grabwp-tenancy-admin.php:323
+#: includes/class-grabwp-tenancy-admin.php:324
 msgid "Settings"
 msgstr "设置"
 
 #. translators: %s: search term
-#: admin/class-grabwp-tenancy-list-table.php:416
+#: admin/class-grabwp-tenancy-list-table.php:530
 #, php-format
 msgid "No tenants found matching \"%s\"."
 msgstr "找不到与“%s”匹配的租户。"
 
-#: admin/class-grabwp-tenancy-list-table.php:420
+#: admin/class-grabwp-tenancy-list-table.php:536
 msgid "No tenants found."
 msgstr "未找到租户。"
 
-#: admin/class-grabwp-tenancy-list-table.php:533
+#: admin/class-grabwp-tenancy-list-table.php:679
 msgid "Search Tenants"
 msgstr "搜索租户"
 
-#: admin/class-grabwp-tenancy-list-table.php:534
+#: admin/class-grabwp-tenancy-list-table.php:680
 msgid "Search by ID or domain..."
 msgstr "按 ID 或域名搜索..."
 
-#: admin/class-grabwp-tenancy-list-table.php:535
+#: admin/class-grabwp-tenancy-list-table.php:681
 msgid "Search"
 msgstr "搜索"
 
@@ -144,6 +145,7 @@ msgid "Routing mode"
 msgstr "路由模式"
 
 #: admin/views/partials/settings-field-rows.php:43
+#: admin/views/partials/settings-management.php:37
 #: admin/views/partials/system-check.php:100
 msgid "Yes"
 msgstr "是"
@@ -548,7 +550,7 @@ msgstr "隐藏"
 
 #: admin/views/partials/site-result.php:69
 #: admin/views/setup-steps/done.php:73
-#: admin/views/tenant-edit.php:77
+#: admin/views/tenant-edit.php:83
 msgid "Copy"
 msgstr "复制"
 
@@ -817,9 +819,9 @@ msgid "Copy diagnostics"
 msgstr "复制诊断信息"
 
 #: admin/views/partials/upsell-card.php:20
-#: admin/views/tenant-create.php:170
-#: admin/views/tenant-edit.php:156
-#: admin/views/tenants.php:64
+#: admin/views/tenant-create.php:176
+#: admin/views/tenant-edit.php:162
+#: admin/views/tenants.php:67
 #: includes/class-grabwp-tenancy-admin.php:229
 msgid "Learn about Pro"
 msgstr "了解 Pro"
@@ -841,7 +843,7 @@ msgid "From %1$s to %2$s."
 msgstr "从 %1$s 更改为 %2$s。"
 
 #: admin/views/settings-routing-confirm.php:31
-#: includes/class-grabwp-tenancy-admin-form-handler.php:234
+#: includes/class-grabwp-tenancy-admin-form-handler.php:242
 msgid "Domain mode needs a domain for every site. These sites have none yet:"
 msgstr "域名模式要求每个站点都有一个域名。以下站点尚未设置域名："
 
@@ -912,8 +914,9 @@ msgstr "切换到 %s"
 
 #: admin/views/settings-routing-confirm.php:108
 #: admin/views/tenant-clone.php:110
-#: admin/views/tenant-create.php:159
-#: admin/views/tenant-edit.php:145
+#: admin/views/tenant-create.php:165
+#: admin/views/tenant-edit.php:151
+#: admin/views/tenant-tag-edit.php:60
 msgid "Cancel"
 msgstr "取消"
 
@@ -936,19 +939,19 @@ msgstr "性能与安全"
 msgid "Routing"
 msgstr "路由"
 
-#: admin/views/settings.php:61
+#: admin/views/settings.php:67
 msgid "Save Settings"
 msgstr "保存设置"
 
-#: admin/views/settings.php:68
+#: admin/views/settings.php:74
 msgid "Scheduling and automatic backups"
 msgstr "计划任务和自动备份"
 
-#: admin/views/settings.php:69
+#: admin/views/settings.php:75
 msgid "Schedule automatic backups for each tenant site on an interval you control. Pro automatically pushes backup copies to secure offsite storage after each run, so you never lose client data to a server failure."
 msgstr "按照您控制的时间间隔为每个租户站点安排自动备份。Pro 会在每次运行后自动将备份副本推送到安全的异地存储中，因此您永远不会因服务器故障而丢失客户数据。"
 
-#: admin/views/settings.php:70
+#: admin/views/settings.php:76
 msgid "Learn about GrabWP Tenancy Pro"
 msgstr "了解 GrabWP Tenancy Pro"
 
@@ -1182,7 +1185,7 @@ msgid "The new site's administrator account uses this email."
 msgstr "新站点的管理员账户将使用此邮箱。"
 
 #: admin/views/setup-steps/site.php:121
-#: admin/views/tenant-create.php:131
+#: admin/views/tenant-create.php:137
 #: includes/class-grabwp-tenancy-diagnostics.php:296
 msgid "WordPress"
 msgstr "WordPress"
@@ -1310,9 +1313,9 @@ msgid "Upgrade to GrabWP Tenancy Pro for advanced features including complete co
 msgstr "升级到 GrabWP Tenancy Pro 以获得高级功能，包括完整的内容隔离、每个租户独立的数据库以及增强的管理功能。"
 
 #: admin/views/status-pro.php:29
-#: includes/class-grabwp-tenancy-admin.php:328
-#: includes/class-grabwp-tenancy-admin.php:329
-#: includes/class-grabwp-tenancy-admin.php:466
+#: includes/class-grabwp-tenancy-admin.php:342
+#: includes/class-grabwp-tenancy-admin.php:343
+#: includes/class-grabwp-tenancy-admin.php:513
 msgid "Upgrade to Pro"
 msgstr "升级到 Pro"
 
@@ -1325,8 +1328,8 @@ msgid "Pro Version"
 msgstr "Pro 版本"
 
 #: admin/views/status-pro.php:45
-#: includes/class-grabwp-tenancy-admin.php:318
-#: includes/class-grabwp-tenancy-admin.php:319
+#: includes/class-grabwp-tenancy-admin.php:332
+#: includes/class-grabwp-tenancy-admin.php:333
 msgid "Status"
 msgstr "状态"
 
@@ -1581,7 +1584,7 @@ msgid "Are you sure? All data in the target tenant will be overwritten."
 msgstr "您确定吗？目标租户中的所有数据将被覆盖。"
 
 #: admin/views/tenant-create.php:16
-#: includes/class-grabwp-tenancy-admin.php:291
+#: includes/class-grabwp-tenancy-admin.php:293
 msgid "Add New Tenant"
 msgstr "添加新租户"
 
@@ -1599,70 +1602,70 @@ msgstr "创建一个新租户。将自动分配一个基于路径的 URL。"
 msgid "After creating this tenant, you will be redirected to clone %s into it."
 msgstr "创建此租户后，您将被重定向以将 %s 克隆到其中。"
 
-#: admin/views/tenant-create.php:75
+#: admin/views/tenant-create.php:81
 msgid "Domain Setup"
 msgstr "域名设置"
 
-#: admin/views/tenant-create.php:76
+#: admin/views/tenant-create.php:82
 msgid "Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page."
 msgstr "输入时不带 http:// 或 www (例如 mysite.com、blog.mysite.com)。您可以随时从租户编辑页面添加域名。"
 
-#: admin/views/tenant-create.php:82
-#: admin/views/tenant-create.php:120
+#: admin/views/tenant-create.php:88
+#: admin/views/tenant-create.php:126
 msgid "Your site will be accessible at:"
 msgstr "您的站点将可通过以下地址访问:"
 
-#: admin/views/tenant-create.php:90
-#: admin/views/tenant-create.php:106
+#: admin/views/tenant-create.php:96
+#: admin/views/tenant-create.php:112
 msgid "Enter domain (e.g. mysite.com)"
 msgstr "输入域名 (例如 mysite.com)"
 
-#: admin/views/tenant-create.php:91
-#: admin/views/tenant-create.php:107
+#: admin/views/tenant-create.php:97
+#: admin/views/tenant-create.php:113
 msgid "Clear"
 msgstr "清除"
 
-#: admin/views/tenant-create.php:94
-#: admin/views/tenant-edit.php:126
+#: admin/views/tenant-create.php:100
+#: admin/views/tenant-edit.php:132
 msgid "Domain mode needs at least one domain."
 msgstr "域名模式至少需要一个域名。"
 
-#: admin/views/tenant-create.php:101
+#: admin/views/tenant-create.php:107
 msgid "I have a domain"
 msgstr "我有一个域名"
 
-#: admin/views/tenant-create.php:108
-#: admin/views/tenant-edit.php:107
-#: admin/views/tenant-edit.php:115
-#: includes/class-grabwp-tenancy-admin.php:382
+#: admin/views/tenant-create.php:114
+#: admin/views/tenant-edit.php:113
+#: admin/views/tenant-edit.php:121
+#: includes/class-grabwp-tenancy-admin.php:429
 msgid "Remove"
 msgstr "移除"
 
-#: admin/views/tenant-create.php:116
+#: admin/views/tenant-create.php:122
 msgid "I'll set up a domain later"
 msgstr "我稍后再设置域名"
 
-#: admin/views/tenant-create.php:135
+#: admin/views/tenant-create.php:141
 msgid "Install WordPress now"
 msgstr "立即安装 WordPress"
 
-#: admin/views/tenant-create.php:137
+#: admin/views/tenant-create.php:143
 msgid "Creates the site's database and an administrator named after the site ID with a random password. Use the 1-click Admin button to log in; you never need the password."
 msgstr "创建站点数据库，以及一个以站点 ID 命名、使用随机密码的管理员。使用一键管理按钮登录，您永远不需要该密码。"
 
-#: admin/views/tenant-create.php:154
+#: admin/views/tenant-create.php:160
 msgid "Create Tenant & Clone"
 msgstr "创建租户并克隆"
 
-#: admin/views/tenant-create.php:155
+#: admin/views/tenant-create.php:161
 msgid "Create Tenant"
 msgstr "创建租户"
 
-#: admin/views/tenant-create.php:168
+#: admin/views/tenant-create.php:174
 msgid "GrabWP Tenancy Pro adds isolated databases, custom plugin & theme management, scheduled backups, cloud storage offload, and more for every client site."
 msgstr "GrabWP Tenancy Pro 为每个客户站点添加了独立的数据库、自定义插件和主题管理、定时备份、云存储分流等功能。"
 
-#: admin/views/tenant-create.php:169
+#: admin/views/tenant-create.php:175
 msgid "Better isolation, more control"
 msgstr "更好的隔离，更多的控制"
 
@@ -1677,74 +1680,74 @@ msgid "Edit tenant settings and domain mappings."
 msgstr "编辑租户设置和域名映射。"
 
 #: admin/views/tenant-edit.php:40
-#: includes/class-grabwp-tenancy-admin.php:559
+#: includes/class-grabwp-tenancy-admin.php:606
 #: includes/class-grabwp-tenancy-tenant-crud.php:184
 msgid "Tenant updated successfully."
 msgstr "租户更新成功。"
 
-#: admin/views/tenant-edit.php:72
+#: admin/views/tenant-edit.php:78
 msgid "Path URL"
 msgstr "路径 URL"
 
-#: admin/views/tenant-edit.php:79
+#: admin/views/tenant-edit.php:85
 msgid "This URL is always available, no DNS configuration needed."
 msgstr "此 URL 始终可用，无需 DNS 配置。"
 
 #. translators: %d: number of domains stored for the site.
-#: admin/views/tenant-edit.php:93
+#: admin/views/tenant-edit.php:99
 #, php-format
 msgid "Stored domains (%d): kept, not used for links in Path mode"
 msgid_plural "Stored domains (%d): kept, not used for links in Path mode"
 msgstr[0] "已保存的域名 (%d)：已保留，路径模式下不用于链接"
 
-#: admin/views/tenant-edit.php:106
-#: admin/views/tenant-edit.php:114
-#: includes/class-grabwp-tenancy-admin.php:381
+#: admin/views/tenant-edit.php:112
+#: admin/views/tenant-edit.php:120
+#: includes/class-grabwp-tenancy-admin.php:428
 msgid "Enter domain (e.g., tenant1.grabwp.local)"
 msgstr "输入域名 (例如，tenant1.grabwp.local)"
 
-#: admin/views/tenant-edit.php:120
+#: admin/views/tenant-edit.php:126
 msgid "Add New Domain"
 msgstr "添加新域名"
 
-#: admin/views/tenant-edit.php:122
+#: admin/views/tenant-edit.php:128
 msgid "Valid format: example.com, subdomain.example.com (no http:// or www)"
 msgstr "有效格式: example.com, subdomain.example.com (不带 http:// 或 www)"
 
-#: admin/views/tenant-edit.php:142
+#: admin/views/tenant-edit.php:148
 msgid "Update Tenant"
 msgstr "更新租户"
 
-#: admin/views/tenant-edit.php:154
+#: admin/views/tenant-edit.php:160
 msgid "Need more control? GrabWP Tenancy Pro adds isolated databases (MySQL or SQLite), scheduled backups, cloud storage offload, and more for every client site."
 msgstr "需要更多控制？GrabWP Tenancy Pro 为每个客户站点添加了独立的数据库 (MySQL 或 SQLite)、定时备份、云存储分流等功能。"
 
 #: admin/views/tenants.php:18
-#: includes/class-grabwp-tenancy-admin.php:292
+#: includes/class-grabwp-tenancy-admin.php:294
 msgid "Add New"
 msgstr "新建"
 
-#: admin/views/tenants.php:22
+#: admin/views/tenants.php:25
 msgid "Manage your multi-tenant WordPress sites."
 msgstr "管理您的多租户 WordPress 站点。"
 
-#: admin/views/tenants.php:39
+#: admin/views/tenants.php:42
 msgid "No Tenants Found"
 msgstr "未找到租户"
 
-#: admin/views/tenants.php:40
+#: admin/views/tenants.php:43
 msgid "Create your first tenant to get started with multi-tenancy."
 msgstr "创建您的第一个租户以开始使用多租户功能。"
 
-#: admin/views/tenants.php:42
+#: admin/views/tenants.php:45
 msgid "Create Your First Tenant"
 msgstr "创建您的第一个租户"
 
-#: admin/views/tenants.php:62
+#: admin/views/tenants.php:65
 msgid "Need more isolation?"
 msgstr "需要更多隔离？"
 
-#: admin/views/tenants.php:63
+#: admin/views/tenants.php:66
 msgid "GrabWP Tenancy Pro supports plugin & theme management,  seperated MySQL or SQLite, scheduled backups, cloud storage offload, and customization options for every client site."
 msgstr "GrabWP Tenancy Pro 支持插件和主题管理、独立的 MySQL 或 SQLite、定时备份、云存储分流以及每个客户站点的自定义选项。"
 
@@ -1807,7 +1810,8 @@ msgstr "存储驱动程序选择 (本地 / S3)"
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:138
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:254
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:419
+#: includes/class-grabwp-tenancy-admin.php:466
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:114
 msgid "Security check failed."
 msgstr "安全检查失败。"
 
@@ -1902,15 +1906,15 @@ msgstr "站点 URL 已更新。"
 msgid "Clone complete."
 msgstr "克隆完成。"
 
-#: includes/class-grabwp-tenancy-admin-form-handler.php:180
+#: includes/class-grabwp-tenancy-admin-form-handler.php:186
 msgid "Failed to save settings. Please check file permissions."
 msgstr "保存设置失败。请检查文件权限。"
 
-#: includes/class-grabwp-tenancy-admin-form-handler.php:226
+#: includes/class-grabwp-tenancy-admin-form-handler.php:234
 msgid "The routing mode is set in wp-config.php and cannot be changed here."
 msgstr "路由模式已在 wp-config.php 中设置，无法在此处更改。"
 
-#: includes/class-grabwp-tenancy-admin-form-handler.php:229
+#: includes/class-grabwp-tenancy-admin-form-handler.php:237
 msgid "Invalid routing mode."
 msgstr "无效的路由模式。"
 
@@ -1971,60 +1975,60 @@ msgstr "其他插件或文件已将 %1$s 设置为 %2$s，因此此设置不会�
 msgid "GrabWP Tenancy Pro adds scheduled auto backups, offsite cloud storage, dedicated database isolation, and more for every client site."
 msgstr "GrabWP Tenancy Pro 为每个客户站点添加了定时自动备份、异地云存储、专用数据库隔离等功能。"
 
-#: includes/class-grabwp-tenancy-admin.php:272
+#: includes/class-grabwp-tenancy-admin.php:274
 msgid "Tenancy"
 msgstr "Tenancy"
 
-#: includes/class-grabwp-tenancy-admin.php:282
-#: includes/class-grabwp-tenancy-admin.php:283
+#: includes/class-grabwp-tenancy-admin.php:284
+#: includes/class-grabwp-tenancy-admin.php:285
 msgid "All Tenants"
 msgstr "所有租户"
 
-#: includes/class-grabwp-tenancy-admin.php:300
-#: includes/class-grabwp-tenancy-admin.php:301
+#: includes/class-grabwp-tenancy-admin.php:302
+#: includes/class-grabwp-tenancy-admin.php:303
 msgid "Edit Tenant"
 msgstr "编辑租户"
 
-#: includes/class-grabwp-tenancy-admin.php:383
+#: includes/class-grabwp-tenancy-admin.php:430
 msgid "Copied!"
 msgstr "已复制！"
 
-#: includes/class-grabwp-tenancy-admin.php:384
+#: includes/class-grabwp-tenancy-admin.php:431
 msgid "To confirm deletion, type the tenant ID:"
 msgstr "要确认删除，请键入租户 ID:"
 
-#: includes/class-grabwp-tenancy-admin.php:385
+#: includes/class-grabwp-tenancy-admin.php:432
 msgid "Incorrect tenant ID. Deletion cancelled."
 msgstr "租户 ID 不正确。删除已取消。"
 
-#: includes/class-grabwp-tenancy-admin.php:425
+#: includes/class-grabwp-tenancy-admin.php:472
 msgid "Tenant ID is required."
 msgstr "需要提供租户 ID。"
 
-#: includes/class-grabwp-tenancy-admin.php:430
+#: includes/class-grabwp-tenancy-admin.php:477
 #: includes/class-grabwp-tenancy-tenant-crud.php:114
 #: includes/class-grabwp-tenancy-tenant-crud.php:177
 msgid "Tenant not found."
 msgstr "未找到租户。"
 
-#: includes/class-grabwp-tenancy-admin.php:503
+#: includes/class-grabwp-tenancy-admin.php:550
 msgid "Template not found."
 msgstr "未找到模板。"
 
-#: includes/class-grabwp-tenancy-admin.php:558
+#: includes/class-grabwp-tenancy-admin.php:605
 #: includes/class-grabwp-tenancy-tenant-crud.php:85
 msgid "Tenant created successfully."
 msgstr "租户创建成功。"
 
-#: includes/class-grabwp-tenancy-admin.php:560
+#: includes/class-grabwp-tenancy-admin.php:607
 msgid "Tenant deleted successfully."
 msgstr "租户删除成功。"
 
-#: includes/class-grabwp-tenancy-admin.php:561
+#: includes/class-grabwp-tenancy-admin.php:608
 msgid "Settings saved successfully."
 msgstr "设置保存成功。"
 
-#: includes/class-grabwp-tenancy-admin.php:562
+#: includes/class-grabwp-tenancy-admin.php:609
 msgid "Routing mode saved."
 msgstr "路由模式已保存。"
 
@@ -2412,19 +2416,19 @@ msgstr "已删除的设置已放回 wp-config.php。"
 msgid "%1$s line %2$d: %3$s"
 msgstr "%1$s 第 %2$d 行：%3$s"
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:572
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:660
 msgid "GrabWP lost some of its own code in these files and put it back. Other edits were kept:"
 msgstr "GrabWP 在这些文件中丢失了自己的部分代码，已将其放回。其他编辑已保留："
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:575
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:663
 msgid "GrabWP could not put back its own code in these files because they are empty, broken or not writable, so it left them as they are and kept the last good copy in the integrity snapshots folder. Check them now:"
 msgstr "GrabWP 无法在这些文件中放回自己的代码，因为它们为空、已损坏或不可写入，所以保持原样，并在完整性快照文件夹中保留了最后一份正常副本。请立即检查："
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:590
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:678
 msgid "See grabwp_debug.log for details. To remove a GrabWP block on purpose, turn protection off on the Status page first."
 msgstr "详情请查看 grabwp_debug.log。如需有意移除某个 GrabWP 代码块，请先在“状态”页面关闭保护。"
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:592
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:680
 #: includes/class-grabwp-tenancy-setup-wizard.php:700
 #: includes/class-grabwp-tenancy-setup-wizard.php:727
 msgid "Dismiss"
@@ -2934,7 +2938,282 @@ msgid "Line %1$d: %2$s (inside a condition, check it)"
 msgstr "第 %1$d 行：%2$s（位于条件语句内，请检查）"
 
 #. translators: 1: tenant ID, 2: date and time of the change (UTC).
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:586
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:674
 #, php-format
 msgid "tenant %1$s, %2$s"
 msgstr "租户 %1$s，%2$s"
+
+#: admin/class-grabwp-tenancy-list-table.php:88
+#: admin/views/partials/tenant-management-rows.php:32
+msgid "Tags"
+msgstr "标签"
+
+#: admin/class-grabwp-tenancy-list-table.php:534
+msgid "No tenants found with this tag."
+msgstr "未找到带有此标签的租户。"
+
+#: admin/class-grabwp-tenancy-list-table.php:661
+msgid "Filter by tag"
+msgstr "按标签筛选"
+
+#: admin/class-grabwp-tenancy-list-table.php:663
+msgid "All tags"
+msgstr "所有标签"
+
+#. translators: 1: tag name, 2: number of tenants with the tag.
+#: admin/class-grabwp-tenancy-list-table.php:669
+#, php-format
+msgid "%1$s (%2$d)"
+msgstr "%1$s (%2$d)"
+
+#: admin/class-grabwp-tenancy-list-table.php:677
+msgid "Filter"
+msgstr "筛选"
+
+#: admin/class-grabwp-tenancy-list-table.php:680
+msgid "Search by ID, name, domain or tag..."
+msgstr "按 ID、名称、域名或标签搜索..."
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:59
+#: admin/views/partials/tenant-management-rows.php:24
+#: admin/views/tenant-tag-edit.php:36
+msgid "Name"
+msgstr "名称"
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:60
+#: admin/views/tenant-tag-edit.php:43
+msgid "Slug"
+msgstr "别名"
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:61
+msgid "Tenants"
+msgstr "租户"
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:83
+msgid "Delete"
+msgstr "删除"
+
+#. translators: %s: tag name.
+#: admin/class-grabwp-tenancy-tag-list-table.php:158
+#, php-format
+msgid "Select %s"
+msgstr "选择 %s"
+
+#. translators: %s: tag name.
+#: admin/class-grabwp-tenancy-tag-list-table.php:206
+#, php-format
+msgid "Edit %s"
+msgstr "编辑 %s"
+
+#. translators: %s: tag name.
+#: admin/class-grabwp-tenancy-tag-list-table.php:208
+#, php-format
+msgid "Delete %s"
+msgstr "删除 %s"
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:210
+msgid "Delete this tag?"
+msgstr "删除此标签？"
+
+#. translators: %d: number of tenants that carry the tag.
+#: admin/class-grabwp-tenancy-tag-list-table.php:213
+#, php-format
+msgid "Delete this tag? It is removed from %d tenant."
+msgid_plural "Delete this tag? It is removed from %d tenants."
+msgstr[0] "删除此标签？它将从 %d 个租户中移除。"
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:232
+msgid "No tags found."
+msgstr "未找到标签。"
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:235
+#: admin/views/partials/tenant-management-rows.php:37
+msgid "No tags yet."
+msgstr "暂无标签。"
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:236
+#: admin/views/tenant-tag-edit.php:19
+#: admin/views/tenant-tags.php:23
+msgid "Add New Tag"
+msgstr "添加新标签"
+
+#. translators: %s: file name.
+#: admin/views/partials/settings-management.php:20
+#, php-format
+msgid "GrabWP cannot read %s in the GrabWP data folder, so names and tags cannot be saved. Fix or remove the file."
+msgstr "GrabWP 无法读取 GrabWP 数据文件夹中的 %s，因此无法保存名称和标签。请修复或移除该文件。"
+
+#: admin/views/partials/settings-management.php:30
+msgid "Enable names and tags"
+msgstr "启用名称和标签"
+
+#: admin/views/partials/settings-management.php:31
+msgid "Adds a Name and Tags to each site in the tenant list and the Add New and Edit screens. Turning it off hides them and keeps what you saved."
+msgstr "在租户列表以及“新建”和“编辑”页面中为每个站点添加“名称”和“标签”。关闭此项会隐藏它们，但保留您已保存的内容。"
+
+#: admin/views/partials/tenant-management-rows.php:28
+msgid "Optional. A short name to tell this site apart in the tenant list."
+msgstr "可选。用于在租户列表中区分此站点的简短名称。"
+
+#: admin/views/partials/tenant-management-rows.php:47
+msgid "New tags, comma separated"
+msgstr "新标签，用逗号分隔"
+
+#: admin/views/partials/tenant-management-rows.php:52
+msgid "Optional. Group sites with your own tags, then filter the tenant list by tag."
+msgstr "可选。使用您自己的标签对站点进行分组，然后按标签筛选租户列表。"
+
+#: admin/views/partials/tenant-management-rows.php:53
+msgid "Manage tags"
+msgstr "管理标签"
+
+#: admin/views/settings.php:28
+msgid "Management"
+msgstr "管理"
+
+#: admin/views/tenant-tag-edit.php:19
+msgid "Edit Tag"
+msgstr "编辑标签"
+
+#: admin/views/tenant-tag-edit.php:23
+msgid "Tag not found. It may have been deleted."
+msgstr "未找到标签。它可能已被删除。"
+
+#: admin/views/tenant-tag-edit.php:25
+msgid "Back to Tags"
+msgstr "返回标签"
+
+#: admin/views/tenant-tag-edit.php:47
+msgid "Lowercase letters, numbers and hyphens. Changing it updates every tenant that has this tag."
+msgstr "仅限小写字母、数字和连字符。更改此项会更新带有此标签的所有租户。"
+
+#: admin/views/tenant-tag-edit.php:48
+msgid "Lowercase letters, numbers and hyphens. Leave it empty to make it from the name."
+msgstr "仅限小写字母、数字和连字符。留空则根据名称自动生成。"
+
+#: admin/views/tenant-tag-edit.php:59
+msgid "Update Tag"
+msgstr "更新标签"
+
+#: admin/views/tenant-tag-edit.php:59
+msgid "Add Tag"
+msgstr "添加标签"
+
+#: admin/views/tenant-tags.php:21
+#: includes/class-grabwp-tenancy-admin.php:314
+#: includes/class-grabwp-tenancy-admin.php:315
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:62
+msgid "Tenant Tags"
+msgstr "租户标签"
+
+#: admin/views/tenant-tags.php:30
+msgid "Tag saved."
+msgstr "标签已保存。"
+
+#: admin/views/tenant-tags.php:31
+msgid "Tag deleted."
+msgstr "标签已删除。"
+
+#. translators: %d: number of tags deleted.
+#: admin/views/tenant-tags.php:34
+#, php-format
+msgid "%d tag deleted."
+msgid_plural "%d tags deleted."
+msgstr[0] "已删除 %d 个标签。"
+
+#: admin/views/tenant-tags.php:47
+msgid "Back to All Tenants"
+msgstr "返回所有租户"
+
+#: admin/views/tenant-tags.php:51
+msgid "Search Tags"
+msgstr "搜索标签"
+
+#: admin/views/tenants.php:21
+msgid "Manage Tags"
+msgstr "管理标签"
+
+#: includes/class-grabwp-tenancy-admin-form-handler.php:283
+msgid "The Management setting could not be saved. Check that the GrabWP data folder is writable."
+msgstr "无法保存“管理”设置。请检查 GrabWP 数据文件夹是否可写。"
+
+#: includes/class-grabwp-tenancy-admin-form-handler.php:297
+msgid "Tenant saved, but names and tags could not be written. Check that the GrabWP data folder is writable."
+msgstr "租户已保存，但无法写入名称和标签。请检查 GrabWP 数据文件夹是否可写。"
+
+#: includes/class-grabwp-tenancy-management.php:227
+#: includes/class-grabwp-tenancy-management.php:311
+msgid "Enter a tag name."
+msgstr "请输入标签名称。"
+
+#: includes/class-grabwp-tenancy-management.php:239
+msgid "The slug can use lowercase letters, numbers and hyphens only."
+msgstr "别名只能使用小写字母、数字和连字符。"
+
+#: includes/class-grabwp-tenancy-management.php:245
+msgid "That tag no longer exists."
+msgstr "该标签已不存在。"
+
+#: includes/class-grabwp-tenancy-management.php:248
+msgid "A tag with that slug already exists."
+msgstr "使用该别名的标签已存在。"
+
+#: includes/class-grabwp-tenancy-management.php:728
+msgid "Names and tags could not be written. Check that the GrabWP data folder is writable."
+msgstr "无法写入名称和标签。请检查 GrabWP 数据文件夹是否可写。"
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:58
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:255
+msgid "You are not allowed to manage tags."
+msgstr "您无权管理标签。"
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:63
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:259
+msgid "Tenant names and tags are turned off."
+msgstr "租户名称和标签功能已关闭。"
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:64
+msgid "Turn them on in Settings > Management"
+msgstr "请在“设置 > 管理”中开启"
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:150
+msgid "The tag could not be deleted. Check that the GrabWP data folder is writable."
+msgstr "无法删除该标签。请检查 GrabWP 数据文件夹是否可写。"
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:165
+msgid "The tags could not be deleted. Check that the GrabWP data folder is writable."
+msgstr "无法删除这些标签。请检查 GrabWP 数据文件夹是否可写。"
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:231
+msgid "Search or add tags"
+msgstr "搜索或添加标签"
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:232
+msgid "No tags found"
+msgstr "未找到标签"
+
+#. translators: %s: tag name the user typed.
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:234
+#, php-format
+msgid "Add new tag: %s"
+msgstr "添加新标签：%s"
+
+#. translators: %s: tag name.
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:236
+#, php-format
+msgid "Remove tag %s"
+msgstr "移除标签 %s"
+
+#. translators: %s: tag name.
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:238
+#, php-format
+msgid "Tag %s added."
+msgstr "已添加标签 %s。"
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:239
+msgid "The tag could not be created."
+msgstr "无法创建该标签。"
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:251
+msgid "Security check failed. Reload the page and try again."
+msgstr "安全检查失败。请重新加载页面后重试。"

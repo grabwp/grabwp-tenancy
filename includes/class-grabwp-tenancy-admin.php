@@ -252,6 +252,8 @@ class GrabWP_Tenancy_Admin {
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 5 );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+		add_action( 'admin_head', array( $this, 'hide_tags_submenu' ) );
+		add_filter( 'parent_file', array( $this, 'highlight_tenants_for_tags' ) );
 
 		GrabWP_Tenancy_Setup_Wizard::register();
 
@@ -304,6 +306,18 @@ class GrabWP_Tenancy_Admin {
 			array( $this, 'edit_page' )
 		);
 
+		// Hidden page reached from "Manage Tags" links. Registered under the
+		// Tenancy menu so core resolves its parent, then hide_tags_submenu()
+		// drops the menu item before the menu is printed.
+		add_submenu_page(
+			'grabwp-tenancy',
+			__( 'Tenant Tags', 'grabwp-tenancy' ),
+			__( 'Tenant Tags', 'grabwp-tenancy' ),
+			'manage_options',
+			GrabWP_Tenancy_Tenant_Tags_Admin::PAGE,
+			array( 'GrabWP_Tenancy_Tenant_Tags_Admin', 'render_page' )
+		);
+
 		add_submenu_page(
 			'grabwp-tenancy',
 			__( 'Settings', 'grabwp-tenancy' ),
@@ -334,6 +348,39 @@ class GrabWP_Tenancy_Admin {
 		}
 
 		do_action( 'grabwp_tenancy_admin_menu' );
+	}
+
+	/**
+	 * Remove the Tags item from the Tenancy submenu so it never shows.
+	 *
+	 * Runs on admin_head: late enough that admin.php has already resolved the
+	 * page hook and access from the registered parent, early enough that
+	 * menu-header.php has not printed the menu. Removing it on admin_menu
+	 * would leave the page without a parent and core would refuse to load it.
+	 */
+	public function hide_tags_submenu() {
+		remove_submenu_page( 'grabwp-tenancy', GrabWP_Tenancy_Tenant_Tags_Admin::PAGE );
+	}
+
+	/**
+	 * Highlight Tenancy > All Tenants while the hidden Tags page is open.
+	 *
+	 * The Tags item is gone from $submenu by now, so core's
+	 * get_admin_page_parent() call after this filter finds no parent for the
+	 * page and keeps the value set here.
+	 *
+	 * @param string $parent_file Parent menu slug.
+	 * @return string
+	 */
+	public function highlight_tenants_for_tags( $parent_file ) {
+		global $plugin_page, $submenu_file;
+
+		if ( GrabWP_Tenancy_Tenant_Tags_Admin::PAGE === $plugin_page ) {
+			$parent_file  = 'grabwp-tenancy'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+			$submenu_file = 'grabwp-tenancy'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		}
+
+		return $parent_file;
 	}
 
 	public function enqueue_admin_scripts( $hook ) {
@@ -586,6 +633,15 @@ class GrabWP_Tenancy_Admin {
 				esc_html( $grabwp_tenancy_error_message )
 			);
 			delete_transient( 'grabwp_tenancy_error' );
+		}
+
+		$grabwp_tenancy_management_warning = get_transient( 'grabwp_tenancy_management_warning' );
+		if ( $grabwp_tenancy_management_warning ) {
+			printf(
+				'<div class="notice notice-warning is-dismissible"><p>%s</p></div>',
+				esc_html( $grabwp_tenancy_management_warning )
+			);
+			delete_transient( 'grabwp_tenancy_management_warning' );
 		}
 	}
 }

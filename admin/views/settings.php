@@ -25,6 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<a href="#tab-tenant-capabilities" class="nav-tab nav-tab-active"><?php esc_html_e( 'Tenant Capabilities', 'grabwp-tenancy' ); ?></a>
 				<a href="#tab-performance-security" class="nav-tab"><?php esc_html_e( 'Performance & Security', 'grabwp-tenancy' ); ?></a>
 				<a href="#tab-routing" class="nav-tab"><?php esc_html_e( 'Routing', 'grabwp-tenancy' ); ?></a>
+				<a href="#tab-management" class="nav-tab"><?php esc_html_e( 'Management', 'grabwp-tenancy' ); ?></a>
 			</h2>
 
 			<!-- Tab Panels Container -->
@@ -49,6 +50,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<!-- Panel 3: Routing -->
 				<div id="tab-routing" class="grabwp-tab-panel grabwp-hidden">
 					<?php require __DIR__ . '/partials/settings-routing.php'; ?>
+				</div>
+
+				<!-- Panel 4: Management -->
+				<div id="tab-management" class="grabwp-tab-panel grabwp-hidden">
+					<?php require __DIR__ . '/partials/settings-management.php'; ?>
 				</div>
 
 			</div>

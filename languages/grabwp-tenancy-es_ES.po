@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-11-01T09:49:28+00:00\n"
-"PO-Revision-Date: 2026-11-02 19:14+0000\n"
+"PO-Revision-Date: 2026-11-07 19:29+0000\n"
 "Language: es_ES\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: grabwp-tenancy\n"
@@ -16,10 +16,10 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: grabwp-tenancy.php
-#: admin/views/tenant-edit.php:155
+#: admin/views/tenant-edit.php:161
 #: admin/views/tenants.php:16
-#: includes/class-grabwp-tenancy-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:503
+#: includes/class-grabwp-tenancy-admin.php:273
+#: includes/class-grabwp-tenancy-admin.php:550
 #: includes/class-grabwp-tenancy-diagnostics.php:291
 msgid "GrabWP Tenancy"
 msgstr "GrabWP Tenancy"
@@ -44,82 +44,83 @@ msgstr "GrabWP"
 msgid "https://grabwp.com"
 msgstr "https://grabwp.com"
 
-#: admin/class-grabwp-tenancy-list-table.php:62
+#: admin/class-grabwp-tenancy-list-table.php:69
 msgid "Tenants per page"
 msgstr "Tenants por página"
 
-#: admin/class-grabwp-tenancy-list-table.php:77
+#: admin/class-grabwp-tenancy-list-table.php:84
 #: admin/views/tenant-clone.php:91
 #: admin/views/tenant-edit.php:67
 msgid "Tenant ID"
 msgstr "ID del tenant"
 
-#: admin/class-grabwp-tenancy-list-table.php:78
+#: admin/class-grabwp-tenancy-list-table.php:85
 #: admin/views/tenant-clone.php:92
-#: admin/views/tenant-edit.php:84
+#: admin/views/tenant-edit.php:90
 msgid "Domains"
 msgstr "Dominios"
 
-#: admin/class-grabwp-tenancy-list-table.php:79
+#: admin/class-grabwp-tenancy-list-table.php:90
+#: admin/class-grabwp-tenancy-tag-list-table.php:62
 msgid "Actions"
 msgstr "Acciones"
 
-#: admin/class-grabwp-tenancy-list-table.php:278
+#: admin/class-grabwp-tenancy-list-table.php:294
 #: admin/views/tenant-create.php:38
 msgid "Main Site"
 msgstr "Sitio principal"
 
 #. translators: %d: number of domains stored for the site.
-#: admin/class-grabwp-tenancy-list-table.php:303
+#: admin/class-grabwp-tenancy-list-table.php:417
 #, php-format
 msgid "%d stored domain, not used in Path mode"
 msgid_plural "%d stored domains, not used in Path mode"
 msgstr[0] "%d dominio guardado, no usado en el modo Ruta"
 msgstr[1] "%d dominios guardados, no usados en el modo Ruta"
 
-#: admin/class-grabwp-tenancy-list-table.php:325
+#: admin/class-grabwp-tenancy-list-table.php:439
 msgid "Path access only"
 msgstr "Acceso solo por ruta"
 
-#: admin/class-grabwp-tenancy-list-table.php:328
+#: admin/class-grabwp-tenancy-list-table.php:442
 msgid "No domains assigned"
 msgstr "Sin dominios asignados"
 
-#: admin/class-grabwp-tenancy-list-table.php:344
-#: admin/class-grabwp-tenancy-list-table.php:355
+#: admin/class-grabwp-tenancy-list-table.php:458
+#: admin/class-grabwp-tenancy-list-table.php:469
 msgid "Visit Site"
 msgstr "Visitar sitio"
 
-#: admin/class-grabwp-tenancy-list-table.php:358
+#: admin/class-grabwp-tenancy-list-table.php:472
 msgid "Admin"
 msgstr "Admin"
 
-#: admin/class-grabwp-tenancy-list-table.php:362
+#: admin/class-grabwp-tenancy-list-table.php:476
 #: admin/views/status-base.php:82
-#: includes/class-grabwp-tenancy-admin.php:309
-#: includes/class-grabwp-tenancy-admin.php:310
+#: includes/class-grabwp-tenancy-admin.php:323
+#: includes/class-grabwp-tenancy-admin.php:324
 msgid "Settings"
 msgstr "Ajustes"
 
 #. translators: %s: search term
-#: admin/class-grabwp-tenancy-list-table.php:416
+#: admin/class-grabwp-tenancy-list-table.php:530
 #, php-format
 msgid "No tenants found matching \"%s\"."
 msgstr "No se encontraron tenants que coincidan con \"%s\"."
 
-#: admin/class-grabwp-tenancy-list-table.php:420
+#: admin/class-grabwp-tenancy-list-table.php:536
 msgid "No tenants found."
 msgstr "No se encontraron tenants."
 
-#: admin/class-grabwp-tenancy-list-table.php:533
+#: admin/class-grabwp-tenancy-list-table.php:679
 msgid "Search Tenants"
 msgstr "Buscar tenants"
 
-#: admin/class-grabwp-tenancy-list-table.php:534
+#: admin/class-grabwp-tenancy-list-table.php:680
 msgid "Search by ID or domain..."
 msgstr "Buscar por ID o dominio..."
 
-#: admin/class-grabwp-tenancy-list-table.php:535
+#: admin/class-grabwp-tenancy-list-table.php:681
 msgid "Search"
 msgstr "Buscar"
 
@@ -145,6 +146,7 @@ msgid "Routing mode"
 msgstr "Modo de enrutamiento"
 
 #: admin/views/partials/settings-field-rows.php:43
+#: admin/views/partials/settings-management.php:37
 #: admin/views/partials/system-check.php:100
 msgid "Yes"
 msgstr "Sí"
@@ -550,7 +552,7 @@ msgstr "Ocultar"
 
 #: admin/views/partials/site-result.php:69
 #: admin/views/setup-steps/done.php:73
-#: admin/views/tenant-edit.php:77
+#: admin/views/tenant-edit.php:83
 msgid "Copy"
 msgstr "Copiar"
 
@@ -819,9 +821,9 @@ msgid "Copy diagnostics"
 msgstr "Copiar diagnóstico"
 
 #: admin/views/partials/upsell-card.php:20
-#: admin/views/tenant-create.php:170
-#: admin/views/tenant-edit.php:156
-#: admin/views/tenants.php:64
+#: admin/views/tenant-create.php:176
+#: admin/views/tenant-edit.php:162
+#: admin/views/tenants.php:67
 #: includes/class-grabwp-tenancy-admin.php:229
 msgid "Learn about Pro"
 msgstr "Más información sobre Pro"
@@ -843,7 +845,7 @@ msgid "From %1$s to %2$s."
 msgstr "De %1$s a %2$s."
 
 #: admin/views/settings-routing-confirm.php:31
-#: includes/class-grabwp-tenancy-admin-form-handler.php:234
+#: includes/class-grabwp-tenancy-admin-form-handler.php:242
 msgid "Domain mode needs a domain for every site. These sites have none yet:"
 msgstr "El modo Dominio necesita un dominio para cada sitio. Estos sitios aún no tienen ninguno:"
 
@@ -914,8 +916,9 @@ msgstr "Cambiar a %s"
 
 #: admin/views/settings-routing-confirm.php:108
 #: admin/views/tenant-clone.php:110
-#: admin/views/tenant-create.php:159
-#: admin/views/tenant-edit.php:145
+#: admin/views/tenant-create.php:165
+#: admin/views/tenant-edit.php:151
+#: admin/views/tenant-tag-edit.php:60
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -938,19 +941,19 @@ msgstr "Rendimiento y seguridad"
 msgid "Routing"
 msgstr "Enrutamiento"
 
-#: admin/views/settings.php:61
+#: admin/views/settings.php:67
 msgid "Save Settings"
 msgstr "Guardar ajustes"
 
-#: admin/views/settings.php:68
+#: admin/views/settings.php:74
 msgid "Scheduling and automatic backups"
 msgstr "Programación y copias de seguridad automáticas"
 
-#: admin/views/settings.php:69
+#: admin/views/settings.php:75
 msgid "Schedule automatic backups for each tenant site on an interval you control. Pro automatically pushes backup copies to secure offsite storage after each run, so you never lose client data to a server failure."
 msgstr "Programa copias de seguridad automáticas para cada sitio del tenant en un intervalo que tú controlas. Pro sube automáticamente copias de seguridad a un almacenamiento externo seguro después de cada ejecución, para que nunca pierdas datos de los clientes por un fallo del servidor."
 
-#: admin/views/settings.php:70
+#: admin/views/settings.php:76
 msgid "Learn about GrabWP Tenancy Pro"
 msgstr "Más información sobre GrabWP Tenancy Pro"
 
@@ -1185,7 +1188,7 @@ msgid "The new site's administrator account uses this email."
 msgstr "La cuenta de administrador del nuevo sitio utiliza este correo electrónico."
 
 #: admin/views/setup-steps/site.php:121
-#: admin/views/tenant-create.php:131
+#: admin/views/tenant-create.php:137
 #: includes/class-grabwp-tenancy-diagnostics.php:296
 msgid "WordPress"
 msgstr "WordPress"
@@ -1313,9 +1316,9 @@ msgid "Upgrade to GrabWP Tenancy Pro for advanced features including complete co
 msgstr "Actualiza a GrabWP Tenancy Pro para obtener características avanzadas, incluyendo aislamiento de contenido completo, bases de datos separadas por inquilino y capacidades de gestión mejoradas."
 
 #: admin/views/status-pro.php:29
-#: includes/class-grabwp-tenancy-admin.php:328
-#: includes/class-grabwp-tenancy-admin.php:329
-#: includes/class-grabwp-tenancy-admin.php:466
+#: includes/class-grabwp-tenancy-admin.php:342
+#: includes/class-grabwp-tenancy-admin.php:343
+#: includes/class-grabwp-tenancy-admin.php:513
 msgid "Upgrade to Pro"
 msgstr "Actualizar a Pro"
 
@@ -1328,8 +1331,8 @@ msgid "Pro Version"
 msgstr "Versión Pro"
 
 #: admin/views/status-pro.php:45
-#: includes/class-grabwp-tenancy-admin.php:318
-#: includes/class-grabwp-tenancy-admin.php:319
+#: includes/class-grabwp-tenancy-admin.php:332
+#: includes/class-grabwp-tenancy-admin.php:333
 msgid "Status"
 msgstr "Estado"
 
@@ -1584,7 +1587,7 @@ msgid "Are you sure? All data in the target tenant will be overwritten."
 msgstr "¿Estás seguro? Todos los datos del inquilino de destino se sobrescribirán."
 
 #: admin/views/tenant-create.php:16
-#: includes/class-grabwp-tenancy-admin.php:291
+#: includes/class-grabwp-tenancy-admin.php:293
 msgid "Add New Tenant"
 msgstr "Añadir nuevo inquilino"
 
@@ -1602,70 +1605,70 @@ msgstr "Crea un nuevo inquilino. Se asignará automáticamente una URL basada en
 msgid "After creating this tenant, you will be redirected to clone %s into it."
 msgstr "Después de crear este inquilino, serás redirigido para clonar %s en él."
 
-#: admin/views/tenant-create.php:75
+#: admin/views/tenant-create.php:81
 msgid "Domain Setup"
 msgstr "Configuración de dominio"
 
-#: admin/views/tenant-create.php:76
+#: admin/views/tenant-create.php:82
 msgid "Enter without http:// or www (e.g. mysite.com, blog.mysite.com). You can add a domain anytime from the tenant edit page."
 msgstr "Introduce sin http:// ni www (ej. misitio.com, blog.misitio.com). Puedes añadir un dominio en cualquier momento desde la página de edición del inquilino."
 
-#: admin/views/tenant-create.php:82
-#: admin/views/tenant-create.php:120
+#: admin/views/tenant-create.php:88
+#: admin/views/tenant-create.php:126
 msgid "Your site will be accessible at:"
 msgstr "Tu sitio será accesible en:"
 
-#: admin/views/tenant-create.php:90
-#: admin/views/tenant-create.php:106
+#: admin/views/tenant-create.php:96
+#: admin/views/tenant-create.php:112
 msgid "Enter domain (e.g. mysite.com)"
 msgstr "Introduce el dominio (ej. misitio.com)"
 
-#: admin/views/tenant-create.php:91
-#: admin/views/tenant-create.php:107
+#: admin/views/tenant-create.php:97
+#: admin/views/tenant-create.php:113
 msgid "Clear"
 msgstr "Limpiar"
 
-#: admin/views/tenant-create.php:94
-#: admin/views/tenant-edit.php:126
+#: admin/views/tenant-create.php:100
+#: admin/views/tenant-edit.php:132
 msgid "Domain mode needs at least one domain."
 msgstr "El modo Dominio necesita al menos un dominio."
 
-#: admin/views/tenant-create.php:101
+#: admin/views/tenant-create.php:107
 msgid "I have a domain"
 msgstr "Tengo un dominio"
 
-#: admin/views/tenant-create.php:108
-#: admin/views/tenant-edit.php:107
-#: admin/views/tenant-edit.php:115
-#: includes/class-grabwp-tenancy-admin.php:382
+#: admin/views/tenant-create.php:114
+#: admin/views/tenant-edit.php:113
+#: admin/views/tenant-edit.php:121
+#: includes/class-grabwp-tenancy-admin.php:429
 msgid "Remove"
 msgstr "Eliminar"
 
-#: admin/views/tenant-create.php:116
+#: admin/views/tenant-create.php:122
 msgid "I'll set up a domain later"
 msgstr "Configuraré un dominio más tarde"
 
-#: admin/views/tenant-create.php:135
+#: admin/views/tenant-create.php:141
 msgid "Install WordPress now"
 msgstr "Instalar WordPress ahora"
 
-#: admin/views/tenant-create.php:137
+#: admin/views/tenant-create.php:143
 msgid "Creates the site's database and an administrator named after the site ID with a random password. Use the 1-click Admin button to log in; you never need the password."
 msgstr "Crea la base de datos del sitio y un administrador con el nombre del ID del sitio y una contraseña aleatoria. Usa el botón Admin de 1 clic para acceder; nunca necesitarás la contraseña."
 
-#: admin/views/tenant-create.php:154
+#: admin/views/tenant-create.php:160
 msgid "Create Tenant & Clone"
 msgstr "Crear inquilino y clonar"
 
-#: admin/views/tenant-create.php:155
+#: admin/views/tenant-create.php:161
 msgid "Create Tenant"
 msgstr "Crear inquilino"
 
-#: admin/views/tenant-create.php:168
+#: admin/views/tenant-create.php:174
 msgid "GrabWP Tenancy Pro adds isolated databases, custom plugin & theme management, scheduled backups, cloud storage offload, and more for every client site."
 msgstr "GrabWP Tenancy Pro añade bases de datos aisladas, gestión de plugins y temas personalizados, copias de seguridad programadas, descarga a almacenamiento en la nube y más para cada sitio de cliente."
 
-#: admin/views/tenant-create.php:169
+#: admin/views/tenant-create.php:175
 msgid "Better isolation, more control"
 msgstr "Mejor aislamiento, más control"
 
@@ -1680,75 +1683,75 @@ msgid "Edit tenant settings and domain mappings."
 msgstr "Editar ajustes del inquilino y asignaciones de dominio."
 
 #: admin/views/tenant-edit.php:40
-#: includes/class-grabwp-tenancy-admin.php:559
+#: includes/class-grabwp-tenancy-admin.php:606
 #: includes/class-grabwp-tenancy-tenant-crud.php:184
 msgid "Tenant updated successfully."
 msgstr "Inquilino actualizado con éxito."
 
-#: admin/views/tenant-edit.php:72
+#: admin/views/tenant-edit.php:78
 msgid "Path URL"
 msgstr "URL de la ruta"
 
-#: admin/views/tenant-edit.php:79
+#: admin/views/tenant-edit.php:85
 msgid "This URL is always available, no DNS configuration needed."
 msgstr "Esta URL siempre está disponible, no es necesaria ninguna configuración DNS."
 
 #. translators: %d: number of domains stored for the site.
-#: admin/views/tenant-edit.php:93
+#: admin/views/tenant-edit.php:99
 #, php-format
 msgid "Stored domains (%d): kept, not used for links in Path mode"
 msgid_plural "Stored domains (%d): kept, not used for links in Path mode"
 msgstr[0] "Dominio guardado (%d): conservado, no usado para enlaces en el modo Ruta"
 msgstr[1] "Dominios guardados (%d): conservados, no usados para enlaces en el modo Ruta"
 
-#: admin/views/tenant-edit.php:106
-#: admin/views/tenant-edit.php:114
-#: includes/class-grabwp-tenancy-admin.php:381
+#: admin/views/tenant-edit.php:112
+#: admin/views/tenant-edit.php:120
+#: includes/class-grabwp-tenancy-admin.php:428
 msgid "Enter domain (e.g., tenant1.grabwp.local)"
 msgstr "Introduce el dominio (ej., inquilino1.grabwp.local)"
 
-#: admin/views/tenant-edit.php:120
+#: admin/views/tenant-edit.php:126
 msgid "Add New Domain"
 msgstr "Añadir nuevo dominio"
 
-#: admin/views/tenant-edit.php:122
+#: admin/views/tenant-edit.php:128
 msgid "Valid format: example.com, subdomain.example.com (no http:// or www)"
 msgstr "Formato válido: ejemplo.com, subdominio.ejemplo.com (sin http:// ni www)"
 
-#: admin/views/tenant-edit.php:142
+#: admin/views/tenant-edit.php:148
 msgid "Update Tenant"
 msgstr "Actualizar inquilino"
 
-#: admin/views/tenant-edit.php:154
+#: admin/views/tenant-edit.php:160
 msgid "Need more control? GrabWP Tenancy Pro adds isolated databases (MySQL or SQLite), scheduled backups, cloud storage offload, and more for every client site."
 msgstr "¿Necesitas más control? GrabWP Tenancy Pro añade bases de datos aisladas (MySQL o SQLite), copias de seguridad programadas, descarga a almacenamiento en la nube y más para cada sitio de cliente."
 
 #: admin/views/tenants.php:18
-#: includes/class-grabwp-tenancy-admin.php:292
+#: includes/class-grabwp-tenancy-admin.php:294
 msgid "Add New"
 msgstr "Añadir nuevo"
 
-#: admin/views/tenants.php:22
+#: admin/views/tenants.php:25
 msgid "Manage your multi-tenant WordPress sites."
 msgstr "Gestiona tus sitios WordPress multiinquilino."
 
-#: admin/views/tenants.php:39
+#: admin/views/tenants.php:42
 msgid "No Tenants Found"
 msgstr "No se han encontrado inquilinos"
 
-#: admin/views/tenants.php:40
+#: admin/views/tenants.php:43
 msgid "Create your first tenant to get started with multi-tenancy."
 msgstr "Crea tu primer inquilino para empezar con el multiinquilino."
 
-#: admin/views/tenants.php:42
+#: admin/views/tenants.php:45
 msgid "Create Your First Tenant"
 msgstr "Crea tu primer inquilino"
 
-#: admin/views/tenants.php:62
+#: admin/views/tenants.php:65
 msgid "Need more isolation?"
 msgstr "¿Necesitas más aislamiento?"
 
-#: admin/views/tenants.php:63
+#: admin/views/tenants.php:66
 msgid "GrabWP Tenancy Pro supports plugin & theme management,  seperated MySQL or SQLite, scheduled backups, cloud storage offload, and customization options for every client site."
 msgstr "GrabWP Tenancy Pro soporta la gestión de plugins y temas, MySQL o SQLite separados, copias de seguridad programadas, descarga a almacenamiento en la nube y opciones de personalización para cada sitio de cliente."
 
@@ -1811,7 +1814,8 @@ msgstr "Selección del controlador de almacenamiento (Local / S3)"
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:138
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:254
 #: includes/backup/class-grabwp-tenancy-clone-admin.php:271
-#: includes/class-grabwp-tenancy-admin.php:419
+#: includes/class-grabwp-tenancy-admin.php:466
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:114
 msgid "Security check failed."
 msgstr "El control de seguridad ha fallado."
 
@@ -1906,15 +1910,15 @@ msgstr "URL del sitio actualizadas."
 msgid "Clone complete."
 msgstr "Clonación completada."
 
-#: includes/class-grabwp-tenancy-admin-form-handler.php:180
+#: includes/class-grabwp-tenancy-admin-form-handler.php:186
 msgid "Failed to save settings. Please check file permissions."
 msgstr "Error al guardar los ajustes. Por favor, comprueba los permisos de los archivos."
 
-#: includes/class-grabwp-tenancy-admin-form-handler.php:226
+#: includes/class-grabwp-tenancy-admin-form-handler.php:234
 msgid "The routing mode is set in wp-config.php and cannot be changed here."
 msgstr "El modo de enrutamiento está definido en wp-config.php y no se puede cambiar aquí."
 
-#: includes/class-grabwp-tenancy-admin-form-handler.php:229
+#: includes/class-grabwp-tenancy-admin-form-handler.php:237
 msgid "Invalid routing mode."
 msgstr "Modo de enrutamiento no válido."
 
@@ -1975,60 +1979,60 @@ msgstr "Otro plugin o archivo ya establece %1$s en %2$s, por lo que este ajuste 
 msgid "GrabWP Tenancy Pro adds scheduled auto backups, offsite cloud storage, dedicated database isolation, and more for every client site."
 msgstr "GrabWP Tenancy Pro añade copias de seguridad automáticas programadas, almacenamiento externo en la nube, aislamiento de base de datos dedicada y más para cada sitio de cliente."
 
-#: includes/class-grabwp-tenancy-admin.php:272
+#: includes/class-grabwp-tenancy-admin.php:274
 msgid "Tenancy"
 msgstr "Tenancy"
 
-#: includes/class-grabwp-tenancy-admin.php:282
-#: includes/class-grabwp-tenancy-admin.php:283
+#: includes/class-grabwp-tenancy-admin.php:284
+#: includes/class-grabwp-tenancy-admin.php:285
 msgid "All Tenants"
 msgstr "Todos los inquilinos"
 
-#: includes/class-grabwp-tenancy-admin.php:300
-#: includes/class-grabwp-tenancy-admin.php:301
+#: includes/class-grabwp-tenancy-admin.php:302
+#: includes/class-grabwp-tenancy-admin.php:303
 msgid "Edit Tenant"
 msgstr "Editar inquilino"
 
-#: includes/class-grabwp-tenancy-admin.php:383
+#: includes/class-grabwp-tenancy-admin.php:430
 msgid "Copied!"
 msgstr "¡Copiado!"
 
-#: includes/class-grabwp-tenancy-admin.php:384
+#: includes/class-grabwp-tenancy-admin.php:431
 msgid "To confirm deletion, type the tenant ID:"
 msgstr "Para confirmar el borrado, teclea el ID del inquilino:"
 
-#: includes/class-grabwp-tenancy-admin.php:385
+#: includes/class-grabwp-tenancy-admin.php:432
 msgid "Incorrect tenant ID. Deletion cancelled."
 msgstr "ID del inquilino incorrecto. Borrado cancelado."
 
-#: includes/class-grabwp-tenancy-admin.php:425
+#: includes/class-grabwp-tenancy-admin.php:472
 msgid "Tenant ID is required."
 msgstr "El ID del inquilino es obligatorio."
 
-#: includes/class-grabwp-tenancy-admin.php:430
+#: includes/class-grabwp-tenancy-admin.php:477
 #: includes/class-grabwp-tenancy-tenant-crud.php:114
 #: includes/class-grabwp-tenancy-tenant-crud.php:177
 msgid "Tenant not found."
 msgstr "No se ha encontrado el inquilino."
 
-#: includes/class-grabwp-tenancy-admin.php:503
+#: includes/class-grabwp-tenancy-admin.php:550
 msgid "Template not found."
 msgstr "No se ha encontrado la plantilla."
 
-#: includes/class-grabwp-tenancy-admin.php:558
+#: includes/class-grabwp-tenancy-admin.php:605
 #: includes/class-grabwp-tenancy-tenant-crud.php:85
 msgid "Tenant created successfully."
 msgstr "Inquilino creado con éxito."
 
-#: includes/class-grabwp-tenancy-admin.php:560
+#: includes/class-grabwp-tenancy-admin.php:607
 msgid "Tenant deleted successfully."
 msgstr "Inquilino borrado con éxito."
 
-#: includes/class-grabwp-tenancy-admin.php:561
+#: includes/class-grabwp-tenancy-admin.php:608
 msgid "Settings saved successfully."
 msgstr "Ajustes guardados con éxito."
 
-#: includes/class-grabwp-tenancy-admin.php:562
+#: includes/class-grabwp-tenancy-admin.php:609
 msgid "Routing mode saved."
 msgstr "Modo de enrutamiento guardado."
 
@@ -2416,19 +2420,19 @@ msgstr "Los ajustes eliminados vuelven a estar en wp-config.php."
 msgid "%1$s line %2$d: %3$s"
 msgstr "%1$s línea %2$d: %3$s"
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:572
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:660
 msgid "GrabWP lost some of its own code in these files and put it back. Other edits were kept:"
 msgstr "GrabWP perdió parte de su propio código en estos archivos y lo ha vuelto a poner. Se han conservado las demás ediciones:"
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:575
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:663
 msgid "GrabWP could not put back its own code in these files because they are empty, broken or not writable, so it left them as they are and kept the last good copy in the integrity snapshots folder. Check them now:"
 msgstr "GrabWP no pudo volver a poner su propio código en estos archivos porque están vacíos, dañados o no se pueden escribir, así que los dejó como están y guardó la última copia correcta en la carpeta de instantáneas de integridad. Revísalos ahora:"
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:590
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:678
 msgid "See grabwp_debug.log for details. To remove a GrabWP block on purpose, turn protection off on the Status page first."
 msgstr "Revisa grabwp_debug.log para más detalles. Para quitar un bloque de GrabWP a propósito, desactiva primero la protección en la página de Estado."
 
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:592
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:680
 #: includes/class-grabwp-tenancy-setup-wizard.php:700
 #: includes/class-grabwp-tenancy-setup-wizard.php:727
 msgid "Dismiss"
@@ -2939,7 +2943,284 @@ msgid "Line %1$d: %2$s (inside a condition, check it)"
 msgstr "Línea %1$d: %2$s (dentro de una condición, compruébala)"
 
 #. translators: 1: tenant ID, 2: date and time of the change (UTC).
-#: includes/class-grabwp-tenancy-integrity-watchdog.php:586
+#: includes/class-grabwp-tenancy-integrity-watchdog.php:674
 #, php-format
 msgid "tenant %1$s, %2$s"
 msgstr "inquilino %1$s, %2$s"
+
+#: admin/class-grabwp-tenancy-list-table.php:88
+#: admin/views/partials/tenant-management-rows.php:32
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: admin/class-grabwp-tenancy-list-table.php:534
+msgid "No tenants found with this tag."
+msgstr "No se encontraron tenants con esta etiqueta."
+
+#: admin/class-grabwp-tenancy-list-table.php:661
+msgid "Filter by tag"
+msgstr "Filtrar por etiqueta"
+
+#: admin/class-grabwp-tenancy-list-table.php:663
+msgid "All tags"
+msgstr "Todas las etiquetas"
+
+#. translators: 1: tag name, 2: number of tenants with the tag.
+#: admin/class-grabwp-tenancy-list-table.php:669
+#, php-format
+msgid "%1$s (%2$d)"
+msgstr "%1$s (%2$d)"
+
+#: admin/class-grabwp-tenancy-list-table.php:677
+msgid "Filter"
+msgstr "Filtrar"
+
+#: admin/class-grabwp-tenancy-list-table.php:680
+msgid "Search by ID, name, domain or tag..."
+msgstr "Buscar por ID, nombre, dominio o etiqueta..."
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:59
+#: admin/views/partials/tenant-management-rows.php:24
+#: admin/views/tenant-tag-edit.php:36
+msgid "Name"
+msgstr "Nombre"
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:60
+#: admin/views/tenant-tag-edit.php:43
+msgid "Slug"
+msgstr "Slug"
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:61
+msgid "Tenants"
+msgstr "Tenants"
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:83
+msgid "Delete"
+msgstr "Eliminar"
+
+#. translators: %s: tag name.
+#: admin/class-grabwp-tenancy-tag-list-table.php:158
+#, php-format
+msgid "Select %s"
+msgstr "Seleccionar %s"
+
+#. translators: %s: tag name.
+#: admin/class-grabwp-tenancy-tag-list-table.php:206
+#, php-format
+msgid "Edit %s"
+msgstr "Editar %s"
+
+#. translators: %s: tag name.
+#: admin/class-grabwp-tenancy-tag-list-table.php:208
+#, php-format
+msgid "Delete %s"
+msgstr "Eliminar %s"
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:210
+msgid "Delete this tag?"
+msgstr "¿Eliminar esta etiqueta?"
+
+#. translators: %d: number of tenants that carry the tag.
+#: admin/class-grabwp-tenancy-tag-list-table.php:213
+#, php-format
+msgid "Delete this tag? It is removed from %d tenant."
+msgid_plural "Delete this tag? It is removed from %d tenants."
+msgstr[0] "¿Eliminar esta etiqueta? Se quitará de %d tenant."
+msgstr[1] "¿Eliminar esta etiqueta? Se quitará de %d tenants."
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:232
+msgid "No tags found."
+msgstr "No se encontraron etiquetas."
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:235
+#: admin/views/partials/tenant-management-rows.php:37
+msgid "No tags yet."
+msgstr "Aún no hay etiquetas."
+
+#: admin/class-grabwp-tenancy-tag-list-table.php:236
+#: admin/views/tenant-tag-edit.php:19
+#: admin/views/tenant-tags.php:23
+msgid "Add New Tag"
+msgstr "Añadir nueva etiqueta"
+
+#. translators: %s: file name.
+#: admin/views/partials/settings-management.php:20
+#, php-format
+msgid "GrabWP cannot read %s in the GrabWP data folder, so names and tags cannot be saved. Fix or remove the file."
+msgstr "GrabWP no puede leer %s en la carpeta de datos de GrabWP, por lo que no se pueden guardar los nombres ni las etiquetas. Corrige o elimina el archivo."
+
+#: admin/views/partials/settings-management.php:30
+msgid "Enable names and tags"
+msgstr "Activar nombres y etiquetas"
+
+#: admin/views/partials/settings-management.php:31
+msgid "Adds a Name and Tags to each site in the tenant list and the Add New and Edit screens. Turning it off hides them and keeps what you saved."
+msgstr "Añade un nombre y etiquetas a cada sitio en la lista de tenants y en las pantallas Añadir nuevo y Editar. Al desactivarlo se ocultan, pero se conserva lo que hayas guardado."
+
+#: admin/views/partials/tenant-management-rows.php:28
+msgid "Optional. A short name to tell this site apart in the tenant list."
+msgstr "Opcional. Un nombre corto para distinguir este sitio en la lista de tenants."
+
+#: admin/views/partials/tenant-management-rows.php:47
+msgid "New tags, comma separated"
+msgstr "Nuevas etiquetas, separadas por comas"
+
+#: admin/views/partials/tenant-management-rows.php:52
+msgid "Optional. Group sites with your own tags, then filter the tenant list by tag."
+msgstr "Opcional. Agrupa sitios con tus propias etiquetas y luego filtra la lista de tenants por etiqueta."
+
+#: admin/views/partials/tenant-management-rows.php:53
+msgid "Manage tags"
+msgstr "Gestionar etiquetas"
+
+#: admin/views/settings.php:28
+msgid "Management"
+msgstr "Gestión"
+
+#: admin/views/tenant-tag-edit.php:19
+msgid "Edit Tag"
+msgstr "Editar etiqueta"
+
+#: admin/views/tenant-tag-edit.php:23
+msgid "Tag not found. It may have been deleted."
+msgstr "Etiqueta no encontrada. Puede que se haya eliminado."
+
+#: admin/views/tenant-tag-edit.php:25
+msgid "Back to Tags"
+msgstr "Volver a Etiquetas"
+
+#: admin/views/tenant-tag-edit.php:47
+msgid "Lowercase letters, numbers and hyphens. Changing it updates every tenant that has this tag."
+msgstr "Letras minúsculas, números y guiones. Al cambiarlo se actualiza cada tenant que tenga esta etiqueta."
+
+#: admin/views/tenant-tag-edit.php:48
+msgid "Lowercase letters, numbers and hyphens. Leave it empty to make it from the name."
+msgstr "Letras minúsculas, números y guiones. Déjalo vacío para generarlo a partir del nombre."
+
+#: admin/views/tenant-tag-edit.php:59
+msgid "Update Tag"
+msgstr "Actualizar etiqueta"
+
+#: admin/views/tenant-tag-edit.php:59
+msgid "Add Tag"
+msgstr "Añadir etiqueta"
+
+#: admin/views/tenant-tags.php:21
+#: includes/class-grabwp-tenancy-admin.php:314
+#: includes/class-grabwp-tenancy-admin.php:315
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:62
+msgid "Tenant Tags"
+msgstr "Etiquetas de tenants"
+
+#: admin/views/tenant-tags.php:30
+msgid "Tag saved."
+msgstr "Etiqueta guardada."
+
+#: admin/views/tenant-tags.php:31
+msgid "Tag deleted."
+msgstr "Etiqueta eliminada."
+
+#. translators: %d: number of tags deleted.
+#: admin/views/tenant-tags.php:34
+#, php-format
+msgid "%d tag deleted."
+msgid_plural "%d tags deleted."
+msgstr[0] "%d etiqueta eliminada."
+msgstr[1] "%d etiquetas eliminadas."
+
+#: admin/views/tenant-tags.php:47
+msgid "Back to All Tenants"
+msgstr "Volver a todos los tenants"
+
+#: admin/views/tenant-tags.php:51
+msgid "Search Tags"
+msgstr "Buscar etiquetas"
+
+#: admin/views/tenants.php:21
+msgid "Manage Tags"
+msgstr "Gestionar etiquetas"
+
+#: includes/class-grabwp-tenancy-admin-form-handler.php:283
+msgid "The Management setting could not be saved. Check that the GrabWP data folder is writable."
+msgstr "No se ha podido guardar el ajuste de Gestión. Comprueba que la carpeta de datos de GrabWP tenga permisos de escritura."
+
+#: includes/class-grabwp-tenancy-admin-form-handler.php:297
+msgid "Tenant saved, but names and tags could not be written. Check that the GrabWP data folder is writable."
+msgstr "Se ha guardado el tenant, pero no se han podido escribir los nombres y las etiquetas. Comprueba que la carpeta de datos de GrabWP tenga permisos de escritura."
+
+#: includes/class-grabwp-tenancy-management.php:227
+#: includes/class-grabwp-tenancy-management.php:311
+msgid "Enter a tag name."
+msgstr "Introduce un nombre de etiqueta."
+
+#: includes/class-grabwp-tenancy-management.php:239
+msgid "The slug can use lowercase letters, numbers and hyphens only."
+msgstr "El slug solo puede usar letras minúsculas, números y guiones."
+
+#: includes/class-grabwp-tenancy-management.php:245
+msgid "That tag no longer exists."
+msgstr "Esa etiqueta ya no existe."
+
+#: includes/class-grabwp-tenancy-management.php:248
+msgid "A tag with that slug already exists."
+msgstr "Ya existe una etiqueta con ese slug."
+
+#: includes/class-grabwp-tenancy-management.php:728
+msgid "Names and tags could not be written. Check that the GrabWP data folder is writable."
+msgstr "No se han podido escribir los nombres y las etiquetas. Comprueba que la carpeta de datos de GrabWP tenga permisos de escritura."
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:58
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:255
+msgid "You are not allowed to manage tags."
+msgstr "No tienes permisos para gestionar etiquetas."
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:63
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:259
+msgid "Tenant names and tags are turned off."
+msgstr "Los nombres y etiquetas de los tenants están desactivados."
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:64
+msgid "Turn them on in Settings > Management"
+msgstr "Actívalos en Ajustes > Gestión"
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:150
+msgid "The tag could not be deleted. Check that the GrabWP data folder is writable."
+msgstr "No se ha podido eliminar la etiqueta. Comprueba que la carpeta de datos de GrabWP tenga permisos de escritura."
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:165
+msgid "The tags could not be deleted. Check that the GrabWP data folder is writable."
+msgstr "No se han podido eliminar las etiquetas. Comprueba que la carpeta de datos de GrabWP tenga permisos de escritura."
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:231
+msgid "Search or add tags"
+msgstr "Buscar o añadir etiquetas"
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:232
+msgid "No tags found"
+msgstr "No se encontraron etiquetas"
+
+#. translators: %s: tag name the user typed.
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:234
+#, php-format
+msgid "Add new tag: %s"
+msgstr "Añadir nueva etiqueta: %s"
+
+#. translators: %s: tag name.
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:236
+#, php-format
+msgid "Remove tag %s"
+msgstr "Quitar etiqueta %s"
+
+#. translators: %s: tag name.
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:238
+#, php-format
+msgid "Tag %s added."
+msgstr "Etiqueta %s añadida."
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:239
+msgid "The tag could not be created."
+msgstr "No se ha podido crear la etiqueta."
+
+#: includes/class-grabwp-tenancy-tenant-tags-admin.php:251
+msgid "Security check failed. Reload the page and try again."
+msgstr "La comprobación de seguridad ha fallado. Recarga la página e inténtalo de nuevo."

@@ -16,8 +16,9 @@
  * A missing MU-plugin or data-dir protection file is reinstalled. Repairs
  * are logged (hashes only) and leave a marker for the Status page notice.
  *
- * Snapshots are stored as `<basename>.snap.php` with an exit header so they
- * are never served or executed, even on servers that ignore .htaccess.
+ * Snapshots are stored as `<basename>.<install hash>.snap.php` with an exit
+ * header so they are never served or executed, even on servers that ignore
+ * .htaccess. The install hash keeps installs that share one data dir apart.
  *
  * @package GrabWP_Tenancy
  * @since 1.1.9
@@ -39,21 +40,108 @@ class GrabWP_Tenancy_Integrity_Watchdog {
 		return GRABWP_TENANCY_BASE_DIR . '/' . self::SNAPSHOT_DIR;
 	}
 
-	private static function snapshot_path( $basename ) {
-		return self::get_snapshot_dir() . '/' . $basename . '.snap.php';
+	/**
+	 * Snapshot of one protected file for this install only. Two installs can
+	 * share one data dir (staging and live), so the name carries a hash of
+	 * this install's root: a snapshot made by another install is never read,
+	 * written or adopted here. Claims legacy snapshots first, see claim_legacy().
+	 *
+	 * @param string $basename Protected file basename.
+	 * @return string
+	 */
+	public static function snapshot_path( $basename ) {
+		self::claim_legacy();
+		return self::own_snapshot_path( $basename );
+	}
+
+	/**
+	 * This install's snapshot name, without claiming anything. Used where a
+	 * claim must never happen (delete, count).
+	 *
+	 * @param string $basename Protected file basename.
+	 * @return string
+	 */
+	public static function own_snapshot_path( $basename ) {
+		static $key = null;
+		if ( null === $key ) {
+			$root = realpath( ABSPATH );
+			$key  = substr( md5( false === $root ? rtrim( ABSPATH, '/\\' ) : $root ), 0, 12 );
+		}
+		return self::get_snapshot_dir() . '/' . $basename . '.' . $key . '.snap.php';
+	}
+
+	/**
+	 * Claim legacy snapshots (named by basename only) for this install, all or
+	 * nothing: rename them only when this install has no own snapshot yet and
+	 * every legacy snapshot whose live file exists is byte-identical to that
+	 * live file. Otherwise none is renamed and auto-protect snapshots every file
+	 * for this install, leaving the legacy ones to the install that made them.
+	 * Runs once per process, so later calls are free.
+	 */
+	private static function claim_legacy() {
+		static $done = false;
+		if ( $done ) {
+			return;
+		}
+		$done  = true;
+		$claim = array();
+		foreach ( GrabWP_Tenancy_Installer::get_protected_files() as $file ) {
+			if ( is_file( self::own_snapshot_path( $file ) ) ) {
+				return;
+			}
+			$legacy = self::get_snapshot_dir() . '/' . $file . '.snap.php';
+			if ( is_file( $legacy ) && is_file( ABSPATH . $file ) ) {
+				$claim[ $file ] = $legacy;
+			}
+		}
+		foreach ( $claim as $file => $legacy ) {
+			if ( ! self::matches_live( $legacy, $file ) ) {
+				return;
+			}
+		}
+		$renamed = array();
+		foreach ( $claim as $file => $legacy ) {
+			$snap = self::own_snapshot_path( $file );
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.rename_rename
+			$ok = @rename( $legacy, $snap );
+			if ( $ok ) {
+				$renamed[ $snap ] = $legacy;
+				// An install still on the old version may have rewritten it before the rename.
+				$ok = self::matches_live( $snap, $file );
+			}
+			if ( ! $ok ) {
+				foreach ( $renamed as $own => $old ) {
+					// phpcs:ignore WordPress.WP.AlternativeFunctions.rename_rename
+					@rename( $own, $old );
+				}
+				return;
+			}
+		}
+	}
+
+	/** True when a snapshot holds exactly the live file's content. */
+	private static function matches_live( $snap, $file ) {
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_get_contents
+		$original = (string) @file_get_contents( $snap );
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_get_contents
+		return 0 === strpos( $original, self::HEADER ) && @file_get_contents( ABSPATH . $file ) === substr( $original, strlen( self::HEADER ) );
 	}
 
 	public static function count_snapshots() {
 		$count = 0;
 		foreach ( GrabWP_Tenancy_Installer::get_protected_files() as $file ) {
-			if ( is_file( self::snapshot_path( $file ) ) ) {
+			if ( is_file( self::own_snapshot_path( $file ) ) ) {
 				$count++;
 			}
 		}
 		return $count;
 	}
 
-	/** Stat-only: stops at the first snapshot found. */
+	/**
+	 * Stops at the first own snapshot found. Stat-only once this install has
+	 * own snapshots; otherwise the first call per process may read files to
+	 * claim legacy snapshots (see claim_legacy()).
+	 */
 	public static function has_snapshots() {
 		foreach ( GrabWP_Tenancy_Installer::get_protected_files() as $file ) {
 			if ( is_file( self::snapshot_path( $file ) ) ) {
@@ -186,7 +274,7 @@ class GrabWP_Tenancy_Integrity_Watchdog {
 	/** Remove all snapshots (turns the watchdog off). The violation marker stays. */
 	public static function delete_snapshots() {
 		foreach ( GrabWP_Tenancy_Installer::get_protected_files() as $file ) {
-			$snap = self::snapshot_path( $file );
+			$snap = self::own_snapshot_path( $file );
 			if ( is_file( $snap ) ) {
 				wp_delete_file( $snap );
 			}

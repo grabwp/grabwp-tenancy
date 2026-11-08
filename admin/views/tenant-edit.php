@@ -67,6 +67,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<th scope="row"><?php esc_html_e( 'Tenant ID', 'grabwp-tenancy' ); ?></th>
 					<td><code><?php echo esc_html( $tenant->get_id() ); ?></code></td>
 				</tr>
+<?php
+if ( GrabWP_Tenancy_Management::is_enabled() ) {
+	$grabwp_management_tenant_id = $tenant->get_id();
+	require __DIR__ . '/partials/tenant-management-rows.php';
+}
+?>
 				<?php if ( 'domain' !== $grabwp_routing_mode ) : ?>
 				<tr>
 					<th scope="row"><?php esc_html_e( 'Path URL', 'grabwp-tenancy' ); ?></th>
