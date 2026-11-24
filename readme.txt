@@ -4,7 +4,7 @@ Tags: multi-tenant, multisite, multi site, multi domain, saas
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.17
+Stable tag: 1.1.18
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://grabwp.com
@@ -96,6 +96,11 @@ Yes. GrabWP Tenancy is built for WordPress freelancers and agencies managing mul
 **📖 Need detailed setup instructions?** Visit our [complete documentation](https://grabwp.com) for step-by-step guides and troubleshooting.
 
 == Changelog ==
+
+= 1.1.18 =
+* Fix: WP-CLI commands and cron jobs for path-based tenants now use the main site address instead of `https://nodomain.local`, so links and emails they generate point to the right site.
+* Fix: Deactivating and reactivating GrabWP Tenancy now runs its activation steps again (setup redirect and installer) on sites where the plugin folder is a symlink.
+* Fix: Activating GrabWP Tenancy with WP-CLI while Pro is already active no longer stops with a "Cannot redeclare grabwp_sanitize_slug()" fatal error.
 
 = 1.1.17 =
 * New: Names and tags for tenants. Give each site a readable name and one or more tags on Add New and Edit, see them in the All Tenants list, filter the list by tag and search by ID, name, domain or tag. Turn it on or off under Settings > Management; turning it off hides the fields and keeps what you saved.

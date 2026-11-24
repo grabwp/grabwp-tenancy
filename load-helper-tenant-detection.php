@@ -481,7 +481,17 @@ function grabwp_tenancy_boot_detect_tenant() {
 				WP_CLI::warning( "Tenant '{$tenant_id}' not found in tenant mappings. Using fallback domain." );
 			}
 
-			$cli_domain           = grabwp_tenancy_get_cli_domain( $tenant_id, $tenant_mappings );
+			$cli_domain = grabwp_tenancy_get_cli_domain( $tenant_id, $tenant_mappings );
+
+			// Path-only tenant: nodomain.local is a placeholder, not a host. Leave
+			// HTTP_HOST and HTTPS unset, as in a main-site CLI run, so no WP_HOME,
+			// WP_SITEURL or WP_CONTENT_URL is built from it and WordPress uses the
+			// tenant's stored home and siteurl options.
+			if ( 'nodomain.local' === $cli_domain ) {
+				grabwp_tenancy_configure_cli_environment();
+				return $tenant_id;
+			}
+
 			$_SERVER['HTTP_HOST'] = $cli_domain;
 
 			if ( ! isset( $_SERVER['HTTPS'] ) ) {

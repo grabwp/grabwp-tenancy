@@ -101,12 +101,17 @@ class GrabWP_Tenancy_Sanitize {
 	}
 }
 
-/**
- * Convert a string to a hyphenated [a-z0-9-] slug.
- *
- * @param mixed $value Raw value.
- * @return string
- */
-function grabwp_sanitize_slug( $value ) {
-	return GrabWP_Tenancy_Sanitize::slug( $value );
+// Guarded: an add-on's plugins_loaded fallback may already exist when Base is
+// activated late (e.g. WP-CLI activate after Pro ran without Base). Normal
+// loads include Base before plugins_loaded, so this canonical helper wins.
+if ( ! function_exists( 'grabwp_sanitize_slug' ) ) {
+	/**
+	 * Convert a string to a hyphenated [a-z0-9-] slug.
+	 *
+	 * @param mixed $value Raw value.
+	 * @return string
+	 */
+	function grabwp_sanitize_slug( $value ) {
+		return GrabWP_Tenancy_Sanitize::slug( $value );
+	}
 }

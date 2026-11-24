@@ -3,7 +3,7 @@
  * Plugin Name: GrabWP Tenancy
  * Plugin URI: https://grabwp.com/tenancy
  * Description: Foundation multi-tenant WordPress solution with shared MySQL database and separated uploads. Designed to be extended by GrabWP Tenancy Pro for advanced features.
- * Version: 1.1.17
+ * Version: 1.1.18
  * Author: GrabWP
  * Author URI: https://grabwp.com
  * License: GPLv2 or later
@@ -29,7 +29,7 @@ if ( ! defined( 'GRABWP_MAINSITE_ID' ) ) {
 }
 
 // Define plugin constants
-define( 'GRABWP_TENANCY_VERSION', '1.1.17' );
+define( 'GRABWP_TENANCY_VERSION', '1.1.18' );
 define( 'GRABWP_TENANCY_PLUGIN_FILE', __FILE__ );
 define( 'GRABWP_TENANCY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 // Use content_url() to avoid symlink path resolution issues on some hosts
@@ -585,7 +585,20 @@ function grabwp_tenancy() {
 
 // Initialize plugin
 $grabwp_tenancy_instance = grabwp_tenancy();
-register_activation_hook( __FILE__, array( $grabwp_tenancy_instance, 'activate' ) );
-register_deactivation_hook( __FILE__, array( $grabwp_tenancy_instance, 'deactivate' ) );
+
+// Register activation and deactivation hooks.
+// When the MU loader loads a symlinked Base, plugin_basename() keeps the real
+// path, so the hook WordPress fires never runs. Register against the path
+// under WP_PLUGIN_DIR when that file exists.
+$grabwp_tenancy_hook_file    = __FILE__;
+$grabwp_tenancy_via_plugins = defined( 'WP_PLUGIN_DIR' )
+	? WP_PLUGIN_DIR . '/grabwp-tenancy/' . basename( __FILE__ )
+	: '';
+if ( '' !== $grabwp_tenancy_via_plugins && file_exists( $grabwp_tenancy_via_plugins ) ) {
+	$grabwp_tenancy_hook_file = $grabwp_tenancy_via_plugins;
+}
+register_activation_hook( $grabwp_tenancy_hook_file, array( $grabwp_tenancy_instance, 'activate' ) );
+register_deactivation_hook( $grabwp_tenancy_hook_file, array( $grabwp_tenancy_instance, 'deactivate' ) );
+unset( $grabwp_tenancy_hook_file, $grabwp_tenancy_via_plugins );
 
 
